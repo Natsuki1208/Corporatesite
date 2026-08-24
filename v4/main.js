@@ -8,11 +8,63 @@
     {state:'defend',accent:'#d94a45',eyebrow:'資安韌性 · CONCEPT / DEMO',title:'<span class="hero-line">讓安全訊號，</span><span class="hero-line">回到營運脈絡。</span>',summary:'在隔離或處置之前，先理解身分、端點與服務之間的影響關係。',cta:'探索 Cyber Grid',href:'#security',core:'RISK CONTEXT',gate:'Gate：POLICY BLOCK'},
     {state:'control',accent:'#e5a91a',eyebrow:'可控自動化 · CONCEPT / DEMO',title:'<span class="hero-line">可靠的自動化，</span><span class="hero-line">知道何時該停下。</span>',summary:'將檢查、通知與建議組合成可追蹤、可核准、可回復的工作流。',cta:'探索 Flow Engine',href:'#event-journey',core:'FLOW ENGINE',gate:'Gate：APPROVAL REQUIRED'},
     {state:'connect',accent:'#287bff',eyebrow:'混合基礎設施 · CONCEPT / DEMO',title:'<span class="hero-line">從機房到遠端據點，</span><span class="hero-line">維持一致營運視野。</span>',summary:'統整虛擬化、雲端、網路與邊緣節點，同時保留在地操作權限。',cta:'探索 Fabric View',href:'#industries',core:'FABRIC VIEW',gate:'Gate：NO REMOTE ACTION'},
-    {state:'learn',accent:'#7657d8',eyebrow:'營運洞察 · CONCEPT / DEMO',title:'<span class="hero-line">讓每一次事件，</span><span class="hero-line">成為更快決策基礎。</span>',summary:'將任務紀錄與團隊註記整理成可回顧、可持續改善的營運知識。',cta:'探索 Insight Loop',href:'#insights',core:'INSIGHT LOOP',gate:'Gate：AUDIT FIRST'}
+    {state:'learn',accent:'#a78bfa',eyebrow:'營運洞察 · CONCEPT / DEMO',title:'<span class="hero-line">讓每一次事件，</span><span class="hero-line">成為更快決策基礎。</span>',summary:'將任務紀錄與團隊註記整理成可回顧、可持續改善的營運知識。',cta:'探索 Insight Loop',href:'#insights',core:'INSIGHT LOOP',gate:'Gate：AUDIT FIRST'}
   ];
   const storyButtons = [...document.querySelectorAll('[data-story]')];
   let storyIndex = 0;
+  const storyDuration = 8000;
+  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let storyCycleFrame = 0;
+  let storyCycleStartedAt = 0;
+  let storyCycleElapsed = 0;
+  let heroIsVisible = true;
+  let storyAutoPaused = false;
+  let storyInteractionPaused = false;
+  const storyCycleToggle = document.querySelector('#storyCycleToggle');
+
+  function setStoryProgress(value) {
+    storyButtons[storyIndex]?.style.setProperty('--story-progress', String(value));
+  }
+  function storyCycleCanRun() {
+    return !reducedMotionQuery.matches && !document.hidden && heroIsVisible && !storyAutoPaused && !storyInteractionPaused;
+  }
+  function stopStoryCycle() {
+    if (storyCycleFrame) cancelAnimationFrame(storyCycleFrame);
+    storyCycleFrame = 0;
+  }
+  function runStoryCycle(now) {
+    storyCycleFrame = 0;
+    if (!storyCycleCanRun()) return;
+    if (!storyCycleStartedAt) storyCycleStartedAt = now - storyCycleElapsed;
+    storyCycleElapsed = now - storyCycleStartedAt;
+    const progress = Math.min(storyCycleElapsed / storyDuration, 1);
+    setStoryProgress(progress);
+    if (progress >= 1) {
+      selectStory((storyIndex + 1) % stories.length, false);
+      return;
+    }
+    storyCycleFrame = requestAnimationFrame(runStoryCycle);
+  }
+  function ensureStoryCycle() {
+    if (!storyCycleFrame && storyCycleCanRun()) storyCycleFrame = requestAnimationFrame(runStoryCycle);
+  }
+  function restartStoryCycle() {
+    storyCycleStartedAt = 0;
+    storyCycleElapsed = 0;
+    setStoryProgress(0);
+    stopStoryCycle();
+    ensureStoryCycle();
+  }
+  function updateStoryCycleControl() {
+    const reduced = reducedMotionQuery.matches;
+    const paused = reduced || storyAutoPaused;
+    storyCycleToggle.disabled = reduced;
+    storyCycleToggle.setAttribute('aria-pressed', String(paused));
+    storyCycleToggle.querySelector('[aria-hidden]').textContent = paused ? '▶' : 'Ⅱ';
+    storyCycleToggle.querySelector('[data-cycle-label]').textContent = reduced ? '已依減少動態設定停用' : paused ? '繼續自動播放' : '暫停自動播放';
+  }
   function selectStory(index, announce = true) {
+    storyButtons.forEach((button) => button.style.setProperty('--story-progress', '0'));
     storyIndex = Math.max(0, Math.min(stories.length - 1, index));
     const story = stories[storyIndex];
     hero.dataset.storyState = story.state;
@@ -32,6 +84,7 @@
       button.tabIndex = i === storyIndex ? 0 : -1;
     });
     if (announce) document.querySelector('#heroStoryStatus').textContent = `第 ${storyIndex + 1} 個主題，共 ${stories.length} 個：${storyButtons[storyIndex].innerText.replace(/\s+/g,' ')}`;
+    restartStoryCycle();
   }
   storyButtons.forEach((button) => {
     button.addEventListener('click', () => selectStory(Number(button.dataset.story)));
@@ -45,7 +98,36 @@
       event.preventDefault(); selectStory(next); storyButtons[next].focus();
     });
   });
+  storyCycleToggle.addEventListener('click', () => {
+    storyAutoPaused = !storyAutoPaused;
+    updateStoryCycleControl();
+    if (storyAutoPaused) stopStoryCycle();
+    else { storyInteractionPaused = false; storyCycleStartedAt = 0; ensureStoryCycle(); }
+  });
+  updateStoryCycleControl();
   selectStory(0, false);
+  hero.addEventListener('mouseenter', () => { storyInteractionPaused = true; stopStoryCycle(); });
+  hero.addEventListener('mouseleave', () => { storyInteractionPaused = false; storyCycleStartedAt = 0; ensureStoryCycle(); });
+  hero.addEventListener('focusin', () => { storyInteractionPaused = true; stopStoryCycle(); });
+  hero.addEventListener('focusout', () => queueMicrotask(() => {
+    if (!hero.contains(document.activeElement)) { storyInteractionPaused = false; storyCycleStartedAt = 0; ensureStoryCycle(); }
+  }));
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopStoryCycle();
+    else { storyCycleStartedAt = 0; ensureStoryCycle(); }
+  });
+  reducedMotionQuery.addEventListener('change', () => {
+    updateStoryCycleControl();
+    restartStoryCycle();
+    if (reducedMotionQuery.matches) setStoryProgress(0);
+  });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      heroIsVisible = entry.isIntersecting;
+      if (heroIsVisible) { storyCycleStartedAt = 0; ensureStoryCycle(); }
+      else stopStoryCycle();
+    }, { threshold: .2 }).observe(hero);
+  }
 
   const toggle = document.querySelector('#menuToggle');
   const nav = document.querySelector('#primaryNav');

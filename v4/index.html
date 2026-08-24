@@ -24,24 +24,25 @@
   </header>
 
   <main id="main">
-    <section class="hero" id="hero" aria-roledescription="carousel" aria-label="Elias Net 平台主題" data-story-state="command">
+    <section class="hero" id="hero" role="region" aria-roledescription="carousel" aria-label="Elias Net 平台主題" data-story-state="command">
       <div class="hero-media" aria-hidden="true"></div><div class="hero-scrim" aria-hidden="true"></div>
       <div class="hero-product-motion is-active" id="heroProductMotion" aria-hidden="true"><div class="hero-flow"><i></i><i></i><i></i><i></i></div><div class="hero-core"><span id="heroCoreLabel">MISSION<br>CORE</span></div><div class="hero-gate"><i></i></div></div>
-      <div class="hero-copy" aria-live="polite">
+      <div class="hero-copy">
         <p class="eyebrow" id="heroEyebrow">AI 營運指揮 · CONCEPT / DEMO</p>
         <h1 id="heroTitle"><span class="hero-line">讓訊號清楚可讀，</span><span class="hero-line">讓行動保有控制。</span></h1>
         <p id="heroSummary">Elias Net 將監控、匿名化、AI 判讀與人工核准整合成一套受控營運流程。</p>
         <div class="hero-actions"><a class="primary-cta" id="heroCta" href="#platform">探索 Operations Grid <span>›</span></a><button class="video-cta" id="videoCta" type="button"><span aria-hidden="true">▶</span> 觀看多模型協作概念影片</button></div>
       </div>
       <div class="hero-status"><b>INTERACTIVE CONCEPT</b><code>simulate_only=true</code><span>Actual Action：0</span><em id="heroGateStatus">Gate：LOCKED · MIS 決定</em></div>
-      <div class="story-rail" role="group" aria-label="選擇主題故事">
-        <button aria-current="true" tabindex="0" data-story="0"><b>01</b><span>AI 營運指揮</span></button>
-        <button aria-current="false" tabindex="-1" data-story="1"><b>02</b><span>營運世界模型</span></button>
-        <button aria-current="false" tabindex="-1" data-story="2"><b>03</b><span>資安韌性</span></button>
-        <button aria-current="false" tabindex="-1" data-story="3"><b>04</b><span>可控自動化</span></button>
-        <button aria-current="false" tabindex="-1" data-story="4"><b>05</b><span>混合基礎設施</span></button>
-        <button aria-current="false" tabindex="-1" data-story="5"><b>06</b><span>營運洞察</span></button>
+      <div class="story-rail" role="group" aria-label="Elias Net 任務節點軌道">
+        <button aria-current="true" tabindex="0" data-story="0"><b>NODE 01</b><span>AI 營運指揮</span></button>
+        <button aria-current="false" tabindex="-1" data-story="1"><b>NODE 02</b><span>營運世界模型</span></button>
+        <button aria-current="false" tabindex="-1" data-story="2"><b>NODE 03</b><span>資安韌性</span></button>
+        <button aria-current="false" tabindex="-1" data-story="3"><b>NODE 04</b><span>可控自動化</span></button>
+        <button aria-current="false" tabindex="-1" data-story="4"><b>NODE 05</b><span>混合基礎設施</span></button>
+        <button aria-current="false" tabindex="-1" data-story="5"><b>NODE 06</b><span>營運洞察</span></button>
       </div>
+      <button class="story-cycle-toggle" id="storyCycleToggle" type="button" aria-pressed="false"><span aria-hidden="true">Ⅱ</span><span data-cycle-label>暫停自動播放</span></button>
       <p class="sr-only" id="heroStoryStatus" aria-live="polite" aria-atomic="true"></p>
     </section>
 
@@ -157,6 +158,7 @@
         <article><span>VIRTUAL EVENT · CONCEPT</span><h3>Operations Grid Launch Briefing</h3><p>線上展示受控 AI 維運流程與六大能力領域。</p><time datetime="2026-09-18">2026.09.18</time><button type="button" data-demo-article>查看活動概念 →</button></article>
         <article><span>FIELD NOTE · CONCEPT</span><h3>為什麼「停止」也是自動化能力的一部分</h3><p>從唯讀查詢、匿名化到核准閘門的安全設計。</p><button type="button" data-demo-article>閱讀概念摘要 →</button></article>
         <article><span>LAB UPDATE · CONCEPT</span><h3>營運世界模型：把關聯帶回事件判讀</h3><p>不再只看一排紅燈，而是理解服務如何互相影響。</p><button type="button" data-demo-article>閱讀概念摘要 →</button></article>
+        <article class="insight-practice"><span>DELIVERY NOTE · CONCEPT</span><h3>Pilot 前，先確認四道安全界線</h3><p>資料遮蔽、唯讀範圍、人工責任與回復方式都清楚後，才逐步擴大驗證。</p><ul aria-label="Pilot 安全檢核"><li><b>01</b> DATA MASKING</li><li><b>02</b> READ ONLY</li><li><b>03</b> HUMAN GATE</li><li><b>04</b> AUDIT READY</li></ul><button type="button" data-demo-article>查看檢核摘要 →</button></article>
       </div>
       <p class="demo-article-message" id="demoArticleMessage" role="status" aria-live="polite"></p>
     </section>
