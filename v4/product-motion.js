@@ -17,11 +17,9 @@
   const journeyStatus = document.querySelector('#journeyStatus');
   const approve = document.querySelector('#journeyApprove');
   const approveTop = document.querySelector('#journeyApproveTop');
-  const play = document.querySelector('#journeyPlay');
   const pause = document.querySelector('#journeyPause');
-  const reset = document.querySelector('#journeyReset');
   const journeyNodes = [...document.querySelectorAll('[data-journey-node]')];
-  const journey = {status:'idle',step:0,timer:0,visible:true};
+  const journey = {status:'idle',step:0,timer:0,visible:false,userPaused:false};
   const stages = [
     {badge:'DEMO EVENT',title:'收到本機模擬事件',fields:[['Event','EVENT-DEMO-1042'],['Host','DEMO-HOST-RAW'],['Account','DEMO-OPERATOR'],['Address','ADDR-DEMO-27']],text:'DEMO IDENTIFIERS · NOT REAL DATA。事件只存在於瀏覽器記憶體，不會送到任何服務。',items:['Service State：Unexpected Stop','Risk：Medium','Generated in browser']},
     {badge:'READ ONLY',title:'唯讀查詢核准範圍',fields:[['DEMO QUERY','POLICY ALLOWED'],['Limit','1 / 5 DEMO RECORDS'],['Write','BLOCKED']],text:'資料存取政策在查詢前檢查欄位、範圍與筆數；任何寫入要求都不會通過。',items:['只讀取核准的模擬欄位','不執行 SSH 或 Shell']},
@@ -61,17 +59,16 @@
     approve.disabled = index !== 5; approveTop.disabled = index !== 5;
     if (index === 5) journey.status = 'awaitingApproval';
     if (index === 6) journey.status = 'completed';
-    play.textContent = journey.status === 'paused' ? '繼續播放' : journey.status === 'running' ? '播放中' : '播放事件旅程';
-    play.disabled = journey.status === 'running' || journey.status === 'awaitingApproval';
     pause.disabled = journey.status !== 'running' && journey.status !== 'paused';
-    pause.textContent = journey.status === 'paused' ? '繼續' : '暫停';
+    pause.setAttribute('aria-pressed', String(journey.status === 'paused'));
+    pause.textContent = journey.status === 'paused' ? '繼續自動播放' : '暫停自動播放';
     const action = index === 5 ? '流程已暫停，確認並繼續展示按鈕現在可用。' : index === 6 ? '展示完成，Actual Action 仍為 0。' : '';
     journeyStatus.textContent = `第 ${index + 1}／7 步：${stage.title}。${action}`;
   }
   function scheduleJourney() {
     clearJourneyTimer();
     if (journey.status !== 'running' || !journey.visible || document.hidden || reduceMotion) return;
-    journey.timer = later(nextJourney, 3800);
+    journey.timer = later(nextJourney, 3000);
   }
   function nextJourney() {
     if (journey.step >= 4) { renderJourney(5); return; }
@@ -79,21 +76,20 @@
   }
   function startJourney() {
     clearJourneyTimer();
+    journey.userPaused = false;
     if (reduceMotion) { journey.status = 'awaitingApproval'; renderJourney(5); return; }
     journey.status = 'running'; renderJourney(0); scheduleJourney();
   }
-  function pauseJourney(message = true) {
+  function pauseJourney(message = true, byUser = true) {
     if (journey.status !== 'running') return;
-    clearJourneyTimer(); journey.status = 'paused'; renderJourney(journey.step);
-    if (message) journeyStatus.textContent = `第 ${journey.step + 1}／7 步：旅程已暫停。按「繼續」恢復。`;
+    clearJourneyTimer(); journey.status = 'paused'; journey.userPaused = byUser; renderJourney(journey.step);
+    if (message) journeyStatus.textContent = `第 ${journey.step + 1}／7 步：自動播放已暫停。`;
   }
   function resumeJourney() {
     if (journey.status !== 'paused') return;
-    journey.status = 'running'; renderJourney(journey.step); scheduleJourney();
+    journey.userPaused = false; journey.status = 'running'; renderJourney(journey.step); scheduleJourney();
   }
-  play.addEventListener('click', () => journey.status === 'paused' ? resumeJourney() : startJourney());
   pause.addEventListener('click', () => journey.status === 'paused' ? resumeJourney() : pauseJourney());
-  reset.addEventListener('click', startJourney);
   approve.addEventListener('click', () => { if (journey.status === 'awaitingApproval') { renderJourney(6); } });
   approveTop.addEventListener('click', () => { if (journey.status === 'awaitingApproval') { renderJourney(6); } });
   window.addEventListener('resize', positionJourneyCube, {passive:true});
@@ -103,9 +99,8 @@
   const futureNodes = [...document.querySelectorAll('[data-future-node]')];
   const futurePacket = futureRoot.querySelector('.future-packet');
   const futureStatus = document.querySelector('#futureStatus');
-  const futurePlay = document.querySelector('#futurePlay');
   const futurePause = document.querySelector('#futurePause');
-  const future = {status:'idle',step:0,timer:0,visible:true};
+  const future = {status:'idle',step:0,timer:0,visible:false,userPaused:false};
   const futureLabels = ['模擬事件','Classifier：事件分類','Local AI：代碼化脈絡處理','Reasoning：產生檢查建議','Rule Engine：限制允許範圍','Human Gate：最後決定'];
   function clearFutureTimer(){ if(future.timer) cancel(future.timer); future.timer=0; }
   function positionFuturePacket(){
@@ -123,15 +118,13 @@
     future.step=index; positionFuturePacket();
     futureNodes.forEach((node,i)=>{node.classList.toggle('is-current',i===index);node.classList.toggle('is-done',i<index)});
     futureStatus.textContent=`步驟 ${index+1}／6：${futureLabels[index]} · CONCEPT / FUTURE ARCHITECTURE`;
-    futurePlay.disabled=future.status==='running'; futurePause.disabled=future.status!=='running'&&future.status!=='paused'; futurePause.textContent=future.status==='paused'?'繼續':'暫停';
+    futurePause.disabled=future.status!=='running'&&future.status!=='paused'; futurePause.setAttribute('aria-pressed',String(future.status==='paused')); futurePause.textContent=future.status==='paused'?'繼續自動播放':'暫停自動播放';
   }
-  function scheduleFuture(){ clearFutureTimer(); if(future.status!=='running'||!future.visible||document.hidden||reduceMotion)return; future.timer=later(()=>{if(future.step>=4){future.status='completed';renderFuture(5);return}renderFuture(future.step+1);scheduleFuture()},1500); }
-  function startFuture(){clearFutureTimer();future.status=reduceMotion?'completed':'running';renderFuture(reduceMotion?5:0);scheduleFuture()}
-  function pauseFuture(){if(future.status==='running'){clearFutureTimer();future.status='paused';futureStatus.textContent=`步驟 ${future.step+1}／6：已暫停 · ${futureLabels[future.step]}`}}
-  function resumeFuture(){if(future.status==='paused'){future.status='running';futureStatus.textContent=`步驟 ${future.step+1}／6：繼續播放 · ${futureLabels[future.step]}`;scheduleFuture()}}
-  futurePlay.addEventListener('click',()=>future.status==='paused'?resumeFuture():startFuture());
+  function scheduleFuture(){ clearFutureTimer(); if(future.status!=='running'||!future.visible||document.hidden||reduceMotion)return; future.timer=later(()=>{if(future.step>=4){future.status='completed';renderFuture(5);return}renderFuture(future.step+1);scheduleFuture()},3000); }
+  function startFuture(){clearFutureTimer();future.userPaused=false;future.status=reduceMotion?'completed':'running';renderFuture(reduceMotion?5:0);scheduleFuture()}
+  function pauseFuture(byUser=true){if(future.status==='running'){clearFutureTimer();future.status='paused';future.userPaused=byUser;renderFuture(future.step);futureStatus.textContent=`步驟 ${future.step+1}／6：自動播放已暫停 · ${futureLabels[future.step]}`}}
+  function resumeFuture(){if(future.status==='paused'){future.userPaused=false;future.status='running';renderFuture(future.step);scheduleFuture()}}
   futurePause.addEventListener('click',()=>future.status==='paused'?resumeFuture():pauseFuture());
-  document.querySelector('#futureReplay').addEventListener('click',startFuture);
   window.addEventListener('resize',positionFuturePacket,{passive:true});
   renderFuture(0);
 
@@ -155,18 +148,36 @@
 
   const hero = document.querySelector('#hero');
   const observer = new IntersectionObserver((entries) => entries.forEach(entry => {
-    if (entry.target === journeyRoot) { journey.visible = entry.isIntersecting; if (!entry.isIntersecting && journey.status === 'running') pauseJourney(); }
-    else if (entry.target === futureRoot) { future.visible = entry.isIntersecting; if (!entry.isIntersecting) pauseFuture(); }
+    if (entry.target === journeyRoot) {
+      journey.visible = entry.isIntersecting;
+      if (entry.isIntersecting && journey.status === 'idle') startJourney();
+      else if (entry.isIntersecting && journey.status === 'paused' && !journey.userPaused) resumeJourney();
+      else if (!entry.isIntersecting && journey.status === 'running') pauseJourney(false, false);
+    }
+    else if (entry.target === futureRoot) {
+      future.visible = entry.isIntersecting;
+      if (entry.isIntersecting && future.status === 'idle') startFuture();
+      else if (entry.isIntersecting && future.status === 'paused' && !future.userPaused) resumeFuture();
+      else if (!entry.isIntersecting && future.status === 'running') pauseFuture(false);
+    }
     else if (entry.target === hero) hero.querySelector('#heroProductMotion').classList.toggle('is-active', entry.isIntersecting);
   }),{threshold:.12});
   observer.observe(journeyRoot); observer.observe(futureRoot); observer.observe(hero);
   document.addEventListener('visibilitychange',()=>{
     document.body.classList.toggle('page-hidden',document.hidden);
-    if(document.hidden){pauseJourney();pauseFuture()}
+    if(document.hidden){pauseJourney(false,false);pauseFuture(false)}
+    else {
+      if(journey.visible&&journey.status==='paused'&&!journey.userPaused)resumeJourney();
+      if(future.visible&&future.status==='paused'&&!future.userPaused)resumeFuture();
+    }
   });
   motionQuery.addEventListener('change',(event)=>{
     reduceMotion=event.matches;
-    if(reduceMotion){pauseJourney(false);pauseFuture();document.body.classList.add('reduce-motion-active')}
-    else document.body.classList.remove('reduce-motion-active');
+    if(reduceMotion){pauseJourney(false,false);pauseFuture(false);document.body.classList.add('reduce-motion-active')}
+    else {
+      document.body.classList.remove('reduce-motion-active');
+      if(journey.visible&&journey.status==='paused'&&!journey.userPaused)resumeJourney();
+      if(future.visible&&future.status==='paused'&&!future.userPaused)resumeFuture();
+    }
   });
 })();

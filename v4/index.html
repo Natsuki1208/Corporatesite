@@ -61,7 +61,7 @@
         <div class="inline-links" aria-label="AI 營運快速連結"><a href="#event-journey">Mission Control</a><a href="#model-orchestration">多模型事件摘要</a><a href="#event-journey">任務時間軸</a><a href="#event-journey">Runbook 建議</a><a href="#security">人工核准</a></div>
       </div>
       <div class="event-journey" id="event-journey" aria-labelledby="journeyTitle">
-        <div class="journey-head"><div><span>PRODUCT WALKTHROUGH</span><h3 id="journeyTitle">事件如何被安全處理</h3></div><div class="journey-controls"><button type="button" id="journeyPlay">播放事件旅程</button><button type="button" id="journeyPause" disabled>暫停</button><button type="button" id="journeyReset">重新播放</button><button class="journey-approve-top" type="button" id="journeyApproveTop" disabled>確認並繼續展示</button></div></div>
+        <div class="journey-head"><div><span>PRODUCT WALKTHROUGH</span><h3 id="journeyTitle">事件如何被安全處理</h3></div><div class="journey-controls"><button type="button" id="journeyPause" disabled aria-pressed="false">暫停自動播放</button><button class="journey-approve-top" type="button" id="journeyApproveTop" disabled>確認並繼續展示</button></div></div>
         <ol class="sr-only"><li>接收本機模擬事件</li><li>唯讀查詢政策</li><li>資料遮蔽與代碼化</li><li>AI 協助判讀</li><li>動作政策檢查</li><li>MIS 人工確認</li><li>展示完成</li></ol>
         <div class="journey-track" aria-hidden="true">
           <div class="journey-line"></div><i class="data-cube" id="journeyCube"></i>
@@ -69,10 +69,10 @@
         </div>
         <div class="journey-console">
           <div class="journey-data"><span id="journeyBadge">READY</span><h4 id="journeyStepTitle">模擬事件等待播放</h4><dl id="journeyFields"><div><dt>Event</dt><dd>EVENT-DEMO-1042</dd></div><div><dt>Host</dt><dd>HOST-DEMO-03</dd></div><div><dt>Mode</dt><dd>simulate_only=true</dd></div></dl></div>
-          <div class="journey-explain"><p id="journeyExplain">點擊「播放事件旅程」，查看事件如何依序經過唯讀、遮蔽與代碼化、AI 判讀、政策檢查與 MIS 人工確認。</p><ul id="journeyDetails"><li>不連接正式設備或 API</li><li>Actual Action：0</li></ul><button type="button" id="journeyApprove" disabled>確認並繼續展示</button><small class="approval-scope">Approval scope：Demo presentation only</small></div>
+          <div class="journey-explain"><p id="journeyExplain">進入畫面後將自動展示事件如何依序經過唯讀、遮蔽與代碼化、AI 判讀、政策檢查與 MIS 人工確認。</p><ul id="journeyDetails"><li>不連接正式設備或 API</li><li>Actual Action：0</li></ul><button type="button" id="journeyApprove" disabled>確認並繼續展示</button><small class="approval-scope">Approval scope：Demo presentation only</small></div>
         </div>
         <div class="safety-rail" aria-label="固定安全狀態"><span>MODE <b>DEMO</b></span><span>DATA <b>BROWSER MEMORY</b></span><span>QUERY <b>READ ONLY</b></span><span>WRITE <b>BLOCKED</b></span><span>ACTUAL ACTION <b>0</b></span></div>
-        <p class="journey-status" id="journeyStatus" role="status" aria-live="polite" aria-atomic="true">狀態：等待播放</p>
+        <p class="journey-status" id="journeyStatus" role="status" aria-live="polite" aria-atomic="true">狀態：進入可視範圍後自動播放</p>
       </div>
     </section>
 
@@ -86,8 +86,8 @@
           <i class="future-packet" aria-hidden="true"></i>
           <span data-future-node="0"><b>EVENT</b><small>模擬事件</small></span><span data-future-node="1"><b>CLASSIFIER</b><small>事件分類</small></span><span data-future-node="2"><b>LOCAL AI</b><small>代碼化脈絡處理</small></span><span data-future-node="3"><b>REASONING</b><small>產生檢查建議</small></span><span data-future-node="4"><b>RULE ENGINE</b><small>限制允許範圍</small></span><span data-future-node="5"><b>HUMAN GATE</b><small>最後決定</small></span>
         </div>
-        <div class="future-controls"><button type="button" id="futurePlay">播放</button><button type="button" id="futurePause" disabled>暫停</button><button type="button" id="futureReplay">重播</button><button class="text-action" type="button" data-open-video>文字說明 ↗</button></div>
-        <p class="future-status" id="futureStatus" role="status" aria-live="polite">狀態：等待播放 · CONCEPT / FUTURE ARCHITECTURE</p>
+        <div class="future-controls"><button type="button" id="futurePause" disabled aria-pressed="false">暫停自動播放</button><button class="text-action" type="button" data-open-video>文字說明 ↗</button></div>
+        <p class="future-status" id="futureStatus" role="status" aria-live="polite">狀態：進入可視範圍後自動播放 · CONCEPT / FUTURE ARCHITECTURE</p>
       </div>
     </section>
 
@@ -200,8 +200,8 @@
     <ol><li>定義唯讀資料範圍</li><li>建立代碼化與安全界線</li><li>離線驗證 AI 判讀</li><li>由 MIS 人工確認結果</li></ol>
     <div class="safety-rail"><span>MODE <b>LOCAL DEMO</b></span><span>NETWORK <b>NOT CONNECTED</b></span><span>ACTUAL ACTION <b>0</b></span></div>
   </dialog>
-  <script src="main.js" defer></script>
-  <script src="product-motion.js" defer></script>
-  <script src="ai-exploration.js" defer></script>
+  <script src="main.js?v=20260824c" defer></script>
+  <script src="product-motion.js?v=20260824c" defer></script>
+  <script src="ai-exploration.js?v=20260824c" defer></script>
 </body>
 </html>
