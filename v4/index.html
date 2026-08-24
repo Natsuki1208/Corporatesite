@@ -10,9 +10,14 @@
   <link rel="stylesheet" href="preview-enhancements.css?v=20260824f">
   <link rel="stylesheet" href="product-motion.css?v=20260824f">
   <link rel="stylesheet" href="ai-exploration.css?v=20260824f">
+  <link rel="stylesheet" href="i18n.css?v=20260824k">
 </head>
 <body>
   <a class="skip" href="#main">跳至主要內容</a>
+  <div class="global-toolbar" role="region" aria-label="Elias Net 全球工具列">
+    <a href="#main" class="global-toolbar-brand">ELIAS NET <span>GLOBAL</span></a>
+    <nav aria-label="選擇網站語言"><span>LANGUAGE</span><button type="button" data-language="zh-Hant" aria-pressed="true">繁中</button><button type="button" data-language="en" aria-pressed="false">EN</button><button type="button" data-language="ja" aria-pressed="false">日本語</button><button type="button" data-language="ko" aria-pressed="false">한국어</button></nav>
+  </div>
   <header class="site-header" id="siteHeader">
     <a class="brand" href="#main" aria-label="Elias Net 首頁"><img src="assets/elias-net-corporate-logo.svg" alt="Elias Net Human-Governed AI"></a>
     <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="primaryNav">選單</button>
@@ -20,7 +25,7 @@
       <a href="#platform">平台</a><a href="#solutions">解決方案</a><a href="#industries">產業應用</a><a href="#ai-uses">AI 用途</a><a href="#insights">技術資源</a><a href="#company">公司</a>
     </nav>
     <button class="content-theme-toggle" id="contentThemeToggle" type="button" aria-pressed="false" aria-label="切換主要內容為深色模式"><span aria-hidden="true">◐</span><b>LIGHT</b></button>
-    <a class="pilot-link" href="#pilot" data-pilot>規劃 Pilot <span>→</span></a>
+    <a class="pilot-link" href="#pilot" data-pilot>規劃應用 <span>→</span></a>
   </header>
 
   <main id="main">
@@ -107,7 +112,7 @@
     <section class="security-band" id="security">
       <div><p class="eyebrow">HUMAN-GOVERNED BY DESIGN</p><h2>AI 可以協助調查，<br>不能跳過責任邊界。</h2></div>
       <ol><li><b>READ ONLY</b><span>查詢限制於核准範圍與筆數。</span></li><li><b>ANONYMIZED</b><span>送入模型前先遮蔽帳號與位址。</span></li><li><b>HUMAN APPROVAL</b><span>高風險處置由 MIS 做最後決定。</span></li><li><b>AUDITABLE</b><span>目標、原因、核准與結果都有紀錄。</span></li></ol>
-      <footer><code>simulate_only=true</code><strong>Actual Action：0</strong><span>目前階段：離線驗證／Pilot／唯讀</span></footer>
+      <footer><code>simulate_only=true</code><strong>Actual Action：0</strong><span>目前階段：離線驗證／應用規劃／唯讀</span></footer>
     </section>
 
     <section class="industry-story" id="industries">
@@ -158,7 +163,7 @@
         <article><span>VIRTUAL EVENT · CONCEPT</span><h3>Operations Grid Launch Briefing</h3><p>線上展示受控 AI 維運流程與六大能力領域。</p><time datetime="2026-09-18">2026.09.18</time><button type="button" data-demo-article>查看活動概念 →</button></article>
         <article><span>FIELD NOTE · CONCEPT</span><h3>為什麼「停止」也是自動化能力的一部分</h3><p>從唯讀查詢、匿名化到核准閘門的安全設計。</p><button type="button" data-demo-article>閱讀概念摘要 →</button></article>
         <article><span>LAB UPDATE · CONCEPT</span><h3>營運世界模型：把關聯帶回事件判讀</h3><p>不再只看一排紅燈，而是理解服務如何互相影響。</p><button type="button" data-demo-article>閱讀概念摘要 →</button></article>
-        <article class="insight-practice"><span>DELIVERY NOTE · CONCEPT</span><h3>Pilot 前，先確認四道安全界線</h3><p>資料遮蔽、唯讀範圍、人工責任與回復方式都清楚後，才逐步擴大驗證。</p><ul aria-label="Pilot 安全檢核"><li><b>01</b> DATA MASKING</li><li><b>02</b> READ ONLY</li><li><b>03</b> HUMAN GATE</li><li><b>04</b> AUDIT READY</li></ul><button type="button" data-demo-article>查看檢核摘要 →</button></article>
+        <article class="insight-practice"><span>DELIVERY NOTE · CONCEPT</span><h3>規劃應用前，先確認四道安全界線</h3><p>資料遮蔽、唯讀範圍、人工責任與回復方式都清楚後，才逐步擴大驗證。</p><ul aria-label="應用規劃安全檢核"><li><b>01</b> DATA MASKING</li><li><b>02</b> READ ONLY</li><li><b>03</b> HUMAN GATE</li><li><b>04</b> AUDIT READY</li></ul><button type="button" data-demo-article>查看檢核摘要 →</button></article>
       </div>
       <p class="demo-article-message" id="demoArticleMessage" role="status" aria-live="polite"></p>
     </section>
@@ -174,7 +179,7 @@
         <article class="company-story-card"><img src="assets/company-stories/human-decision.jpg" alt="三位維運人員在夜間決策室確認金色人工核准閘門" loading="lazy"><div><span>02 · HUMAN DECISION</span><h3>AI 協助，人負責決定</h3><p>Elias Net 不以取代 MIS 為目標。AI 整理脈絡與建議，規則限制允許範圍，高影響處置則停在清楚可見的 Human Gate。</p></div></article>
         <article class="company-story-card"><img src="assets/company-stories/inclusive-design.jpg" alt="多元設計團隊在無障礙實驗室共同測試清楚的操作流程" loading="lazy"><div><span>03 · INCLUSIVE DESIGN</span><h3>讓複雜技術更容易被理解</h3><p>好的維運工具不應只服務少數專家。我們希望以清楚語言、可操作介面與無障礙設計，讓團隊更容易共享判斷依據。</p></div></article>
         <article class="company-story-card"><img src="assets/company-stories/trust-boundary.jpg" alt="安全架構師檢視資料匿名化區與阻擋寫入的金色政策閘門" loading="lazy"><div><span>04 · TRUST BOUNDARY</span><h3>先建立界線，再談自動化</h3><p>唯讀查詢、資料遮蔽、政策檢查與稽核紀錄不是附加功能，而是 Elias Net 構想中每一次 AI 協作的基本結構。</p></div></article>
-        <article class="company-story-card"><img src="assets/company-stories/field-validation.jpg" alt="兩位現場工程師在隔離 Pilot 測試區驗證唯讀設備" loading="lazy"><div><span>05 · FIELD VALIDATION</span><h3>從小範圍 Pilot 驗證</h3><p>我們主張先用虛構或匿名化資料離線測試，再逐步驗證唯讀情境；沒有清楚驗收與人工責任，就不擴大操作範圍。</p></div></article>
+        <article class="company-story-card"><img src="assets/company-stories/field-validation.jpg" alt="兩位現場工程師在隔離應用驗證區測試唯讀設備" loading="lazy"><div><span>05 · FIELD VALIDATION</span><h3>從小範圍規劃應用</h3><p>我們主張先用虛構或匿名化資料離線測試，再逐步驗證唯讀情境；沒有清楚驗收與人工責任，就不擴大操作範圍。</p></div></article>
         <article class="company-story-card"><img src="assets/company-stories/shared-knowledge.jpg" alt="維運導師與工程師在晨光知識牆前回顧事件經驗" loading="lazy"><div><span>06 · SHARED KNOWLEDGE</span><h3>讓經驗成為團隊資產</h3><p>事件處理不應隨著值班結束而消失。Elias Net 希望把判斷理由、核准與結果整理成可回顧的營運知識。</p></div></article>
         <article class="company-story-card"><img src="assets/company-stories/our-direction.jpg" alt="六座營運設施的青色資料路徑通往遠方金色人工核准閘門" loading="lazy"><div><span>07 · OUR DIRECTION</span><h3>攜手守護人本 AI 時代</h3><p>未來的 AI 系統需要速度，也需要責任。Elias Net 將持續探索本機 AI、規則引擎與人工核准如何形成值得信任的協作方式。</p></div></article>
       </div></div>
@@ -185,7 +190,7 @@
   <footer class="site-footer" aria-labelledby="footerTitle">
     <div class="footer-main">
       <nav class="footer-company-directory" aria-label="Elias Net 企業資訊與網站連結">
-        <section><h2 id="footerTitle">公司資訊</h2><ul><li><a href="#company">關於 Elias Net</a></li><li><a href="#company-stories">企業故事</a></li><li><a href="#ai-uses">人本 AI 原則</a></li><li><a href="#security">安全與治理</a></li><li><a href="#model-orchestration">技術研究</a></li><li><a href="#ecosystem">合作生態構想</a></li><li><a href="#pilot" data-pilot>Pilot 規劃</a></li><li><a href="#main">品牌概念</a></li></ul></section>
+        <section><h2 id="footerTitle">公司資訊</h2><ul><li><a href="#company">關於 Elias Net</a></li><li><a href="#company-stories">企業故事</a></li><li><a href="#ai-uses">人本 AI 原則</a></li><li><a href="#security">安全與治理</a></li><li><a href="#model-orchestration">技術研究</a></li><li><a href="#ecosystem">合作生態構想</a></li><li><a href="#pilot" data-pilot>應用規劃</a></li><li><a href="#main">品牌概念</a></li></ul></section>
         <section><h2>最新消息及活動</h2><ul><li><a href="#insights">Elias Net 新聞中心</a></li><li><a href="#insights">公司技術部落格</a></li><li><a href="#event-journey">事件旅程展示</a></li><li><a href="#model-orchestration">未來架構專題</a></li><li><a href="#platform">Operations Grid 發表</a></li><li><a href="#ai-uses">人工智慧與資料科學</a></li><li><a href="#industries">產業應用觀點</a></li><li><a href="#insights">概念活動行事曆</a></li></ul></section>
         <section><h2>熱門連結</h2><ul><li><a href="#platform">智慧維運平台</a></li><li><a href="#solutions">六項產品能力</a></li><li><a href="#event-journey">唯讀事件查詢</a></li><li><a href="#event-journey">資料匿名化</a></li><li><a href="#security">人工核准閘門</a></li><li><a href="#industries">企業 AI 應用</a></li><li><a href="#ai-uses">AI 十種人本用途</a></li><li><a href="#company-stories">Elias Net 發展方向</a></li></ul></section>
       </nav>
@@ -195,7 +200,7 @@
         <p id="footerDemoStatus" role="status" aria-live="polite"></p>
       </div>
     </div>
-    <div class="footer-legal"><img src="assets/elias-net-corporate-logo.svg" alt=""><div><a href="#security">隱私與資料界線</a><a href="#pilot">服務與 Pilot 原則</a><a href="#main">輔助使用</a><a href="#company">公司政策</a></div><p>Elias Net is an original human-governed AI operations concept. Original voxel-inspired concept. Not affiliated with or endorsed by Minecraft or Mojang.</p><small>© 2026 Elias Net Concept Lab · INTERACTIVE CONCEPT PREVIEW · NOT A PRODUCTION SERVICE</small></div>
+    <div class="footer-legal"><img src="assets/elias-net-corporate-logo.svg" alt=""><div><a href="#security">隱私與資料界線</a><a href="#pilot">服務與應用規劃原則</a><a href="#main">輔助使用</a><a href="#company">公司政策</a></div><p>Elias Net is an original human-governed AI operations concept. Original voxel-inspired concept. Not affiliated with or endorsed by Minecraft or Mojang.</p><small>© 2026 Elias Net Concept Lab · INTERACTIVE CONCEPT PREVIEW · NOT A PRODUCTION SERVICE</small></div>
   </footer>
   <dialog class="video-dialog" id="videoDialog" aria-labelledby="videoTitle">
     <button class="dialog-close" id="videoClose" type="button" aria-label="關閉影片概念視窗">×</button>
@@ -206,14 +211,15 @@
     <dl><div><dt>目前狀態</dt><dd>VIDEO CONCEPT</dd></div><div><dt>正式連結</dt><dd>等待自有 YouTube 網址</dd></div><div><dt>Actual Action</dt><dd>0</dd></div></dl>
   </dialog>
   <dialog class="video-dialog pilot-dialog" id="pilotDialog" aria-labelledby="pilotTitle">
-    <button class="dialog-close" id="pilotClose" type="button" aria-label="關閉 Pilot 說明">×</button>
-    <p class="eyebrow">PILOT PLANNING · LOCAL DEMO</p><h2 id="pilotTitle">從唯讀情境開始規劃。</h2>
-    <p>此入口只提供 Pilot 規劃說明，不會送出表單或建立案件。建議先選一個虛構告警情境，確認資料範圍、遮蔽規則、人工核准點與驗收方式。</p>
+    <button class="dialog-close" id="pilotClose" type="button" aria-label="關閉應用規劃說明">×</button>
+    <p class="eyebrow">APPLICATION PLANNING · LOCAL DEMO</p><h2 id="pilotTitle">從唯讀情境開始規劃應用。</h2>
+    <p>此入口只提供應用規劃說明，不會送出表單或建立案件。建議先選一個虛構告警情境，確認資料範圍、遮蔽規則、人工核准點與驗收方式。</p>
     <ol><li>定義唯讀資料範圍</li><li>建立代碼化與安全界線</li><li>離線驗證 AI 判讀</li><li>由 MIS 人工確認結果</li></ol>
     <div class="safety-rail"><span>MODE <b>LOCAL DEMO</b></span><span>NETWORK <b>NOT CONNECTED</b></span><span>ACTUAL ACTION <b>0</b></span></div>
   </dialog>
   <script src="main.js?v=20260824f" defer></script>
   <script src="product-motion.js?v=20260824f" defer></script>
   <script src="ai-exploration.js?v=20260824f" defer></script>
+  <script src="i18n.js?v=20260824k" defer></script>
 </body>
 </html>
