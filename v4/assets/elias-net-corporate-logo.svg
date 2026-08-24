@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 96" role="img" aria-labelledby="title desc">
+  <title id="title">Elias Net corporate logo</title>
+  <desc id="desc">An original Elias Net mark combining a structured data path, network orbit and gold human approval core.</desc>
+  <g transform="translate(4 6)" fill="none" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M12 67V26L31 8h36l17 17v17" stroke="#32D6D0" stroke-width="6"/>
+    <path d="M12 67l17 17h38l17-17V52" stroke="#168CF5" stroke-width="6"/>
+    <path d="M31 27v40M31 28h33M31 47h25M31 66h33" stroke="#F5FAFD" stroke-width="6"/>
+    <path d="M67 8 84 25M67 84 84 67" stroke="#7657D8" stroke-width="4"/>
+    <rect x="60" y="40" width="14" height="14" fill="#F2BD42" stroke="#071522" stroke-width="3"/>
+    <circle cx="12" cy="26" r="4" fill="#32D6D0" stroke="none"/>
+    <circle cx="12" cy="67" r="4" fill="#168CF5" stroke="none"/>
+    <circle cx="84" cy="42" r="4" fill="#32D6D0" stroke="none"/>
+    <circle cx="84" cy="52" r="4" fill="#168CF5" stroke="none"/>
+  </g>
+  <text x="112" y="59" fill="#F5FAFD" font-size="47" font-weight="800" font-family="Arial, Helvetica, sans-serif" letter-spacing="1">ELIAS</text>
+  <text x="266" y="59" fill="#32D6D0" font-size="47" font-weight="800" font-family="Arial, Helvetica, sans-serif" letter-spacing="1">NET</text>
+  <path d="M113 69h276" stroke="#2C4A5C" stroke-width="1"/>
+  <text x="114" y="87" fill="#91AEBB" font-size="10" font-weight="700" font-family="Arial, Helvetica, sans-serif" letter-spacing="4.2">HUMAN-GOVERNED INTELLIGENCE</text>
+</svg>
