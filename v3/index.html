@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-Hant" class="no-js" data-phase="day" data-effects="standard">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="BLOCKOPS Interactive Operations World，本機互動原型。">
+  <title>麥塊智慧維運｜BLOCKOPS v3 Experience</title>
+  <link rel="icon" href="../assets/branding/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#entrance">跳至體驗內容</a>
+
+  <main class="world-shell" id="worldShell" data-scene="entrance">
+    <section class="scene entrance-scene is-active" id="entrance" aria-labelledby="entranceTitle" data-scene-name="World Entrance" data-scene-active="true">
+      <div class="sky-layer" aria-hidden="true"><i class="sun"></i><i class="cloud c1"></i><i class="cloud c2"></i><i class="mist"></i></div>
+      <div class="island-layer" aria-hidden="true">
+        <div class="far-island fi-one"></div><div class="far-island fi-two"></div><div class="energy-river"></div>
+        <div class="central-base"><i class="base-left"></i><i class="base-core"></i><i class="base-right"></i><b class="core-glow"></b><span class="base-signal"></span></div>
+        <div class="entrance-engineer"><img src="../assets/local-preview/reference-characters/blockops-engineer-v2.png" alt=""></div>
+        <div class="entrance-sheep"><img src="../assets/local-preview/reference-characters/blockops-sheep-v2.png" alt=""></div>
+      </div>
+      <div class="foreground-platform" aria-hidden="true"><i></i><b></b><span></span></div>
+
+      <div class="entrance-copy">
+        <img class="entrance-logo" src="../assets/branding/blockops-logo-horizontal.svg" alt="麥塊智慧維運 BLOCKOPS">
+        <p class="scene-code">INTERACTIVE OPERATIONS WORLD</p>
+        <h1 id="entranceTitle">一格一格建構，<br><span>讓企業穩定運行。</span></h1>
+        <p>AI 協助判讀與整理，最終控制權仍由 MIS 掌握。</p>
+        <button class="enter-button" id="enterWorld" type="button"><span>進入維運世界</span><i aria-hidden="true">→</i></button>
+        <p class="local-only">LOCAL VISUAL REVIEW ONLY — NOT FOR PUBLICATION</p>
+      </div>
+
+      <div class="entrance-controls" aria-label="世界控制">
+        <div><span>WORLD TIME</span><strong id="entranceClock">00:00</strong></div>
+        <button id="entrancePhase" type="button" aria-label="切換日夜模式">DAY</button>
+        <button id="entranceAudio" type="button" aria-pressed="false" disabled>MUSIC LOCKED</button>
+        <label>效果<select id="entranceEffects"><option value="static">靜態</option><option value="standard" selected>標準</option><option value="rich">豐富</option></select></label>
+      </div>
+    </section>
+
+    <section class="scene map-scene" id="world-map" aria-labelledby="mapTitle" data-scene-name="Operations Atlas" hidden>
+      <header class="map-heading">
+        <p class="scene-code">OPERATIONS ATLAS</p>
+        <h2 id="mapTitle">選擇一座設施，進入維運任務。</h2>
+        <p>六個地區沿能源水道共同運作；每座設施代表一項受控能力。</p>
+      </header>
+      <div class="atlas" id="atlas" role="group" aria-label="BLOCKOPS 六區世界地圖">
+        <div class="atlas-sky" aria-hidden="true"></div><div class="atlas-river" aria-hidden="true"></div><div class="atlas-hub" aria-hidden="true"><i>OPS</i></div>
+        <button class="region region-monitor" data-region="monitor" style="--x:16%;--y:18%;--region:#35ddd0" type="button"><i class="landmark tower-mark"></i><span><b>01</b><strong>監控高塔</strong><small>集中檢視設備與服務狀態</small></span></button>
+        <button class="region region-ai" data-region="ai" style="--x:49%;--y:8%;--region:#8a63f6" type="button"><i class="landmark core-city-mark"></i><span><b>02</b><strong>AI 核心城</strong><small>整理告警並提出檢查建議</small></span></button>
+        <button class="region region-mask" data-region="mask" style="--x:76%;--y:25%;--region:#62c95a" type="button"><i class="landmark gate-mark"></i><span><b>03</b><strong>匿名化閘門</strong><small>資料進入 AI 前先遮蔽</small></span></button>
+        <button class="region region-readonly" data-region="readonly" style="--x:13%;--y:62%;--region:#45b8f3" type="button"><i class="landmark mine-mark"></i><span><b>04</b><strong>唯讀資料礦坑</strong><small>限制查詢範圍與筆數</small></span></button>
+        <button class="region region-night" data-region="night" style="--x:47%;--y:68%;--region:#ff635f" type="button"><i class="landmark beacon-mark"></i><span><b>05</b><strong>夜間通知站</strong><small>整理值班摘要與通知</small></span></button>
+        <button class="region region-approval" data-region="approval" style="--x:77%;--y:62%;--region:#f6c84c" type="button"><i class="landmark fortress-mark"></i><span><b>06</b><strong>人工核准堡壘</strong><small>MIS 掌握最終決策</small></span></button>
+      </div>
+      <nav class="atlas-utilities" aria-label="世界支援設施">
+        <button type="button" data-destination="technology">TECHNOLOGY CORE</button>
+        <button type="button" data-destination="records">OPERATIONS RECORD</button>
+        <button type="button" data-destination="contact">CONTACT STATION</button>
+      </nav>
+      <p class="map-help">使用 Tab 或數字鍵 1～6 選區；M 返回地圖；ESC 返回上一層。</p>
+    </section>
+
+    <section class="scene mission-scene" id="mission" aria-labelledby="missionTitle" data-scene-name="Mission Scene" hidden>
+      <div class="mission-environment" aria-hidden="true">
+        <div class="mission-horizon"></div><div class="mission-route"></div>
+        <div class="mission-building"><i></i><b></b><span></span><em></em></div>
+        <div class="mission-object object-a"><i></i></div><div class="mission-object object-b"><i></i></div><div class="mission-object object-c"><i></i></div>
+        <div class="data-cube"></div><div class="scan-beam"></div><div class="approval-lock"></div>
+        <div class="monitor-world"><div class="monitor-tower"><i></i><b></b></div><div class="host-node hn-one"><i></i><span>NODE-A</span></div><div class="host-node hn-two"><i></i><span>NODE-B</span></div><div class="host-node hn-three"><i></i><span>NODE-C</span></div><div class="monitor-sweep"></div></div>
+        <div class="mask-world"><div class="mask-rail"></div><div class="raw-packet"><i>HOST</i><b>USER</b><span>NET</span></div><div class="mask-gate"><i></i><b></b><span></span></div><div class="safe-packet"><i>HOST-01</i><b>USER-A</b><span>NET-X</span></div></div>
+      </div>
+      <header class="mission-titlebar">
+        <p class="scene-code" id="missionCode">MISSION 01</p>
+        <h2 id="missionTitle" tabindex="-1">監控高塔</h2>
+      </header>
+      <aside class="mission-panel" aria-label="任務說明">
+        <p class="mission-step" id="missionStep">READY</p>
+        <h3 id="missionStageTitle">準備進入任務</h3>
+        <p id="missionDescription">場景將先呈現問題，再顯示 BLOCKOPS 如何協助，最後停在 MIS 人工決策。</p>
+        <ul id="missionFacts"><li>所有資料皆為虛構展示</li><li>不連接正式設備</li><li>不執行任何真實 Action</li></ul>
+        <div class="mission-result" id="missionResult" hidden><strong>DEMO COMPLETED</strong><code>simulate_only=true</code><span>Actual Action：0</span><small>未操作真實設備</small></div>
+        <button class="compare-toggle" id="missionCompare" type="button" hidden>查看遮罩後</button>
+        <div class="mission-controls">
+          <button type="button" id="missionStart">開始任務</button><button type="button" id="missionPause" disabled>暫停</button><button type="button" id="missionApprove" hidden>執行模擬確認</button><button type="button" id="missionReplay" hidden>重新播放</button><button type="button" data-back-map>回世界地圖</button>
+        </div>
+      </aside>
+      <p class="mission-disclaimer">DEMO · simulate_only=true · Actual Action：0</p>
+    </section>
+
+    <section class="scene technology-scene" id="technology" aria-labelledby="technologyTitle" hidden>
+      <header class="core-heading"><p class="scene-code">TECHNOLOGY CORE</p><h2 id="technologyTitle" tabindex="-1">十個模組，圍繞同一個安全核心。</h2><p>選擇模組，查看它在 Pilot、唯讀或未來規劃中的角色。</p></header>
+      <div class="core-world" id="coreWorld">
+        <div class="energy-core" aria-hidden="true"><i></i><b>BLOCKOPS</b></div>
+        <div class="core-modules" role="group" aria-label="技術能力模組"></div>
+      </div>
+      <aside class="core-panel" id="corePanel" aria-labelledby="corePanelTitle" hidden>
+        <button type="button" id="coreClose" aria-label="關閉技術說明">×</button><p class="scene-code" id="coreStatus">PILOT</p><h3 id="corePanelTitle">技術模組</h3><p id="corePurpose"></p><dl><div><dt>負責</dt><dd id="coreRole"></dd></div><div><dt>安全限制</dt><dd id="coreSafety"></dd></div></dl>
+      </aside>
+      <button class="scene-back" type="button" data-back-map>← 回世界地圖</button>
+    </section>
+
+    <section class="scene record-scene" id="records" aria-labelledby="recordsTitle" hidden>
+      <div class="record-rail" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="record-copy"><p class="scene-code">OPERATIONS RECORD</p><h2 id="recordsTitle" tabindex="-1">每一次建議，都留下可理解的軌跡。</h2><p>這裡只展示虛構事件的時間線：接收、唯讀查詢、匿名化、AI 建議與 MIS 決策。沒有真實主機、帳號或 IP。</p><ol><li>DEMO-001 事件接收</li><li>唯讀範圍確認</li><li>敏感欄位遮蔽</li><li>等待 MIS 人工確認</li></ol><button type="button" data-back-map>回世界地圖</button></div>
+    </section>
+
+    <section class="scene contact-scene" id="contact" aria-labelledby="contactTitle" hidden>
+      <div class="message-station" aria-hidden="true"><i></i><b></b><span></span></div>
+      <div class="contact-copy"><p class="scene-code">CONTACT STATION</p><h2 id="contactTitle" tabindex="-1">把需求封裝成一顆展示訊息方塊。</h2><p>此表單不送出、不儲存，也不連接第三方服務。</p><form id="contactForm" novalidate><label>姓名<input name="name" autocomplete="name" required></label><label>Email<input name="email" type="email" autocomplete="email" required></label><label>需求類型<select name="type"><option>申請 Pilot</option><option>了解部署</option><option>一般諮詢</option></select></label><label>訊息<textarea name="message" rows="3" required></textarea></label><button type="submit">封裝展示訊息</button></form><p id="contactStatus" role="status"></p><button type="button" data-back-map>回世界地圖</button><p class="affiliation">Original voxel-inspired concept.<br>Not affiliated with or endorsed by Minecraft or Mojang.</p></div>
+    </section>
+  </main>
+
+  <aside class="world-hud" id="worldHud" aria-label="世界 HUD" hidden>
+    <div class="hud-brand"><img src="../assets/branding/blockops-mark.svg" alt=""><span>目前地區</span><strong id="hudRegion">世界地圖</strong></div>
+    <div class="hud-time"><span>WORLD TIME</span><strong id="hudClock">00:00</strong><b id="hudPhase">DAY</b><button id="hudAudio" type="button" aria-pressed="false" disabled>MUSIC OFF</button><button id="hudMute" type="button" aria-pressed="false" disabled>MUTE</button><label>VOL<input id="hudVolume" type="range" min="0" max="100" value="20" aria-label="音樂音量"></label><label>FX<select id="hudEffects"><option value="static">靜態</option><option value="standard">標準</option><option value="rich">豐富</option></select></label></div>
+    <div class="hud-mission"><span>目前任務</span><strong id="hudMission">探索世界</strong><small id="hudStage">READY</small></div>
+    <div class="hud-safety"><b>DEMO</b><code>simulate_only=true</code><strong>Actual Action：0</strong></div>
+    <nav class="region-bar" aria-label="六區快捷欄">
+      <button type="button" data-shortcut="monitor"><kbd>1</kbd><span>監控</span></button><button type="button" data-shortcut="ai"><kbd>2</kbd><span>AI</span></button><button type="button" data-shortcut="mask"><kbd>3</kbd><span>匿名化</span></button><button type="button" data-shortcut="readonly"><kbd>4</kbd><span>唯讀</span></button><button type="button" data-shortcut="night"><kbd>5</kbd><span>夜間</span></button><button type="button" data-shortcut="approval"><kbd>6</kbd><span>核准</span></button>
+    </nav>
+  </aside>
+
+  <div class="world-transition" id="worldTransition" aria-hidden="true"><i></i><b></b><strong>LOADING OPERATIONS ATLAS</strong></div>
+  <audio id="previewAudio" loop preload="none" aria-hidden="true"></audio>
+  <noscript><section class="noscript"><h1>麥塊智慧維運 BLOCKOPS</h1><p>AI 協助判讀、整理與提出建議；正式處置仍須 MIS 人工確認。本頁為純前端模擬，不執行真實 Action。</p></section></noscript>
+  <script>window.__v3Errors=[];window.addEventListener('error',function(e){window.__v3Errors.push({message:e.message,source:e.filename,line:e.lineno,column:e.colno})});window.addEventListener('unhandledrejection',function(e){window.__v3Errors.push({message:String(e.reason)})});</script>
+  <script src="main.js" defer></script>
+</body>
+</html>

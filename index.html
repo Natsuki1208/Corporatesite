@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-Hant" class="no-js" data-theme="day" data-motion="standard" data-motion-effective="standard">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="麥塊智慧維運 BLOCKOPS：原創 Voxel 科技視覺的 AI 智慧維運、唯讀資安監控與企業自動化展示網站。">
+  <meta name="theme-color" content="#29a8f2">
+  <title>麥塊智慧維運｜BLOCKOPS</title>
+  <link rel="icon" href="assets/branding/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至主要內容</a>
+
+  <div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <button class="intro__skip" id="skipIntro" type="button">略過動畫</button>
+    <div class="intro__blocks" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i class="core"></i><i></i><i></i><i></i><i></i>
+    </div>
+    <div class="intro__brand" id="introTitle"><strong>麥塊智慧維運</strong><span>BLOCKOPS</span></div>
+  </div>
+
+  <div class="world-loader" id="worldLoader" aria-live="polite" aria-hidden="true">
+    <div class="loader-door" aria-hidden="true"><i></i><i></i></div>
+    <strong id="loaderStatus">LOADING OPERATIONS WORLD</strong>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="麥塊智慧維運 BLOCKOPS 首頁">
+      <img src="assets/branding/blockops-logo-horizontal.svg" alt="麥塊智慧維運 BLOCKOPS">
+    </a>
+    <nav class="top-nav" aria-label="主要導覽">
+      <a href="#solutions">解決方案</a><a href="#flow">事件流程</a><a href="#technology">技術能力</a><a href="#about">關於</a>
+    </nav>
+    <div class="header-tools">
+      <div class="motion-control" role="group" aria-label="世界效果模式">
+        <button type="button" data-motion-mode="static">靜態</button>
+        <button type="button" data-motion-mode="standard" aria-pressed="true">標準</button>
+        <button type="button" data-motion-mode="rich">豐富</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="手動切換太陽與月亮" aria-pressed="false"><span>DAY</span><span>NIGHT</span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="heroTitle">
+      <div class="hero-sky" aria-hidden="true">
+        <i class="sun-moon"></i>
+        <div class="block-cloud cloud-one"><b></b><b></b><b></b></div>
+        <div class="block-cloud cloud-two"><b></b><b></b><b></b></div>
+        <div class="block-cloud cloud-three"><b></b><b></b></div>
+      </div>
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span class="status-dot"></span> ORIGINAL VOXEL OPERATIONS</p>
+        <h1 id="heroTitle">麥塊智慧維運 <span>BLOCKOPS</span></h1>
+        <p class="hero-tagline">一格一格建構，<br>讓企業穩定運行。</p>
+        <p class="hero-lead">從基礎架構、資安監控到 AI 智慧維運，BLOCKOPS 協助企業建立安全、穩定且持續進化的數位營運環境。</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="enterWorld" type="button">進入營運世界 <span aria-hidden="true">→</span></button>
+          <a class="btn btn-secondary" href="#solutions">查看解決方案</a>
+        </div>
+        <div class="audio-console" aria-label="本機預覽背景音樂控制">
+          <div class="audio-console__title"><strong>LOCAL PREVIEW BGM</strong><span>本機測試音訊，不納入發布</span></div>
+          <div class="audio-console__controls">
+            <button id="audioPlay" type="button" disabled aria-label="播放本機預覽背景音樂">播放</button>
+            <button id="audioPause" type="button" disabled aria-label="暫停本機預覽背景音樂">暫停</button>
+            <button id="audioMute" type="button" disabled aria-label="靜音本機預覽背景音樂" aria-pressed="false">靜音</button>
+            <label for="audioVolume">音量</label>
+            <input id="audioVolume" type="range" min="0" max="1" step="0.05" value="0.2" disabled>
+            <output id="audioVolumeValue" for="audioVolume">20%</output>
+          </div>
+          <p id="audioStatus" aria-live="polite">點擊「進入營運世界」後才會嘗試播放。</p>
+          <audio id="previewAudio" loop preload="none" aria-hidden="true"></audio>
+        </div>
+        <ul class="hero-facts" aria-label="方案現況"><li><strong>READ ONLY</strong><span>正式能力維持唯讀</span></li><li><strong>PILOT</strong><span>離線與試行驗證</span></li><li><strong>HUMAN FIRST</strong><span>MIS 掌握最終決策</span></li></ul>
+      </div>
+
+      <div class="voxel-world reveal" id="voxelWorld" role="img" aria-label="原創明亮 Voxel 科技基地，包含丘陵、能源塔、科技樹、資料中繼站與營運中心">
+        <div class="world-layer layer-far" data-depth=".25" aria-hidden="true">
+          <i class="hill h1"></i><i class="hill h2"></i><i class="hill h3"></i>
+          <div class="energy-tower"><i></i><b></b><span></span></div>
+        </div>
+        <div class="world-layer layer-mid" data-depth=".5" aria-hidden="true">
+          <div class="tech-tree"><i></i><b></b><b></b><b></b></div>
+          <div class="relay"><i></i><b></b><span></span></div>
+          <div class="data-beam beam-cyan"></div><div class="data-beam beam-purple"></div>
+        </div>
+        <div class="world-layer layer-ground" data-depth=".72" aria-hidden="true">
+          <div class="terrain"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="base-building building-left"><i></i><b></b><span></span></div>
+          <div class="base-building building-main"><i></i><b></b><span></span><em></em></div>
+          <div class="base-building building-right"><i></i><b></b><span></span></div>
+          <div class="ops-dome"><i>AI</i><b></b></div>
+          <div class="demo-devices"><i data-device="1"></i><i data-device="2"></i><i data-device="3"></i></div>
+          <div class="defense-gate"><i></i><b></b><span></span></div>
+        </div>
+        <div class="world-layer layer-front" data-depth="1" aria-hidden="true">
+          <i class="data-cube cube-green"></i><i class="data-cube cube-cyan"></i><i class="data-cube cube-blue"></i><i class="data-cube cube-gold"></i><i class="data-cube cube-coral"></i>
+          <div class="engineer-group">
+            <div class="voxel-engineer reference-character engineer-one"><img src="assets/local-preview/reference-characters/blockops-engineer-v2.png" alt="" aria-hidden="true"></div>
+            <div class="voxel-engineer reference-character engineer-two"><img src="assets/local-preview/reference-characters/blockops-engineer-v2.png" alt="" aria-hidden="true"></div>
+            <div class="voxel-engineer reference-character engineer-three rich-only"><img src="assets/local-preview/reference-characters/blockops-engineer-v2.png" alt="" aria-hidden="true"></div>
+          </div>
+          <div class="animal-group">
+            <div class="voxel-animal reference-sheep animal-one"><img src="assets/local-preview/reference-characters/blockops-sheep-v2.png" alt="" aria-hidden="true"></div><div class="voxel-animal reference-sheep animal-two"><img src="assets/local-preview/reference-characters/blockops-sheep-v2.png" alt="" aria-hidden="true"></div><div class="voxel-animal reference-sheep animal-three rich-only"><img src="assets/local-preview/reference-characters/blockops-sheep-v2.png" alt="" aria-hidden="true"></div><div class="voxel-animal reference-sheep animal-four rich-only"><img src="assets/local-preview/reference-characters/blockops-sheep-v2.png" alt="" aria-hidden="true"></div><div class="voxel-animal reference-sheep animal-five rich-only"><img src="assets/local-preview/reference-characters/blockops-sheep-v2.png" alt="" aria-hidden="true"></div>
+          </div>
+          <div class="night-units">
+            <div class="anomaly-unit reference-anomaly data-wraith"><img src="assets/local-preview/reference-characters/blockops-anomaly-v2.png" alt="" aria-hidden="true"></div>
+            <div class="anomaly-unit reference-anomaly packet-archer rich-only"><img src="assets/local-preview/reference-characters/blockops-anomaly-v2.png" alt="" aria-hidden="true"></div>
+            <i class="error-packet"></i><i class="processed-packet"></i><b class="defense-scan"></b>
+          </div>
+          <div class="world-label"><span>LOCAL IMAGE PREVIEW · DO NOT PUBLISH</span><strong>SIMULATION READY</strong></div>
+        </div>
+      </div>
+      <div class="world-dashboard reveal">
+        <section class="world-time-panel" aria-labelledby="worldTimeTitle">
+          <div class="world-panel-title"><span>WORLD TIME</span><strong id="worldPhaseLabel">DAY</strong></div>
+          <h2 id="worldTimeTitle"><time id="worldClock" datetime="00:00">00:00</time><small id="worldOperation">一般巡檢</small></h2>
+          <div class="world-mode-control" role="group" aria-label="世界時間模式"><button type="button" data-world-mode="realtime" aria-pressed="true">即時</button><button type="button" data-world-mode="demo">75 秒展示</button><button type="button" data-world-mode="manual">手動</button></div>
+          <button class="celestial-toggle" id="celestialToggle" type="button" aria-label="手動切換白天或夜間"><i></i><span>切換太陽／月亮</span></button>
+          <p id="worldModeStatus" aria-live="polite">依瀏覽器本機時間同步。</p>
+        </section>
+        <section class="world-legend" aria-labelledby="worldLegendTitle"><div class="world-panel-title"><span>這個畫面代表什麼</span></div><h2 id="worldLegendTitle">一座會說故事的維運基地</h2><ul><li><b>工程員</b> MIS 人工巡檢與確認</li><li><b>動物與環境</b> 正常且穩定的基礎設施</li><li><b>科技基地</b> 監控、AI 與通知系統</li><li><b>夜間異常單位</b> 需要判讀的事件與錯誤</li><li><b>掃描塔／閘門</b> 唯讀、匿名化與安全政策</li><li><b>狀態恢復</b> 模擬結果，不代表真實操作</li></ul></section>
+        <section class="demo-event-panel" id="demoEventPanel" data-event-state="idle" aria-labelledby="demoEventTitle">
+          <div class="world-panel-title"><span>DEMO EVENT</span><strong>simulate_only=true</strong></div><h2 id="demoEventTitle">匿名異常排除演練</h2>
+          <div class="demo-event-data"><p><span>Device</span><strong id="demoHost">尚未選擇</strong></p><p><span>Service State</span><strong id="demoService">Standby</strong></p><p><span>Risk</span><strong id="demoRisk">None</strong></p><p><span>實際 Action</span><strong>0</strong></p></div>
+          <div class="ai-advice" id="demoAdvice"><strong>AI 建議</strong><ol><li>檢查服務狀態</li><li>檢查近期事件</li><li>等待 MIS 人工確認</li></ol></div>
+          <p class="demo-event-status" id="demoEventStatus" aria-live="polite">待機中｜不操作真實設備</p>
+          <div class="demo-event-actions"><button class="btn btn-primary" id="demoEventStart" type="button">啟動模擬事件</button><button class="btn" id="demoEventCheck" type="button" disabled>執行模擬檢查</button><button class="btn" id="demoEventReplay" type="button" disabled>再次模擬</button></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section console-section" id="monitoring" aria-labelledby="consoleTitle">
+      <div class="section-heading reveal"><p class="eyebrow">01 / OPERATIONS CONSOLE</p><h2 id="consoleTitle">智慧維運控制台</h2><p>把設備、服務與告警整理成 MIS 容易判讀的摘要；畫面全部是虛構展示資料，不代表即時監控。</p></div>
+      <div class="console-grid reveal">
+        <article class="status-panel"><div class="panel-head"><span>BLOCKOPS STATUS</span><span class="sim-badge">DEMO DATA</span></div><ul class="status-list"><li><span>Infrastructure</span><strong class="online">ONLINE</strong></li><li><span>Security</span><strong class="protected">PROTECTED</strong></li><li><span>Automation</span><strong>READY</strong></li><li><span>AI Assistant</span><strong class="monitoring">MONITORING</strong></li><li><span>Actual Action</span><strong>0</strong></li></ul></article>
+        <article class="console-map"><div class="panel-head"><span>SIMULATED NODE MAP</span><span>READ ONLY</span></div><div class="node-map" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b><b></b><b></b><span></span></div><p>僅整理狀態與建議，不控制設備。</p></article>
+        <article class="console-note"><span>現階段限制</span><strong>0 個真實動作</strong><p>不執行 Restart、SSH、Shell、Firewall 或帳號異動。未來若擴充，也必須經人工核准與完整稽核。</p></article>
+      </div>
+    </section>
+
+    <section class="section solutions-section" id="solutions" aria-labelledby="solutionsTitle">
+      <div class="section-heading reveal"><p class="eyebrow">02 / SOLUTION WORLDS</p><h2 id="solutionsTitle">六個維運問題，六座可理解的小場景</h2><p>每項方案都能獨立播放。動畫只解釋工作方式，不連接 API、不執行真實操作。</p></div>
+      <div class="solution-grid">
+        <article class="solution-card reveal" data-solution="monitoring">
+          <div class="solution-scene monitor-scene" aria-hidden="true"><div class="mini-host"><i></i><i></i><i></i></div><span class="scan-beam"></span><b class="mini-alert">發現異常</b></div>
+          <div class="solution-body"><p class="solution-index">01 / OBSERVE</p><h3>系統與設備監控</h3><p>集中檢視設備與服務狀態，把大量訊號整理成容易理解的摘要，協助 MIS 優先處理真正需要注意的設備。</p><ul><li>設備與服務狀態總覽</li><li>異常訊號分級摘要</li><li>維運優先順序提示</li></ul><button class="btn solution-run" type="button">查看運作</button><p class="solution-status" aria-live="polite">待機中｜使用虛構主機資料</p></div>
+        </article>
+        <article class="solution-card reveal" data-solution="ai">
+          <div class="solution-scene ai-scene" aria-hidden="true"><div class="event-cubes"><i></i><i></i><i></i></div><b class="ai-core">AI</b><div class="class-results"><i></i><i></i><i></i></div></div>
+          <div class="solution-body"><p class="solution-index">02 / INTERPRET</p><h3>AI 事件判讀</h3><p>AI 協助整理告警、推測可能原因與影響範圍，再提供下一步檢查建議；高風險判斷仍由 MIS 確認。</p><ul><li>告警內容整理</li><li>可能原因與範圍研判</li><li>後續檢查建議</li></ul><button class="btn solution-run" type="button">查看運作</button><p class="solution-status" aria-live="polite">AI 提供判讀，最終由 MIS 確認</p></div>
+        </article>
+        <article class="solution-card reveal" data-solution="anonymization">
+          <div class="solution-scene anonymize-scene" aria-hidden="true"><div class="raw-card">HOST-RAW<br>USER-DEMO<br>NET-SOURCE</div><b class="anon-gate">MASK</b><div class="safe-card">HOST-01<br>USER-A<br>NET-X</div></div>
+          <div class="solution-body"><p class="solution-index">03 / MINIMIZE</p><h3>資料匿名化</h3><p>事件進入 AI 前先遮蔽帳號、位址與敏感欄位，同時保留判讀所需的設備識別能力，減少資訊直接出現在通知。</p><ul><li>敏感欄位先行遮蔽</li><li>保留必要識別脈絡</li><li>匿名代碼一致對照</li></ul><button class="btn solution-run" type="button">查看運作</button><p class="solution-status" aria-live="polite">原始資料未送入公開服務</p></div>
+        </article>
+        <article class="solution-card reveal" data-solution="oncall">
+          <div class="solution-scene oncall-scene" aria-hidden="true"><i class="mini-sun"></i><i class="mini-moon"></i><div class="ops-center"><b></b></div><span class="notify-chat">C</span><span class="notify-telegram">T</span><strong class="mis-check">MIS ✓</strong></div>
+          <div class="solution-body"><p class="solution-index">04 / ON-CALL</p><h3>夜間與假日協作</h3><p>在值班時段整理重要事件、降低大量通知干擾，讓人員先掌握哪一類設備需要注意，再決定後續安排。</p><ul><li>重要事件時段分流</li><li>抽象化通訊通知</li><li>MIS 人工確認節點</li></ul><button class="btn solution-run" type="button">查看運作</button><p class="solution-status" aria-live="polite">通知圖示僅為抽象展示</p></div>
+        </article>
+        <article class="solution-card reveal" data-solution="readonly">
+          <div class="solution-scene readonly-scene" aria-hidden="true"><i class="query-cube">Q</i><b class="readonly-gate">READ<br>ONLY</b><div class="query-results"><i></i><i></i><i></i><i></i><i></i></div><strong class="blocked-write">WRITE ×</strong></div>
+          <div class="solution-body"><p class="solution-index">05 / GUARD</p><h3>唯讀安全查詢</h3><p>Gateway 只允許核准範圍與固定筆數的查詢，不讓 AI 直接修改 Wazuh、帳號、防火牆或其他正式系統。</p><ul><li>核准查詢範圍</li><li>單次最多五筆模擬結果</li><li>寫入與修改全面阻擋</li></ul><button class="btn solution-run" type="button">查看運作</button><p class="solution-status" aria-live="polite">目前正式能力維持唯讀</p></div>
+        </article>
+        <article class="solution-card reveal" data-solution="approval">
+          <div class="solution-scene approval-scene" aria-hidden="true"><i class="ai-suggestion">AI<br>建議</i><b class="approval-lock">LOCK</b><span class="controlled-action">受控流程</span></div>
+          <div class="solution-body"><p class="solution-index">06 / APPROVE</p><h3>人工核准與受控處置</h3><p>AI 先提出建議並停在鎖定閘門。未來即使加入處置能力，也必須記錄目標、原因、核准與結果。</p><ul><li>建議與動作分離</li><li>MIS 明確核准</li><li>完整處置稽核紀錄</li></ul><div class="solution-actions"><button class="btn solution-run" type="button">查看運作</button><button class="btn solution-approve" type="button" disabled>模擬核准</button></div><p class="solution-status" aria-live="polite">不執行 Restart、SSH、Shell 或 Firewall Action</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section flow-section" id="flow" aria-labelledby="flowTitle">
+      <div class="section-heading reveal"><p class="eyebrow">03 / EVENT JOURNEY</p><h2 id="flowTitle">羊吃草也能看懂的安全流程</h2><p>原創方塊羊沿資料軌道慢慢前進、停站吃草；每一站代表事件處理步驟，在人工確認前不會進入通知或未來處置階段。</p></div>
+      <div class="flow-demo reveal">
+        <div class="demo-strip"><strong>DEMO</strong><code>simulate_only=true</code><span>未執行真實 Action</span></div>
+        <div class="flow-board" id="flowBoard" data-step="-1">
+          <button class="flow-station" type="button" data-step="0"><span>01</span><strong>監控事件</strong><small>接收模擬訊號</small></button>
+          <button class="flow-station" type="button" data-step="1"><span>02</span><strong>唯讀查詢</strong><small>限制範圍與筆數</small></button>
+          <button class="flow-station" type="button" data-step="2"><span>03</span><strong>匿名化</strong><small>遮蔽敏感欄位</small></button>
+          <button class="flow-station" type="button" data-step="3"><span>04</span><strong>AI 分析</strong><small>整理並提出建議</small></button>
+          <button class="flow-station human-station" type="button" data-step="4"><span>05</span><strong>MIS 人工確認</strong><small>流程在此暫停</small></button>
+          <button class="flow-station" type="button" data-step="5"><span>06</span><strong>通訊通知</strong><small>抽象 Chat／Telegram</small></button>
+          <button class="flow-station future-station" type="button" data-step="6"><span>07</span><strong>未來受控處置</strong><small>尚未啟用</small></button>
+          <i class="flow-packet" aria-hidden="true"></i>
+          <div class="flow-sheep reference-flow-sheep" aria-hidden="true"><img src="assets/local-preview/reference-characters/blockops-sheep-v2.png" alt=""></div>
+        </div>
+        <p class="flow-status" id="flowStatus" aria-live="polite">準備完成：按下「播放流程」查看模擬資料旅程。</p>
+        <div class="flow-controls"><button class="btn btn-primary" id="flowPlay" type="button">播放流程</button><button class="btn" id="flowApprove" type="button" disabled>模擬 MIS 核准</button><button class="btn" id="flowStop" type="button" disabled>停止動畫</button><button class="btn" id="flowReplay" type="button">重新播放</button></div>
+      </div>
+    </section>
+
+    <section class="section technology-section" id="technology" aria-labelledby="technologyTitle">
+      <div class="section-heading reveal"><p class="eyebrow">04 / TECHNOLOGY LAB</p><h2 id="technologyTitle">方塊科技研究區</h2><p>點選模組查看用途、成熟階段與安全限制。每一塊都只說明它能負責的邊界。</p></div>
+      <div class="tech-lab-world reveal" id="techLabWorld" aria-label="原創方塊科技研究中心"><div class="lab-core"><i>CORE</i><b></b><span></span></div><div class="lab-researcher"><i></i><b></b><span></span><em></em></div><div class="lab-wires"><i></i><i></i><i></i><i></i><i></i></div><p>選擇模組後，研究工程員與資料線會移向對應能力。</p></div>
+      <div class="tech-grid" role="list">
+        <button class="tech-module reveal" role="listitem" type="button" data-tech="local-ai" aria-expanded="false"><i>AI</i><strong>Local AI／Qwen</strong><span>本機輔助判讀</span></button>
+        <button class="tech-module reveal" role="listitem" type="button" data-tech="ollama" aria-expanded="false"><i>OR</i><strong>Ollama Runtime</strong><span>模型執行環境</span></button>
+        <button class="tech-module reveal" role="listitem" type="button" data-tech="wazuh" aria-expanded="false"><i>WQ</i><strong>Wazuh Read-only Query</strong><span>唯讀事件查詢</span></button>
+        <button class="tech-module reveal" role="listitem" type="button" data-tech="gateway" aria-expanded="false"><i>AG</i><strong>Anonymization Gateway</strong><span>欄位遮蔽閘門</span></button>
+        <button class="tech-module reveal" role="listitem" type="button" data-tech="chat" aria-expanded="false"><i>GC</i><strong>Google Chat Notification</strong><span>摘要通知規劃</span></button>
+        <button class="tech-module reveal" role="listitem" type="button" data-tech="telegram" aria-expanded="false"><i>TG</i><strong>Telegram Notification</strong><span>值班通知規劃</span></button>
+        <button class="tech-module reveal" role="listitem" type="button" data-tech="hash" aria-expanded="false"><i>#</i><strong>Hash Integrity</strong><span>檔案完整性驗證</span></button>
+        <button class="tech-module reveal" role="listitem" type="button" data-tech="tls" aria-expanded="false"><i>TLS</i><strong>TLS／憑證</strong><span>傳輸身份保護</span></button>
+        <button class="tech-module reveal" role="listitem" type="button" data-tech="audit" aria-expanded="false"><i>LOG</i><strong>Audit Log</strong><span>查詢與核准留痕</span></button>
+        <button class="tech-module reveal" role="listitem" type="button" data-tech="approval" aria-expanded="false"><i>✓</i><strong>Human Approval</strong><span>最終決策閘門</span></button>
+      </div>
+    </section>
+
+    <section class="section night-section" id="ai" aria-labelledby="nightTitle">
+      <div class="night-copy reveal"><p class="eyebrow">05 / ON-CALL MODE</p><h2 id="nightTitle">AI 夜間協作，不取代值班人員</h2><p>夜間模式協助整理重要事件、建立摘要並提示影響範圍。現在處於唯讀與 Pilot 階段；正式處置仍由 MIS 判斷。</p><dl><div><dt>解決問題</dt><dd>降低大量通知造成的干擾</dd></div><div><dt>運作方式</dt><dd>分級、匿名化、摘要後再通知</dd></div><div><dt>未來方向</dt><dd>經核准後加入受控處置流程</dd></div></dl></div>
+      <div class="night-visual reveal" aria-label="原創夜間防護區，異常封包經掃描與匿名化後等待 MIS 確認"><div class="night-horizon"><i class="night-moon"></i><div class="night-base"><i></i><i></i><i></i></div><div class="scan-tower"><b></b><span></span></div><div class="night-gateway">MASK</div><div class="night-notify">NOTICE</div><div class="night-threat threat-one"><i></i><b></b></div><div class="night-threat threat-two rich-only"><i></i><b></b></div><span class="night-error-packet"></span><span class="night-safe-packet"></span><strong class="night-mis">MIS ✓</strong></div><strong>ON-CALL MONITORING</strong><small>READ ONLY · HUMAN CONFIRMATION · NO COMBAT</small></div>
+    </section>
+
+    <section class="section about-section" id="about" aria-labelledby="aboutTitle">
+      <div class="about-mark ops-station reveal" id="opsStation"><img src="assets/branding/blockops-mark.svg" alt="BLOCKOPS 原創方塊核心標誌"><div class="station-map"><i></i><b></b><span></span></div><div class="station-engineer engineer-map"><i></i><b></b></div><div class="station-engineer engineer-test"><i></i><b></b></div><div class="station-bench"><i></i><b></b></div><div class="station-whiteboard" id="stationWhiteboard">先檢查</div><div class="milestone-buttons" role="group" aria-label="BLOCKOPS 安全交付里程碑"><button type="button" data-milestone="先檢查" aria-pressed="true">1</button><button type="button" data-milestone="離線驗證">2</button><button type="button" data-milestone="人工確認">3</button><button type="button" data-milestone="安全交付">4</button></div></div>
+      <div class="about-copy reveal"><p class="eyebrow">06 / ABOUT BLOCKOPS</p><h2 id="aboutTitle">讓 MIS 看懂訊號、掌握優先順序，也保有決策權。</h2><p>麥塊智慧維運 BLOCKOPS 聚焦 AI 智慧維運、IT 基礎架構、資安監控、企業自動化與夜間值班協助。我們把複雜事件拆成有邊界、可追蹤的步驟，協助人員更快理解問題。</p><p>目前方案以離線驗證、Pilot 與唯讀查詢為主，不宣稱控制正式設備，也不取代 MIS。未來可在明確核准、權限隔離與稽核紀錄完成後，逐步加入受控操作。</p><blockquote>Build Smart. Operate Strong.</blockquote></div>
+    </section>
+
+    <section class="section contact-section" id="contact" aria-labelledby="contactTitle">
+      <div class="contact-copy reveal"><p class="eyebrow">07 / START A CONVERSATION</p><h2 id="contactTitle">一起建構下一格。</h2><p>這是純展示聯絡表單，不會儲存輸入內容、不會送出網路請求，也尚未連接正式後端。</p></div>
+      <form class="contact-form reveal" id="contactForm" novalidate><label>姓名<input name="name" type="text" autocomplete="name" required></label><label>Email<input name="email" type="email" autocomplete="email" required></label><label>公司<input name="company" type="text" autocomplete="organization"></label><label>需求類型<select name="need"><option>AI 智慧維運</option><option>基礎架構整合</option><option>資安監控</option><option>自動化流程</option><option>夜間／假日協助</option><option>營運狀態分析</option></select></label><label class="full">訊息<textarea name="message" rows="4" required></textarea></label><button class="btn btn-primary" type="submit">執行展示封裝</button><p class="form-status" id="formStatus" aria-live="polite"></p></form>
+      <div class="message-station reveal" id="messageStation" data-message-state="idle" aria-label="原創訊息傳送站"><div class="mail-block">MSG</div><div class="pack-machine"><i></i><b>PACK</b></div><div class="message-track"><i></i><i></i><i></i></div><div class="message-base">BASE</div><p>展示站待機中｜不傳送真實資料</p></div>
+    </section>
+  </main>
+
+  <div class="tech-backdrop" id="techBackdrop" hidden>
+    <section class="tech-panel" id="techPanel" role="dialog" aria-modal="true" aria-labelledby="techPanelTitle" tabindex="-1">
+      <button class="tech-panel-close" id="techPanelClose" type="button" aria-label="關閉技術說明">×</button>
+      <div class="tech-panel-mark" id="techPanelMark" aria-hidden="true">AI</div><p class="tech-stage" id="techPanelStage"></p><h2 id="techPanelTitle"></h2><p class="tech-summary" id="techPanelSummary"></p>
+      <div class="tech-details"><article><h3>這是什麼</h3><p id="techPanelWhat"></p></article><article><h3>負責什麼</h3><p id="techPanelRole"></p></article><article><h3>解決什麼問題</h3><p id="techPanelProblem"></p></article><article><h3>安全限制</h3><p id="techPanelSafety"></p></article></div>
+    </section>
+  </div>
+
+  <nav class="quickbar" aria-label="快捷欄導覽，可使用鍵盤數字 1 至 6 切換"><a class="active" href="#home" aria-label="快捷鍵 1：首頁"><span>1</span>首頁</a><a href="#monitoring" aria-label="快捷鍵 2：監控"><span>2</span>監控</a><a href="#solutions" aria-label="快捷鍵 3：資安"><span>3</span>資安</a><a href="#flow" aria-label="快捷鍵 4：自動化"><span>4</span>自動化</a><a href="#ai" aria-label="快捷鍵 5：AI 助理"><span>5</span>AI 助理</a><a href="#contact" aria-label="快捷鍵 6：聯絡"><span>6</span>聯絡</a></nav>
+
+  <footer class="site-footer"><div class="footer-world" aria-hidden="true"><i class="footer-cloud"></i><i class="footer-stars"></i><i class="footer-base-lights"></i></div><img src="assets/branding/blockops-monochrome.svg" alt="麥塊智慧維運 BLOCKOPS"><div><p>一格一格建構，讓企業穩定運行。</p><p lang="en">Original voxel-inspired concept.<br>Not affiliated with or endorsed by Minecraft or Mojang.</p></div><small>© 2026 BLOCKOPS · DEMO SITE · NOT PUBLISHED</small></footer>
+  <noscript><div class="noscript">JavaScript 已關閉；網站主要文字與聯絡資訊仍可閱讀。互動動畫與展示訊息將無法執行。</div></noscript>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
