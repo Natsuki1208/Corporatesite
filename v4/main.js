@@ -12,21 +12,20 @@
   ];
   const storyButtons = [...document.querySelectorAll('[data-story]')];
   let storyIndex = 0;
-  const storyDuration = 8000;
+  const storyDuration = 3000;
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   let storyCycleFrame = 0;
   let storyCycleStartedAt = 0;
   let storyCycleElapsed = 0;
   let heroIsVisible = true;
   let storyAutoPaused = false;
-  let storyInteractionPaused = false;
   const storyCycleToggle = document.querySelector('#storyCycleToggle');
 
   function setStoryProgress(value) {
     storyButtons[storyIndex]?.style.setProperty('--story-progress', String(value));
   }
   function storyCycleCanRun() {
-    return !reducedMotionQuery.matches && !document.hidden && heroIsVisible && !storyAutoPaused && !storyInteractionPaused;
+    return !reducedMotionQuery.matches && !document.hidden && heroIsVisible && !storyAutoPaused;
   }
   function stopStoryCycle() {
     if (storyCycleFrame) cancelAnimationFrame(storyCycleFrame);
@@ -102,16 +101,10 @@
     storyAutoPaused = !storyAutoPaused;
     updateStoryCycleControl();
     if (storyAutoPaused) stopStoryCycle();
-    else { storyInteractionPaused = false; storyCycleStartedAt = 0; ensureStoryCycle(); }
+    else { storyCycleStartedAt = 0; ensureStoryCycle(); }
   });
   updateStoryCycleControl();
   selectStory(0, false);
-  hero.addEventListener('mouseenter', () => { storyInteractionPaused = true; stopStoryCycle(); });
-  hero.addEventListener('mouseleave', () => { storyInteractionPaused = false; storyCycleStartedAt = 0; ensureStoryCycle(); });
-  hero.addEventListener('focusin', () => { storyInteractionPaused = true; stopStoryCycle(); });
-  hero.addEventListener('focusout', () => queueMicrotask(() => {
-    if (!hero.contains(document.activeElement)) { storyInteractionPaused = false; storyCycleStartedAt = 0; ensureStoryCycle(); }
-  }));
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stopStoryCycle();
     else { storyCycleStartedAt = 0; ensureStoryCycle(); }

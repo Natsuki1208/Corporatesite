@@ -141,7 +141,7 @@ body[data-content-theme="light"] .logo-cloud small{color:#526d7a;font-size:.65re
 body[data-content-theme="light"] .insights-section .eyebrow{font-size:.76rem}
 body[data-content-theme="light"] .insight-grid article>span{font-size:.75rem}
 
-/* Original timed hero story rail. Progress pauses during user interaction and off-screen states. */
+/* Original timed hero story rail. Progress pauses by explicit control and off-screen states. */
 .story-rail{
   left:clamp(22px,4vw,68px);
   right:clamp(22px,4vw,68px);
