@@ -48,7 +48,10 @@
     journey.step = index;
     const stage = stages[index];
     positionJourneyCube();
-    journeyNodes.forEach((node, i) => { node.classList.toggle('is-current', i === index); node.classList.toggle('is-done', i < index); });
+    journeyNodes.forEach((node, i) => {
+      node.classList.toggle('is-current', i === index); node.classList.toggle('is-done', i < index);
+      node.setAttribute('aria-current', i === index ? 'step' : 'false'); node.tabIndex = i === index ? 0 : -1;
+    });
     badge.textContent = stage.badge; journeyTitle.textContent = stage.title; explain.textContent = stage.text;
     fields.innerHTML = stage.fields.map(([key,value]) => `<div><dt>${key}</dt><dd>${value}</dd></div>`).join('');
     details.innerHTML = stage.items.map(item => `<li>${item}</li>`).join('');
@@ -59,9 +62,9 @@
     approve.disabled = index !== 5; approveTop.disabled = index !== 5;
     if (index === 5) journey.status = 'awaitingApproval';
     if (index === 6) journey.status = 'completed';
-    pause.disabled = journey.status !== 'running' && journey.status !== 'paused';
+    pause.disabled = reduceMotion || (journey.status !== 'running' && journey.status !== 'paused');
     pause.setAttribute('aria-pressed', String(journey.status === 'paused'));
-    pause.textContent = journey.status === 'paused' ? '繼續自動播放' : '暫停自動播放';
+    pause.textContent = reduceMotion ? '減少動態：手動切換' : journey.status === 'paused' ? '繼續自動播放' : '暫停自動播放';
     const action = index === 5 ? '流程已暫停，確認並繼續展示按鈕現在可用。' : index === 6 ? '展示完成，Actual Action 仍為 0。' : '';
     journeyStatus.textContent = `第 ${index + 1}／7 步：${stage.title}。${action}`;
   }
@@ -86,9 +89,36 @@
     if (message) journeyStatus.textContent = `第 ${journey.step + 1}／7 步：自動播放已暫停。`;
   }
   function resumeJourney() {
-    if (journey.status !== 'paused') return;
+    if (journey.status !== 'paused' || reduceMotion) return;
     journey.userPaused = false; journey.status = 'running'; renderJourney(journey.step); scheduleJourney();
   }
+  function selectJourneyStep(index) {
+    clearJourneyTimer(); journey.userPaused = true;
+    if (index >= 6 && journey.status !== 'completed') {
+      journey.status = 'awaitingApproval'; renderJourney(5);
+      journeyStatus.textContent = '第 6／7 步：必須先完成 MIS 人工確認，才能進入展示完成。';
+      return 5;
+    }
+    if (index === 5) { journey.status = 'awaitingApproval'; renderJourney(5); return 5; }
+    journey.status = reduceMotion ? 'idle' : 'paused'; renderJourney(index);
+    journeyStatus.textContent = `第 ${index + 1}／7 步：已手動選擇「${stages[index].title}」。`;
+    return index;
+  }
+  journeyNodes.forEach((node, index) => {
+    node.addEventListener('click', () => {
+      const resolved = selectJourneyStep(index);
+      if (resolved !== index) journeyNodes[resolved].focus();
+    });
+    node.addEventListener('keydown', (event) => {
+      let next = index;
+      if (event.key === 'ArrowRight') next = (index + 1) % journeyNodes.length;
+      else if (event.key === 'ArrowLeft') next = (index - 1 + journeyNodes.length) % journeyNodes.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = journeyNodes.length - 1;
+      else return;
+      event.preventDefault(); const resolved = selectJourneyStep(next); journeyNodes[resolved].focus();
+    });
+  });
   pause.addEventListener('click', () => journey.status === 'paused' ? resumeJourney() : pauseJourney());
   approve.addEventListener('click', () => { if (journey.status === 'awaitingApproval') { renderJourney(6); } });
   approveTop.addEventListener('click', () => { if (journey.status === 'awaitingApproval') { renderJourney(6); } });
@@ -109,21 +139,36 @@
     const first=futureNodes[0];
     const last=futureNodes[futureNodes.length-1];
     const rootRect=futureRoot.getBoundingClientRect();
-    const centerOf=item=>{const rect=item.getBoundingClientRect();return rect.left-rootRect.left+rect.width/2};
+    const centerOf=item=>{const rect=item.getBoundingClientRect();return rect.left-rootRect.left+futureRoot.scrollLeft+rect.width/2};
+    const nodeRect=node.getBoundingClientRect();
     futurePacket.style.setProperty('--future-x',`${centerOf(node)}px`);
+    futurePacket.style.setProperty('--future-y',`${nodeRect.top-rootRect.top-28}px`);
     futureRoot.style.setProperty('--future-line-start',`${centerOf(first)}px`);
     futureRoot.style.setProperty('--future-line-end',`${centerOf(last)}px`);
   }
   function renderFuture(index){
     future.step=index; positionFuturePacket();
-    futureNodes.forEach((node,i)=>{node.classList.toggle('is-current',i===index);node.classList.toggle('is-done',i<index)});
+    futureNodes.forEach((node,i)=>{node.classList.toggle('is-current',i===index);node.classList.toggle('is-done',i<index);node.setAttribute('aria-current',i===index?'step':'false');node.tabIndex=i===index?0:-1});
     futureStatus.textContent=`步驟 ${index+1}／6：${futureLabels[index]} · CONCEPT / FUTURE ARCHITECTURE`;
-    futurePause.disabled=future.status!=='running'&&future.status!=='paused'; futurePause.setAttribute('aria-pressed',String(future.status==='paused')); futurePause.textContent=future.status==='paused'?'繼續自動播放':'暫停自動播放';
+    futurePause.disabled=reduceMotion||(future.status!=='running'&&future.status!=='paused'); futurePause.setAttribute('aria-pressed',String(future.status==='paused')); futurePause.textContent=reduceMotion?'減少動態：手動切換':future.status==='paused'?'繼續自動播放':'暫停自動播放';
   }
   function scheduleFuture(){ clearFutureTimer(); if(future.status!=='running'||!future.visible||document.hidden||reduceMotion)return; future.timer=later(()=>{if(future.step>=4){future.status='completed';renderFuture(5);return}renderFuture(future.step+1);scheduleFuture()},3000); }
   function startFuture(){clearFutureTimer();future.userPaused=false;future.status=reduceMotion?'completed':'running';renderFuture(reduceMotion?5:0);scheduleFuture()}
   function pauseFuture(byUser=true){if(future.status==='running'){clearFutureTimer();future.status='paused';future.userPaused=byUser;renderFuture(future.step);futureStatus.textContent=`步驟 ${future.step+1}／6：自動播放已暫停 · ${futureLabels[future.step]}`}}
-  function resumeFuture(){if(future.status==='paused'){future.userPaused=false;future.status='running';renderFuture(future.step);scheduleFuture()}}
+  function resumeFuture(){if(future.status==='paused'&&!reduceMotion){future.userPaused=false;future.status='running';renderFuture(future.step);scheduleFuture()}}
+  function selectFutureStep(index){clearFutureTimer();future.userPaused=true;future.status=index===futureNodes.length-1?'completed':reduceMotion?'idle':'paused';renderFuture(index);futureStatus.textContent=`步驟 ${index+1}／6：已手動選擇「${futureLabels[index]}」 · CONCEPT / FUTURE ARCHITECTURE`;return index}
+  futureNodes.forEach((node,index)=>{
+    node.addEventListener('click',()=>selectFutureStep(index));
+    node.addEventListener('keydown',(event)=>{
+      let next=index;
+      if(event.key==='ArrowRight')next=(index+1)%futureNodes.length;
+      else if(event.key==='ArrowLeft')next=(index-1+futureNodes.length)%futureNodes.length;
+      else if(event.key==='Home')next=0;
+      else if(event.key==='End')next=futureNodes.length-1;
+      else return;
+      event.preventDefault();selectFutureStep(next);futureNodes[next].focus();
+    });
+  });
   futurePause.addEventListener('click',()=>future.status==='paused'?resumeFuture():pauseFuture());
   window.addEventListener('resize',positionFuturePacket,{passive:true});
   renderFuture(0);
@@ -150,15 +195,23 @@
   const observer = new IntersectionObserver((entries) => entries.forEach(entry => {
     if (entry.target === journeyRoot) {
       journey.visible = entry.isIntersecting;
+      if (entry.isIntersecting && future.status === 'running') pauseFuture(false);
       if (entry.isIntersecting && journey.status === 'idle') startJourney();
       else if (entry.isIntersecting && journey.status === 'paused' && !journey.userPaused) resumeJourney();
-      else if (!entry.isIntersecting && journey.status === 'running') pauseJourney(false, false);
+      else if (!entry.isIntersecting) {
+        if (journey.status === 'running') pauseJourney(false, false);
+        if (future.visible && future.status === 'paused' && !future.userPaused) resumeFuture();
+      }
     }
     else if (entry.target === futureRoot) {
       future.visible = entry.isIntersecting;
+      if (entry.isIntersecting && journey.status === 'running') pauseJourney(false, false);
       if (entry.isIntersecting && future.status === 'idle') startFuture();
       else if (entry.isIntersecting && future.status === 'paused' && !future.userPaused) resumeFuture();
-      else if (!entry.isIntersecting && future.status === 'running') pauseFuture(false);
+      else if (!entry.isIntersecting) {
+        if (future.status === 'running') pauseFuture(false);
+        if (journey.visible && journey.status === 'paused' && !journey.userPaused) resumeJourney();
+      }
     }
     else if (entry.target === hero) hero.querySelector('#heroProductMotion').classList.toggle('is-active', entry.isIntersecting);
   }),{threshold:.12});
@@ -173,7 +226,7 @@
   });
   motionQuery.addEventListener('change',(event)=>{
     reduceMotion=event.matches;
-    if(reduceMotion){pauseJourney(false,false);pauseFuture(false);document.body.classList.add('reduce-motion-active')}
+    if(reduceMotion){pauseJourney(false,false);pauseFuture(false);document.body.classList.add('reduce-motion-active');renderJourney(journey.step);renderFuture(future.step)}
     else {
       document.body.classList.remove('reduce-motion-active');
       if(journey.visible&&journey.status==='paused'&&!journey.userPaused)resumeJourney();

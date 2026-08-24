@@ -61,12 +61,12 @@ body[data-content-theme="light"] .cinema-chapter.multimodel .chapter-copy>p:not(
   max-width:65ch;
   color:#c4dce5;
 }
-body[data-content-theme="light"] .cinema-chapter.multimodel .future-flow>span{
+body[data-content-theme="light"] .cinema-chapter.multimodel .future-flow>button{
   border-color:#83b8c34d;
   background:#04131fd9;
   color:#aac4ce;
 }
-body[data-content-theme="light"] .cinema-chapter.multimodel .future-flow>span b{color:#f2fbff}
+body[data-content-theme="light"] .cinema-chapter.multimodel .future-flow>button b{color:#f2fbff}
 body[data-content-theme="light"] .cinema-chapter.multimodel .future-status{color:#f2c85a}
 
 body[data-content-theme="light"] .industry-story::after{
@@ -140,6 +140,20 @@ body[data-content-theme="light"] .insight-practice li b{color:#7a5200}
 body[data-content-theme="light"] .logo-cloud small{color:#526d7a;font-size:.65rem}
 body[data-content-theme="light"] .insights-section .eyebrow{font-size:.76rem}
 body[data-content-theme="light"] .insight-grid article>span{font-size:.75rem}
+
+/* Original Operations Handoff footer. */
+.site-footer{display:block;padding:0;background:#020a10;color:#c7d7de;font-size:.9rem}
+.site-footer .footer-main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,.72fr);gap:clamp(48px,8vw,120px);padding:clamp(72px,8vw,120px) clamp(24px,6vw,100px) 54px;background:radial-gradient(circle at 78% 14%,#17435299,transparent 26%),linear-gradient(145deg,#02090f,#061923 70%,#08212c)}
+.footer-handoff{max-width:850px}.footer-handoff .eyebrow{color:#42d8d1}.footer-handoff h2{margin:18px 0 26px;color:#f2f9fb;font-size:clamp(3.2rem,5.8vw,7rem);line-height:.9;letter-spacing:-.065em}.footer-handoff h2 span{display:block;white-space:nowrap}.footer-handoff>p:not(.eyebrow){max-width:63ch;margin:0;color:#aac0c9;font-size:1.05rem;line-height:1.75}
+.footer-handoff>div{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}.footer-secondary{display:inline-flex;align-items:center;justify-content:center;gap:24px;min-height:52px;padding:0 22px;border:1px solid #66818d;color:#eff9fb;text-decoration:none;font-weight:850}.footer-secondary:hover,.footer-secondary:focus-visible{border-color:#42d8d1;color:#42d8d1}
+.footer-safety{align-self:center;margin:0;border-top:1px solid #3b5a66}.footer-safety>div{display:grid;grid-template-columns:1fr auto;gap:20px;padding:19px 0;border-bottom:1px solid #294550}.footer-safety dt{color:#8da7b2;font:800 .67rem var(--font-mono);letter-spacing:.09em}.footer-safety dd{margin:0;color:#f7c948;font:900 .78rem var(--font-mono);letter-spacing:.06em}.footer-safety>div:last-child dd{color:#42d8d1;font-size:1.05rem}
+.footer-directory{grid-column:1/-1;margin-top:18px;padding-top:36px;border-top:1px solid #ffffff1d}.footer-directory>h2{margin:0 0 18px;color:#78949f;font:900 .66rem var(--font-mono);letter-spacing:.14em}.footer-directory ol{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin:0;padding:0;list-style:none}.footer-directory ol::before{content:"";position:absolute;top:25px;left:4%;right:4%;height:1px;background:linear-gradient(90deg,transparent,#42d8d16b 8%,#42d8d16b 92%,transparent)}
+.footer-directory li{position:relative}.footer-directory a{display:flex;align-items:center;gap:13px;min-height:78px;padding:8px;color:#d6e5ea;text-decoration:none}.footer-directory b{position:relative;z-index:1;display:grid;place-items:center;flex:0 0 34px;height:34px;border:1px solid #4a707d;background:#061923;color:#42d8d1;font:900 .62rem var(--font-mono);transition:background .2s,color .2s,box-shadow .2s}.footer-directory span{font-weight:850;line-height:1.2}.footer-directory small{display:block;margin-top:5px;color:#708b96;font:700 .55rem var(--font-mono);letter-spacing:.07em}.footer-directory a:hover b,.footer-directory a:focus-visible b{background:#42d8d1;color:#06131b;box-shadow:0 0 24px #42d8d174}.footer-directory a:hover span,.footer-directory a:focus-visible span{color:#fff}
+.site-footer .footer-legal{display:grid;grid-template-columns:180px minmax(260px,1fr) auto;align-items:center;gap:16px 38px;padding:30px clamp(24px,6vw,100px) 34px;border-top:1px solid #23404b;background:#02080d;color:#78919b}.site-footer .footer-legal>img{width:168px;filter:brightness(1.1)}.footer-legal p{margin:0;max-width:88ch;font-size:.72rem;line-height:1.55}.footer-legal>div{display:flex!important;grid-template-columns:none!important;flex-wrap:wrap;justify-content:flex-end;gap:10px 18px!important}.footer-legal a{color:#a8c1ca;text-decoration:none}.footer-legal a:hover,.footer-legal a:focus-visible{color:#42d8d1;text-decoration:underline}.footer-legal>small{grid-column:2/-1;padding:12px 0 0;border-top:1px solid #ffffff13;color:#627c86}
+.site-footer a:focus-visible{outline:3px solid #f7c948;outline-offset:3px}
+@media(max-width:960px){.site-footer .footer-main{grid-template-columns:1fr}.footer-directory{grid-column:auto}.footer-directory ol{grid-template-columns:repeat(3,1fr)}.footer-directory ol::before{display:none}.site-footer .footer-legal{grid-template-columns:160px 1fr}.footer-legal>div{grid-column:2;justify-content:flex-start}.footer-legal>small{grid-column:2}}
+@media(max-width:620px){.site-footer .footer-main{gap:32px;padding:52px 20px 34px}.footer-handoff h2{margin:14px 0 18px;font-size:clamp(2.15rem,9vw,2.6rem)}.footer-handoff>p:not(.eyebrow){font-size:.94rem;line-height:1.62}.footer-handoff>div{display:grid;margin-top:24px}.footer-handoff .primary-cta,.footer-secondary{box-sizing:border-box;width:100%;min-height:48px}.footer-safety{display:grid;grid-template-columns:1fr 1fr}.footer-safety>div{display:block;padding:14px 12px;border-right:1px solid #294550}.footer-safety dt{margin-bottom:8px}.footer-safety dd{text-align:left}.footer-directory{margin-top:0;padding-top:24px}.footer-directory>h2{margin-bottom:10px}.footer-directory ol{grid-template-columns:repeat(2,1fr)}.footer-directory a{min-height:58px;padding:5px 2px}.footer-directory b{flex-basis:30px;height:30px}.footer-directory small{font-size:.625rem;line-height:1.3}.site-footer .footer-legal{grid-template-columns:1fr;gap:12px;padding:24px 20px 28px}.footer-legal>div,.footer-legal>small{grid-column:auto}.footer-legal>div{justify-content:flex-start}.site-footer .footer-legal>img{width:150px}}
+@media(prefers-reduced-motion:reduce){.footer-directory b{transition:none}}
 
 /* Original timed hero story rail. Progress pauses by explicit control and off-screen states. */
 .story-rail{
