@@ -111,4 +111,12 @@
   }, {passive:true});
   window.addEventListener('resize', updateCompanyStatus, {passive:true});
   updateCompanyStatus();
+
+  const footerStatus = document.querySelector('#footerDemoStatus');
+  document.querySelector('#footerSubscribeDemo')?.addEventListener('click', () => {
+    footerStatus.textContent = '展示模式：訂閱功能尚未連接，沒有儲存資料或送出網路 Request。';
+  });
+  document.querySelectorAll('[data-footer-channel]').forEach(button => button.addEventListener('click', () => {
+    footerStatus.textContent = `${button.textContent} 為 Elias Net 概念頻道展示，尚未連接外部平台。`;
+  }));
 })();
