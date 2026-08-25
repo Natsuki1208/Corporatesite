@@ -1,0 +1,27 @@
+---
+interface Props { locale: 'zh-TW' | 'en' }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const home = en ? `${base}/en/` : `${base}/`;
+const other = en ? `${base}/` : `${base}/en/`;
+---
+<header class="site-header" data-header>
+  <a class="brand" href="#hero" aria-label={en ? 'Elias Net home' : 'Elias Net 首頁'}>
+    <img src={`${base}/images/elias-net-logo.svg`} alt="Elias Net">
+  </a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+    <span>{en ? 'Menu' : '選單'}</span><i aria-hidden="true"></i>
+  </button>
+  <nav id="site-nav" class="site-nav" aria-label={en ? 'Primary navigation' : '主要導覽'} data-nav>
+    <a href="#services">{en ? 'Services' : '整合服務'}</a>
+    <a href="#solutions">{en ? 'Solutions' : '解決方案'}</a>
+    <a href="#ai-operations">{en ? 'AI Operations' : 'AI 智慧維運'}</a>
+    <a href="#trust">{en ? 'Trust' : '服務與治理'}</a>
+    <a href="#contact">{en ? 'Contact' : '合作諮詢'}</a>
+  </nav>
+  <div class="language-switch" aria-label={en ? 'Language selection' : '語言選擇'}>
+    <a href={en ? other : home} aria-current={!en ? 'page' : undefined}>繁中</a>
+    <a href={en ? home : other} aria-current={en ? 'page' : undefined}>EN</a>
+  </div>
+</header>

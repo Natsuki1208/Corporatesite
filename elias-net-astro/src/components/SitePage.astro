@@ -1,0 +1,30 @@
+---
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import VisionSystem from './VisionSystem.astro';
+import ProblemTopology from './ProblemTopology.astro';
+import CoreServices from './CoreServices.astro';
+import SolutionExplorer from './SolutionExplorer.astro';
+import AIEventJourney from './AIEventJourney.astro';
+import DeliveryLifecycle from './DeliveryLifecycle.astro';
+import ReadinessConsole from './ReadinessConsole.astro';
+import Footer from './Footer.astro';
+import Dialogs from './Dialogs.astro';
+interface Props { locale: 'zh-TW' | 'en' }
+const { locale } = Astro.props;
+const en = locale === 'en';
+---
+<a class="skip-link" href="#main" data-en="Skip to main content">{en ? 'Skip to main content' : '跳到主要內容'}</a>
+<Header locale={locale} />
+<main id="main">
+  <Hero locale={locale} />
+  <VisionSystem locale={locale} />
+  <ProblemTopology locale={locale} />
+  <CoreServices locale={locale} />
+  <SolutionExplorer locale={locale} />
+  <AIEventJourney locale={locale} />
+  <DeliveryLifecycle locale={locale} />
+  <ReadinessConsole locale={locale} />
+</main>
+<Footer locale={locale} />
+<Dialogs locale={locale} />

@@ -1,0 +1,6 @@
+---
+import { zh, en } from '../content/fragments/footer';
+interface Props { locale: 'zh-TW' | 'en' }
+const { locale } = Astro.props;
+---
+<Fragment set:html={locale === 'en' ? en : zh} />

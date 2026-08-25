@@ -1,0 +1,35 @@
+name: Elias Net Astro Pages (Draft)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-draft:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: elias-net-astro
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: elias-net-astro/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Check
+        run: npm run check
+      - name: Build
+        run: npm run build
+      - name: Upload draft artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: elias-net-astro-dist
+          path: elias-net-astro/dist
+          if-no-files-found: error

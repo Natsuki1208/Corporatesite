@@ -1,0 +1,33 @@
+---
+import '../styles/tokens.css';
+import '../styles/global.css';
+import '../styles/components.css';
+import '../styles/animation.css';
+import '../styles/accessibility.css';
+
+interface Props { locale: 'zh-TW' | 'en' }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonical = en ? `${Astro.site}Corporatesite/en/` : `${Astro.site}Corporatesite/`;
+---
+<!doctype html>
+<html lang={en ? 'en' : 'zh-Hant'}>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content={en ? 'Elias Net integrates infrastructure, cloud, security monitoring, automation and AI operations.' : 'Elias Net 是企業 IT 與 AI 智慧維運系統整合服務商，整合基礎架構、雲端、資安監控、自動化與 AI 維運。'}>
+    <meta name="theme-color" content="#080A0D">
+    <title>{en ? 'Elias Net | Infrastructure, Security & AI Operations Integrator' : 'Elias Net｜企業 IT 與 AI 智慧維運系統整合服務商'}</title>
+    <link rel="canonical" href={canonical}>
+    <link rel="alternate" hreflang="zh-Hant" href={`${Astro.site}Corporatesite/`}>
+    <link rel="alternate" hreflang="en" href={`${Astro.site}Corporatesite/en/`}>
+    <link rel="alternate" hreflang="x-default" href={`${Astro.site}Corporatesite/`}>
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml">
+    <script is:inline>document.documentElement.classList.add('js')</script>
+  </head>
+  <body>
+    <slot />
+    <script>import '../scripts/main.ts';</script>
+  </body>
+</html>
