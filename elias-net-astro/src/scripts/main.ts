@@ -11,6 +11,7 @@ import { readinessContract } from './readiness-console';
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const language = document.documentElement.lang === 'en' ? 'en' : 'zh-Hant';
+  const AUTO_STEP_MS = 2500;
 
   const solutionCopy = [
     { zh:['建立穩定的 IT 基礎','環境、備份與容災現況缺少共同基線。','盤點資產與關係，找出斷點與改善順序。','架構圖、風險清單與分階段改善路徑。','準備汰換、擴充或重新整理既有環境的企業。'], en:['Build a stable IT foundation','The environment, backups and recovery plans lack a shared baseline.','Map assets and relationships, then identify breakpoints and priorities.','An architecture map, risk list and phased improvement path.','Organizations preparing to replace, expand or reorganize existing infrastructure.'] },
@@ -45,6 +46,28 @@ import { readinessContract } from './readiness-console';
     });
   }, { threshold: 0.18 });
   document.querySelectorAll('.reveal,[data-service-item]').forEach((element) => revealObserver.observe(element));
+
+  const serviceTimers = new Map();
+  const stopServiceAnimation = (service) => {
+    const timer = serviceTimers.get(service);
+    if (timer) window.clearTimeout(timer);
+    serviceTimers.delete(service);
+  };
+  const replayServiceAnimation = (service) => {
+    stopServiceAnimation(service);
+    if (reduceMotion.matches || document.hidden || service.dataset.autoplayVisible !== 'true') return;
+    service.classList.remove('is-active');
+    void service.offsetWidth;
+    service.classList.add('is-active');
+    serviceTimers.set(service, window.setTimeout(() => replayServiceAnimation(service), AUTO_STEP_MS));
+  };
+  const serviceAnimationObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+    const service = entry.target;
+    service.dataset.autoplayVisible = String(entry.isIntersecting);
+    if (entry.isIntersecting) replayServiceAnimation(service);
+    else stopServiceAnimation(service);
+  }), { threshold: 0.2 });
+  document.querySelectorAll('[data-service-item]').forEach((service) => serviceAnimationObserver.observe(service));
 
   const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => entry.target.classList.toggle('is-visible', entry.isIntersecting));
@@ -99,7 +122,8 @@ import { readinessContract } from './readiness-console';
   const visionObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
     visionInView = entry.isIntersecting;
     updateVisionHeartbeat();
-    if (entry.isIntersecting && !visionState.played) runVision();
+    if (entry.isIntersecting && (!visionState.played || (visionState.running && !visionState.complete))) runVision();
+    else if (!entry.isIntersecting && visionState.running) clearVisionTimers();
   }), { threshold: 0.18 });
   visionObserver.observe(visionSystem);
 
@@ -151,7 +175,8 @@ import { readinessContract } from './readiness-console';
     });
   });
   const problemObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
-    if (entry.isIntersecting && !problemDemo.played) runProblemDemo();
+    if (entry.isIntersecting && (!problemDemo.played || (problemDemo.played && !problemDemo.complete))) runProblemDemo();
+    else if (!entry.isIntersecting && !problemDemo.complete) clearProblemTimers();
   }), { threshold: 0.1 });
   problemObserver.observe(problemTopology);
 
@@ -166,15 +191,31 @@ import { readinessContract } from './readiness-console';
     solutionPanel.querySelector('[data-solution-fit]').textContent = item[4];
     solutionPanel.setAttribute('aria-labelledby', `solution-tab-${index}`);
   }
-  document.querySelectorAll('[data-solution]').forEach((button) => {
+  const solutionButtons = [...document.querySelectorAll('[data-solution]')];
+  let solutionIndex = 0;
+  let solutionTimer = 0;
+  let solutionVisible = false;
+  const stopSolutionTimer = () => { window.clearTimeout(solutionTimer); solutionTimer = 0; };
+  const selectSolution = (index) => {
+    solutionIndex = index;
+    solutionButtons.forEach((item, itemIndex) => {
+      item.setAttribute('aria-selected', String(itemIndex === index));
+      item.tabIndex = itemIndex === index ? 0 : -1;
+    });
+    renderSolution(index);
+  };
+  const scheduleSolutions = () => {
+    stopSolutionTimer();
+    if (!solutionVisible || reduceMotion.matches || document.hidden) return;
+    solutionTimer = window.setTimeout(() => {
+      selectSolution((solutionIndex + 1) % solutionButtons.length);
+      scheduleSolutions();
+    }, AUTO_STEP_MS);
+  };
+  solutionButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      document.querySelectorAll('[data-solution]').forEach((item) => {
-        item.setAttribute('aria-selected', 'false');
-        item.tabIndex = -1;
-      });
-      button.setAttribute('aria-selected', 'true');
-      button.tabIndex = 0;
-      renderSolution(Number(button.dataset.solution));
+      selectSolution(Number(button.dataset.solution));
+      scheduleSolutions();
     });
     button.addEventListener('keydown', (event) => {
       if (!solutionKeys.includes(event.key)) return;
@@ -185,6 +226,11 @@ import { readinessContract } from './readiness-console';
       next.click(); next.focus();
     });
   });
+  const solutionSection = document.querySelector('[data-section="solutions"]');
+  new IntersectionObserver((entries) => entries.forEach((entry) => {
+    solutionVisible = entry.isIntersecting;
+    if (solutionVisible) scheduleSolutions(); else stopSolutionTimer();
+  }), { threshold: 0.12 }).observe(solutionSection);
 
   const journey = {
     index: 0, timer: 0, running: false, paused: false, waiting: false, completed: false,
@@ -196,6 +242,8 @@ import { readinessContract } from './readiness-console';
     approve: document.querySelector('[data-approve]'),
     status: document.querySelector('[data-journey-status]')
   };
+  let journeyVisible = false;
+  let journeyAutoStarted = false;
   const journeyMessage = (zh, en) => { journey.status.textContent = language === 'en' ? en : zh; };
   function renderJourneyLanguage() {
     journey.pause.textContent = journey.paused
@@ -225,7 +273,7 @@ import { readinessContract } from './readiness-console';
   function clearJourneyTimer() { window.clearTimeout(journey.timer); journey.timer = 0; }
   function scheduleJourney() {
     clearJourneyTimer();
-    if (!journey.running || journey.paused || journey.waiting || document.hidden) return;
+    if (!journey.running || journey.paused || journey.waiting || !journeyVisible || document.hidden) return;
     if (reduceMotion.matches) { stepJourney(); return; }
     journey.timer = window.setTimeout(stepJourney, eventJourneyContract.stepDelay);
   }
@@ -244,6 +292,13 @@ import { readinessContract } from './readiness-console';
       return;
     }
     journey.index += 1; paintJourney();
+    if (journey.index === eventJourneyContract.humanGateIndex) {
+      journey.waiting = true;
+      journey.approve.hidden = false;
+      journey.pause.disabled = true;
+      journeyMessage('流程已停在人員確認。模擬核准後才會繼續。','The flow is paused at human confirmation. Simulate approval to continue.');
+      return;
+    }
     journeyMessage(`步驟 ${journey.index + 1} / 8：${journey.items[journey.index].querySelector('b').textContent}`,`Step ${journey.index + 1} / 8: ${journey.items[journey.index].querySelector('b').textContent}`);
     scheduleJourney();
   }
@@ -274,6 +329,18 @@ import { readinessContract } from './readiness-console';
   journey.nodes.forEach((node, index) => node.addEventListener('click', () => {
     journeyMessage(`檢視步驟 ${index + 1}：${node.querySelector('b').textContent}`,`Viewing step ${index + 1}: ${node.querySelector('b').textContent}`);
   }));
+  const journeyRoot = document.querySelector('[data-journey]');
+  new IntersectionObserver((entries) => entries.forEach((entry) => {
+    journeyVisible = entry.isIntersecting;
+    if (journeyVisible && !journeyAutoStarted && !reduceMotion.matches) {
+      journeyAutoStarted = true;
+      startJourney();
+    } else if (journeyVisible) {
+      scheduleJourney();
+    } else {
+      clearJourneyTimer();
+    }
+  }), { threshold: 0.12 }).observe(journeyRoot);
 
   const deliveryCopy = [
     { zh:['01 / 盤點','先盤點，再改變','掃描資產、服務關係與風險斷點。'], en:['01 / ASSESS','Map before changing','Scan assets, service relationships and risk breakpoints.'] },
@@ -287,6 +354,7 @@ import { readinessContract } from './readiness-console';
     index: 0, timer: 0, running: false, paused: false, complete: false,
     play: document.querySelector('[data-delivery-play]'), pause: document.querySelector('[data-delivery-pause]'), replay: document.querySelector('[data-delivery-replay]')
   };
+  let deliveryVisible = false;
   function clearDeliveryTimer() { window.clearTimeout(delivery.timer); delivery.timer = 0; }
   function paintDelivery() {
     delivery.stages.forEach((button, index) => {
@@ -306,7 +374,7 @@ import { readinessContract } from './readiness-console';
   }
   function scheduleDelivery() {
     clearDeliveryTimer();
-    if (!delivery.running || delivery.paused || document.hidden) return;
+    if (!delivery.running || delivery.paused || !deliveryVisible || document.hidden) return;
     if (reduceMotion.matches) { delivery.index = 4; delivery.running = false; delivery.complete = true; delivery.pause.disabled = true; paintDelivery(); return; }
     delivery.timer = window.setTimeout(() => {
       if (delivery.index >= 4) { delivery.running = false; delivery.complete = true; delivery.pause.disabled = true; return; }
@@ -357,7 +425,7 @@ import { readinessContract } from './readiness-console';
   const scheduleAiChange = () => {
     stopAiChangeTimer();
     if (!aiChangeVisible || reduceMotion.matches || document.hidden) return;
-    aiChangeTimer = window.setTimeout(() => { renderAiChange((aiChangeIndex + 1) % aiChangeContent.length); scheduleAiChange(); }, 2500);
+    aiChangeTimer = window.setTimeout(() => { renderAiChange((aiChangeIndex + 1) % aiChangeContent.length); scheduleAiChange(); }, AUTO_STEP_MS);
   };
   function renderAiChange(index) {
     aiChangeIndex = index;
@@ -451,17 +519,25 @@ import { readinessContract } from './readiness-console';
   });
 
   const deliveryObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
-    if (entry.isIntersecting && !delivery.running && !delivery.complete) playDelivery(false);
+    deliveryVisible = entry.isIntersecting;
+    if (deliveryVisible && !delivery.running && !delivery.complete) playDelivery(false);
+    else if (deliveryVisible && delivery.running && !delivery.paused) scheduleDelivery();
+    else if (!deliveryVisible) clearDeliveryTimer();
   }), { threshold: 0.1 });
   deliveryObserver.observe(delivery.root);
 
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { clearJourneyTimer(); clearVisionTimers(); clearProblemTimers(); clearDeliveryTimer(); }
+    if (document.hidden) {
+      clearJourneyTimer(); clearVisionTimers(); clearProblemTimers(); clearDeliveryTimer(); stopSolutionTimer();
+      document.querySelectorAll('[data-service-item]').forEach(stopServiceAnimation);
+    }
     else {
       scheduleJourney();
       if (visionState.running) runVision();
       if (problemDemo.played && !problemDemo.complete) runProblemDemo();
       if (delivery.running && !delivery.paused) scheduleDelivery();
+      scheduleSolutions();
+      document.querySelectorAll('[data-service-item][data-autoplay-visible="true"]').forEach(replayServiceAnimation);
     }
   });
 

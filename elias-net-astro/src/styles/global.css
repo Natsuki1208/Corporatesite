@@ -197,3 +197,16 @@
 @media(max-width:820px){.vision .vision-layout>div:first-child{display:block;margin-bottom:34px}.vision .vision-system{padding:18px}.vision .vision-blueprint:not(.vision-blueprint--mobile){display:none}.vision .vision-blueprint--mobile{display:block;max-height:680px}.vision .vision-system.complete.heartbeat-active .health-pulse--desktop{animation:none}.vision .vision-system.complete.heartbeat-active .health-pulse--mobile{offset-path:path("M195 496 V542 L195 578 H264 V662 H362");animation:vision-operability-pulse 7s ease-in-out infinite}.vision .vision-system.complete.heartbeat-active .blueprint-core circle,.vision .vision-system.complete.heartbeat-active .blueprint-endpoint{animation-duration:7s}.vision .source-clusters text,.vision .normalization-gate text,.vision .integration-matrix text,.vision .blueprint-core text,.vision .stable-blueprint text{font-size:10px}.vision .vision-result{display:grid}}
 @media(max-width:520px){.vision .vision-blueprint--mobile{width:100%;max-height:none}.vision .vision-system .value-scale{grid-template-columns:1fr 1fr!important}.vision .vision-system .value-scale li:last-child{grid-column:1/-1}}
 @media(prefers-reduced-motion:reduce){.vision .stable-blueprint{opacity:1!important}.vision .stable-blueprint path,.vision .stable-blueprint rect{stroke:#c99743!important;stroke-dashoffset:0!important}.vision .stable-blueprint .blueprint-endpoint{fill:#57b879!important}.vision .health-pulse{display:none!important}.vision .normalization-gate{opacity:1!important;filter:none!important}}
+
+/* Unified 2.5-second autoplay cadence for narrative motion. */
+.hero .signal,.hero .stable-lines i,.hero .core{animation-duration:2.5s}
+.vision-system.complete.heartbeat-active .blueprint-pulse,
+.vision-system.complete.heartbeat-active .blueprint-core circle,
+.vision .vision-system.complete.heartbeat-active .health-wave,
+.vision .vision-system.complete.heartbeat-active .health-pulse--desktop,
+.vision .vision-system.complete.heartbeat-active .blueprint-endpoint{animation-duration:2.5s}
+@media(max-width:820px){
+  .vision .vision-system.complete.heartbeat-active .health-pulse--mobile,
+  .vision .vision-system.complete.heartbeat-active .blueprint-core circle,
+  .vision .vision-system.complete.heartbeat-active .blueprint-endpoint{animation-duration:2.5s}
+}

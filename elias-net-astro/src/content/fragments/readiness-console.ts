@@ -1,4 +1,9 @@
-export const zh = String.raw`
+const putAiChangeLast = (markup: string) => markup.replace(
+  /(<section id="ai-change"[\s\S]*?<\/section>)\s*(<section id="contact"[\s\S]*?<\/section>)/,
+  '$2\n    $1'
+);
+
+export const zh = putAiChangeLast(String.raw`
     <section id="ai-change" class="main-section contact ai-change-section" data-section="ai-change" aria-labelledby="ai-change-title">
       <div class="shell ai-change-stage" data-ai-change data-active-change="0" aria-labelledby="ai-change-title">
         <div class="ai-change-visual" aria-hidden="true"><span>AI</span><b data-ai-change-word>SIGNAL</b><i></i><i></i><i></i></div>
@@ -28,9 +33,9 @@ export const zh = String.raw`
         <div class="readiness-signoff"><div><b data-en="Understand every signal. Control every action.">理解每個訊號，掌握每次行動。</b><span data-en="Infrastructure, Security & AI Operations Integrator">企業 IT 與 AI 智慧維運系統整合服務商</span></div></div>
       </div>
     </section>
-`;
+`);
 
-export const en = String.raw`
+export const en = putAiChangeLast(String.raw`
     <section id="ai-change" class="main-section contact ai-change-section" data-section="ai-change" aria-labelledby="ai-change-title">
       <div class="shell ai-change-stage" data-ai-change data-active-change="0" aria-labelledby="ai-change-title">
         <div class="ai-change-visual" aria-hidden="true"><span>AI</span><b data-ai-change-word>SIGNAL</b><i></i><i></i><i></i></div>
@@ -60,4 +65,4 @@ export const en = String.raw`
         <div class="readiness-signoff"><div><b data-en="Understand every signal. Control every action.">Understand every signal. Control every action.</b><span data-en="Infrastructure, Security &amp; AI Operations Integrator">Infrastructure, Security &amp; AI Operations Integrator</span></div></div>
       </div>
     </section>
-`;
+`);
