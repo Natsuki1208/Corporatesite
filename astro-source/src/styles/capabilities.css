@@ -1,0 +1,52 @@
+/* Capability-only semantic motion system. */
+.capabilities-semantic .section-heading{max-width:1080px}
+.capabilities-semantic .section-heading h2{max-width:18ch}
+
+.capabilities-semantic .capability-assembly{position:relative;display:grid;grid-template-columns:minmax(150px,1.35fr) minmax(480px,5fr) minmax(190px,1.65fr);align-items:stretch;gap:18px;margin:0 0 38px;padding:22px;border:1px solid #c9c1b1;background:#f4efe4;color:#292d2d;font:inherit;letter-spacing:normal;overflow:hidden}
+.capabilities-semantic .capability-assembly::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(201,151,67,.08),transparent 67%);pointer-events:none}
+.assembly-source,.assembly-result{position:relative;z-index:2;display:flex;min-height:210px;flex-direction:column;justify-content:center;gap:7px;padding:18px;border:1px solid rgba(140,96,49,.26);background:rgba(255,252,244,.76)}
+.assembly-source small,.assembly-result small{color:#856835;font:800 .6rem ui-monospace,monospace;letter-spacing:.12em}
+.assembly-source strong,.assembly-result strong{max-width:14ch;color:#212827;font-size:clamp(.92rem,1.2vw,1.15rem);line-height:1.25}
+.assembly-source i,.assembly-result i{width:34px;height:2px;margin-top:8px;background:linear-gradient(90deg,var(--rose),var(--gold))}
+.assembly-result{border-color:rgba(201,151,67,.48);background:#171c1e}.assembly-result small{color:var(--cyan)}.assembly-result strong{color:var(--ivory)}.assembly-result i{background:linear-gradient(90deg,var(--cyan),var(--gold))}
+.assembly-system{position:relative;min-height:210px;display:grid;place-items:center;padding:20px 32px}
+.assembly-paths{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.assembly-paths path{fill:none;stroke:#9b8b70;stroke-width:1.2;vector-effect:non-scaling-stroke}
+.assembly-modules{position:relative;z-index:2;width:min(100%,430px);display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px 18px!important}
+.capabilities-semantic .assembly-modules::before{display:none}
+.assembly-modules span{position:relative;min-height:60px;display:grid;align-content:center;gap:4px;padding:10px 12px;border:1px solid #aa9d88;background:#f9f6ef;color:#333a39;font-size:.72rem;line-height:1.15;box-shadow:0 8px 22px rgba(55,45,28,.05)}
+.assembly-modules span:nth-child(2),.assembly-modules span:nth-child(4){border-color:rgba(184,134,121,.72)}.assembly-modules span:nth-child(3),.assembly-modules span:nth-child(5){border-color:rgba(66,212,218,.6)}
+.assembly-modules b{color:#8b6930;font:.58rem ui-monospace,monospace}.assembly-modules span:nth-child(2) b,.assembly-modules span:nth-child(4) b{color:#9d685d}.assembly-modules span:nth-child(3) b,.assembly-modules span:nth-child(5) b{color:#178d94}
+.assembly-core{position:absolute;z-index:3;left:50%;top:50%;width:48px;height:48px;display:grid;place-items:center;transform:translate(-50%,-50%);border:1px solid var(--gold);border-radius:50%;background:#111718;color:var(--champagne);font:900 .72rem ui-monospace,monospace;box-shadow:0 0 0 9px rgba(201,151,67,.08)}
+
+.capabilities-semantic .solution-grid{align-items:start;gap:22px}
+.capabilities-semantic .solution-card{display:grid;grid-template-rows:auto auto auto minmax(74px,auto) auto auto;min-height:100%;padding:28px;border-color:#d0c8b9;background:#fbf8f1;overflow:visible;transition:border-color .25s,box-shadow .25s,background-color .25s}
+.capabilities-semantic .solution-card:hover,.capabilities-semantic .solution-card:focus-within,.capabilities-semantic .solution-card.expanded{border-color:#b9914e;box-shadow:0 18px 42px rgba(55,45,27,.09);transform:none}
+.capabilities-semantic .solution-top{align-items:center}.capabilities-semantic .solution-top b{font-size:.76rem}
+.capability-visual{position:relative;height:230px;margin:22px 0 24px;border:1px solid #2c3638;background:linear-gradient(145deg,#101719,#171e20);overflow:hidden}
+.capability-visual::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(90deg,#000,transparent 92%);pointer-events:none}
+.capability-visual svg{position:relative;z-index:1;width:100%;height:100%;padding:16px;overflow:visible}
+.capability-visual svg path,.capability-visual svg line,.capability-visual svg rect,.capability-visual svg circle{vector-effect:non-scaling-stroke}
+.capability-visual svg text{fill:#aeb8b6;font:700 9.5px ui-monospace,monospace;text-anchor:middle;letter-spacing:.025em}
+.capability-visual [data-cap-path]{fill:none;stroke:var(--cyan);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.capability-visual [data-cap-node] path,.capability-visual [data-cap-node] rect,.capability-visual [data-cap-node] circle{fill:#182124;stroke:#9aa5a3;stroke-width:1.25}
+.capability-visual [data-cap-result] path,.capability-visual [data-cap-result] rect,.capability-visual [data-cap-result] circle{fill:rgba(201,151,67,.1);stroke:var(--gold);stroke-width:1.5}
+.capability-visual [data-cap-result] text{fill:var(--champagne)}
+.capabilities-semantic .solution-card h3{max-width:23ch;min-height:2.35em;margin-bottom:14px;font-size:clamp(1.32rem,1.8vw,1.72rem);line-height:1.16}
+.capabilities-semantic .solution-card>p{margin-bottom:20px;line-height:1.72}
+.capabilities-semantic .solution-toggle{min-height:48px;margin-top:auto;color:#765722}.capabilities-semantic .solution-toggle:focus-visible{outline:3px solid var(--cyan);outline-offset:4px}
+.capabilities-semantic .solution-detail{padding:20px 0 2px;border-top:1px solid #d5cdbc}
+
+.solution-strategy .scene-options circle:nth-child(n+5){stroke:var(--rose)}.solution-strategy .semantic-result circle:last-of-type{fill:var(--gold)}.solution-strategy .evaluation-axis line{stroke:#806c4e;stroke-width:1}.solution-strategy .evaluation-axis text{fill:#9c8c72;text-anchor:start}
+.solution-experience .person-node path,.solution-experience .person-node circle{fill:none;stroke:var(--rose)}.solution-experience .ai-node path{fill:rgba(66,212,218,.08);stroke:var(--cyan)}.solution-experience .assist-result path{fill:none;stroke:var(--safe,#57b879)}.solution-experience .human-result circle{stroke:var(--rose)}
+.solution-data .documents path{fill:#172024;stroke:#738182}.solution-data .documents text{fill:var(--cyan);text-anchor:start}.solution-data .knowledge-index rect{stroke:var(--cyan)}.solution-data .knowledge-index>path{fill:none;stroke:#889695}.solution-data .answer-card>path{fill:none;stroke:#b9aa8e}.solution-data .answer-card circle{fill:var(--gold)}
+.solution-agent .responsibility-boundary{fill:none;stroke:var(--rose);stroke-width:1;stroke-dasharray:5 5;vector-effect:non-scaling-stroke}.solution-agent .agent-node circle{stroke:var(--cyan)}.solution-agent .tool-nodes rect{fill:#172124;stroke:var(--gold)}.solution-agent .locked-tool rect,.solution-agent .locked-tool path{fill:none;stroke:#616b6c}.solution-agent .review-node path{stroke:var(--rose)}
+.solution-integration .isolated-systems rect{stroke:#7a8686}.solution-integration .integration-layer rect{stroke:var(--cyan)}.solution-integration .integration-layer>path{fill:none;stroke:var(--gold)}.solution-integration .workflow-results>path{fill:none;stroke:#57b879}.solution-integration .recovery-path{fill:none;stroke:#6d7878;stroke-width:1;stroke-dasharray:4 5}
+.solution-governance .data-scope>path,.solution-governance .audit-record>path{fill:none;stroke:#849090}.solution-governance .permission-node path{stroke:var(--cyan)}.solution-governance .human-approval circle{stroke:var(--rose)}.solution-governance .improvement-loop{fill:none;stroke:var(--gold);stroke-width:1.2;stroke-dasharray:5 5}
+
+.capabilities-semantic [data-cap-path],.capabilities-semantic [data-cap-node],.capabilities-semantic [data-cap-result],.capabilities-semantic [data-assembly-node],.capabilities-semantic [data-assembly-path],.capabilities-semantic [data-assembly-source],.capabilities-semantic [data-assembly-result],.capabilities-semantic [data-assembly-core]{transform-box:fill-box;transform-origin:center}
+.capabilities-semantic .is-replaying{border-color:#b9914e}
+
+@media(max-width:1080px){.capabilities-semantic .capability-assembly{grid-template-columns:1fr}.assembly-source,.assembly-result{min-height:auto}.assembly-system{min-height:230px}.assembly-source,.assembly-result{display:grid;grid-template-columns:auto 1fr auto;align-items:center}.assembly-source i,.assembly-result i{margin:0}.assembly-result strong{max-width:none}}
+@media(max-width:760px){.capabilities-semantic .solution-grid{grid-template-columns:1fr}.capabilities-semantic .solution-card{min-height:0}.capabilities-semantic .capability-assembly{padding:16px}.assembly-system{padding-inline:8px}.assembly-modules{gap:10px!important}.assembly-modules span{min-height:58px;padding:8px;font-size:.66rem}.assembly-core{width:42px;height:42px}.capability-visual{height:220px}}
+@media(max-width:420px){.assembly-source,.assembly-result{grid-template-columns:1fr}.assembly-system{min-height:300px}.assembly-modules{grid-template-columns:repeat(2,minmax(0,1fr))!important}.assembly-core{display:none}.assembly-paths{opacity:.5}.capability-visual{height:205px;margin-inline:-8px}.capability-visual svg{padding:10px}.capabilities-semantic .solution-card{padding:22px}.capabilities-semantic .solution-card h3{min-height:0}}
+@media(prefers-reduced-motion:reduce){.capabilities-semantic *{scroll-behavior:auto}.capabilities-semantic .solution-card,.capabilities-semantic [data-cap-path],.capabilities-semantic [data-cap-node],.capabilities-semantic [data-cap-result],.capabilities-semantic [data-assembly-node],.capabilities-semantic [data-assembly-path]{animation:none!important;transition:none!important;opacity:1!important;transform:none!important;stroke-dashoffset:0!important}}

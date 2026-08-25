@@ -2,8 +2,8 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const endpoint = 'http://127.0.0.1:9223';
-const output = resolve('qa-screenshots');
-const base = 'http://127.0.0.1:4331/Corporatesite/';
+const output = resolve(process.env.QA_OUTPUT || 'qa-screenshots');
+const base = process.env.QA_BASE_URL || 'http://127.0.0.1:4331/Corporatesite/';
 await mkdir(output, { recursive: true });
 
 async function connect(url) {
@@ -44,7 +44,7 @@ async function capture(name, hash, width, height, locale = '', reduced = false) 
 }
 
 if (process.env.REDUCED_ONLY === '1') {
-  await capture('reduced-motion-innovation', 'innovation', 1440, 900, '', true);
+  await capture('reduced-motion-capabilities', 'capabilities', 1440, 900, '', true);
 } else {
   const desktop = [['00-hero','hero'],['01-problems','problems'],['02-innovation','innovation'],['03-scenes','scenes'],['04-capabilities','capabilities'],['05-cases','cases'],['06-method','method'],['07-contact','contact']];
   for (const [name, hash] of desktop) await capture(`desktop-${name}`, hash, 1440, 900);
