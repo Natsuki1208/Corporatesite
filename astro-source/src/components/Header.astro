@@ -1,0 +1,31 @@
+---
+import type { Locale } from '../data/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const localeHref = en ? `${base}/` : `${base}/en/`;
+const nav = en ? [
+  ['#problems','Challenges'],['#innovation','Perspective'],['#scenes','Applications'],['#capabilities','How we help'],['#cases','Cases'],['#method','Approach'],['#contact','Start']
+] : [
+  ['#problems','挑戰'],['#innovation','觀點'],['#scenes','應用'],['#capabilities','能力'],['#cases','案例'],['#method','方法'],['#contact','開始']
+];
+---
+<header class="site-header" data-header>
+  <a class="brand" href="#hero" aria-label={en ? 'Elias Net home' : 'Elias Net 首頁'}>
+    <img src={`${base}/images/elias-net-logo.svg`} alt="Elias Net" width="238" height="56">
+  </a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={en ? 'Open menu' : '開啟選單'} data-open-label={en ? 'Open menu' : '開啟選單'} data-close-label={en ? 'Close menu' : '關閉選單'} data-menu-toggle>
+    <span>{en ? 'Menu' : '選單'}</span><i aria-hidden="true"></i>
+  </button>
+  <nav id="site-nav" class="site-nav" aria-label={en ? 'Primary navigation' : '主要導覽'} data-nav>
+    {nav.map(([href,label]) => <a href={href}>{label}</a>)}
+  </nav>
+  <a class="language-link" href={localeHref} lang={en ? 'zh-Hant' : 'en'}>{en ? '繁中' : 'EN'}</a>
+  <div class="journey-progress" aria-hidden="true"><i data-journey-progress></i></div>
+  <div class="journey-controls">
+    <button type="button" data-section-prev aria-label={en ? 'Previous section' : '上一個區段'}>←</button>
+    <span data-section-count>00 / 07</span>
+    <button type="button" data-section-next aria-label={en ? 'Next section' : '下一個區段'}>→</button>
+  </div>
+</header>

@@ -1,0 +1,32 @@
+---
+import type { Locale } from '../data/site';
+import { capabilities, text } from '../data/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+---
+<section id="capabilities" class="main-section solutions light-section" data-section="capabilities" aria-labelledby="capabilities-title">
+  <div class="shell">
+    <header class="section-heading" data-reveal>
+      <p class="section-index">04 / {en ? 'HOW WE HELP' : '核心能力'}</p>
+      <h2 id="capabilities-title">{en ? 'Move from an idea to a way of working.' : '從想法走到真正運作'}</h2>
+      <p>{en ? 'Elias Net works across strategy, experience, data, agents, integration and governance. The goal is not another feature list—it is a work capability people can actually use.' : 'Elias Net 從策略、體驗、資料、Agent、系統整合到治理逐步協助。目標不是增加功能，而是形成團隊真正能使用的工作能力。'}</p>
+    </header>
+    <div class="capability-assembly" role="img" data-capability-assembly data-reveal aria-label={en ? 'Six capabilities assemble one working solution' : '六項能力共同組成一套可運作方案'}>
+      <span>{en ? 'BUSINESS NEED' : '企業需求'}</span>
+      <div aria-hidden="true">{capabilities.map((_,index) => <i data-assembly-node style={`--assembly-index:${index}`}></i>)}</div>
+      <strong>{en ? 'WORKING SOLUTION' : '完整工作方案'}</strong>
+    </div>
+    <div class="solution-grid">
+      {capabilities.map((item,index) => (
+        <article class={`solution-card solution-${item.id}`} data-solution-card data-reveal>
+          <div class="solution-top"><span>{String(index + 1).padStart(2,'0')}</span><b>{text(item.name,locale)}</b></div>
+          <div class="solution-motion" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          <h3>{text(item.headline,locale)}</h3><p>{text(item.summary,locale)}</p>
+          <button id={`capability-toggle-${item.id}`} type="button" class="solution-toggle" aria-expanded="false" aria-controls={`capability-detail-${item.id}`} data-solution-toggle><span>{en ? 'View how it works' : '查看協助方式'}</span><i aria-hidden="true">＋</i></button>
+          <div id={`capability-detail-${item.id}`} class="solution-detail" role="region" aria-labelledby={`capability-toggle-${item.id}`} hidden><dl><div><dt>{en ? 'Business challenge' : '企業問題'}</dt><dd>{text(item.problem,locale)}</dd></div><div><dt>{en ? 'How Elias Net helps' : 'Elias Net 如何協助'}</dt><dd>{text(item.assistance,locale)}</dd></div><div><dt>{en ? 'What this enables' : '形成的工作能力'}</dt><dd>{text(item.outcome,locale)}</dd></div></dl></div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

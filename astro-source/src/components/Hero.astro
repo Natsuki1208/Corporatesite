@@ -1,0 +1,23 @@
+---
+import type { Locale } from '../data/site';
+import InnovationCore from './InnovationCore.astro';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+---
+<section id="hero" class="hero main-section" data-section="hero" aria-labelledby="hero-title">
+  <div class="hero-backdrop" aria-hidden="true"></div>
+  <div class="shell hero-grid">
+    <div class="hero-copy" data-reveal>
+      <p class="section-index">00 / {en ? 'HOME' : '首頁'}</p>
+      <p class="brand-kicker">ELIAS NET · {en ? 'AI INNOVATION & BUSINESS TRANSFORMATION PARTNER' : 'AI 創新與企業轉型夥伴'}</p>
+      <h1 id="hero-title">{en ? 'Reimagine how business works.' : '重新想像，企業如何工作'}</h1>
+      <p class="hero-lead">{en ? 'Elias Net brings AI, data and system integration together to turn new ideas into ways of working that function in the real world.' : 'Elias Net 結合 AI、資料與系統整合，協助企業把新的想法，轉化成真正能運作的工作方式。'}</p>
+      <p class="hero-audience">{en ? 'For business, service, operations and digital teams that want to adopt AI but need a practical place to start.' : '適合想導入 AI、卻還在尋找實際起點的管理、服務、營運與數位團隊。'}</p>
+      <p class="hero-principle">{en ? 'AI helps people understand and prepare. People retain important decisions and actions.' : 'AI 協助理解、整理與提出建議，重要決策與操作仍由人掌握。'}</p>
+      <div class="cta-row"><a class="button primary" href="#problems">{en ? 'Start with the business challenge' : '從企業問題看起'}</a><a class="button ghost" href="#contact">{en ? 'Start with one problem' : '從一個問題開始'}</a></div>
+    </div>
+    <InnovationCore locale={locale} />
+  </div>
+  <div class="hero-statement shell"><span>{en ? 'Understand every message. Act with clarity.' : '理解每個訊息，掌握每次行動。'}</span></div>
+</section>

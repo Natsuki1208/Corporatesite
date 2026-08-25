@@ -1,0 +1,19 @@
+---
+import type { Locale } from '../data/site';
+import { workScenes, text } from '../data/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+---
+<section id="scenes" class="main-section work-scenes" data-section="scenes" aria-labelledby="scenes-title">
+  <div class="shell">
+    <header class="section-heading" data-reveal><p class="section-index">03 / {en ? 'APPLICATIONS' : '工作應用'}</p><h2 id="scenes-title">{en ? 'AI creates value in the work people do every day.' : 'AI 的價值，發生在每天的工作裡'}</h2></header>
+    <div class="scene-console" data-scene-console data-reveal>
+      <div class="scene-tabs" role="tablist" aria-label={en ? 'Work roles' : '工作角色'}>{workScenes.map((scene,index) => <button type="button" id={`scene-tab-${scene.id}`} role="tab" aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`scene-panel-${scene.id}`} tabindex={index === 0 ? '0' : '-1'} data-scene-tab>{text(scene.role,locale)}</button>)}</div>
+      <div class="scene-stage" data-scene-stage data-scene-id={workScenes[0].id}>
+        <div class="scene-visual" aria-hidden="true"><span><small>INPUT</small></span><span><small>CONTEXT</small></span><span><small>PRIORITY</small></span><b>AI</b><i></i><em>{en ? 'PEOPLE DECIDE' : '人員決定'}</em></div>
+        {workScenes.map((scene,index) => <article id={`scene-panel-${scene.id}`} role="tabpanel" aria-labelledby={`scene-tab-${scene.id}`} data-scene-panel hidden={index !== 0}><p class="scene-role">{text(scene.role,locale)}</p><dl><div><dt>{en ? 'The challenge' : '角色面臨的問題'}</dt><dd>{text(scene.problem,locale)}</dd></div><div><dt>{en ? 'AI can help' : 'AI 可以協助'}</dt><dd>{text(scene.assistance,locale)}</dd></div><div><dt>{en ? 'People decide' : '需要由人決定'}</dt><dd>{text(scene.human,locale)}</dd></div><div><dt>{en ? 'Measure direction' : '可衡量方向'}</dt><dd>{text(scene.measure,locale)}</dd></div></dl></article>)}
+      </div>
+    </div>
+  </div>
+</section>

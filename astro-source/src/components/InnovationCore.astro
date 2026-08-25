@@ -1,0 +1,13 @@
+---
+import type { Locale } from '../data/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const labels = en ? ['PEOPLE','KNOWLEDGE','DATA','SYSTEMS'] : ['人員','知識','資料','系統'];
+---
+<div class="innovation-core" data-innovation-core aria-hidden="true">
+  <canvas data-core-canvas></canvas>
+  <div class="core-labels">{labels.map((label,index) => <span style={`--label-index:${index}`}>{label}</span>)}</div>
+  <div class="core-center"><small>ELIAS NET</small><b>AI</b><span>{en ? 'CONNECT · UNDERSTAND · ENABLE' : '連接 · 理解 · 參與'}</span></div>
+  <p>{en ? 'One connected view of people, knowledge, data and systems' : '把企業的人、知識、資料與系統連接起來'}</p>
+</div>

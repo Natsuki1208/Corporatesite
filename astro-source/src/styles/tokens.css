@@ -1,0 +1,6 @@
+:root{
+  --obsidian:#080a0d;--graphite:#15191d;--graphite-2:#20262a;--ivory:#eee9df;--paper:#f5f1e8;--ink:#151719;
+  --gold:#c99743;--champagne:#e4c98f;--rose:#b88679;--cyan:#55cbd0;--green:#57b879;--amber:#d69a45;--red:#bb514c;
+  --muted:#9ca4a3;--line-dark:rgba(228,201,143,.22);--line-light:#cbc2b2;--header:72px;
+  --shell:min(1440px,calc(100% - 80px));--ease:cubic-bezier(.2,.72,.22,1);--shadow:0 30px 90px rgba(8,10,13,.18)
+}

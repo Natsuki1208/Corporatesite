@@ -1,0 +1,20 @@
+{
+  "name": "elias-net-ai-innovation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "qa:static": "node scripts/verify-static.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.2.6",
+    "gsap": "^3.15.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.9.2"
+  }
+}

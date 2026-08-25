@@ -1,0 +1,41 @@
+---
+import type { Locale } from '../data/site';
+import AIChangePath from './AIChangePath.astro';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const inputs = en ? ['Business need','Knowledge','Data','Systems','Tools'] : ['企業需求','知識','資料','系統','工具'];
+const outputs = en ? ['Service','Operations','Admin','IT','Decisions','Knowledge work'] : ['客服','營運','行政','資訊','決策','知識工作'];
+const nodeCopy = en ? [
+  'A real work need begins the journey.',
+  'Approved knowledge, data, systems and tools establish context.',
+  'AI organizes the context and prepares a suggested next step.',
+  'People confirm what should move forward.',
+  'The confirmed signal is routed into the right work setting.'
+] : [
+  '旅程從一個真實工作需求開始。',
+  '核准的知識、資料、系統與工具建立脈絡。',
+  'AI 整理脈絡並準備可以採取的下一步。',
+  '由人員確認哪些內容可以繼續前進。',
+  '確認後的訊號再進入適合的工作場景。'
+];
+---
+<section id="innovation" class="main-section innovation light-section" data-section="innovation" aria-labelledby="innovation-title">
+  <div class="shell editorial-grid">
+    <div data-reveal>
+      <p class="section-index">02 / {en ? 'PERSPECTIVE' : 'AI 創新觀點'}</p>
+      <h2 id="innovation-title">{en ? 'AI should not stop at the chat box.' : 'AI 不該只停在對話框裡'}</h2>
+      <p class="section-lead">{en ? 'AI is changing how organizations find information, make decisions and complete work. Elias Net connects it with enterprise knowledge, data, tools and workflows—while important decisions remain human-led.' : 'AI 正在改變企業取得資訊、做出判斷與完成工作的方式。Elias Net 將 AI 連接企業知識、資料、工具與流程；重要決定仍由人掌握。'}</p>
+    </div>
+    <div class="innovation-flow signal-journey" data-innovation-flow data-reveal aria-label={en ? 'AI participation flow with human review' : '包含人員確認的 AI 參與工作流程'}>
+      <div class="flow-inputs">{inputs.map((item,index) => <span style={`--i:${index}`}>{item}</span>)}</div>
+      <div class="flow-core-stack">
+        <button type="button" class="flow-ai" data-flow-node="2" data-flow-copy={nodeCopy[2]}><small>{en ? 'UNDERSTAND' : '理解'}</small><b>AI</b><small>{en ? 'SUGGEST' : '建議'}</small></button>
+        <button type="button" class="flow-review" data-flow-node="3" data-flow-copy={nodeCopy[3]}><small>HUMAN REVIEW</small><b>{en ? 'CONFIRM' : '人員確認'}</b></button>
+      </div>
+      <div class="flow-outputs">{outputs.map((item,index) => <span style={`--i:${index}`}>{item}</span>)}</div>
+      <p class="flow-explanation" aria-live="polite" data-flow-explanation>{nodeCopy[0]}</p>
+    </div>
+  </div>
+  <div class="shell"><AIChangePath locale={locale} /></div>
+</section>

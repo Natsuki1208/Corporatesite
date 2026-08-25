@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Elias Net</title>
+  <rect width="64" height="64" rx="12" fill="#080A0D"/>
+  <path d="M9 14h23l13 18-13 18H9M18 23h10l7 9-7 9H18" fill="none" stroke="#42D4DA" stroke-width="5"/>
+  <path d="M45 14h10v36H45M45 32h12" fill="none" stroke="#C99743" stroke-width="5"/>
+  <circle cx="45" cy="32" r="5" fill="#E5C783"/>
+</svg>

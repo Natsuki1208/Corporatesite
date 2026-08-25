@@ -1,0 +1,43 @@
+---
+import '../styles/tokens.css';
+import '../styles/global.css';
+import '../styles/components.css';
+import '../styles/animation.css';
+import '../styles/accessibility.css';
+import '../styles/innovation.css';
+import '../styles/motion-polish.css';
+import type { Locale } from '../data/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const rootUrl = new URL(base ? `${base}/` : '/', Astro.site);
+const canonical = new URL(en ? 'en/' : '', rootUrl).href;
+const title = en ? 'Elias Net | AI Innovation & Business Transformation Partner' : 'Elias Net｜AI 創新與企業轉型夥伴';
+const description = en
+  ? 'Elias Net brings AI, data and system integration together to turn new ideas into ways of working that function in the real world.'
+  : 'Elias Net 結合 AI、資料與系統整合，協助企業把新的想法轉化成真正能運作的工作方式。';
+---
+<!doctype html>
+<html lang={en ? 'en' : 'zh-Hant'}>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content={description}>
+    <meta name="theme-color" content="#080A0D">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:type" content="website">
+    <title>{title}</title>
+    <link rel="canonical" href={canonical}>
+    <link rel="alternate" hreflang="zh-Hant" href={rootUrl.href}>
+    <link rel="alternate" hreflang="en" href={new URL('en/', rootUrl).href}>
+    <link rel="alternate" hreflang="x-default" href={rootUrl.href}>
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml">
+    <script is:inline>document.documentElement.classList.add('js')</script>
+  </head>
+  <body>
+    <slot />
+    <script>import '../scripts/main.ts';</script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+---
+import type { Locale } from '../data/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prompts = en
+  ? ['The most time-consuming work','The most repeated process','The hardest information to find','The service you most want to improve','Your concern about adopting AI']
+  : ['現在最耗時的工作','最常重複的流程','最難查找的資訊','最希望改善的服務','對 AI 導入的疑慮'];
+---
+<section id="contact" class="main-section contact" data-section="contact" aria-labelledby="contact-title">
+  <div class="shell contact-grid">
+    <div data-reveal>
+      <p class="section-index">07 / {en ? 'VISION & PARTNERSHIP' : '願景與合作'}</p>
+      <h2 id="contact-title">{en ? 'The next change starts with one real problem.' : '下一個改變，從一個問題開始'}</h2>
+      <p class="section-lead">{en ? 'Our vision is to make AI a work capability every team can understand, control and use safely.' : '我們希望讓 AI 成為每個團隊都能理解、掌握並安全使用的工作能力。'}</p>
+      <p class="contact-slogan">{en ? 'Understand every message. Act with clarity.' : '理解每個訊息，掌握每次行動。'}</p>
+    </div>
+    <div class="contact-convergence" data-contact-convergence aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><span><b>ELIAS</b><strong>NET</strong></span></div>
+    <form class="concept-form" data-concept-form data-reveal>
+      <fieldset><legend>{en ? 'What would you like to improve first?' : '你最想先改善哪一件事？'}</legend>{prompts.map((item,index) => <label><input type="radio" name="focus" value={String(index)} required><span>{item}</span></label>)}</fieldset>
+      <label class="form-note"><span>{en ? 'Describe the work without personal or confidential information' : '簡單描述工作情境，請勿輸入個人或機密資料'}</span><textarea rows="3" maxlength="280"></textarea></label>
+      <div class="cta-row"><button class="button primary" type="submit">{en ? 'Plan the first AI opportunity' : '開始規劃第一個 AI 場景'}</button></div>
+      <p class="form-status" role="status" aria-live="polite" data-form-status>{en ? 'Local concept form. Nothing is sent or stored.' : '本機概念表單，不會傳送或儲存資料。'}</p>
+    </form>
+  </div>
+</section>
