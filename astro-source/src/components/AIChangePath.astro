@@ -1,27 +1,39 @@
 ---
 import type { Locale } from '../data/site';
 import { governanceItems, text } from '../data/site';
+import '../styles/kinetic-ai.css';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const en = locale === 'en';
 const steps = en ? [
-  ['01 / NEED', 'SIGNAL', 'See the work that needs to change', 'Bring needs, knowledge, data and tools into one clear view.'],
-  ['02 / CONTEXT', 'CONTEXT', 'Connect the context around it', 'AI relates approved information and workflow context before suggesting a next step.'],
-  ['03 / HUMAN REVIEW', 'DECIDE', 'Keep important decisions with people', 'AI prepares and explains. People decide when risk, access or consequences matter.'],
-  ['04 / OUTCOME', 'OUTCOME', 'Turn clarity into a controlled outcome', 'The result returns to the workflow with its boundary, decision and record intact.']
+  { label:'Need', word:'UNDERSTAND', title:'See the work that needs to change', copy:'Bring needs, knowledge, data and tools into one clear view.' },
+  { label:'Context', word:'CONNECT', title:'Connect the context around it', copy:'AI relates approved information and workflow context before suggesting a next step.' },
+  { label:'Human review', word:'PAUSE', title:'Keep important decisions with people', copy:'AI prepares and explains. People decide when risk, access or consequences matter.' },
+  { label:'Outcome', word:'ENABLE', title:'Turn clarity into a controlled outcome', copy:'The result returns to the workflow with its boundary, decision and record intact.' }
 ] : [
-  ['01 / 需求', 'SIGNAL', '看見真正需要改變的工作', '把企業需求、知識、資料與工具帶回同一個清楚視野。'],
-  ['02 / 脈絡', 'CONTEXT', '串起問題周圍的脈絡', 'AI 先理解核准資訊與工作情境，再提出可以採取的下一步。'],
-  ['03 / 人員確認', 'DECIDE', '重要決定仍由人掌握', 'AI 負責整理與說明；涉及風險、權限或影響時，由人員決定。'],
-  ['04 / 成果', 'OUTCOME', '讓清楚形成受控成果', '結果帶著範圍、決定與紀錄回到工作流程，供後續檢查與改善。']
+  { label:'需求', word:'理解需求', title:'看見真正需要改變的工作', copy:'把企業需求、知識、資料與工具帶回同一個清楚視野。' },
+  { label:'脈絡', word:'建立脈絡', title:'串起問題周圍的脈絡', copy:'AI 先理解核准資訊與工作情境，再提出可以採取的下一步。' },
+  { label:'人員確認', word:'等待確認', title:'重要決定仍由人掌握', copy:'AI 負責整理與說明；涉及風險、權限或影響時，由人員決定。' },
+  { label:'成果', word:'形成成果', title:'讓清楚形成受控成果', copy:'結果帶著範圍、決定與紀錄回到工作流程，供後續檢查與改善。' }
 ];
 ---
 <div class="perspective-path case-governance" data-reveal>
   <header><p class="section-index">{en ? 'TECHNOLOGY INSIDE THE WORK' : '藏在工作裡的技術與治理'}</p><h3>{en ? 'Innovation moves faster when its boundaries are visible.' : '創新可以前進，界線也必須清楚'}</h3><p>{en ? 'Technology details stay one layer deeper. What people see first is how information, AI, human judgment and records work together.' : '技術細節留在第二層；使用者先看見資訊、AI、人員判斷與紀錄如何一起運作。'}</p></header>
-  <div class="ai-change-stage" data-ai-change data-active-change="0">
-    <div class="ai-change-visual" aria-hidden="true"><span>AI</span><b data-ai-change-word>{steps[0][1]}</b><i></i><i></i><i></i></div>
-    <div class="ai-change-copy" id="ai-change-panel" role="tabpanel" aria-labelledby="ai-change-tab-0"><p class="eyebrow">{en ? 'ELIAS NET · AI CHANGE PATH' : 'ELIAS NET · AI CHANGE PATH／從工作訊號到受控成果'}</p><p class="ai-change-kicker" data-ai-change-kicker>{steps[0][0]}</p><h3 data-ai-change-title>{steps[0][2]}</h3><p data-ai-change-copy>{steps[0][3]}</p></div>
-    <div class="ai-change-nav" role="tablist" aria-label={en ? 'AI change path' : 'AI 參與工作路徑'}>{steps.map((step,index) => <button id={`ai-change-tab-${index}`} type="button" role="tab" aria-controls="ai-change-panel" aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? '0' : '-1'} data-ai-change-tab data-kicker={step[0]} data-word={step[1]} data-title={step[2]} data-copy={step[3]}><span>0{index+1}</span>{en ? ['Need','Context','Human review','Outcome'][index] : ['需求','脈絡','人員確認','成果'][index]}</button>)}</div>
+  <div class="ai-work-path" data-ai-change data-active-change="0">
+    <div class="kinetic-workmark">
+      <svg class="kinetic-workmark-svg" viewBox="0 0 620 360" aria-hidden="true">
+        <g class="work-signal" data-work-signal><path d="M16 178 H112"/><circle cx="30" cy="178" r="4"/><circle cx="57" cy="178" r="4"/><circle cx="84" cy="178" r="4"/></g>
+        <g class="work-a" data-work-a><path class="work-a-left" d="M132 288 L232 68"/><path class="work-a-right" d="M232 68 L332 288"/><path class="work-a-bar" d="M170 205 H295"/></g>
+        <g class="work-i" data-work-i><path class="work-i-top" d="M374 76 H520"/><path class="work-i-stem" d="M447 76 V286"/><path class="work-i-bottom" d="M374 286 H520"/><path class="work-i-axis work-i-axis-left" d="M416 100 V266"/><path class="work-i-axis work-i-axis-right" d="M478 100 V266"/></g>
+        <g class="work-context" data-work-context><path d="M168 200 C130 150 110 116 76 110"/><path d="M272 198 C314 148 340 114 372 106"/><path d="M232 70 V24"/><circle cx="76" cy="110" r="7"/><circle cx="372" cy="106" r="7"/><circle cx="232" cy="24" r="7"/></g>
+        <g class="work-review" data-work-review><rect x="105" y="35" width="450" height="286" rx="12"/><path d="M535 62 V296"/><circle cx="535" cy="178" r="8"/></g>
+        <g class="work-output" data-work-output><path d="M520 178 H598"/><circle cx="598" cy="178" r="9"/><path d="M588 178 L594 184 L606 170"/></g>
+      </svg>
+      <div class="kinetic-workmark-label"><span data-ai-change-word>{steps[0].word}</span></div>
+      <button class="ai-work-replay" type="button" data-ai-change-replay data-replay-label={en ? 'Replay the full path' : '重播完整流程'} data-pause-label={en ? 'Pause demonstration' : '暫停示範'}>{en ? 'Replay the full path' : '重播完整流程'}</button>
+    </div>
+    <div class="ai-work-copy" id="ai-change-panel" role="tabpanel" aria-labelledby="ai-change-tab-0"><p class="eyebrow">{en ? 'ELIAS NET · AI CHANGE PATH' : 'ELIAS NET · AI 工作路徑'}</p><p class="ai-work-kicker" data-ai-change-kicker>{steps[0].label}</p><h3 data-ai-change-title>{steps[0].title}</h3><p data-ai-change-copy>{steps[0].copy}</p></div>
+    <div class="ai-work-tabs" role="tablist" aria-label={en ? 'AI change path' : 'AI 參與工作路徑'}>{steps.map((step,index) => <button id={`ai-change-tab-${index}`} type="button" role="tab" aria-controls="ai-change-panel" aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? '0' : '-1'} data-ai-change-tab data-kicker={step.label} data-word={step.word} data-title={step.title} data-copy={step.copy}>{step.label}</button>)}</div>
   </div>
   <details class="governance-details"><summary>{en ? 'View technical and governance capabilities' : '展開技術與治理能力'}</summary><div>{governanceItems.map((item,index) => <article><span>0{index+1}</span><h4>{text(item.title,locale)}</h4><p>{text(item.copy,locale)}</p></article>)}</div><p class="technical-note">{en ? 'Depending on the application: APIs, data interfaces, access control, model selection, logging, audit, testing, version management, and on-premises, cloud or hybrid architecture.' : '依應用評估 API、資料介面、權限控制、模型選擇、日誌與稽核、測試與版本管理，以及地端、雲端或混合架構。'}</p></details>
 </div>

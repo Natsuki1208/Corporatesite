@@ -52,6 +52,7 @@ export function initCapabilityMotion(reduced: MediaQueryList) {
 
   const assembly = one<HTMLElement>('[data-capability-assembly]', root);
   const introAnimations: AnimatedSet = new Set();
+  const assemblyTimers = new Set<number>();
   const entranceAnimations: AnimatedSet = new Set();
   const panelAnimations = new Map<HTMLElement, Animation>();
   const cleanups: Array<() => void> = [];
@@ -122,7 +123,9 @@ export function initCapabilityMotion(reduced: MediaQueryList) {
 
   const setAssemblyStatic = () => {
     if (!assembly) return;
-    for (const element of all<HTMLElement | SVGElement>('[data-assembly-source], [data-assembly-path], [data-assembly-node], [data-assembly-core], [data-assembly-result]', assembly)) {
+    const core = one<SVGSVGElement>('[data-assembly-core]', assembly);
+    if (core) core.dataset.corePhase = 'complete';
+    for (const element of all<HTMLElement | SVGElement>('[data-assembly-source], [data-assembly-path], [data-assembly-node], [data-assembly-core], [data-assembly-result], [data-core-signal], [data-core-a], [data-core-i], [data-core-branches], [data-core-output]', assembly)) {
       element.style.removeProperty('opacity');
       element.style.removeProperty('transform');
       element.style.removeProperty('stroke-dasharray');
@@ -131,8 +134,18 @@ export function initCapabilityMotion(reduced: MediaQueryList) {
   };
 
   const stopAssembly = () => {
+    for (const timer of assemblyTimers) window.clearTimeout(timer);
+    assemblyTimers.clear();
     cancelAll(introAnimations);
     setAssemblyStatic();
+  };
+
+  const assemblyLater = (callback: () => void, delay: number) => {
+    const timer = window.setTimeout(() => {
+      assemblyTimers.delete(timer);
+      callback();
+    }, delay);
+    assemblyTimers.add(timer);
   };
 
   const playAssembly = () => {
@@ -141,7 +154,7 @@ export function initCapabilityMotion(reduced: MediaQueryList) {
 
     const source = one<HTMLElement>('[data-assembly-source]', assembly);
     const result = one<HTMLElement>('[data-assembly-result]', assembly);
-    const core = one<HTMLElement>('[data-assembly-core]', assembly);
+    const core = one<SVGSVGElement>('[data-assembly-core]', assembly);
     const modules = all<HTMLElement>('[data-assembly-node]', assembly);
     const paths = all<SVGPathElement>('[data-assembly-path]', assembly);
 
@@ -164,11 +177,50 @@ export function initCapabilityMotion(reduced: MediaQueryList) {
       ], { duration: 1000, delay: 300 + index * 780, easing: 'cubic-bezier(.2,.72,.22,1)', fill: 'both' }, introAnimations);
     });
 
-    if (core) animate(core, [
-      { opacity: 0.25, transform: 'translate(-50%,-50%) scale(.72)' },
-      { opacity: 1, transform: 'translate(-50%,-50%) scale(1.08)' },
-      { opacity: 1, transform: 'translate(-50%,-50%) scale(1)' },
-    ], { duration: 720, delay: 1850, easing: 'cubic-bezier(.22,.8,.26,1)', fill: 'both' }, introAnimations);
+    if (core) {
+      core.dataset.corePhase = 'understand';
+      const letterPaths = all<SVGGeometryElement>('[data-core-a] path, [data-core-i] path', core);
+      const signalPaths = all<SVGGeometryElement>('[data-core-signal] path', core);
+      [...letterPaths, ...signalPaths].forEach((path, index) => {
+        const length = pathLength(path);
+        if (length) path.style.strokeDasharray = `${length}`;
+        animate(path, [
+          { opacity: .16, strokeDashoffset: length || 60 },
+          { opacity: 1, strokeDashoffset: 0 },
+        ], { duration: 680, delay: 540 + index * 90, easing: 'cubic-bezier(.22,.8,.26,1)', fill: 'both' }, introAnimations);
+      });
+      assemblyLater(() => {
+        if (!sectionVisible || reduced.matches || document.hidden) return;
+        core.dataset.corePhase = 'integrate';
+        all<SVGGeometryElement>('[data-core-branches] path', core).forEach((path, index) => {
+          const length = pathLength(path);
+          animate(path, [
+            { opacity: .1, strokeDasharray: `${length || 60}`, strokeDashoffset: length || 60 },
+            { opacity: 1, strokeDashoffset: 0 },
+          ], { duration: 720, delay: index * 120, fill: 'both', easing: 'ease-out' }, introAnimations);
+        });
+        const aLeft = one<SVGElement>('.core-a-left', core);
+        const aRight = one<SVGElement>('.core-a-right', core);
+        const aBar = one<SVGElement>('.core-a-bar', core);
+        if (aLeft) animate(aLeft, [{ transform: 'translateX(0)' }, { transform: 'translateX(-9px)' }], { duration: 620, easing: 'ease-out' }, introAnimations);
+        if (aRight) animate(aRight, [{ transform: 'translateX(0)' }, { transform: 'translateX(9px)' }], { duration: 620, easing: 'ease-out' }, introAnimations);
+        if (aBar) animate(aBar, [{ transform: 'scaleX(.72)' }, { transform: 'scaleX(1.3)' }], { duration: 620, easing: 'ease-out' }, introAnimations);
+      }, 1850);
+      assemblyLater(() => {
+        if (!sectionVisible || reduced.matches || document.hidden) return;
+        core.dataset.corePhase = 'complete';
+        const aLeft = one<SVGElement>('.core-a-left', core);
+        const aRight = one<SVGElement>('.core-a-right', core);
+        const aBar = one<SVGElement>('.core-a-bar', core);
+        const iStem = one<SVGElement>('.core-i-stem', core);
+        if (aLeft) animate(aLeft, [{ transform: 'translateX(-9px)' }, { transform: 'translateX(0)' }], { duration: 680, easing: 'cubic-bezier(.22,.8,.26,1)' }, introAnimations);
+        if (aRight) animate(aRight, [{ transform: 'translateX(9px)' }, { transform: 'translateX(0)' }], { duration: 680, easing: 'cubic-bezier(.22,.8,.26,1)' }, introAnimations);
+        if (aBar) animate(aBar, [{ transform: 'scaleX(1.3)' }, { transform: 'scaleX(1)' }], { duration: 680, easing: 'cubic-bezier(.22,.8,.26,1)' }, introAnimations);
+        if (iStem) animate(iStem, [{ transform: 'scaleY(.7)' }, { transform: 'scaleY(1)' }], { duration: 680, easing: 'cubic-bezier(.22,.8,.26,1)' }, introAnimations);
+        const output = one<SVGGElement>('[data-core-output]', core);
+        if (output) animate(output, [{ opacity: .15, transform: 'translateX(-10px)' }, { opacity: 1, transform: 'translateX(0)' }], { duration: 700, fill: 'both', easing: 'ease-out' }, introAnimations);
+      }, 3000);
+    }
 
     if (result) animate(result, [
       { opacity: 0.2, transform: 'translateX(16px)' },
@@ -243,6 +295,14 @@ export function initCapabilityMotion(reduced: MediaQueryList) {
     introPlayed = true;
     playAssembly();
   };
+
+  const replayAssembly = one<HTMLButtonElement>('[data-core-replay]', assembly ?? root);
+  const onAssemblyReplay = () => {
+    introPlayed = true;
+    playAssembly();
+  };
+  replayAssembly?.addEventListener('click', onAssemblyReplay);
+  if (replayAssembly) cleanups.push(() => replayAssembly.removeEventListener('click', onAssemblyReplay));
 
   for (const entry of cards) {
     syncPanelState(entry);

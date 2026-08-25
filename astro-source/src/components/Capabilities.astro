@@ -21,7 +21,7 @@ const labels = en ? {
 <section id="capabilities" class="main-section solutions light-section capabilities-semantic" data-section="capabilities" aria-labelledby="capabilities-title">
   <div class="shell">
     <header class="section-heading" data-reveal>
-      <p class="section-index">04 / {en ? 'HOW WE HELP' : '核心能力'}</p>
+      <p class="section-index">{en ? 'CAPABILITIES' : '核心能力'}</p>
       <h2 id="capabilities-title">{en ? 'Turn AI ideas into everyday ways of working.' : '讓 AI 構想，成為日常工作'}</h2>
       <p>{en ? 'From problem discovery and experience design to system integration, Elias Net helps organizations build AI-enabled ways of working that people can actually use.' : 'Elias Net 從問題探索、體驗設計到系統整合，陪企業逐步建立真正能使用的 AI 工作方式。'}</p>
     </header>
@@ -35,17 +35,24 @@ const labels = en ? {
           <path data-assembly-path d="M350 130 C420 130 438 130 592 130" />
         </svg>
         <div class="assembly-modules" aria-hidden="true">
-          {moduleLabels.map((label,index) => <span data-assembly-node style={`--module-index:${index}`}><b>{String(index + 1).padStart(2,'0')}</b>{label}</span>)}
+          {moduleLabels.map((label,index) => <span data-assembly-node style={`--module-index:${index}`}>{label}</span>)}
         </div>
-        <span class="assembly-core" data-assembly-core aria-hidden="true">AI</span>
+        <svg class="assembly-core kinetic-ai-core" data-assembly-core data-core-phase="understand" viewBox="0 0 180 150" aria-hidden="true">
+          <g class="core-signal" data-core-signal><path d="M4 75 H36"/><circle cx="12" cy="75" r="3"/><circle cx="28" cy="75" r="3"/></g>
+          <g class="core-letter-a" data-core-a><path class="core-a-left" d="M48 120 L78 28"/><path class="core-a-right" d="M78 28 L108 120"/><path class="core-a-bar" d="M61 82 H96"/></g>
+          <g class="core-letter-i" data-core-i><path class="core-i-top" d="M122 30 H164"/><path class="core-i-stem" d="M143 30 V120"/><path class="core-i-bottom" d="M122 120 H164"/></g>
+          <g class="core-branches" data-core-branches><path d="M62 78 L35 52 H18"/><path d="M94 78 L118 56 H136"/><path d="M78 28 V12"/><circle cx="18" cy="52" r="3"/><circle cx="136" cy="56" r="3"/><circle cx="78" cy="12" r="3"/></g>
+          <g class="core-output" data-core-output><path d="M164 75 H178"/><circle cx="174" cy="75" r="4"/></g>
+        </svg>
+        <button class="core-replay" type="button" data-core-replay>{en ? 'Replay how the capability comes together' : '重播能力如何形成'}</button>
       </div>
       <div class="assembly-result" data-assembly-result><small>{en ? 'FORM' : '最後形成'}</small><strong>{en ? 'A usable AI-enabled way of working' : '可使用的 AI 工作能力'}</strong><i aria-hidden="true"></i></div>
     </div>
 
     <div class="solution-grid">
-      {capabilities.map((item,index) => (
+      {capabilities.map((item) => (
         <article class={`solution-card solution-${item.id}`} data-solution-card data-capability-id={item.id}>
-          <div class="solution-top"><span>{String(index + 1).padStart(2,'0')}</span><b>{text(item.name,locale)}</b></div>
+          <div class="solution-top"><b>{text(item.name,locale)}</b></div>
           <div class="capability-visual" data-capability-visual aria-hidden="true">
             {item.id === 'strategy' && <svg viewBox="0 0 360 180" vector-effect="non-scaling-stroke">
               <g class="scene-options" data-cap-group><circle data-cap-node cx="38" cy="32" r="9"/><circle data-cap-node cx="38" cy="72" r="9"/><circle data-cap-node cx="38" cy="112" r="9"/><circle data-cap-node cx="38" cy="152" r="9"/><circle data-cap-node cx="95" cy="55" r="9"/><circle data-cap-node cx="95" cy="130" r="9"/></g>
@@ -79,7 +86,7 @@ const labels = en ? {
           </div>
           <h3>{text(item.headline,locale)}</h3><p>{text(item.summary,locale)}</p>
           <button id={`capability-toggle-${item.id}`} type="button" class="solution-toggle" aria-expanded="false" aria-controls={`capability-detail-${item.id}`} data-solution-toggle><span>{en ? 'See how it works' : '了解如何落地'}</span><i aria-hidden="true">＋</i></button>
-          <div id={`capability-detail-${item.id}`} class="solution-detail" role="region" aria-labelledby={`capability-toggle-${item.id}`} hidden><dl><div><dt>{en ? 'Business challenge' : '企業問題'}</dt><dd>{text(item.problem,locale)}</dd></div><div><dt>{en ? 'How Elias Net helps' : 'Elias Net 如何協助'}</dt><dd>{text(item.assistance,locale)}</dd></div><div><dt>{en ? 'What this enables' : '形成的工作能力'}</dt><dd>{text(item.outcome,locale)}</dd></div></dl></div>
+          <div id={`capability-detail-${item.id}`} class="solution-detail" role="region" aria-labelledby={`capability-toggle-${item.id}`} hidden><dl><div><dt>{en ? 'Current friction' : '現在的阻力'}</dt><dd>{text(item.problem,locale)}</dd></div><div><dt>{en ? 'How we help' : '我們如何協助'}</dt><dd>{text(item.assistance,locale)}</dd></div><div><dt>{en ? 'What this enables' : '最後形成'}</dt><dd>{text(item.outcome,locale)}</dd></div></dl></div>
         </article>
       ))}
     </div>

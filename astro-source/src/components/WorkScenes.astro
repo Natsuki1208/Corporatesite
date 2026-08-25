@@ -7,7 +7,7 @@ const en = locale === 'en';
 ---
 <section id="scenes" class="main-section work-scenes" data-section="scenes" aria-labelledby="scenes-title">
   <div class="shell">
-    <header class="section-heading" data-reveal><p class="section-index">03 / {en ? 'APPLICATIONS' : '工作應用'}</p><h2 id="scenes-title">{en ? 'AI creates value in the work people do every day.' : 'AI 的價值，發生在每天的工作裡'}</h2></header>
+    <header class="section-heading" data-reveal><p class="section-index">{en ? 'APPLICATIONS' : '工作應用'}</p><h2 id="scenes-title">{en ? 'AI creates value in the work people do every day.' : 'AI 的價值，發生在每天的工作裡'}</h2></header>
     <div class="scene-console" data-scene-console data-reveal>
       <div class="scene-tabs" role="tablist" aria-label={en ? 'Work roles' : '工作角色'}>{workScenes.map((scene,index) => <button type="button" id={`scene-tab-${scene.id}`} role="tab" aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`scene-panel-${scene.id}`} tabindex={index === 0 ? '0' : '-1'} data-scene-tab>{text(scene.role,locale)}</button>)}</div>
       <div class="scene-stage" data-scene-stage data-scene-id={workScenes[0].id}>

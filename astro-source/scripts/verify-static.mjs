@@ -16,8 +16,10 @@ for (const page of pages) {
   const orderedHashes = (block = '') => expected.slice(1).every((id,index,array)=>block.indexOf(`href="#${id}"`) >= 0 && (index === 0 || block.indexOf(`href="#${id}"`) > block.indexOf(`href="#${array[index-1]}"`)));
   const headerOrder = orderedHashes(navBlocks[0]);
   const footerOrder = orderedHashes(navBlocks.at(-1));
-  const sectionIndices = expected.every((_,index)=>html.includes(`${String(index).padStart(2,'0')} /`));
-  const initialCounter = html.includes('<span data-section-count>00 / 07</span>');
+  const visiblePageNumbers = [...html.matchAll(/(?:00|01|02|03|04|05|06|07)\s*\//g)].length;
+  const initialCounter = html.includes('data-section-count');
+  const capabilityNumbers = /<article[^>]+data-solution-card[\s\S]*?<div class="solution-top"><b>0[1-6]<\/b>/.test(html);
+  const aiPathNumbers = /data-ai-change-tab[^>]*><span>0[1-4]<\/span>/.test(html);
   const resourceRefs = [
     ...[...html.matchAll(/<(?:script|img)[^>]+src="([^"]+)"/g)].map((match)=>match[1]),
     ...[...html.matchAll(/<link[^>]+rel="(?:stylesheet|icon)"[^>]+href="([^"]+)"/g)].map((match)=>match[1]),
@@ -30,8 +32,8 @@ for (const page of pages) {
     try { await access(path); } catch { missingResources.push(value); }
   }
   const ordered = positions.every((position,index)=>position>=0&&(index===0||position>positions[index-1]));
-  if (!ordered || !headerOrder || !footerOrder || !sectionIndices || !initialCounter || duplicateIds.length || brokenHashes.length || missingResources.length || externalResources.length) failed = true;
-  console.log(`${page}: order=${ordered?'PASS':'FAIL'} header=${headerOrder?'PASS':'FAIL'} footer=${footerOrder?'PASS':'FAIL'} indices=${sectionIndices?'PASS':'FAIL'} counter=${initialCounter?'PASS':'FAIL'} duplicate_ids=${duplicateIds.length} broken_hashes=${brokenHashes.length} missing_assets=${missingResources.length} external_resources=${externalResources.length}`);
+  if (!ordered || !headerOrder || !footerOrder || visiblePageNumbers || initialCounter || capabilityNumbers || aiPathNumbers || duplicateIds.length || brokenHashes.length || missingResources.length || externalResources.length) failed = true;
+  console.log(`${page}: order=${ordered?'PASS':'FAIL'} header=${headerOrder?'PASS':'FAIL'} footer=${footerOrder?'PASS':'FAIL'} visible_page_numbers=${visiblePageNumbers} counter=${initialCounter?'FAIL':'PASS'} capability_numbers=${capabilityNumbers?'FAIL':'PASS'} ai_path_numbers=${aiPathNumbers?'FAIL':'PASS'} duplicate_ids=${duplicateIds.length} broken_hashes=${brokenHashes.length} missing_assets=${missingResources.length} external_resources=${externalResources.length}`);
 }
 
 if (failed) process.exitCode = 1;
