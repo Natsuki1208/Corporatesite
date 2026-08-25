@@ -1,8 +1,8 @@
 export const zh = String.raw`
-    <section id="contact" class="main-section contact" data-section="contact" aria-labelledby="contact-title">
+    <section id="ai-change" class="main-section contact ai-change-section" data-section="ai-change" aria-labelledby="ai-change-title">
       <div class="shell ai-change-stage" data-ai-change data-active-change="0" aria-labelledby="ai-change-title">
         <div class="ai-change-visual" aria-hidden="true"><span>AI</span><b data-ai-change-word>SIGNAL</b><i></i><i></i><i></i></div>
-        <div class="ai-change-copy" id="ai-change-panel" role="tabpanel" aria-live="polite" aria-labelledby="ai-change-tab-0">
+        <div class="ai-change-copy" id="ai-change-panel" role="tabpanel" aria-labelledby="ai-change-tab-0">
           <p class="eyebrow">AI CHANGE · ELIAS NET OPERATIONS</p>
           <p class="ai-change-kicker" data-ai-change-kicker>01 / SIGNAL</p>
           <h2 id="ai-change-title" data-ai-change-title>看見每個訊號</h2>
@@ -14,8 +14,9 @@ export const zh = String.raw`
           <button id="ai-change-tab-2" type="button" role="tab" aria-controls="ai-change-panel" aria-selected="false" data-ai-change-tab="2"><span>03</span>人員決定</button>
           <button id="ai-change-tab-3" type="button" role="tab" aria-controls="ai-change-panel" aria-selected="false" data-ai-change-tab="3"><span>04</span>受控成果</button>
         </div>
-        <button class="ai-change-pause" type="button" data-ai-change-pause aria-pressed="false">暫停自動播放</button>
       </div>
+    </section>
+    <section id="contact" class="main-section contact readiness-section" data-section="contact" aria-labelledby="contact-title">
       <div class="shell readiness-console reveal" data-readiness-console>
         <div class="readiness-intro"><p class="eyebrow">INTEGRATION READINESS CONSOLE</p><h2 id="contact-title" data-en="See the system clearly. Start from the right point.">先看清系統，再找對起點</h2><p data-en="Choose one current priority and one primary difficulty. This local demonstration organizes a suggested starting point without sending or storing any information.">選擇一項目前優先需求與主要困難；本機展示會整理建議起點，不會傳送或儲存任何資料。</p></div>
         <div class="readiness-grid">
@@ -24,16 +25,16 @@ export const zh = String.raw`
           <div class="readiness-step readiness-output"><span>STEP 03</span><h3 data-en="Generate a suggested starting point">產生建議起點</h3><div class="readiness-path" aria-hidden="true"><i></i><i></i><i></i><i></i><b>ELIAS</b></div><button class="button primary" type="button" data-readiness-generate disabled data-en="Generate suggestion">產生建議</button><div class="readiness-result" role="status" aria-live="polite" data-readiness-result><strong data-en="Waiting for two selections">等待完成兩項選擇</strong><p data-en="The local console will organize a starting point and expected deliverables.">本機啟動台會整理建議起點與預計交付。</p></div></div>
         </div>
         <div class="readiness-actions"><button class="button primary" type="button" data-contact-open data-en="Discuss integration needs">討論整合需求</button><button class="button secondary" type="button" data-contact-open data-topic="ai" data-en="Explore AI operations validation">了解 AI 維運驗證</button><small data-en="LOCAL DEMO · No network request · No input stored">本機展示 · 不發出網路請求 · 不儲存輸入</small></div>
-        <div class="readiness-signoff"><img src="/Corporatesite/images/elias-net-logo.svg" alt="Elias Net"><div><b data-en="Understand every signal. Control every action.">理解每個訊號，掌握每次行動。</b><span data-en="Infrastructure, Security & AI Operations Integrator">企業 IT 與 AI 智慧維運系統整合服務商</span></div></div>
+        <div class="readiness-signoff"><div><b data-en="Understand every signal. Control every action.">理解每個訊號，掌握每次行動。</b><span data-en="Infrastructure, Security & AI Operations Integrator">企業 IT 與 AI 智慧維運系統整合服務商</span></div></div>
       </div>
     </section>
 `;
 
 export const en = String.raw`
-    <section id="contact" class="main-section contact" data-section="contact" aria-labelledby="contact-title">
+    <section id="ai-change" class="main-section contact ai-change-section" data-section="ai-change" aria-labelledby="ai-change-title">
       <div class="shell ai-change-stage" data-ai-change data-active-change="0" aria-labelledby="ai-change-title">
         <div class="ai-change-visual" aria-hidden="true"><span>AI</span><b data-ai-change-word>SIGNAL</b><i></i><i></i><i></i></div>
-        <div class="ai-change-copy" id="ai-change-panel" role="tabpanel" aria-live="polite" aria-labelledby="ai-change-tab-0">
+        <div class="ai-change-copy" id="ai-change-panel" role="tabpanel" aria-labelledby="ai-change-tab-0">
           <p class="eyebrow">AI CHANGE · ELIAS NET OPERATIONS</p>
           <p class="ai-change-kicker" data-ai-change-kicker>01 / SIGNAL</p>
           <h2 id="ai-change-title" data-ai-change-title>See every signal</h2>
@@ -45,8 +46,9 @@ export const en = String.raw`
           <button id="ai-change-tab-2" type="button" role="tab" aria-controls="ai-change-panel" aria-selected="false" data-ai-change-tab="2"><span>03</span>Human decision</button>
           <button id="ai-change-tab-3" type="button" role="tab" aria-controls="ai-change-panel" aria-selected="false" data-ai-change-tab="3"><span>04</span>Controlled outcome</button>
         </div>
-        <button class="ai-change-pause" type="button" data-ai-change-pause aria-pressed="false">Pause autoplay</button>
       </div>
+    </section>
+    <section id="contact" class="main-section contact readiness-section" data-section="contact" aria-labelledby="contact-title">
       <div class="shell readiness-console reveal" data-readiness-console>
         <div class="readiness-intro"><p class="eyebrow">INTEGRATION READINESS CONSOLE</p><h2 id="contact-title" data-en="See the system clearly. Start from the right point.">See the system clearly. Start from the right point.</h2><p data-en="Choose one current priority and one primary difficulty. This local demonstration organizes a suggested starting point without sending or storing any information.">Choose one current priority and one primary difficulty. This local demonstration organizes a suggested starting point without sending or storing any information.</p></div>
         <div class="readiness-grid">
@@ -55,7 +57,7 @@ export const en = String.raw`
           <div class="readiness-step readiness-output"><span>STEP 03</span><h3 data-en="Generate a suggested starting point">Generate a suggested starting point</h3><div class="readiness-path" aria-hidden="true"><i></i><i></i><i></i><i></i><b>ELIAS</b></div><button class="button primary" type="button" data-readiness-generate disabled data-en="Generate suggestion">Generate suggestion</button><div class="readiness-result" role="status" aria-live="polite" data-readiness-result><strong data-en="Waiting for two selections">Waiting for two selections</strong><p data-en="The local console will organize a starting point and expected deliverables.">The local console will organize a starting point and expected deliverables.</p></div></div>
         </div>
         <div class="readiness-actions"><button class="button primary" type="button" data-contact-open data-en="Discuss integration needs">Discuss integration needs</button><button class="button secondary" type="button" data-contact-open data-topic="ai" data-en="Explore AI operations validation">Explore AI operations validation</button><small data-en="LOCAL DEMO · No network request · No input stored">LOCAL DEMO · No network request · No input stored</small></div>
-        <div class="readiness-signoff"><img src="/Corporatesite/images/elias-net-logo.svg" alt="Elias Net"><div><b data-en="Understand every signal. Control every action.">Understand every signal. Control every action.</b><span data-en="Infrastructure, Security &amp; AI Operations Integrator">Infrastructure, Security &amp; AI Operations Integrator</span></div></div>
+        <div class="readiness-signoff"><div><b data-en="Understand every signal. Control every action.">Understand every signal. Control every action.</b><span data-en="Infrastructure, Security &amp; AI Operations Integrator">Infrastructure, Security &amp; AI Operations Integrator</span></div></div>
       </div>
     </section>
 `;

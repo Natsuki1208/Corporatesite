@@ -38,8 +38,10 @@ import { readinessContract } from './readiness-console';
 
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      entry.target.classList.toggle('is-visible', entry.isIntersecting);
-      if (entry.target.matches('[data-service-item]')) entry.target.classList.toggle('is-active', entry.isIntersecting);
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      if (entry.target.matches('[data-service-item]')) entry.target.classList.add('is-active');
+      revealObserver.unobserve(entry.target);
     });
   }, { threshold: 0.18 });
   document.querySelectorAll('.reveal,[data-service-item]').forEach((element) => revealObserver.observe(element));
@@ -337,27 +339,25 @@ import { readinessContract } from './readiness-console';
 
   const aiChangeStage = document.querySelector('[data-ai-change]');
   const aiChangeTabs = [...document.querySelectorAll('[data-ai-change-tab]')];
-  const aiChangePause = document.querySelector('[data-ai-change-pause]');
   const aiChangeContent = language === 'en' ? [
-    ['01 / SIGNAL','See every signal','Bring infrastructure, cloud and event signals into one operational view.','SIGNAL'],
-    ['02 / CONTEXT','Connect every context','Relate assets, services and time so teams understand what an event can affect.','CONTEXT'],
-    ['03 / HUMAN DECISION','Keep people in control','AI organizes recommendations; important operations pause for an accountable human decision.','DECIDE'],
-    ['04 / CONTROLLED OUTCOME','Turn clarity into a controlled outcome','Start with a reviewable improvement path—not automation without boundaries.','OUTCOME']
+    ['01 / SIGNAL','See every signal','Unify infrastructure, cloud and event signals.','SIGNAL'],
+    ['02 / CONTEXT','Connect every context','Relate assets, services and time to reveal impact.','CONTEXT'],
+    ['03 / HUMAN DECISION','Keep people in control','AI prepares recommendations; people approve important actions.','DECIDE'],
+    ['04 / CONTROLLED OUTCOME','Turn clarity into controlled outcomes','Move forward through a reviewable, bounded path.','OUTCOME']
   ] : [
-    ['01 / SIGNAL','看見每個訊號','先把分散的設備、雲端與事件訊號帶回同一個營運視野。','SIGNAL'],
-    ['02 / CONTEXT','串起每段脈絡','將資產、服務與時間關聯起來，讓團隊理解事件可能影響什麼。','CONTEXT'],
-    ['03 / HUMAN DECISION','重要行動由人決定','AI 整理建議；重要操作停在執行前，由人員負責確認。','DECIDE'],
-    ['04 / CONTROLLED OUTCOME','讓清楚形成受控成果','從可控、可檢查的改善路徑開始，而不是沒有界線的自動化。','OUTCOME']
+    ['01 / SIGNAL','看見每個訊號','匯入分散的設備、雲端與事件訊號。','SIGNAL'],
+    ['02 / CONTEXT','串起每段脈絡','關聯資產、服務與時間，快速看清影響。','CONTEXT'],
+    ['03 / HUMAN DECISION','重要行動由人決定','AI 整理建議，重要操作由人員確認。','DECIDE'],
+    ['04 / CONTROLLED OUTCOME','讓清楚形成受控成果','以可檢查、有界線的路徑形成成果。','OUTCOME']
   ];
   let aiChangeIndex = 0;
   let aiChangeTimer = 0;
   let aiChangeVisible = false;
-  let aiChangePaused = false;
   const stopAiChangeTimer = () => { window.clearTimeout(aiChangeTimer); aiChangeTimer = 0; };
   const scheduleAiChange = () => {
     stopAiChangeTimer();
-    if (!aiChangeVisible || aiChangePaused || reduceMotion.matches || document.hidden) return;
-    aiChangeTimer = window.setTimeout(() => { renderAiChange((aiChangeIndex + 1) % aiChangeContent.length); scheduleAiChange(); }, 5200);
+    if (!aiChangeVisible || reduceMotion.matches || document.hidden) return;
+    aiChangeTimer = window.setTimeout(() => { renderAiChange((aiChangeIndex + 1) % aiChangeContent.length); scheduleAiChange(); }, 2500);
   };
   function renderAiChange(index) {
     aiChangeIndex = index;
@@ -369,20 +369,28 @@ import { readinessContract } from './readiness-console';
     aiChangeStage.querySelector('[data-ai-change-word]').textContent = word;
     aiChangeTabs.forEach((tab, tabIndex) => { tab.setAttribute('aria-selected',String(tabIndex === index)); tab.tabIndex = tabIndex === index ? 0 : -1; });
     aiChangeStage.querySelector('[role="tabpanel"]').setAttribute('aria-labelledby',aiChangeTabs[index].id);
+    const aiChangeCopyElements = [aiChangeStage.querySelector('[data-ai-change-word]'),aiChangeStage.querySelector('[data-ai-change-title]'),aiChangeStage.querySelector('[data-ai-change-copy]')];
+    const aiChangeRails = [...aiChangeStage.querySelectorAll('.ai-change-visual i')];
+    [...aiChangeCopyElements,...aiChangeRails].forEach((element) => element.getAnimations().forEach((animation) => animation.cancel()));
     if (!reduceMotion.matches) {
-      [aiChangeStage.querySelector('[data-ai-change-word]'),aiChangeStage.querySelector('[data-ai-change-title]'),aiChangeStage.querySelector('[data-ai-change-copy]')].forEach((element,itemIndex) => {
-        element.animate([{ opacity:.2, transform:'translateY(12px)' },{ opacity:1, transform:'translateY(0)' }],{ duration:420 + itemIndex * 90, easing:'cubic-bezier(.22,.8,.22,1)' });
+      aiChangeCopyElements.forEach((element,itemIndex) => {
+        const keyframes = itemIndex === 0
+          ? [{ opacity:.15 },{ opacity:1 }]
+          : [{ opacity:.2, transform:'translateY(12px)' },{ opacity:1, transform:'translateY(0)' }];
+        element.animate(keyframes,{ duration:380 + itemIndex * 70, easing:'cubic-bezier(.22,.8,.22,1)' });
+      });
+      aiChangeRails.forEach((rail,itemIndex) => {
+        rail.animate([{ opacity:0, transform:'scaleX(0)' },{ opacity:.72, transform:'scaleX(1)' }],{
+          duration:620,
+          delay:itemIndex * 90,
+          easing:'cubic-bezier(.22,.8,.22,1)',
+          fill:'both'
+        });
       });
     }
   }
-  function updateAiChangePause() {
-    aiChangePause.setAttribute('aria-pressed',String(aiChangePaused));
-    aiChangePause.textContent = language === 'en'
-      ? (aiChangePaused ? 'Resume autoplay' : 'Pause autoplay')
-      : (aiChangePaused ? '繼續自動播放' : '暫停自動播放');
-  }
   aiChangeTabs.forEach((tab,index) => {
-    tab.addEventListener('click', () => { aiChangePaused = true; renderAiChange(index); updateAiChangePause(); scheduleAiChange(); });
+    tab.addEventListener('click', () => { renderAiChange(index); scheduleAiChange(); });
     tab.addEventListener('keydown', (event) => {
       if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
       event.preventDefault();
@@ -391,14 +399,12 @@ import { readinessContract } from './readiness-console';
       if (event.key === 'ArrowRight') target = (index + 1) % aiChangeTabs.length;
       if (event.key === 'Home') target = 0;
       if (event.key === 'End') target = aiChangeTabs.length - 1;
-      aiChangePaused = true; renderAiChange(target); updateAiChangePause(); aiChangeTabs[target].focus(); scheduleAiChange();
+      renderAiChange(target); aiChangeTabs[target].focus(); scheduleAiChange();
     });
   });
-  aiChangeStage.addEventListener('focusin', (event) => { if (event.target.closest('[data-ai-change-tab]')) { aiChangePaused = true; updateAiChangePause(); stopAiChangeTimer(); } });
-  aiChangePause.addEventListener('click', () => { aiChangePaused = !aiChangePaused; updateAiChangePause(); scheduleAiChange(); });
   new IntersectionObserver((entries) => entries.forEach((entry) => {
     aiChangeVisible = entry.isIntersecting;
-    if (aiChangeVisible) scheduleAiChange(); else stopAiChangeTimer();
+    if (aiChangeVisible) { renderAiChange(aiChangeIndex); scheduleAiChange(); } else stopAiChangeTimer();
   }), { threshold: .28 }).observe(aiChangeStage);
   document.addEventListener('visibilitychange', () => { updateVisionHeartbeat(); if (document.hidden) stopAiChangeTimer(); else scheduleAiChange(); });
   reduceMotion.addEventListener('change', () => {
@@ -409,7 +415,7 @@ import { readinessContract } from './readiness-console';
     }
     scheduleAiChange();
   });
-  renderAiChange(reduceMotion.matches ? 3 : 0); updateAiChangePause();
+  renderAiChange(reduceMotion.matches ? 3 : 0);
 
   const readinessData = {
     infrastructure: { zh:['設備老舊或版本不一致','備份與回復路徑不清楚','缺少完整資產關係圖'], en:['Aging or inconsistent equipment','Unclear backup and recovery paths','No complete asset relationship map'], resultZh:'建議先從「現況盤點與風險排序」開始。', resultEn:'Start with current-state assessment and risk prioritization.', deliveryZh:'資產關係圖、風險清單與分階段改善方向。', deliveryEn:'Asset relationship map, risk list and phased improvement direction.' },
