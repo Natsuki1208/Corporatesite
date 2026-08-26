@@ -7,21 +7,21 @@ const en = locale === 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const caseSteps = {
   knowledge: en ? ['Approved files','Index','Question','Answer + sources','Access boundary'] : ['核准文件','知識索引','使用者提問','回答＋來源','資料範圍'],
-  service: en ? ['Messages','Intent','Summary','Suggested reply','Human exception'] : ['客服訊息','意圖分類','案件摘要','建議回覆','例外交人員'],
-  operations: en ? ['Signals','Context','Impact','Read-only checks','Human review'] : ['異常訊號','事件脈絡','可能影響','唯讀檢查','人員確認']
+  service: en ? ['Messages','Intent','Summary','Suggested reply','Our review'] : ['客服訊息','意圖分類','案件摘要','建議回覆','由我們確認'],
+  operations: en ? ['Signals','Context','Impact','Read-only checks','Our review'] : ['異常訊號','事件脈絡','可能影響','唯讀檢查','由我們確認']
 };
 const caseOutcome = {
-  knowledge: en ? 'Measure: reduce search time · Boundary: approved documents only' : '衡量方向：縮短查找時間｜界線：僅使用核准文件',
-  service: en ? 'Measure: improve response consistency · Boundary: sensitive content stays human-led' : '衡量方向：改善回覆一致性｜界線：敏感內容由人員處理',
-  operations: en ? 'Measure: improve event awareness · Boundary: no real device or automatic restart' : '衡量方向：提升事件掌握速度｜界線：不連接真實設備、不自動重啟'
+  knowledge: en ? 'Shared outcome: Find verifiable information faster · Boundary: approved documents only' : '共同成果：更快找到可查證的資訊｜界線：僅使用核准文件',
+  service: en ? 'Shared outcome: More consistent responses and clearer handoffs · Boundary: sensitive content stays with us' : '共同成果：回覆更一致、交接更清楚｜界線：敏感內容由我們處理',
+  operations: en ? 'Shared outcome: Faster understanding of incidents and impact · Boundary: no real-device connection or automatic restart' : '共同成果：更快掌握事件與影響｜界線：不連接真實設備、不自動重啟'
 };
 ---
 <section id="cases" class="main-section cases" data-section="cases" aria-labelledby="cases-title">
   <div class="shell">
     <header class="section-heading" data-reveal><p class="section-index">{en ? 'CONCEPT CASES' : '創新案例'}</p><h2 id="cases-title">{en ? 'Build usable AI from real work problems.' : '從真實工作問題，做出能使用的 AI'}</h2><p>{en ? 'These are fictional concept demonstrations—not customer results or production deployments.' : '以下為虛擬概念示範，不代表正式客戶成果或已上線服務。'}</p></header>
-    <div class="case-tabs" role="tablist" aria-label={en ? 'Concept cases' : '概念案例'}>{cases.map((item,index) => <button type="button" id={`case-tab-${item.id}`} role="tab" aria-controls={`case-panel-${item.id}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? '0' : '-1'} data-case-tab><span>0{index + 1}</span>{text(item.title,locale)}</button>)}</div>
+    <div class="case-tabs" role="tablist" aria-label={en ? 'Concept cases' : '概念案例'}>{cases.map((item,index) => <button type="button" id={`case-tab-${item.id}`} role="tab" aria-controls={`case-panel-${item.id}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? '0' : '-1'} data-case-tab>{text(item.title,locale)}</button>)}</div>
     <div class="case-stage" data-case-stage data-reveal>
-      {cases.map((item,index) => <article id={`case-panel-${item.id}`} class={`case-panel case-${item.id}`} role="tabpanel" aria-labelledby={`case-tab-${item.id}`} data-case-panel data-case-id={item.id} hidden={index !== 0}><div class="case-image"><img src={`${base}${item.image}`} alt="" loading="lazy" width="1200" height="800"><div class="case-flow" aria-hidden="true">{caseSteps[item.id as keyof typeof caseSteps].map((step,stepIndex) => <span style={`--case-step:${stepIndex}`}><i></i><b>{step}</b></span>)}</div></div><div class="case-copy"><p class="case-tag">{text(item.tag,locale)}</p><h3>{text(item.title,locale)}</h3><dl><div><dt>{en ? 'Problem' : '問題'}</dt><dd>{text(item.problem,locale)}</dd></div><div><dt>{en ? 'AI assistance' : 'AI 協助'}</dt><dd>{text(item.assistance,locale)}</dd></div><div><dt>{en ? 'Human role' : '人員角色'}</dt><dd>{text(item.human,locale)}</dd></div></dl><p class="case-boundary">{caseOutcome[item.id as keyof typeof caseOutcome]}</p></div></article>)}
+      {cases.map((item,index) => <article id={`case-panel-${item.id}`} class={`case-panel case-${item.id}`} role="tabpanel" aria-labelledby={`case-tab-${item.id}`} data-case-panel data-case-id={item.id} hidden={index !== 0}><div class="case-image"><img src={`${base}${item.image}`} alt="" loading="lazy" width="1200" height="800"><canvas class="semantic-particles" data-particle-stage={`case-${item.id}`} aria-hidden="true"></canvas><div class="case-flow" aria-hidden="true">{caseSteps[item.id as keyof typeof caseSteps].map((step,stepIndex) => <span style={`--case-step:${stepIndex}`}><i></i><b>{step}</b></span>)}</div></div><div class="case-copy"><p class="case-tag">{text(item.tag,locale)}</p><h3>{text(item.title,locale)}</h3><dl><div><dt>{en ? 'The original problem' : '原本的問題'}</dt><dd>{text(item.problem,locale)}</dd></div><div><dt>{en ? 'How AI can help' : 'AI 可以怎麼幫忙'}</dt><dd>{text(item.assistance,locale)}</dd></div><div><dt>{en ? 'What stays with us' : '我們負責什麼'}</dt><dd>{text(item.human,locale)}</dd></div></dl><p class="case-boundary">{caseOutcome[item.id as keyof typeof caseOutcome]}</p></div></article>)}
     </div>
   </div>
 </section>

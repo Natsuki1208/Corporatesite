@@ -9,9 +9,25 @@ const en = locale === 'en';
   <div class="shell">
     <header class="section-heading" data-reveal>
       <p class="section-index">{en ? 'CHALLENGES' : '企業挑戰'}</p>
-      <h2 id="problems-title">{en ? 'The hard part is not a lack of tools.' : '真正困難的，不是缺少工具'}</h2>
-      <p>{en ? 'Before choosing technology, start with the friction people feel every day.' : '先不談技術，從團隊每天真正感受到的阻力開始。'}</p>
+      <h2 id="problems-title">{en ? 'See the real problem before deciding how AI should help.' : '先看清真正的問題，再決定 AI 怎麼幫忙'}</h2>
+      <p>{en ? 'Start with the friction that consumes time, affects quality or slows collaboration. That is how we find the right place for AI to begin.' : '先找出真正耗時、影響品質與拖慢協作的地方，才知道 AI 應該從哪裡開始。'}</p>
     </header>
+    <div class="problem-focus-stage elias-motion-stage" data-problem-focus data-reveal>
+      <div class="motion-stage-label"><span>{en ? 'FROM NOISE TO FOCUS' : '從雜訊到焦點'}</span><b>{en ? 'Find the work worth changing' : '找出真正值得改善的工作'}</b></div>
+      <canvas class="semantic-particles" data-particle-stage="problems" aria-hidden="true"></canvas>
+      <svg viewBox="0 0 960 360" aria-hidden="true">
+        <g class="problem-noise" data-problem-motion="noise">
+          <path d="M34 72 H214 M70 126 H274 M18 208 H240 M96 286 H306"/>
+          <path d="M734 54 H922 M688 122 H886 M754 208 H946 M674 292 H872"/>
+          <g><rect x="72" y="52" width="86" height="38" rx="5"/><rect x="124" y="108" width="118" height="34" rx="5"/><rect x="54" y="190" width="142" height="34" rx="5"/></g>
+          <g><circle cx="816" cy="72" r="8"/><circle cx="742" cy="144" r="5"/><circle cx="874" cy="214" r="7"/><circle cx="716" cy="286" r="5"/></g>
+        </g>
+        <g class="problem-scan" data-problem-motion="scan"><path d="M322 28 V332"/><path d="M638 28 V332"/><rect x="322" y="28" width="316" height="304" rx="18"/></g>
+        <g class="problem-evidence" data-problem-motion="evidence"><path d="M214 72 C336 72 338 136 418 156 M274 126 C342 126 350 160 418 174 M240 208 C332 208 350 190 418 184 M734 54 C642 54 634 136 542 156 M688 122 C632 122 618 164 542 174 M754 208 C646 208 628 190 542 184"/><circle cx="214" cy="72" r="5"/><circle cx="274" cy="126" r="5"/><circle cx="240" cy="208" r="5"/><circle cx="734" cy="54" r="5"/><circle cx="688" cy="122" r="5"/><circle cx="754" cy="208" r="5"/></g>
+        <g class="problem-core" data-problem-motion="core"><circle cx="480" cy="178" r="74"/><circle cx="480" cy="178" r="18"/><path d="M480 104 V74 M480 282 V252 M406 178 H376 M584 178 H554"/><text x="480" y="318">{en ? 'THE REAL PROBLEM' : '真正的問題'}</text></g>
+      </svg>
+      <button type="button" class="motion-replay" data-problem-replay>{en ? 'Replay focus' : '重播聚焦過程'}</button>
+    </div>
     <div class="problem-list">
       {problems.map((item,index) => <article class={`problem-row problem-${item.id}`} data-problem-row data-problem-id={item.id} data-reveal><span>{String(index + 1).padStart(2,'0')}</span><div class="problem-mark" aria-hidden="true"><i></i><i></i><i></i><b></b></div><h3>{text(item.title,locale)}</h3><p>{text(item.copy,locale)}</p></article>)}
     </div>

@@ -13,6 +13,8 @@ export function initInnovationCore(reduced: MediaQueryList) {
   let frame = 0;
   let visible = false;
   let resizeTimer = 0;
+  let settleTimer = 0;
+  let settled = false;
   let width = 1;
   let height = 1;
   let phase = 0;
@@ -67,15 +69,19 @@ export function initInnovationCore(reduced: MediaQueryList) {
     if(!staticFrame) phase+=.0028;
   };
   const loop = () => { frame=0; if(!visible || document.hidden || reduced.matches) return; draw(); frame=requestAnimationFrame(loop); };
-  const start = () => { if(!frame && visible && !document.hidden && !reduced.matches) frame=requestAnimationFrame(loop); };
+  const start = () => {
+    if(settled || frame || !visible || document.hidden || reduced.matches) return;
+    frame=requestAnimationFrame(loop);
+    if(!settleTimer) settleTimer=window.setTimeout(()=>{settleTimer=0;settled=true;stop();draw(true);root.dataset.coreComplete='true';},6500);
+  };
   const stop = () => { if(frame) cancelAnimationFrame(frame); frame=0; };
   const observer = 'IntersectionObserver' in window ? new IntersectionObserver(([entry]) => { visible=entry.isIntersecting; visible ? start() : stop(); },{threshold:.08}) : null;
   const visibility = () => document.hidden ? stop() : start();
-  const motionChange = () => { stop(); draw(true); if (!reduced.matches) start(); };
+  const motionChange = () => { stop(); window.clearTimeout(settleTimer); settleTimer=0; settled=reduced.matches; draw(true); if (!reduced.matches) start(); };
   const resizeHandler = () => { window.clearTimeout(resizeTimer); resizeTimer=window.setTimeout(()=>{stop();resize();start();},150); };
-  const pointer = (event:PointerEvent) => { if(innerWidth<=900 || reduced.matches) return; const rect=root.getBoundingClientRect(); pointerX=(event.clientX-rect.left)/rect.width-.5; pointerY=(event.clientY-rect.top)/rect.height-.5; };
+  const pointer = (event:PointerEvent) => { if(innerWidth<=900 || reduced.matches) return; const rect=root.getBoundingClientRect(); pointerX=(event.clientX-rect.left)/rect.width-.5; pointerY=(event.clientY-rect.top)/rect.height-.5; if(settled)draw(true); };
   const pointerLeave = () => { pointerX=0; pointerY=0; };
   resize(); if(observer)observer.observe(root);else{visible=true;draw(true);start();} document.addEventListener('visibilitychange',visibility); reduced.addEventListener('change',motionChange); window.addEventListener('resize',resizeHandler,{passive:true}); root.addEventListener('pointermove',pointer,{passive:true}); root.addEventListener('pointerleave',pointerLeave);
   if(reduced.matches) draw(true);
-  return () => { entrance?.kill(); stop(); observer?.disconnect(); window.clearTimeout(resizeTimer); document.removeEventListener('visibilitychange',visibility); reduced.removeEventListener('change',motionChange); window.removeEventListener('resize',resizeHandler); root.removeEventListener('pointermove',pointer); root.removeEventListener('pointerleave',pointerLeave); };
+  return () => { entrance?.kill(); stop(); observer?.disconnect(); window.clearTimeout(resizeTimer); window.clearTimeout(settleTimer); document.removeEventListener('visibilitychange',visibility); reduced.removeEventListener('change',motionChange); window.removeEventListener('resize',resizeHandler); root.removeEventListener('pointermove',pointer); root.removeEventListener('pointerleave',pointerLeave); };
 }

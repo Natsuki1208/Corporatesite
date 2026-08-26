@@ -2,10 +2,32 @@ import { all, one } from './dom';
 import { initWorkSceneTabs } from './tabs';
 
 export function initWorkScenesMotion(reduced: MediaQueryList) {
-  const root=one<HTMLElement>('[data-scene-console]');const stage=one<HTMLElement>('[data-scene-stage]');if(!root||!stage)return()=>{};
-  const tabCleanup=initWorkSceneTabs();const panels=all<HTMLElement>('[data-scene-panel]',root);const visual=one<HTMLElement>('.scene-visual',stage);let animations:Animation[]=[];
-  const layouts=[['0','10px','0'],['22px','-8px','18px'],['-10px','20px','-14px'],['18px','12px','-20px'],['-18px','-12px','24px'],['8px','-22px','12px']];
-  const render=(index:number)=>{animations.forEach((animation)=>animation.cancel());animations=[];const panel=panels[index];stage.dataset.sceneId=panel?.id.replace('scene-panel-','')??'';if(reduced.matches||!visual||!Element.prototype.animate)return;all<HTMLElement>('span,b,i,em',visual).forEach((item,itemIndex)=>{const offset=layouts[index]?.[itemIndex%3]??'0';animations.push(item.animate([{opacity:.2,transform:`translate(${offset},10px) scale(.9)`},{opacity:1,transform:'translate(0,0) scale(1)'}],{duration:430,delay:itemIndex*65,easing:'cubic-bezier(.2,.72,.22,1)',fill:'both'}));});};
-  const change=(event:Event)=>render((event as CustomEvent<{index:number}>).detail.index);root.addEventListener('sectiontabchange',change);render(0);
-  return()=>{root.removeEventListener('sectiontabchange',change);animations.forEach((animation)=>animation.cancel());tabCleanup();};
+  const root=one<HTMLElement>('[data-scene-console]');
+  const stage=one<HTMLElement>('[data-scene-stage]');
+  if(!root||!stage)return()=>{};
+  const tabCleanup=initWorkSceneTabs();
+  const panels=all<HTMLElement>('[data-scene-panel]',root);
+  let animations:Animation[]=[];
+  const stop=()=>{animations.forEach((animation)=>animation.cancel());animations=[];};
+  const render=(index:number)=>{
+    stop();
+    const panel=panels[index];
+    const sceneId=panel?.id.replace('scene-panel-','')??'';
+    stage.dataset.sceneId=sceneId;
+    const plot=one<SVGGElement>(`[data-scene-plot="${sceneId}"]`,stage);
+    if(reduced.matches||!plot||!Element.prototype.animate)return;
+    const sequence=[...all<SVGElement>('.scene-input',plot),...all<SVGElement>('.scene-route',plot),...all<SVGElement>('.scene-ai',plot),...all<SVGElement>('.scene-review',plot),...all<SVGElement>('.scene-result',plot)];
+    sequence.forEach((item,itemIndex)=>{
+      animations.push(item.animate([
+        {opacity:.08,transform:itemIndex<2?'translateX(-12px)':'scale(.92)'},
+        {opacity:1,transform:'none'}
+      ],{duration:520,delay:itemIndex*150,easing:'cubic-bezier(.22,.8,.26,1)',fill:'both'}));
+      if(item instanceof SVGGeometryElement){let length=0;try{length=item.getTotalLength();}catch{/* static fallback */}if(length)animations.push(item.animate([{strokeDasharray:`${length}`,strokeDashoffset:length},{strokeDasharray:`${length}`,strokeDashoffset:0}],{duration:820,delay:itemIndex*150,easing:'cubic-bezier(.22,.8,.26,1)',fill:'both'}));}
+    });
+  };
+  const change=(event:Event)=>render((event as CustomEvent<{index:number}>).detail.index);
+  root.addEventListener('sectiontabchange',change);
+  render(0);
+  const motionChange=()=>render(panels.findIndex((panel)=>!panel.hidden));reduced.addEventListener('change',motionChange);
+  return()=>{root.removeEventListener('sectiontabchange',change);reduced.removeEventListener('change',motionChange);stop();tabCleanup();};
 }

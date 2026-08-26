@@ -11,6 +11,7 @@ import { initAdoptionJourney } from './adoption-journey';
 import { initCollaborationMotion } from './collaboration-motion';
 import { initConceptForm } from './concept-form';
 import { initAiChange } from './ai-change';
+import { initSectionParticles } from './section-particles';
 
 const lifecycle = createLifecycle();
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -30,6 +31,7 @@ initialize(initNavigation);
 initialize(() => initRevealMotion(reduced));
 initialize(() => initSectionActivity(reduced));
 initialize(() => initInnovationCore(reduced));
+initialize(() => initSectionParticles(reduced));
 initialize(() => initBusinessProblems(reduced));
 initialize(() => initInnovationPromise(reduced));
 initialize(() => initAiChange(reduced));

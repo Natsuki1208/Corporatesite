@@ -306,7 +306,6 @@ export function initCapabilityMotion(reduced: MediaQueryList) {
 
   for (const entry of cards) {
     syncPanelState(entry);
-    const replay = () => playCard(entry);
     const onClick = () => entry.button.getAttribute('aria-expanded') === 'true' ? closeCard(entry) : openCard(entry);
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.target === entry.button && (event.key === 'Enter' || event.key === ' ')) {
@@ -319,13 +318,9 @@ export function initCapabilityMotion(reduced: MediaQueryList) {
         closeCard(entry, true);
       }
     };
-    entry.card.addEventListener('pointerenter', replay);
-    entry.card.addEventListener('focusin', replay);
     entry.button.addEventListener('click', onClick);
     entry.card.addEventListener('keydown', onKeyDown);
     cleanups.push(() => {
-      entry.card.removeEventListener('pointerenter', replay);
-      entry.card.removeEventListener('focusin', replay);
       entry.button.removeEventListener('click', onClick);
       entry.card.removeEventListener('keydown', onKeyDown);
     });

@@ -8,17 +8,17 @@ const en = locale === 'en';
 const steps = en ? [
   { label:'Need', word:'UNDERSTAND', title:'See the work that needs to change', copy:'Bring needs, knowledge, data and tools into one clear view.' },
   { label:'Context', word:'CONNECT', title:'Connect the context around it', copy:'AI relates approved information and workflow context before suggesting a next step.' },
-  { label:'Human review', word:'PAUSE', title:'Keep important decisions with people', copy:'AI prepares and explains. People decide when risk, access or consequences matter.' },
-  { label:'Outcome', word:'ENABLE', title:'Turn clarity into a controlled outcome', copy:'The result returns to the workflow with its boundary, decision and record intact.' }
+  { label:'Our review', word:'PAUSE', title:'We make the important decisions', copy:'AI prepares and explains. We choose what moves forward when risk, access or consequences matter.' },
+  { label:'Outcome', word:'ENABLE', title:'We complete the work together with AI', copy:'Our decision and AI assistance move forward together, with the boundary and record intact.' }
 ] : [
   { label:'需求', word:'理解需求', title:'看見真正需要改變的工作', copy:'把企業需求、知識、資料與工具帶回同一個清楚視野。' },
   { label:'脈絡', word:'建立脈絡', title:'串起問題周圍的脈絡', copy:'AI 先理解核准資訊與工作情境，再提出可以採取的下一步。' },
-  { label:'人員確認', word:'等待確認', title:'重要決定仍由人掌握', copy:'AI 負責整理與說明；涉及風險、權限或影響時，由人員決定。' },
-  { label:'成果', word:'形成成果', title:'讓清楚形成受控成果', copy:'結果帶著範圍、決定與紀錄回到工作流程，供後續檢查與改善。' }
+  { label:'我們確認', word:'等待確認', title:'重要決定，我們來做', copy:'AI 負責整理與說明；涉及風險、權限或影響時，由我們選擇如何繼續。' },
+  { label:'成果', word:'形成成果', title:'工作，我們和 AI 一起完成', copy:'我們的決定與 AI 的協助一起回到工作流程，範圍與紀錄依然清楚。' }
 ];
 ---
 <div class="perspective-path case-governance" data-reveal>
-  <header><p class="section-index">{en ? 'TECHNOLOGY INSIDE THE WORK' : '藏在工作裡的技術與治理'}</p><h3>{en ? 'Innovation moves faster when its boundaries are visible.' : '創新可以前進，界線也必須清楚'}</h3><p>{en ? 'Technology details stay one layer deeper. What people see first is how information, AI, human judgment and records work together.' : '技術細節留在第二層；使用者先看見資訊、AI、人員判斷與紀錄如何一起運作。'}</p></header>
+  <header><p class="section-index">{en ? 'HOW WE MOVE FORWARD' : 'AI 工作路徑'}</p><h3>{en ? 'AI prepares the work. We choose the direction.' : 'AI 協助準備，我們掌握方向'}</h3><p>{en ? 'AI connects information and prepares the next step. We keep the choices that carry risk, access or real-world consequences.' : 'AI 串起資訊並準備下一步；涉及風險、權限或實際影響的選擇，仍由我們掌握。'}</p></header>
   <div class="ai-work-path" data-ai-change data-active-change="0">
     <div class="kinetic-workmark">
       <svg class="kinetic-workmark-svg" viewBox="0 0 620 360" aria-hidden="true">
@@ -30,6 +30,7 @@ const steps = en ? [
         <g class="work-output" data-work-output><path d="M520 178 H598"/><circle cx="598" cy="178" r="9"/><path d="M588 178 L594 184 L606 170"/></g>
       </svg>
       <div class="kinetic-workmark-label"><span data-ai-change-word>{steps[0].word}</span></div>
+      <div class="work-partner-legend" aria-hidden="true"><span>{en ? 'OUR JUDGMENT' : '我們的判斷'}</span><span>{en ? 'AI ASSISTANCE' : 'AI 的協助'}</span></div>
       <button class="ai-work-replay" type="button" data-ai-change-replay data-replay-label={en ? 'Replay the full path' : '重播完整流程'} data-pause-label={en ? 'Pause demonstration' : '暫停示範'}>{en ? 'Replay the full path' : '重播完整流程'}</button>
     </div>
     <div class="ai-work-copy" id="ai-change-panel" role="tabpanel" aria-labelledby="ai-change-tab-0"><p class="eyebrow">{en ? 'ELIAS NET · AI CHANGE PATH' : 'ELIAS NET · AI 工作路徑'}</p><p class="ai-work-kicker" data-ai-change-kicker>{steps[0].label}</p><h3 data-ai-change-title>{steps[0].title}</h3><p data-ai-change-copy>{steps[0].copy}</p></div>

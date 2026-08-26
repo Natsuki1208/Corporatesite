@@ -118,12 +118,11 @@ export function initAiChange(reduced: MediaQueryList) {
   const playFullDemo = () => {
     stopAuto();
     if (reduced.matches || !visible || document.hidden) {
-      render(0, false, false);
+      render(3, false, false);
       return;
     }
     demoPlayed = true;
     autoRunning = true;
-    if (replay) replay.textContent = replay.dataset.pauseLabel ?? replay.textContent;
     render(0);
     [1, 2, 3].forEach((index) => later(() => {
       if (!autoRunning || !visible || document.hidden) return;
@@ -151,28 +150,28 @@ export function initAiChange(reduced: MediaQueryList) {
     tab.addEventListener('keydown', keydown);
     cleanups.push(() => { tab.removeEventListener('click', click); tab.removeEventListener('keydown', keydown); });
   });
-  const onReplay = () => autoRunning ? stopAuto() : playFullDemo();
+  const onReplay = () => playFullDemo();
   replay?.addEventListener('click', onReplay);
   if (replay) cleanups.push(() => replay.removeEventListener('click', onReplay));
 
   const observer = 'IntersectionObserver' in window ? new IntersectionObserver(([entry]) => {
     visible = Boolean(entry?.isIntersecting);
-    if (!visible) { stopAuto(); return; }
+    if (!visible) { stopAuto(); render(3, false, false); return; }
     if (!demoPlayed && !reduced.matches) playFullDemo();
   }, { threshold: .18 }) : null;
   if (observer) observer.observe(stage);
   else { visible = true; if (!reduced.matches) playFullDemo(); }
 
-  const onVisibility = () => { if (document.hidden) stopAuto(); };
+  const onVisibility = () => { if (document.hidden) { stopAuto(); render(3, false, false); } };
   const onMotionChange = () => {
     stopAuto();
     replay?.toggleAttribute('disabled', reduced.matches);
-    render(reduced.matches ? 0 : active, false, false);
+    render(reduced.matches ? 3 : active, false, false);
   };
   document.addEventListener('visibilitychange', onVisibility);
   reduced.addEventListener('change', onMotionChange);
   replay?.toggleAttribute('disabled', reduced.matches);
-  render(0, false, false);
+  render(reduced.matches ? 3 : 0, false, false);
 
   return () => {
     stopAuto();
