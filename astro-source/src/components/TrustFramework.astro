@@ -1,29 +1,19 @@
 ---
 import type { Locale } from '../data/site';
-import { copy, list } from '../data/site';
+import { copy } from '../data/site';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
-const principles = [
-  [copy('可用','Useful',locale), copy('進入既有系統與真實工作流程。','Work inside existing systems and real workflows.',locale)],
-  [copy('可控','Controlled',locale), copy('資料範圍、權限與人工核准清楚可見。','Make data scope, permissions and human approval visible.',locale)],
-  [copy('可證明','Provable',locale), copy('保留來源、Trace、測試與驗收證據。','Preserve sources, traces, tests and acceptance evidence.',locale)]
+const levels = [
+  ['OBSERVE',copy('只觀察與整理','Observe and organize only',locale)],
+  ['RECOMMEND',copy('提出方案，不執行','Recommend without execution',locale)],
+  ['VERIFY',copy('執行預先允許的唯讀檢查','Run pre-approved read-only checks',locale)],
+  ['AUTHORIZED ACTION',copy('人工核准後執行可復原任務','Run reversible tasks after human approval',locale)],
+  ['HUMAN OVERRIDE',copy('隨時暫停、撤回或全面接管','Pause, revoke or take full control at any time',locale)]
 ];
-const rules = list(['問題先於模型','證據先於自動化','高影響操作必須人工核准','只使用完成任務所需的資料','每次輸出與決策都可以追溯'], ['Problem before model','Evidence before automation','Human approval for high-impact actions','Minimum necessary data','Trace every output and decision'], locale);
 ---
-<section id="trust" class="main-section trust-framework" data-section="trust" aria-labelledby="trust-title">
-  <div class="shell trust-grid">
-    <div class="trust-copy" data-reveal>
-      <p class="section-index">{copy('公司理念', 'PRODUCT PRINCIPLES', locale)}</p>
-      <h2 id="trust-title">{copy('企業需要的，不只是更會回答的 AI', 'Enterprise AI needs a more trustworthy way of working—not just better answers.', locale)}</h2>
-      <p class="section-lead">{copy('AI 可以參與工作，但不能越過人的責任邊界。理念不是宣言，而是每個產品都必須具備的機制。', 'AI can participate in the work, but it must not cross the boundaries of human responsibility.', locale)}</p>
-      <ol class="principle-list">{rules.map((rule,index) => <li><span>{String(index + 1).padStart(2,'0')}</span>{rule}</li>)}</ol>
-    </div>
-    <div class="control-layer" data-reveal>
-      <p>{copy('ELIAS CONTROL LAYER｜共用治理底座', 'ELIAS CONTROL LAYER', locale)}</p>
-      <div class="control-flow" role="img" aria-label={copy('核准資料依序通過 AI Agent、政策檢查、人工核准與稽核紀錄', 'Approved data flows through an AI agent, policy gate, human approval and audit record', locale)}>
-        {list(['核准資料','AI Agent','政策檢查','人工核准','稽核紀錄'], ['Approved data','AI agent','Policy gate','Human approval','Audit record'], locale).map((item,index) => <span><i>{String(index + 1).padStart(2,'0')}</i><b>{item}</b></span>)}
-      </div>
-      <div class="trust-pillars">{principles.map(([name,copy]) => <article><h3>{name}</h3><p>{copy}</p></article>)}</div>
-    </div>
+<section id="control" class="main-section human-control" data-section="control" aria-labelledby="control-title">
+  <div class="shell control-layout">
+    <div class="control-intro" data-reveal><p class="section-index">ELIAS CONTROL / HUMAN COMMAND</p><h2 id="control-title">{copy('自主運作，不等於自主決定。','Autonomous operation is not autonomous authority.',locale)}</h2><p>{copy('ELIAS CONTROL 是三項產品共用的人類指揮與治理層，管理身分、權限、核准、任務限制、緊急停止與稽核紀錄。','ELIAS CONTROL is the shared command and governance layer for identity, access, authorization, mission limits, emergency stop and audit evidence.',locale)}</p><blockquote>{copy('每一項自主能力，都必須有可見的控制邊界。','Every autonomous capability needs a visible control boundary.',locale)}</blockquote></div>
+    <ol class="authority-levels" data-reveal>{levels.map(([name,description],index) => <li class:list={{ authorization:index === 3, override:index === 4 }}><span>0{index + 1}</span><div><strong>{name}</strong><p>{description}</p></div></li>)}</ol>
   </div>
 </section>

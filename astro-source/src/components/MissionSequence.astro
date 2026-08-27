@@ -1,0 +1,37 @@
+---
+import type { Locale } from '../data/site';
+import { copy } from '../data/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const stages = [
+  [copy('偵測', 'DETECT', locale), copy('在授權範圍內接收網路、醫療與現場訊號。', 'Receive network, medical and field signals within approved scope.', locale)],
+  [copy('建立脈絡', 'CONTEXT', locale), copy('AI 串起事件、風險與可行的下一步。', 'AI connects events, risk and viable next steps.', locale)],
+  [copy('人類授權', 'AUTHORIZE', locale), copy('重要行動停在閘門，等待具權責的人員決定。', 'High-impact action stops at the gate for an accountable human decision.', locale)],
+  [copy('執行任務', 'RESPOND', locale), copy('系統只執行已核准、可撤回的任務。', 'Systems execute only approved, revocable missions.', locale)],
+  [copy('留下證據', 'PROVE', locale), copy('結果、版本與責任形成完整 Trace。', 'Results, versions and accountability become a complete trace.', locale)]
+];
+---
+<section class="mission-sequence" data-mission-sequence data-stage="detect" aria-labelledby="mission-sequence-title">
+  <div class="mission-map" aria-hidden="true">
+    <div class="mission-inputs"><span>NETWORK</span><span>MEDICAL</span><span>FIELD</span></div>
+    <svg viewBox="0 0 760 330" role="presentation">
+      <path class="mission-path path-input" d="M72 70 C170 70 170 165 275 165 M72 165 H275 M72 260 C170 260 170 165 275 165"/>
+      <circle class="node node-network" cx="72" cy="70" r="10"/><circle class="node node-medical" cx="72" cy="165" r="10"/><circle class="node node-field" cx="72" cy="260" r="10"/>
+      <circle class="core-ring" cx="330" cy="165" r="55"/><circle class="core" cx="330" cy="165" r="24"/>
+      <path class="mission-path path-authorize" d="M385 165 H488"/><rect class="human-gate" x="488" y="126" width="98" height="78" rx="12"/>
+      <path class="mission-path path-response" d="M586 165 H690"/><circle class="response-unit" cx="700" cy="165" r="26"/>
+      <path class="trace-path" d="M700 191 V270 H500"/>
+      <rect class="evidence-card" x="376" y="240" width="124" height="58" rx="8"/>
+    </svg>
+    <span class="core-label">ELIAS CORE</span><span class="gate-label">HUMAN<br/>AUTHORIZATION</span><span class="response-label">ASSIST</span><span class="trace-label">TRACE VERIFIED</span>
+  </div>
+  <div class="mission-copy">
+    <p class="section-index">ELIAS CONTROL / MISSION SEQUENCE</p>
+    <h2 id="mission-sequence-title">{copy('自主系統，由人類指揮。', 'Autonomous systems. Human command.', locale)}</h2>
+    <p>{copy('ELIAS NET 讓 AI 快速理解與協調；真正跨入現實世界前，權力仍停在人類手上。', 'ELIAS NET helps AI understand and coordinate quickly. Before action crosses into the real world, authority remains human.', locale)}</p>
+    <ol class="mission-steps">
+      {stages.map(([name, description], index) => <li data-mission-step data-stage-name={['detect','context','authorize','respond','prove'][index]} aria-current={index === 0 ? 'step' : undefined}><button type="button"><span>0{index + 1}</span><strong>{name}</strong><small>{description}</small></button></li>)}
+    </ol>
+    <p class="mission-status" aria-live="polite" data-mission-status>{stages[0][1]}</p>
+  </div>
+</section>

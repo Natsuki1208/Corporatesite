@@ -1,106 +1,26 @@
 ---
 import type { Locale } from '../data/site';
-import { copy, list } from '../data/site';
+import { copy } from '../data/site';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
-const en = locale === 'en';
-const products = [
-  {
-    id: 'care', status: 'CONCEPT', image: '/images/elias-net-shared-knowledge.jpg',
-    name: 'Elias Care Intelligence',
-    domain: copy('醫療與照護支援', 'Healthcare & care support', locale),
-    plain: copy('把重要資訊整理好，讓照護團隊更快看懂現況。', 'Make important information clearer so care teams can understand the situation sooner.', locale),
-    audience: copy('給醫療、照護、研究與行政團隊', 'For healthcare, care, research and administration teams', locale),
-    promise: copy('整理核准的照護文件、交班紀錄與研究資料，協助團隊找到來源清楚的重點；它不代替醫師診斷，也不代替專業人員做醫療決定。', 'Organize approved care documents, handover notes and research material so teams can find clear, sourced context; it does not diagnose or replace professional judgment.', locale),
-    control: copy('敏感資料需要授權；醫療判斷永遠由合格專業人員負責。', 'Sensitive information requires authorization; qualified professionals retain medical judgment.', locale),
-    outcome: copy('少一點翻找，多一點可核對的脈絡。', 'Less searching. More context that can be checked.', locale),
-    alt: copy('醫療與照護文件在受控工作空間中被整理成可核對重點', 'Healthcare and care documents organized into reviewable context in a controlled workspace', locale),
-    core: list(['Knowledge Hub', 'Signal Studio'], ['Knowledge Hub', 'Signal Studio'], locale),
-    flow: list(['選擇核准資料', '看見重點與來源', '交給專業人員確認'], ['Choose approved sources', 'See context and sources', 'Send to professional review'], locale)
-  },
-  {
-    id: 'aegis', status: 'LAB EXPLORATION', image: '/images/elias-net-trust-boundary.jpg',
-    name: 'Elias Aegis',
-    domain: copy('AI 防護與資料安全', 'AI protection & data safety', locale),
-    plain: copy('在 AI 做事以前，先讓企業知道它能看什麼、能做什麼。', 'Before AI acts, make clear what it can see and what it can do.', locale),
-    audience: copy('給資安、法遵、IT 與企業治理團隊', 'For security, compliance, IT and enterprise governance teams', locale),
-    promise: copy('把資料、權限、模型使用與重要操作放在同一張看得懂的安全地圖上，在風險變成事故以前先提醒、先停下來。', 'Bring data, access, model use and critical actions into one understandable safety map—so teams can be warned and pause before risk becomes an incident.', locale),
-    control: copy('不提供攻擊工具；所有高影響動作都需要授權、紀錄與人工確認。', 'No offensive tooling; high-impact actions require authorization, records and human review.', locale),
-    outcome: copy('看得見界線，才有勇氣往前。', 'Visible boundaries make progress safer.', locale),
-    alt: copy('資料、權限與 AI 操作在安全界線中被檢查的產品情境', 'Data, access and AI actions checked inside visible safety boundaries', locale),
-    core: list(['Ops Sentinel', 'Control Layer'], ['Ops Sentinel', 'Control Layer'], locale),
-    flow: list(['查看 AI 能做什麼', '看到風險提醒', '暫停或授權下一步'], ['See what AI can do', 'Review a risk flag', 'Pause or authorize the next step'], locale)
-  },
-  {
-    id: 'mission', status: 'CONCEPT', image: '/images/elias-net-ai-operations.jpg',
-    name: 'Elias Mission Support',
-    domain: copy('關鍵任務與應變支援', 'Critical mission & response support', locale),
-    plain: copy('把現場資訊、資源與交接整理清楚，讓重要團隊更快做出決定。', 'Clarify field information, resources and handoffs so critical teams can decide faster.', locale),
-    audience: copy('給災害應變、公共安全、物流與關鍵基礎服務團隊', 'For emergency response, public safety, logistics and critical service teams', locale),
-    promise: copy('協助整理來自不同團隊的資訊、資源狀態、任務進度與交接內容，支援人員判斷下一步；不控制武器、不選擇攻擊目標，也不讓 AI 自主執行高風險任務。', 'Organize information, resource status, mission progress and handoffs across teams to support human decisions; it does not control weapons, select targets or autonomously execute high-risk missions.', locale),
-    control: copy('只做資訊整理與決策支援；現場指揮、部署與行動由授權人員負責。', 'Information support only; authorized people remain responsible for command, deployment and action.', locale),
-    outcome: copy('資訊先集合，責任不消失。', 'Bring the information together without losing responsibility.', locale),
-    alt: copy('關鍵任務的資訊、資源與交接在受控控制台中被整理', 'Critical mission information, resources and handoffs organized in a controlled console', locale),
-    core: list(['Workflow Orchestrator', 'Ops Sentinel'], ['Workflow Orchestrator', 'Ops Sentinel'], locale),
-    flow: list(['集合現場資訊', '整理資源與交接', '由授權人員決定'], ['Bring field updates together', 'Organize resources and handoffs', 'Authorized people decide'], locale)
-  },
-  {
-    id: 'work', status: 'PILOT PATH', image: '/images/elias-net-workflow-orchestrator.jpg',
-    name: 'Elias Enterprise Work',
-    domain: copy('企業知識與服務協作', 'Enterprise knowledge & service work', locale),
-    plain: copy('讓團隊少一點重複整理，多一點真正的工作。', 'Less repetitive organizing. More time for the work that matters.', locale),
-    audience: copy('給企業、客服、行政、營運與管理團隊', 'For enterprise, service, administration, operations and management teams', locale),
-    promise: copy('協助找到文件、整理案件、準備回覆、拆解工作與完成交接；每到重要關口，AI 都會停下來讓人確認。', 'Help teams find documents, organize requests, prepare replies, break down work and complete handoffs—with a human checkpoint at every important gate.', locale),
-    control: copy('AI 可以先整理與建議，但不會自行代表公司承諾或做重大決定。', 'AI can organize and suggest, but it does not make commitments or major decisions for the company.', locale),
-    outcome: copy('工作接得起來，決定留在人手上。', 'Work moves forward. Decisions stay with people.', locale),
-    alt: copy('企業跨部門工作被拆成步驟並在人工確認點停下', 'Enterprise work divided into steps and paused at a human review point', locale),
-    core: list(['Knowledge Hub', 'Service Copilot', 'Workflow Orchestrator'], ['Knowledge Hub', 'Service Copilot', 'Workflow Orchestrator'], locale),
-    flow: list(['找到資料與案件', '準備草稿或步驟', '由人員確認送出'], ['Find the source and request', 'Prepare a draft or steps', 'A person reviews before sending'], locale)
-  },
-  {
-    id: 'signal', status: 'LAB EXPLORATION', image: '/images/elias-net-signal-studio.jpg',
-    name: 'Elias Global Signal',
-    domain: copy('多模態資訊與全球應變', 'Multimodal information & global response', locale),
-    plain: copy('把文件、聲音、影像與不同語言的訊息，整理成大家看得懂的重點。', 'Turn documents, voices, images and different languages into clear signals people can act on.', locale),
-    audience: copy('給研究、媒體、跨國營運與公共應變團隊', 'For research, media, global operations and public response teams', locale),
-    promise: copy('把文件、會議聲音、影像、表格與多語言訊息整理成摘要、比較與報告草稿，並保留原始來源讓人回頭核對。', 'Turn documents, meeting audio, images, tables and multilingual messages into summaries, comparisons and report drafts while preserving the source for review.', locale),
-    control: copy('AI 先幫忙整理，不代替專業人員做正式判斷或發布。', 'AI helps organize first; professionals retain formal judgment and publication.', locale),
-    outcome: copy('訊息被整理，判斷更接近事實。', 'Organized signals bring judgment closer to the facts.', locale),
-    alt: copy('文件、聲音、影像與多語資訊在受控工作空間中匯整', 'Documents, audio, images and multilingual information brought together in a controlled workspace', locale),
-    core: list(['Signal Studio', 'Knowledge Hub'], ['Signal Studio', 'Knowledge Hub'], locale),
-    flow: list(['匯入不同格式', '整理成摘要與來源', '等待專業人員驗證'], ['Bring in different formats', 'Create a sourced summary', 'Wait for professional review'], locale)
-  }
-];
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const products = [
+  { id:'netops', status:'LAB', image:'elias-netops.webp', name:'ELIAS NETOPS', title:copy('AI 網路與基礎設施協作平台','AI network & infrastructure operations',locale), buyer:copy('軟體訂閱・事件整合閘道・控制台・導入服務','Software subscription · event gateway · control console · integration',locale), description:copy('整合監控、日誌、資安與備份事件，建立事件脈絡、檢查順序與受控處理建議。','Correlate monitoring, logs, security and backup events into context, checks and controlled response recommendations.',locale), boundary:copy('目前聚焦事件關聯、唯讀檢查及人工核准後的可復原操作。','Focused on event correlation, read-only checks and reversible actions after human approval.',locale) },
+  { id:'guardian', status:'CONCEPT', image:'elias-guardian.webp', name:'ELIAS GUARDIAN', title:copy('高風險環境設備協作平台','High-risk environment robotics platform',locale), buyer:copy('救援機器人・無人載具管理・邊緣控制站・任務支援','Rescue robotics · unmanned systems management · edge control station · mission support',locale), description:copy('協調非武裝機器人、無人載具與感測設備，支援搜索、巡檢、通訊中繼及物資運送。','Coordinate unarmed robots, unmanned vehicles and sensors for search, inspection, communications and supply delivery.',locale), boundary:copy('只定位於保護、搜索與救援；不自主選擇、追蹤或攻擊人類目標。','Designed only for protection, search and rescue—never autonomous selection, tracking or engagement of human targets.',locale) },
+  { id:'medic', status:'CONCEPT', image:'elias-medic.webp', name:'ELIAS MEDIC', title:copy('醫療救援資訊協作平台','Medical rescue coordination platform',locale), buyer:copy('救援協調軟體・物資載具套件・交接介面・導入服務','Response software · supply vehicle kit · handoff interface · integration',locale), description:copy('彙整位置、生命徵象與救援資源，協助醫護與救援人員掌握現場、安排物資及交接資訊。','Bring together location, vital signals and resources to support clinical and rescue coordination.',locale), boundary:copy('不提供獨立診斷或自主分診；所有醫療決策由合格專業人員負責。','No independent diagnosis or autonomous triage; qualified professionals retain every medical decision.',locale) }
+];
 ---
-<section id="products" class="main-section products light-section" data-section="products" aria-labelledby="products-title">
+<section id="products" class="main-section autonomy-products" data-section="products" aria-labelledby="products-title">
   <div class="shell">
     <header class="section-heading" data-reveal>
-      <p class="section-index">{copy('五大產品領域', 'FIVE PRODUCT DOMAINS', locale)}</p>
-      <h2 id="products-title">{copy('從醫療到企業工作，讓 AI 進入真正重要的現場', 'From care to enterprise work, bring AI into the places that matter.', locale)}</h2>
-      <p>{copy('ELIAS NET 不是一個孤立的聊天工具，而是一間把 AI 帶進不同工作現場的虛擬科技公司。五大產品領域共用同一套資料、權限、人工核准與證據制度。', 'ELIAS NET is not an isolated chat tool. It is a virtual technology company bringing AI into different work environments through five domains that share one system of data, access, human approval and evidence.', locale)}</p>
+      <p class="section-index">WHAT WE BUILD / {copy('我們提供的產品','PRODUCT SYSTEMS',locale)}</p>
+      <h2 id="products-title">{copy('從數位基礎設施，到無法安全抵達的現場。','From digital infrastructure to places people cannot safely reach.',locale)}</h2>
+      <p>{copy('三項產品共用 ELIAS CONTROL；客戶取得的不只是 AI 模型，而是軟體、控制設備、受控自主系統與導入服務。','Three products share ELIAS CONTROL. Customers receive software, control infrastructure, bounded autonomous systems and integration—not just a model.',locale)}</p>
     </header>
-    <div class="product-grid">
-      {products.map((product,index) => <article class={`product-card product-${product.id}`} data-reveal>
-        <div class="product-image"><img src={`${base}${product.image}`} alt={product.alt} loading={index === 0 ? 'eager' : 'lazy'} width="1200" height="800"></div>
-        <div class="product-body">
-          <div class="product-topline"><span class="product-number">0{index + 1}</span><p class="product-status">{product.status}</p></div>
-          <p class="product-domain">{product.domain}</p>
-          <h3>{product.name}</h3>
-          <p class="product-plain">{product.plain}</p>
-          <p class="product-audience">{product.audience}</p>
-          <p>{product.promise}</p>
-          <div class="product-ui" aria-label={en ? `${product.name} core systems` : `${product.name} 核心系統`}>
-            {product.core.map((item,stepIndex) => <span><i>{String(stepIndex + 1).padStart(2,'0')}</i>{item}</span>)}
-          </div>
-          <div class="product-interface" aria-label={en ? `${product.name} interface flow` : `${product.name} 介面流程`}>
-            <p>{copy('介面流程', 'INTERFACE FLOW', locale)}</p>
-            <ol>{product.flow.map((step,stepIndex) => <li><span>0{stepIndex + 1}</span>{step}</li>)}</ol>
-          </div>
-          <p class="product-control"><strong>{copy('控制方式', 'CONTROL', locale)}</strong>{product.control}</p>
-          <p class="product-outcome">{product.outcome}</p>
-          <a class="product-link" href="#method">{copy('看導入方式', 'See how to start', locale)} →</a>
-        </div>
+    <div class="autonomy-product-list">
+      {products.map((product,index) => <article class={`autonomy-product product-${product.id}`} data-reveal>
+        <div class="autonomy-product-media"><img src={`${base}/images/${product.image}`} alt={product.title} loading={index === 0 ? 'eager' : 'lazy'} width="1800" height="1100"><span>{product.status}</span></div>
+        <div class="autonomy-product-copy"><p class="product-sequence">0{index + 1} / 03</p><h3>{product.name}</h3><h4>{product.title}</h4><p>{product.description}</p><div class="product-offer"><strong>{copy('客戶取得','WHAT CUSTOMERS GET',locale)}</strong><span>{product.buyer}</span></div><p class="product-boundary"><strong>{copy('控制界線','CONTROL BOUNDARY',locale)}</strong>{product.boundary}</p></div>
       </article>)}
     </div>
   </div>

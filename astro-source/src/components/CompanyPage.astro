@@ -22,16 +22,14 @@ const governance = [
   { code: '06', title: copy('持續觀察', 'MONITOR THE CHANGE', locale), body: copy('追蹤變更、事件與使用情況，知道何時要調整、暫停或退回。', 'Track changes, incidents and use so the team knows when to adjust, pause or roll back.', locale) }
 ];
 const domains = [
-  { code: '01', name: copy('醫療與照護支援', 'HEALTHCARE & CARE', locale), body: copy('整理核准的照護、研究與行政資訊，讓專業團隊更快看懂現況。', 'Organize approved care, research and administration information so professionals understand the situation sooner.', locale), engine: 'Knowledge Hub + Signal Studio' },
-  { code: '02', name: copy('AI 防護與資料安全', 'AI PROTECTION & DATA SAFETY', locale), body: copy('讓企業知道 AI 能看什麼、能做什麼，並在高影響動作前停下。', 'Make clear what AI can see and do, with a pause before high-impact actions.', locale), engine: 'Ops Sentinel + Control Layer' },
-  { code: '03', name: copy('關鍵任務與應變支援', 'CRITICAL MISSION & RESPONSE', locale), body: copy('集合現場資訊、資源與交接，支援重要團隊做出有人負責的決定。', 'Bring field information, resources and handoffs together for accountable decisions.', locale), engine: 'Workflow Orchestrator + Ops Sentinel' },
-  { code: '04', name: copy('企業知識與服務協作', 'ENTERPRISE KNOWLEDGE & SERVICE', locale), body: copy('減少重複查找、整理與回覆，讓人把時間留給真正的判斷。', 'Reduce repetitive searching, sorting and replying so people can focus on judgment.', locale), engine: 'Knowledge Hub + Service Copilot' },
-  { code: '05', name: copy('多模態資訊與全球應變', 'MULTIMODAL & GLOBAL SIGNAL', locale), body: copy('把文件、聲音、影像、表格與不同語言整理成可核對的重點。', 'Turn documents, audio, images, tables and languages into reviewable signals.', locale), engine: 'Signal Studio + Knowledge Hub' }
+  { code: '01', name: 'ELIAS NETOPS', body: copy('整合監控、日誌、資安與備份事件，建立事件脈絡並提出受控處理建議。', 'Correlate monitoring, log, security and backup events into context and controlled response recommendations.', locale), engine: copy('成熟度／LAB', 'MATURITY / LAB', locale) },
+  { code: '02', name: 'ELIAS GUARDIAN', body: copy('協調非武裝機器人、無人載具與感測設備，支援搜索、巡檢、通訊中繼與物資運送。', 'Coordinate unarmed robots, unmanned vehicles and sensors for search, inspection, communications relay and supply delivery.', locale), engine: copy('成熟度／CONCEPT', 'MATURITY / CONCEPT', locale) },
+  { code: '03', name: 'ELIAS MEDIC', body: copy('彙整位置、生命徵象與救援資源，協助合格醫護及救援人員掌握現場並完成交接。', 'Bring location, vital signs and rescue resources together for qualified medical and response teams.', locale), engine: copy('成熟度／CONCEPT', 'MATURITY / CONCEPT', locale) }
 ];
 const milestones = [
   { year: '00', title: copy('公司成立', 'COMPANY FORMED', locale), body: copy('ELIAS NET 以「深入工作、守住責任」作為虛擬科技公司的起點。', 'ELIAS NET begins as a fictional technology company built to go deep into work while keeping responsibility visible.', locale) },
   { year: '01', title: copy('治理原則建立', 'GOVERNANCE DEFINED', locale), body: copy('創辦人、董事會與 QA／Grill 建立 Concept、Lab、Pilot、Production 的判定方式。', 'The founder, board and QA / Grill define gates for Concept, Lab, Pilot and Production.', locale) },
-  { year: '02', title: copy('五大領域形成', 'FIVE DOMAINS MAPPED', locale), body: copy('把企業 AI 能力轉成醫療、AI 防護、任務支援、企業工作與全球訊號五個方向。', 'Enterprise AI capabilities become five domains: care, protection, mission support, enterprise work and global signals.', locale) },
+  { year: '02', title: copy('三項系統形成', 'THREE SYSTEMS MAPPED', locale), body: copy('把能力收斂為網路維運、高風險救援與醫療救援協作三項產品。', 'Capabilities converge into three products for network operations, high-risk rescue and medical response coordination.', locale) },
   { year: '03', title: copy('從一個流程開始', 'START WITH ONE WORKFLOW', locale), body: copy('每一次 Pilot 都從一個可說清楚、可核准、可驗證的工作流程開始。', 'Every pilot begins with one workflow that can be explained, approved and verified.', locale) }
 ];
 ---
@@ -43,12 +41,12 @@ const milestones = [
       <div class="company-hero-copy">
         <p class="section-index" data-company-hero-item>{copy('關於 ELIAS NET／公司檔案', 'ABOUT ELIAS NET / CORPORATE RECORD', locale)}</p>
         <p class="company-eyebrow" data-company-hero-item>{copy('虛擬科技公司／概念示範', 'FICTIONAL VIRTUAL TECHNOLOGY COMPANY / CONCEPT DEMO', locale)}</p>
-        <h1 id="company-title" data-company-hero-item>{copy('深入企業工作的每一個斷點。', 'Go deep into the gaps inside real work.', locale)}</h1>
-        <p class="company-lead" data-company-hero-item>{copy('ELIAS NET 不是一個孤立的 AI 工具，而是一間把 AI 帶進不同工作現場的虛擬科技公司。', 'ELIAS NET is not an isolated AI tool. It is a fictional technology company bringing AI into the places where real work happens.', locale)}</p>
-        <p class="company-thesis" data-company-hero-item>{copy('讓 AI 看見脈絡、推動改變；但不越過人的責任。', 'Let AI see the context and move change forward—without crossing human responsibility.', locale)}</p>
+        <h1 id="company-title" data-company-hero-item>{copy('自主系統，由人類指揮。', 'Autonomous systems. Human command.', locale)}</h1>
+        <p class="company-lead" data-company-hero-item>{copy('ELIAS NET 連結 AI、關鍵基礎設施與非武裝救援設備，協助團隊理解風險、協調回應並保護生命。', 'ELIAS NET connects AI, critical infrastructure and unarmed rescue systems to help teams understand risk, coordinate response and protect life.', locale)}</p>
+        <p class="company-thesis" data-company-hero-item>{copy('AI 可以加速判斷；授權、停止與責任始終留在人類手中。', 'AI can accelerate understanding; authorization, stop authority and accountability remain human.', locale)}</p>
       </div>
       <div class="company-hero-visual" data-company-hero-visual>
-        <div class="company-portrait-frame"><img src={`${base}/images/team-founder-elias-ren.png`} alt={copy('ELIAS NET 虛構創辦人 Elias Ren 的寫實概念肖像', 'Photorealistic concept portrait of fictional ELIAS NET founder Elias Ren', locale)} width="1200" height="1500"></div>
+        <div class="company-portrait-frame"><img src={`${base}/images/elias-founder-chair.webp`} alt={copy('ELIAS NET 虛構創辦人暨董事長 Helena Vale 的概念肖像', 'Concept portrait of fictional ELIAS NET founder and chair Helena Vale', locale)} width="1200" height="900"></div>
         <div class="company-signal company-signal-a">{copy('FICTIONAL / ACCOUNTABLE', 'FICTIONAL / ACCOUNTABLE', locale)}</div>
         <div class="company-signal company-signal-b">{copy('SYSTEM // ONLINE', 'SYSTEM // ONLINE', locale)}</div>
       </div>
@@ -80,7 +78,7 @@ const milestones = [
       <div class="founder-copy" data-reveal>
         <p class="eyebrow">{copy('FOUNDER’S VISION', 'FOUNDER’S VISION', locale)}</p>
         <h2 id="founder-title">{copy('科技的價值，不在於它能做多少，而在於它知道何時應該停下。', 'Technology is not measured by how much it can do, but by whether it knows when to stop.', locale)}</h2>
-        <p>{copy('Elias Ren 是 ELIAS NET 的虛構創辦人暨執行董事長。他把公司建立在一個簡單問題上：如果 AI 要進入真正的工作，它是否能同時看見脈絡、尊重界線，並接受人的確認？', 'Elias Ren is the fictional founder and executive chair of ELIAS NET. He builds the company around one question: if AI enters real work, can it see context, respect boundaries and accept human review at the same time?', locale)}</p>
+        <p>{copy('Helena Vale 是 ELIAS NET 的虛構創辦人暨董事長。她以一個原則建立公司：自主能力越深入現實世界，人類的授權、停止權與責任就必須越清楚。', 'Helena Vale is the fictional founder and chair of ELIAS NET. She builds the company on one principle: the further autonomy enters the physical world, the clearer human authorization, stop authority and accountability must become.', locale)}</p>
         <blockquote>{copy('讓 AI 先學會界線，再進入流程；讓人先保有責任，再擴大自動化。', 'Teach AI its boundaries before it enters the workflow. Keep human accountability before expanding automation.', locale)}</blockquote>
       </div>
     </div>
@@ -96,13 +94,13 @@ const milestones = [
       <div class="company-org-map" data-company-card data-reveal>
         <div class="org-layer org-company"><span>01</span><strong>{copy('ELIAS NET 虛擬科技公司', 'ELIAS NET VIRTUAL TECHNOLOGY COMPANY', locale)}</strong></div>
         <div class="org-connector" aria-hidden="true"></div>
-        <div class="org-layer org-founder"><span>02</span><strong>{copy('創辦人暨執行董事長／Elias Ren', 'FOUNDER & EXECUTIVE CHAIR / Elias Ren', locale)}</strong></div>
+        <div class="org-layer org-founder"><span>02</span><strong>{copy('創辦人暨董事長／Helena Vale', 'FOUNDER & CHAIR / Helena Vale', locale)}</strong></div>
         <div class="org-connector" aria-hidden="true"></div>
         <div class="org-layer org-board"><span>03</span><strong>{copy('虛擬董事會／治理委員會', 'VIRTUAL BOARD / GOVERNANCE COUNCIL', locale)}</strong><small>{copy('產品體驗／第一性原理／平台成長／企業信任', 'Product experience / first principles / platform growth / enterprise trust', locale)}</small></div>
         <div class="org-connector" aria-hidden="true"></div>
         <div class="org-split">
-          <div class="org-layer"><span>04A</span><strong>CEO · COO · CTO</strong><small>{copy('方向／交付／技術', 'Direction / delivery / technology', locale)}</small></div>
-          <div class="org-layer"><span>04B</span><strong>CIO · CPO · CBO</strong><small>{copy('資料／產品／市場', 'Data / product / market', locale)}</small></div>
+          <div class="org-layer"><span>04A</span><strong>{copy('執行長／Adrian Mercer', 'CEO / Adrian Mercer', locale)}</strong><small>{copy('產品／市場／交付', 'Product / market / delivery', locale)}</small></div>
+          <div class="org-layer"><span>04B</span><strong>{copy('首席人類控制與安全主管／Daniel Kwan', 'CHIEF HUMAN CONTROL & SAFETY OFFICER / Daniel Kwan', locale)}</strong><small>{copy('權限／停止／事故審查', 'Authority / stop / incident review', locale)}</small></div>
         </div>
         <div class="org-connector" aria-hidden="true"></div>
         <div class="org-split org-bottom">
@@ -130,9 +128,9 @@ const milestones = [
   <section id="company-domains" class="company-domains main-section light-section" data-section="company-domains" aria-labelledby="domains-title">
     <div class="shell">
       <header class="section-heading" data-reveal data-gsap="section-heading">
-        <p class="section-index">{copy('五大產品領域／公司矩陣', 'FIVE PRODUCT DOMAINS / COMPANY MATRIX', locale)}</p>
-        <h2 id="domains-title">{copy('同一套責任制度，進入五種重要現場。', 'One accountability system for five places that matter.', locale)}</h2>
-        <p>{copy('五大領域讓 ELIAS NET 像一間公司，而不是把同一個 AI 名稱重複貼在五張卡片上。', 'Five distinct domains make ELIAS NET feel like a company—not the same AI name repeated across five cards.', locale)}</p>
+        <p class="section-index">{copy('三項產品系統／公司矩陣', 'THREE PRODUCT SYSTEMS / COMPANY MATRIX', locale)}</p>
+        <h2 id="domains-title">{copy('三項產品，共用一套人類控制層。', 'Three products. One human-command layer.', locale)}</h2>
+        <p>{copy('NETOPS 是近期實驗室核心；GUARDIAN 與 MEDIC 是救援方向的概念產品。ELIAS CONTROL 管理三者的身分、權限、核准、停止與稽核。', 'NETOPS is the near-term lab core. GUARDIAN and MEDIC are rescue concepts. ELIAS CONTROL governs identity, permission, authorization, stop authority and audit across all three.', locale)}</p>
       </header>
       <div class="company-domain-grid">
         {domains.map((domain) => <article data-company-card data-reveal><div class="domain-card-head"><span>{domain.code}</span><span>ELIAS NET</span></div><h3>{domain.name}</h3><p>{domain.body}</p><small>{copy('核心引擎／', 'CORE ENGINES / ', locale)}{domain.engine}</small></article>)}

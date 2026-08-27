@@ -44,9 +44,9 @@ async function capture(name, hash, width, height, locale = '', reduced = false) 
 }
 
 if (process.env.REDUCED_ONLY === '1') {
-  await capture('reduced-motion-capabilities', 'capabilities', 1440, 900, '', true);
+  await capture('reduced-motion-hero', 'hero', 1440, 900, '', true);
 } else {
-  const desktop = [['00-hero','hero'],['01-problems','problems'],['02-products','products'],['03-trust','trust'],['04-evidence','evidence'],['05-innovation','innovation'],['06-scenes','scenes'],['07-capabilities','capabilities'],['08-cases','cases'],['09-method','method'],['10-contact','contact']];
+  const desktop = [['00-hero','hero'],['01-products','products'],['02-control','control'],['03-leadership','leadership'],['04-contact','contact']];
   for (const [name, hash] of desktop) await capture(`desktop-${name}`, hash, 1440, 900);
-  for (const hash of ['hero','products','trust','evidence','capabilities','contact']) await capture(`mobile-${hash}`, hash, 390, 844);
+  for (const hash of ['hero','products','control','leadership','contact']) await capture(`mobile-${hash}`, hash, 390, 844);
 }

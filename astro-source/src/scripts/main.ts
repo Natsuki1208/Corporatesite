@@ -1,18 +1,9 @@
 import { createLifecycle } from './dom';
 import { initNavigation } from './navigation-ui';
 import { initRevealMotion, initSectionActivity } from './reveal-motion';
-import { initInnovationCore } from './innovation-core';
-import { initBusinessProblems } from './business-problems';
-import { initInnovationPromise } from './innovation-promise';
-import { initWorkScenesMotion } from './work-scenes-motion';
-import { initCapabilityMotion } from './capability-motion';
-import { initCaseMotion } from './case-motion';
-import { initAdoptionJourney } from './adoption-journey';
-import { initCollaborationMotion } from './collaboration-motion';
 import { initConceptForm } from './concept-form';
-import { initAiChange } from './ai-change';
-import { initSectionParticles } from './section-particles';
 import { initCompanyMotion } from './company-motion';
+import { initMissionSequence } from './mission-sequence';
 
 const lifecycle = createLifecycle();
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -31,15 +22,6 @@ const initialize = (factory: () => () => void) => {
 initialize(initNavigation);
 initialize(() => initRevealMotion(reduced));
 initialize(() => initSectionActivity(reduced));
-initialize(() => initInnovationCore(reduced));
-initialize(() => initSectionParticles(reduced));
 initialize(() => initCompanyMotion(reduced));
-initialize(() => initBusinessProblems(reduced));
-initialize(() => initInnovationPromise(reduced));
-initialize(() => initAiChange(reduced));
-initialize(() => initWorkScenesMotion(reduced));
-initialize(() => initCapabilityMotion(reduced));
-initialize(() => initCaseMotion(reduced));
-initialize(() => initAdoptionJourney(reduced));
-initialize(() => initCollaborationMotion(reduced));
+initialize(() => initMissionSequence(reduced));
 initialize(initConceptForm);

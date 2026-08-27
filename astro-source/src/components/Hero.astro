@@ -1,7 +1,7 @@
 ---
 import type { Locale } from '../data/site';
 import { copy } from '../data/site';
-import InnovationCore from './InnovationCore.astro';
+import MissionSequence from './MissionSequence.astro';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 ---
@@ -10,14 +10,13 @@ const { locale } = Astro.props;
   <div class="shell hero-grid">
     <div class="hero-copy">
       <p class="section-index">{copy('首頁', 'HOME', locale)}</p>
-      <p class="brand-kicker" data-gsap-hero-item>ELIAS NET · {copy('深入企業工作的 AI 科技公司', 'AI that goes deeper into real work', locale)}</p>
-      <h1 id="hero-title" data-gsap-hero-item>{copy('讓 AI 深入企業每一天，改變看不見的斷點', 'Go deeper into the work. Make hidden gaps changeable.', locale)}</h1>
-      <p class="hero-lead" data-gsap-hero-item>{copy('ELIAS NET 從企業最深的資訊、流程與決策斷點開始，讓 AI 看見脈絡、提出協助，並在每一個重要關口留下人的判定。不是闖入系統，而是在獲得授權的範圍內，把被忽略的問題逼近、拆開、改善。', 'ELIAS NET goes deep into the information, workflows and decision gaps inside a business. AI brings context, suggests the next move and leaves human judgment at every important gate. Not intrusion—authorized intelligence that surfaces overlooked problems and makes them changeable.', locale)}</p>
-      <p class="hero-audience" data-gsap-hero-item>{copy('給想讓 AI 真正進入工作現場，同時守住資料、權限與責任邊界的企業團隊。', 'For teams that want AI inside the work while keeping data, access and accountability visible.', locale)}</p>
-      <p class="hero-principle" data-gsap-hero-item>{copy('深入問題・守住邊界・留下證據', 'Go deeper · Keep boundaries · Leave evidence', locale)}</p>
-      <div class="cta-row" data-gsap-hero-item><a class="button primary" href="#products">{copy('查看五項產品', 'Explore five products', locale)}</a><a class="button ghost" href="#method">{copy('規劃 Pilot', 'Plan a pilot', locale)} </a></div>
+      <p class="brand-kicker">ELIAS NET · HUMAN-COMMANDED AUTONOMOUS SYSTEMS</p>
+      <h1 id="hero-title">{copy('自主系統，由人類指揮。', 'Autonomous systems. Human command.', locale)}</h1>
+      <p class="hero-lead">{copy('ELIAS NET 連結 AI、企業基礎設施與非武裝救援機器人，協助人們理解風險、協調應變並保護生命；任何高影響行動都必須先經人類授權。', 'ELIAS NET connects AI, enterprise infrastructure and unarmed rescue robotics to understand risk, coordinate response and protect life. Every high-impact action requires human authorization.', locale)}</p>
+      <p class="hero-principle">{copy('可用・可控・可證明', 'Useful · Controlled · Provable', locale)}</p>
+      <div class="cta-row"><a class="button primary" href="#products">{copy('查看產品系統', 'Explore product systems', locale)}</a><a class="button ghost" href="#control">{copy('了解人類控制', 'See human control', locale)}</a></div>
     </div>
-    <div data-gsap-hero-visual><InnovationCore locale={locale} /></div>
+    <div class="hero-mission"><MissionSequence locale={locale} /></div>
   </div>
-  <div class="hero-statement shell"><span>{copy('AI 不只停在表面；它深入脈絡，但不越過人的責任。', 'AI goes beneath the surface—without crossing human responsibility.', locale)}</span></div>
+  <div class="hero-statement shell"><span>{copy('感知全局。只在授權內行動。以保護生命為目的。', 'Sense the whole. Act within authority. Protect life.', locale)}</span></div>
 </section>

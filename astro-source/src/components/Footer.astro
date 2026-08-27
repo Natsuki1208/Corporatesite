@@ -10,18 +10,15 @@ const companyPath = `${homePath}company/`;
 const homeLink = (hash: string) => `${homePath}${hash}`;
 const links = page === 'company' ? [
   [companyPath, copy('公司首頁', 'Company', locale)],
-  [homeLink('#leadership'), copy('領導與治理', 'Leadership', locale)],
-  [homeLink('#products'), copy('五大產品領域', 'Five product domains', locale)],
-  [homeLink('#trust'), copy('信任原則', 'Trust', locale)],
-  [homeLink('#capabilities'), copy('技術能力', 'Technology', locale)],
+  [homeLink('#products'), copy('三項產品系統', 'Three product systems', locale)],
+  [homeLink('#control'), copy('人類控制', 'Human control', locale)],
+  [homeLink('#leadership'), copy('領導團隊', 'Leadership', locale)],
   [homeLink('#contact'), copy('開始合作', 'Start a conversation', locale)]
 ] : [
   [companyPath, copy('關於公司', 'Company', locale)],
-  [homeLink('#leadership'), copy('領導與治理', 'Leadership', locale)],
-  [homeLink('#products'), copy('五大產品領域', 'Five product domains', locale)],
-  [homeLink('#trust'), copy('信任原則', 'Trust', locale)],
-  [homeLink('#capabilities'), copy('技術能力', 'Technology', locale)],
-  [homeLink('#method'), copy('導入方法', 'Approach', locale)],
+  [homeLink('#products'), copy('三項產品系統', 'Three product systems', locale)],
+  [homeLink('#control'), copy('人類控制', 'Human control', locale)],
+  [homeLink('#leadership'), copy('領導團隊', 'Leadership', locale)],
   [homeLink('#contact'), copy('開始合作', 'Start a conversation', locale)]
 ];
 ---
@@ -29,7 +26,7 @@ const links = page === 'company' ? [
   <div class="shell footer-grid">
     <div class="footer-brand">
       <img src={`${base}/images/elias-net-logo.svg`} alt="Elias Net" width="238" height="56">
-      <p>{copy('一間由人負責、以 AI 協助工作的虛擬科技公司', 'A virtual technology company where people stay accountable and AI helps the work', locale)}</p>
+      <p>{copy('人類指揮的自主 AI、基礎設施與非武裝救援系統', 'Human-commanded AI, infrastructure and unarmed rescue systems', locale)}</p>
       <span class="footer-status">{copy('虛擬公司／概念示範', 'VIRTUAL COMPANY / CONCEPT DEMO', locale)}</span>
     </div>
     <nav aria-label={copy('頁尾導覽', 'Footer navigation', locale)}>
