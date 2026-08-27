@@ -69,6 +69,18 @@ export function initCompanyMotion(reduced: MediaQueryList) {
       });
     }
 
+    const capabilityPath = document.querySelector<HTMLElement>('[data-capability-path]');
+    if (capabilityPath) {
+      gsap.from(capabilityPath.querySelectorAll<HTMLElement>('.capability-path-step'), {
+        y: 18,
+        opacity: 0,
+        duration: 0.58,
+        stagger: 0.08,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: capabilityPath, start: 'top 86%', once: true }
+      });
+    }
+
     const companyCards = document.querySelectorAll<HTMLElement>('[data-company-card]');
     companyCards.forEach((card) => {
       gsap.from(card, {

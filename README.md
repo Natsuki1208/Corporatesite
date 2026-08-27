@@ -79,6 +79,7 @@ npm run qa:static
 - [ELIAS NET 虛構企業宇宙與 OCP 參考決議](docs/ELIAS_NET_虛構企業宇宙與OCP參考決議.md)
 - [ELIAS NET 公司官網模型與 AURELIX 參考決議](docs/ELIAS_NET_公司官網模型與AURELIX參考決議.md)
 - [ELIAS NET 公司介紹與願景簡報大綱](docs/ELIAS_NET_公司介紹與願景簡報大綱.md)
+- [ELIAS NET Capabilities 顧問評估與改版決議](docs/ELIAS_NET_capabilities_顧問評估與改版決議.md)
 
 ## 資料與聯絡表單
 
