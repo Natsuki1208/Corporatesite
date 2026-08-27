@@ -9,21 +9,37 @@ import '../styles/motion-polish.css';
 import '../styles/partner-brand-motion.css';
 import '../styles/product-brand.css';
 import '../styles/leadership.css';
+import '../styles/company.css';
 import type { Locale } from '../data/site';
-interface Props { locale: Locale }
-const { locale } = Astro.props;
+interface Props { locale: Locale; page?: 'home' | 'company' }
+const { locale, page = 'home' } = Astro.props;
 const en = locale === 'en';
 const zhCN = locale === 'zh-CN';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const rootUrl = new URL(base ? `${base}/` : '/', Astro.site);
 const localePath = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
-const canonical = new URL(localePath, rootUrl).href;
-const title = en ? 'Elias Net | Controlled AI for Real Work' : zhCN ? 'Elias Net｜把 AI 安全地带入企业日常工作' : 'Elias Net｜把 AI 安全地接進企業工作';
-const description = en
-  ? 'Elias Net is a virtual technology company helping organizations bring controlled, traceable AI into real work.'
-  : zhCN
-    ? 'Elias Net 是一家虚拟科技公司，帮助企业将可控、可追溯的 AI 带入真实工作。'
-    : 'Elias Net 是一間虛擬科技公司，協助企業把可控制、可追溯的 AI 帶進真實工作。';
+const homePath = localePath;
+const companyPath = `${localePath}company/`;
+const currentPath = page === 'company' ? companyPath : homePath;
+const canonical = new URL(currentPath, rootUrl).href;
+const title = page === 'company'
+  ? en ? 'Company | Elias Net' : zhCN ? '公司｜Elias Net' : '公司｜Elias Net'
+  : en ? 'Elias Net | Controlled AI for Real Work' : zhCN ? 'Elias Net｜把 AI 安全地带入企业日常工作' : 'Elias Net｜把 AI 安全地接進企業工作';
+const description = page === 'company'
+  ? en
+    ? 'Meet ELIAS NET, a fictional virtual technology company with a founder, governance system, five product domains and accountable roles.'
+    : zhCN
+      ? '认识 ELIAS NET：一家拥有创办人、治理制度、五大产品领域与明确责任角色的虚拟科技公司。'
+      : '認識 ELIAS NET：一間擁有創辦人、治理制度、五大產品領域與明確責任角色的虛擬科技公司。'
+  : en
+    ? 'Elias Net is a virtual technology company helping organizations bring controlled, traceable AI into real work.'
+    : zhCN
+      ? 'Elias Net 是一家虚拟科技公司，帮助企业将可控、可追溯的 AI 带入真实工作。'
+      : 'Elias Net 是一間虛擬科技公司，協助企業把可控制、可追溯的 AI 帶進真實工作。';
+const hrefFor = (targetLocale: Locale) => {
+  const targetPath = targetLocale === 'en' ? 'en/' : targetLocale === 'zh-CN' ? 'zh-cn/' : '';
+  return new URL(page === 'company' ? `${targetPath}company/` : targetPath, rootUrl).href;
+};
 ---
 <!doctype html>
 <html lang={en ? 'en' : zhCN ? 'zh-CN' : 'zh-TW'}>
@@ -37,14 +53,14 @@ const description = en
     <meta property="og:type" content="website">
     <title>{title}</title>
     <link rel="canonical" href={canonical}>
-    <link rel="alternate" hreflang="zh-TW" href={new URL('', rootUrl).href}>
-    <link rel="alternate" hreflang="zh-CN" href={new URL('zh-cn/', rootUrl).href}>
-    <link rel="alternate" hreflang="en" href={new URL('en/', rootUrl).href}>
-    <link rel="alternate" hreflang="x-default" href={new URL('', rootUrl).href}>
+    <link rel="alternate" hreflang="zh-TW" href={hrefFor('zh-TW')}>
+    <link rel="alternate" hreflang="zh-CN" href={hrefFor('zh-CN')}>
+    <link rel="alternate" hreflang="en" href={hrefFor('en')}>
+    <link rel="alternate" hreflang="x-default" href={hrefFor('zh-TW')}>
     <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml">
     <script is:inline>document.documentElement.classList.add('js')</script>
   </head>
-  <body data-locale={locale}>
+  <body data-locale={locale} data-page={page}>
     <slot />
     <script>import '../scripts/main.ts';</script>
   </body>

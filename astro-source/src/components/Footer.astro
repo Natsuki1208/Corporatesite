@@ -1,9 +1,29 @@
 ---
 import type { Locale } from '../data/site';
 import { copy } from '../data/site';
-interface Props { locale: Locale }
-const { locale } = Astro.props;
+interface Props { locale: Locale; page?: 'home' | 'company' }
+const { locale, page = 'home' } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const localePath = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
+const homePath = `${base}/${localePath}`.replace(/\/\/$/, '/');
+const companyPath = `${homePath}company/`;
+const homeLink = (hash: string) => `${homePath}${hash}`;
+const links = page === 'company' ? [
+  [companyPath, copy('公司首頁', 'Company', locale)],
+  [homeLink('#leadership'), copy('領導與治理', 'Leadership', locale)],
+  [homeLink('#products'), copy('五大產品領域', 'Five product domains', locale)],
+  [homeLink('#trust'), copy('信任原則', 'Trust', locale)],
+  [homeLink('#capabilities'), copy('技術能力', 'Technology', locale)],
+  [homeLink('#contact'), copy('開始合作', 'Start a conversation', locale)]
+] : [
+  [companyPath, copy('關於公司', 'Company', locale)],
+  [homeLink('#leadership'), copy('領導與治理', 'Leadership', locale)],
+  [homeLink('#products'), copy('五大產品領域', 'Five product domains', locale)],
+  [homeLink('#trust'), copy('信任原則', 'Trust', locale)],
+  [homeLink('#capabilities'), copy('技術能力', 'Technology', locale)],
+  [homeLink('#method'), copy('導入方法', 'Approach', locale)],
+  [homeLink('#contact'), copy('開始合作', 'Start a conversation', locale)]
+];
 ---
 <footer class="site-footer">
   <div class="shell footer-grid">
@@ -13,14 +33,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <span class="footer-status">{copy('虛擬公司／概念示範', 'VIRTUAL COMPANY / CONCEPT DEMO', locale)}</span>
     </div>
     <nav aria-label={copy('頁尾導覽', 'Footer navigation', locale)}>
-      <a href="#leadership">{copy('領導與治理', 'Leadership', locale)}</a>
-      <a href="#products">{copy('解決方案', 'Solutions', locale)}</a>
-      <a href="#trust">{copy('信任原則', 'Trust', locale)}</a>
-      <a href="#capabilities">{copy('技術能力', 'Technology', locale)}</a>
-      <a href="#evidence">{copy('證據', 'Evidence', locale)}</a>
-      <a href="#cases">{copy('概念案例', 'Concept cases', locale)}</a>
-      <a href="#method">{copy('導入方法', 'Approach', locale)}</a>
-      <a href="#contact">{copy('開始合作', 'Start a conversation', locale)}</a>
+      {links.map(([href,label]) => <a href={href}>{label}</a>)}
     </nav>
     <p class="footer-note">{copy('ELIAS NET 為虛擬科技公司建構與概念示範。頁面中的組織、人物角色、產品成熟度與案例，不代表真實公司聘任、真實客戶成果或真實人物參與。', 'ELIAS NET is a virtual technology company concept. Its organization, roles, product maturity and cases do not represent real employment, customer outcomes or participation by real people.', locale)}</p>
     <small>© 2026 Elias Net. {copy('虛擬科技公司概念示範。', 'Virtual technology company concept demonstration.', locale)}</small>

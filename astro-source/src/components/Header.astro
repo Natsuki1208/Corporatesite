@@ -1,35 +1,47 @@
 ---
 import type { Locale } from '../data/site';
-interface Props { locale: Locale }
-const { locale } = Astro.props;
+interface Props { locale: Locale; page?: 'home' | 'company' }
+const { locale, page = 'home' } = Astro.props;
 const en = locale === 'en';
 const zhCN = locale === 'zh-CN';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const nav = en ? [
-  ['#leadership','Leadership'],['#products','Solutions'],['#trust','Trust'],['#capabilities','Technology'],['#method','Approach'],['#contact','Start']
-] : zhCN ? [
-  ['#leadership','领导与治理'],['#products','解决方案'],['#trust','信任原则'],['#capabilities','技术能力'],['#method','导入方法'],['#contact','开始合作']
-] : [
-  ['#leadership','領導與治理'],['#products','解決方案'],['#trust','信任原則'],['#capabilities','技術能力'],['#method','導入方法'],['#contact','開始合作']
-];
+const localePath = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
+const homePath = `${base}/${localePath}`.replace(/\/\/$/, '/');
+const companyPath = `${homePath}company/`;
+const nav = page === 'company'
+  ? en ? [
+    ['#company-mission','Mission'],['#company-organization','Organization'],['#company-governance','Governance'],[`${homePath}#products`,'Solutions'],[`${homePath}#contact`,'Start']
+  ] : zhCN ? [
+    ['#company-mission','使命'],['#company-organization','组织架构'],['#company-governance','治理制度'],[`${homePath}#products`,'解决方案'],[`${homePath}#contact`,'开始合作']
+  ] : [
+    ['#company-mission','公司使命'],['#company-organization','組織架構'],['#company-governance','治理制度'],[`${homePath}#products`,'解決方案'],[`${homePath}#contact`,'開始合作']
+  ]
+  : en ? [
+    [companyPath,'Company'],['#leadership','Leadership'],['#products','Solutions'],['#trust','Trust'],['#capabilities','Technology'],['#method','Approach'],['#contact','Start']
+  ] : zhCN ? [
+    [companyPath,'公司'],['#leadership','领导与治理'],['#products','解决方案'],['#trust','信任原则'],['#capabilities','技术能力'],['#method','导入方法'],['#contact','开始合作']
+  ] : [
+    [companyPath,'公司'],['#leadership','領導與治理'],['#products','解決方案'],['#trust','信任原則'],['#capabilities','技術能力'],['#method','導入方法'],['#contact','開始合作']
+  ];
 const languageOptions = [
   { id: 'zh-TW' as Locale, label: '繁中', lang: 'zh-TW', href: `${base}/` },
   { id: 'zh-CN' as Locale, label: '简中', lang: 'zh-CN', href: `${base}/zh-cn/` },
   { id: 'en' as Locale, label: 'EN', lang: 'en', href: `${base}/en/` }
-];
+].map((option) => ({ ...option, href: page === 'company' ? `${option.href}company/` : option.href }));
 const navLabel = en ? 'Primary navigation' : zhCN ? '主要导航' : '主要導覽';
 const menuLabel = en ? 'Menu' : zhCN ? '菜单' : '選單';
 const closeLabel = en ? 'Close menu' : zhCN ? '关闭菜单' : '關閉選單';
+const brandLabel = en ? 'Elias Net home' : zhCN ? 'Elias Net 首页' : 'Elias Net 首頁';
 ---
-<header class="site-header" data-header>
-  <a class="brand" href="#hero" aria-label={en ? 'Elias Net home' : zhCN ? 'Elias Net 首页' : 'Elias Net 首頁'}>
+<header class="site-header" data-header data-page={page}>
+  <a class="brand" href={page === 'company' ? companyPath : `${homePath}#hero`} aria-label={brandLabel}>
     <img src={`${base}/images/elias-net-logo.svg`} alt="Elias Net" width="238" height="56">
   </a>
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={menuLabel} data-open-label={menuLabel} data-close-label={closeLabel} data-menu-toggle>
     <span>{menuLabel}</span><i aria-hidden="true"></i>
   </button>
   <nav id="site-nav" class="site-nav" aria-label={navLabel} data-nav>
-    {nav.map(([href,label]) => <a href={href}>{label}</a>)}
+    {nav.map(([href,label]) => <a href={href} class:list={{ 'nav-current': page === 'company' && href === '#company-mission' }} aria-current={page === 'company' && href === '#company-mission' ? 'page' : undefined}>{label}</a>)}
   </nav>
   <div class="language-switcher" aria-label={en ? 'Language' : zhCN ? '语言' : '語言'}>
     {languageOptions.map((option) => <a class:list={['language-link', { active: option.id === locale }]} href={option.href} lang={option.lang} aria-current={option.id === locale ? 'page' : undefined} data-language-link>{option.label}</a>)}

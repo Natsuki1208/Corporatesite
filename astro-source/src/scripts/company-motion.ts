@@ -1,4 +1,3 @@
-import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -20,6 +19,19 @@ export function initCompanyMotion(reduced: MediaQueryList) {
         opacity: 0.72,
         ease: 'none',
         scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.8 }
+      });
+    }
+
+    const companyHero = document.querySelector<HTMLElement>('[data-company-hero]');
+    if (companyHero) {
+      const items = companyHero.querySelectorAll<HTMLElement>('[data-company-hero-item]');
+      gsap.timeline({ defaults: { ease: 'power3.out' } })
+        .from(items, { y: 24, opacity: 0, duration: 0.78, stagger: 0.1, clearProps: 'transform' }, 0.1)
+        .from(companyHero.querySelector('[data-company-hero-visual]'), { x: 30, opacity: 0, scale: 0.97, duration: 1.1, ease: 'power2.out' }, 0.32);
+      gsap.to(companyHero.querySelector('.company-portrait-frame'), {
+        yPercent: -4,
+        ease: 'none',
+        scrollTrigger: { trigger: companyHero, start: 'top top', end: 'bottom top', scrub: 1 }
       });
     }
 
@@ -55,6 +67,22 @@ export function initCompanyMotion(reduced: MediaQueryList) {
         ease: 'none',
         scrollTrigger: { trigger: leadership, start: 'top bottom', end: 'bottom top', scrub: 1.2 }
       });
+    }
+
+    const companyCards = document.querySelectorAll<HTMLElement>('[data-company-card]');
+    companyCards.forEach((card) => {
+      gsap.from(card, {
+        y: 24,
+        opacity: 0,
+        duration: 0.68,
+        delay: Number(card.style.getPropertyValue('--i') || 0) * 0.06,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: card, start: 'top 88%', once: true }
+      });
+    });
+    const governanceLine = document.querySelector<HTMLElement>('.company-governance-line');
+    if (governanceLine) {
+      gsap.fromTo(governanceLine.querySelector('i'), { scaleY: 0 }, { scaleY: 1, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: governanceLine, start: 'top 78%', once: true } });
     }
 
     gsap.utils.toArray<HTMLElement>('[data-gsap="section-heading"]').forEach((heading) => {

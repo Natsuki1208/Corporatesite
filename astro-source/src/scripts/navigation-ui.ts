@@ -1,19 +1,95 @@
 import { all, one } from './dom';
+
 export function initNavigation() {
-  const button = one<HTMLButtonElement>('[data-menu-toggle]'); const nav = one<HTMLElement>('[data-nav]'); if (!button || !nav) return () => {};
-  const links = all<HTMLAnchorElement>('a[href^="#"]',nav); const sections = all<HTMLElement>('[data-section]');
-  const prev = one<HTMLButtonElement>('[data-section-prev]'); const next = one<HTMLButtonElement>('[data-section-next]'); const progress = one<HTMLElement>('[data-journey-progress]'); const language = one<HTMLAnchorElement>('.language-link');
+  const button = one<HTMLButtonElement>('[data-menu-toggle]');
+  const nav = one<HTMLElement>('[data-nav]');
+  if (!button || !nav) return () => {};
+  const links = all<HTMLAnchorElement>('a[href^="#"]', nav);
+  const sections = all<HTMLElement>('[data-section]');
+  const prev = one<HTMLButtonElement>('[data-section-prev]');
+  const next = one<HTMLButtonElement>('[data-section-next]');
+  const progress = one<HTMLElement>('[data-journey-progress]');
+  const languageLinks = all<HTMLAnchorElement>('.language-link');
+  const isCompany = document.body.dataset.page === 'company';
   let active = 0;
-  const close = (restore = false) => { const wasOpen = nav.classList.contains('open'); nav.classList.remove('open'); button.setAttribute('aria-expanded','false'); button.setAttribute('aria-label',button.dataset.openLabel ?? 'Menu'); document.body.classList.remove('menu-open'); if (restore && wasOpen) button.focus(); };
-  const toggle = () => { const open = !nav.classList.contains('open'); nav.classList.toggle('open',open); button.setAttribute('aria-expanded',String(open)); button.setAttribute('aria-label',open ? button.dataset.closeLabel ?? 'Close menu' : button.dataset.openLabel ?? 'Open menu'); document.body.classList.toggle('menu-open',open); if (open) links[0]?.focus(); };
-  const setActive = (index:number, updateHash = false) => { active = Math.max(0,Math.min(index,sections.length-1)); const id = sections[active]?.id; links.forEach((link) => { if(link.getAttribute('href') === `#${id}`)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current'); }); if (progress) progress.style.width = `${((active+1)/sections.length)*100}%`; prev?.toggleAttribute('disabled',active===0); next?.toggleAttribute('disabled',active===sections.length-1); if (language && id) language.href = `${language.getAttribute('href')?.split('#')[0] ?? ''}#${id}`; if (updateHash && id && location.hash !== `#${id}`) history.replaceState(null,'',`#${id}`); };
-  const move = (delta:number) => sections[Math.max(0,Math.min(active+delta,sections.length-1))]?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+
+  const close = (restore = false) => {
+    const wasOpen = nav.classList.contains('open');
+    nav.classList.remove('open');
+    button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('aria-label', button.dataset.openLabel ?? 'Menu');
+    document.body.classList.remove('menu-open');
+    if (restore && wasOpen) button.focus();
+  };
+  const toggle = () => {
+    const open = !nav.classList.contains('open');
+    nav.classList.toggle('open', open);
+    button.setAttribute('aria-expanded', String(open));
+    button.setAttribute('aria-label', open ? button.dataset.closeLabel ?? 'Close menu' : button.dataset.openLabel ?? 'Open menu');
+    document.body.classList.toggle('menu-open', open);
+    if (open) links[0]?.focus();
+  };
+  const setActive = (index: number, updateHash = false) => {
+    active = Math.max(0, Math.min(index, sections.length - 1));
+    const id = sections[active]?.id;
+    links.forEach((link) => {
+      if (link.getAttribute('href') === `#${id}`) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+    if (progress && sections.length) progress.style.width = `${((active + 1) / sections.length) * 100}%`;
+    prev?.toggleAttribute('disabled', active === 0);
+    next?.toggleAttribute('disabled', active === sections.length - 1);
+    if (!isCompany && id) {
+      languageLinks.forEach((link) => {
+        const href = link.getAttribute('href')?.split('#')[0];
+        if (href) link.href = `${href}#${id}`;
+      });
+    }
+    if (updateHash && id && location.hash !== `#${id}`) history.replaceState(null, '', `#${id}`);
+  };
+  const move = (delta: number) => sections[Math.max(0, Math.min(active + delta, sections.length - 1))]?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   const onNavClick = (event: Event) => { if ((event.target as Element | null)?.closest('a')) close(); };
-  const onKey = (event: KeyboardEvent) => { if (!nav.classList.contains('open')) return; if (event.key === 'Escape') { close(true); return; } if (event.key !== 'Tab') return; const focusables=[button,...links,...(language?[language]:[])];const first=focusables[0];const last=focusables.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();} };
+  const onKey = (event: KeyboardEvent) => {
+    if (!nav.classList.contains('open')) return;
+    if (event.key === 'Escape') { close(true); return; }
+    if (event.key !== 'Tab') return;
+    const focusables = [button, ...links, ...languageLinks];
+    const first = focusables[0];
+    const last = focusables.at(-1);
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+  };
   const onResize = () => { if (innerWidth > 900) close(); };
-  const prevClick = () => move(-1); const nextClick = () => move(1);
-  let scrollFrame=0;const updateFromScroll=()=>{scrollFrame=0;const probe=Math.min(innerHeight*.38,320);let index=0;sections.forEach((section,item)=>{const rect=section.getBoundingClientRect();if(rect.top<=probe)index=item;});setActive(index,true);};const onScroll=()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(updateFromScroll);};
-  button.addEventListener('click',toggle); nav.addEventListener('click',onNavClick); document.addEventListener('keydown',onKey); window.addEventListener('resize',onResize); window.addEventListener('scroll',onScroll,{passive:true}); prev?.addEventListener('click',prevClick); next?.addEventListener('click',nextClick);
-  const initial = sections.findIndex((section) => `#${section.id}`===location.hash); setActive(initial>=0?initial:0);requestAnimationFrame(updateFromScroll);
-  return () => { close(); if(scrollFrame)cancelAnimationFrame(scrollFrame); button.removeEventListener('click',toggle); nav.removeEventListener('click',onNavClick); document.removeEventListener('keydown',onKey); window.removeEventListener('resize',onResize); window.removeEventListener('scroll',onScroll); prev?.removeEventListener('click',prevClick); next?.removeEventListener('click',nextClick); };
+  const prevClick = () => move(-1);
+  const nextClick = () => move(1);
+  let scrollFrame = 0;
+  const updateFromScroll = () => {
+    scrollFrame = 0;
+    const probe = Math.min(innerHeight * .38, 320);
+    let index = 0;
+    sections.forEach((section, item) => { if (section.getBoundingClientRect().top <= probe) index = item; });
+    setActive(index, true);
+  };
+  const onScroll = () => { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateFromScroll); };
+  button.addEventListener('click', toggle);
+  nav.addEventListener('click', onNavClick);
+  document.addEventListener('keydown', onKey);
+  window.addEventListener('resize', onResize);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  prev?.addEventListener('click', prevClick);
+  next?.addEventListener('click', nextClick);
+  const initial = sections.findIndex((section) => `#${section.id}` === location.hash);
+  setActive(initial >= 0 ? initial : 0);
+  requestAnimationFrame(updateFromScroll);
+  return () => {
+    close();
+    if (scrollFrame) cancelAnimationFrame(scrollFrame);
+    button.removeEventListener('click', toggle);
+    nav.removeEventListener('click', onNavClick);
+    document.removeEventListener('keydown', onKey);
+    window.removeEventListener('resize', onResize);
+    window.removeEventListener('scroll', onScroll);
+    prev?.removeEventListener('click', prevClick);
+    next?.removeEventListener('click', nextClick);
+  };
 }
