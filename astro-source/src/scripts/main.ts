@@ -4,7 +4,9 @@ import { initRevealMotion, initSectionActivity } from './reveal-motion';
 import { initConceptForm } from './concept-form';
 import { initCompanyMotion } from './company-motion';
 import { initMissionSequence } from './mission-sequence';
+import { initProductMotion } from './product-motion';
 
+document.documentElement.classList.add('motion-ready');
 const lifecycle = createLifecycle();
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 const syncMotionPreference=()=>{document.documentElement.classList.toggle('reduced-motion',reduced.matches);if(reduced.matches&&'getAnimations' in document)document.getAnimations().forEach((animation)=>animation.cancel());};
@@ -24,4 +26,5 @@ initialize(() => initRevealMotion(reduced));
 initialize(() => initSectionActivity(reduced));
 initialize(() => initCompanyMotion(reduced));
 initialize(() => initMissionSequence(reduced));
+initialize(() => initProductMotion(reduced));
 initialize(initConceptForm);

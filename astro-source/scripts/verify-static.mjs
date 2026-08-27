@@ -38,7 +38,7 @@ for (const page of pages) {
   const capabilityNumbers = false;
   const aiPathNumbers = false;
   const threeProducts = !isCompany && (html.match(/class="autonomy-product product-/g) ?? []).length === 3;
-  const companyIdentity = isCompany && html.includes('company-hero') && html.includes('company-title') && (html.includes('虛擬科技公司') || html.includes('虚拟科技公司') || html.includes('FICTIONAL VIRTUAL TECHNOLOGY COMPANY'));
+  const companyIdentity = isCompany && html.includes('company-hero') && html.includes('company-title') && (html.includes('自主系統公司') || html.includes('自主系统公司') || html.includes('AUTONOMOUS SYSTEMS'));
   const companyOrganization = isCompany && html.includes('company-organization') && (html.includes('FOUNDER &amp; CHAIR') || html.includes('創辦人暨董事長') || html.includes('创办人暨董事长')) && (html.includes('INDEPENDENT ASSURANCE') || html.includes('獨立驗收') || html.includes('独立验收'));
   const resourceRefs = [
     ...[...html.matchAll(/<(?:script|img)[^>]+src="([^"]+)"/g)].map((match) => match[1]),
@@ -55,7 +55,7 @@ for (const page of pages) {
   const productMaturity = isCompany || ['CONCEPT','LAB'].every((label) => html.includes(label));
   const workingContact = isCompany ? html.includes('company-start') : html.includes('mailto:') || html.includes('data-contact-email');
   const hasLeadership = isCompany || (html.includes('Helena Vale') && html.includes('Daniel Kwan') && html.includes('data-section="leadership"'));
-  const languageMarker = page.includes('/zh-cn/') ? html.includes('lang="zh-CN"') && html.includes('虚拟科技公司') : true;
+  const languageMarker = page.includes('/zh-cn/') ? html.includes('lang="zh-CN"') && html.includes('自主系统') : true;
   const humanControl = isCompany || (html.includes('AUTHORIZED ACTION') && html.includes('HUMAN OVERRIDE') && html.includes('data-mission-sequence'));
   const safetyBoundary = isCompany || (html.includes('不自主選擇') || html.includes('不自主选择') || html.includes('never autonomous selection'));
   const pageSpecific = isCompany ? companyIdentity && companyOrganization : threeProducts && humanControl && safetyBoundary;

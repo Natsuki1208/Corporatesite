@@ -27,12 +27,12 @@ const links = page === 'company' ? [
     <div class="footer-brand">
       <img src={`${base}/images/elias-net-logo.svg`} alt="Elias Net" width="238" height="56">
       <p>{copy('人類指揮的自主 AI、基礎設施與非武裝救援系統', 'Human-commanded AI, infrastructure and unarmed rescue systems', locale)}</p>
-      <span class="footer-status">{copy('虛擬公司／概念示範', 'VIRTUAL COMPANY / CONCEPT DEMO', locale)}</span>
+      <span class="footer-status">{copy('自主系統／人類指揮', 'AUTONOMOUS SYSTEMS / HUMAN COMMAND', locale)}</span>
     </div>
     <nav aria-label={copy('頁尾導覽', 'Footer navigation', locale)}>
       {links.map(([href,label]) => <a href={href}>{label}</a>)}
     </nav>
-    <p class="footer-note">{copy('ELIAS NET 為虛擬科技公司建構與概念示範。頁面中的組織、人物角色、產品成熟度與案例，不代表真實公司聘任、真實客戶成果或真實人物參與。', 'ELIAS NET is a virtual technology company concept. Its organization, roles, product maturity and cases do not represent real employment, customer outcomes or participation by real people.', locale)}</p>
-    <small>© 2026 Elias Net. {copy('虛擬科技公司概念示範。', 'Virtual technology company concept demonstration.', locale)}</small>
+    <p class="footer-note">{copy('本站展示品牌、產品方向與開發階段；產品狀態以 LAB、CONCEPT 或 PILOT 標籤為準，不構成已部署成果或服務承諾。', 'This site presents brand, product direction and development stages. LAB, CONCEPT and PILOT labels define current status and do not constitute deployment results or service commitments.', locale)}</p>
+    <small>© 2026 Elias Net. {copy('自主系統，由人類指揮。', 'Autonomous systems. Human command.', locale)}</small>
   </div>
 </footer>
