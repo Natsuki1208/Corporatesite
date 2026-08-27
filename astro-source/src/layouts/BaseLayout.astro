@@ -7,6 +7,7 @@ import '../styles/accessibility.css';
 import '../styles/innovation.css';
 import '../styles/motion-polish.css';
 import '../styles/partner-brand-motion.css';
+import '../styles/product-brand.css';
 import type { Locale } from '../data/site';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
@@ -14,10 +15,10 @@ const en = locale === 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const rootUrl = new URL(base ? `${base}/` : '/', Astro.site);
 const canonical = new URL(en ? 'en/' : '', rootUrl).href;
-const title = en ? 'Elias Net | AI Innovation & Business Transformation Partner' : 'Elias Net｜AI 創新與企業轉型夥伴';
+const title = en ? 'Elias Net | Controlled AI for Real Work' : 'Elias Net｜把 AI 安全地接進企業工作';
 const description = en
-  ? 'Elias Net brings AI, data and system integration together to turn new ideas into ways of working that function in the real world.'
-  : 'Elias Net 結合 AI、資料與系統整合，協助企業把新的想法轉化成真正能運作的工作方式。';
+  ? 'Elias Net delivers controlled, traceable AI products for enterprise knowledge, service and IT operations workflows.'
+  : 'Elias Net 提供可控制、可追溯的企業 AI 產品，協助知識、服務與 IT 營運流程安全導入 AI。';
 ---
 <!doctype html>
 <html lang={en ? 'en' : 'zh-Hant'}>

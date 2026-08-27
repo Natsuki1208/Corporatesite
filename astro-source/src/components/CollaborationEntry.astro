@@ -16,11 +16,11 @@ const prompts = en
       <p class="contact-slogan"><strong>{en ? 'We make the important decisions.' : '重要決定，我們來做。'}</strong><span>{en ? 'We complete the work together with AI.' : '工作，我們和 AI 一起完成。'}</span></p>
     </div>
     <div class="contact-convergence" data-contact-convergence aria-hidden="true"><canvas class="semantic-particles" data-particle-stage="contact"></canvas><i></i><i></i><i></i><i></i><i></i><span><b>{en ? 'STARTING POINT' : '值得開始的方向'}</b><strong>{en ? 'ONE REAL PROBLEM' : '從一個真實問題開始'}</strong></span><em></em></div>
-    <form class="concept-form" data-concept-form data-reveal>
+    <form class="concept-form" data-concept-form data-contact-email="natsuki12089212@gmail.com" data-reveal>
       <fieldset><legend>{en ? 'What would you like to improve first?' : '你最想先改善哪一件事？'}</legend>{prompts.map((item,index) => <label><input type="radio" name="focus" value={String(index)} required><span>{item}</span></label>)}</fieldset>
-      <label class="form-note"><span>{en ? 'Describe the work without personal or confidential information' : '簡單描述工作情境，請勿輸入個人或機密資料'}</span><textarea rows="3" maxlength="280"></textarea></label>
-      <div class="cta-row"><button class="button primary" type="submit">{en ? 'Plan the first AI opportunity' : '開始規劃第一個 AI 場景'}</button></div>
-      <p class="form-status" role="status" aria-live="polite" data-form-status>{en ? 'This is a demonstration form. No information is sent or stored.' : '此為示範表單，不會傳送或儲存資料。'}</p>
+      <label class="form-note"><span>{en ? 'Describe the work without personal or confidential information' : '簡單描述工作情境，請勿輸入個人或機密資料'}</span><textarea name="context" rows="3" maxlength="280"></textarea></label>
+      <div class="cta-row"><button class="button primary" type="submit">{en ? 'Discuss a pilot by email' : '透過 Email 討論 Pilot'}</button><a class="button ghost" href="#method">{en ? 'Review the approach' : '先查看導入方式'}</a></div>
+      <p class="form-status" role="status" aria-live="polite" data-form-status>{en ? 'Submitting opens your email app. The website does not transmit or store this information.' : '送出後會開啟你的郵件 App；本網站不會傳送或儲存填寫內容。'}</p>
     </form>
   </div>
 </section>

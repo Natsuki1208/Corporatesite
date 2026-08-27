@@ -1,0 +1,24 @@
+---
+import type { Locale } from '../data/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const checks = en ? [
+  ['Source traceability','Verify every answer against approved sources.'],
+  ['Human handoff','Measure when the system stops and requests review.'],
+  ['Policy compliance','Detect unauthorized data or tool use.'],
+  ['Trace grading','Evaluate how the agent completed the task—not only its final answer.']
+] : [
+  ['來源可追溯','確認每個回答都能回到核准來源。'],
+  ['人工接管','量測系統何時停止並要求人員確認。'],
+  ['政策符合度','偵測未授權資料或工具使用。'],
+  ['Trace Grading','不只看答案，也驗證 Agent 如何完成任務。']
+];
+---
+<section id="evidence" class="main-section evidence light-section" data-section="evidence" aria-labelledby="evidence-title">
+  <div class="shell">
+    <header class="section-heading" data-reveal><p class="section-index">{en ? 'EVIDENCE' : '驗證與證據'}</p><h2 id="evidence-title">{en ? 'We verify the work behind the result.' : '不只展示結果，也驗證 AI 如何完成任務'}</h2><p>{en ? 'Every figure must identify its environment and maturity. Concept, lab, pilot and production evidence are never presented as the same thing.' : '所有數據都必須標示環境與成熟度；Concept、Lab、Pilot 與 Production 不會混為一談。'}</p></header>
+    <div class="evidence-grid">{checks.map(([name,copy],index) => <article data-reveal><span>0{index + 1}</span><h3>{name}</h3><p>{copy}</p><small>{en ? 'MEASURE WITH VERIFIED TEST DATA' : '以已查核測試資料量測'}</small></article>)}</div>
+    <p class="evidence-note">{en ? 'Current public status: product concepts and lab validation. No customer or production outcome is claimed.' : '目前公開狀態：產品概念與 Lab 驗證；不宣稱正式客戶成果或 Production 成效。'}</p>
+  </div>
+</section>

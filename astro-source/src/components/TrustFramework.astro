@@ -1,0 +1,33 @@
+---
+import type { Locale } from '../data/site';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const principles = en ? [
+  ['Useful','Work inside existing systems and real workflows.'],
+  ['Controlled','Make data scope, permissions and human approval visible.'],
+  ['Provable','Preserve sources, traces, tests and acceptance evidence.']
+] : [
+  ['可用','進入既有系統與真實工作流程。'],
+  ['可控','資料範圍、權限與人工核准清楚可見。'],
+  ['可證明','保留來源、Trace、測試與驗收證據。']
+];
+const rules = en ? ['Problem before model','Evidence before automation','Human approval for high-impact actions','Minimum necessary data','Trace every output and decision'] : ['問題先於模型','證據先於自動化','高影響操作必須人工核准','只使用完成任務所需的資料','每次輸出與決策都可以追溯'];
+---
+<section id="trust" class="main-section trust-framework" data-section="trust" aria-labelledby="trust-title">
+  <div class="shell trust-grid">
+    <div class="trust-copy" data-reveal>
+      <p class="section-index">{en ? 'PRODUCT PRINCIPLES' : '公司理念'}</p>
+      <h2 id="trust-title">{en ? 'Enterprise AI needs a more trustworthy way of working—not just better answers.' : '企業需要的，不只是更會回答的 AI'}</h2>
+      <p class="section-lead">{en ? 'AI can participate in the work, but it must not cross the boundaries of human responsibility.' : 'AI 可以參與工作，但不能越過人的責任邊界。理念不是宣言，而是每個產品都必須具備的機制。'}</p>
+      <ol class="principle-list">{rules.map((rule,index) => <li><span>{String(index + 1).padStart(2,'0')}</span>{rule}</li>)}</ol>
+    </div>
+    <div class="control-layer" data-reveal>
+      <p>{en ? 'ELIAS CONTROL LAYER' : 'ELIAS CONTROL LAYER｜共用治理底座'}</p>
+      <div class="control-flow" role="img" aria-label={en ? 'Approved data flows through an AI agent, policy gate, human approval and audit record' : '核准資料依序通過 AI Agent、政策檢查、人工核准與稽核紀錄'}>
+        {(en ? ['Approved data','AI agent','Policy gate','Human approval','Audit record'] : ['核准資料','AI Agent','政策檢查','人工核准','稽核紀錄']).map((item,index) => <span><i>{String(index + 1).padStart(2,'0')}</i><b>{item}</b></span>)}
+      </div>
+      <div class="trust-pillars">{principles.map(([name,copy]) => <article><h3>{name}</h3><p>{copy}</p></article>)}</div>
+    </div>
+  </div>
+</section>

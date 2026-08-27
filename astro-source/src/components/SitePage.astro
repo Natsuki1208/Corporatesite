@@ -9,6 +9,9 @@ import WorkScenes from './WorkScenes.astro';
 import AdoptionMethod from './AdoptionMethod.astro';
 import InnovationCases from './InnovationCases.astro';
 import CollaborationEntry from './CollaborationEntry.astro';
+import ProductPortfolio from './ProductPortfolio.astro';
+import TrustFramework from './TrustFramework.astro';
+import Evidence from './Evidence.astro';
 import Footer from './Footer.astro';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
@@ -19,6 +22,9 @@ const en = locale === 'en';
 <main id="main">
   <Hero locale={locale} />
   <BusinessProblems locale={locale} />
+  <ProductPortfolio locale={locale} />
+  <TrustFramework locale={locale} />
+  <Evidence locale={locale} />
   <InnovationPromise locale={locale} />
   <WorkScenes locale={locale} />
   <Capabilities locale={locale} />
