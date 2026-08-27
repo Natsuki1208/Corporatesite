@@ -1,5 +1,6 @@
 ---
 import type { Locale } from '../data/site';
+import { copy, list } from '../data/site';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const en = locale === 'en';
@@ -7,26 +8,26 @@ const products = [
   {
     id: 'knowledge', status: 'PILOT CONCEPT', image: '/images/elias-net-shared-knowledge.jpg',
     name: 'Elias Knowledge Hub',
-    audience: en ? 'Knowledge, HR and operations teams' : '知識、行政與營運團隊',
-    promise: en ? 'Find answers in approved documents with sources, versions and access boundaries.' : '從核准文件中找到答案，保留來源、版本與權限界線。',
-    outcome: en ? 'Traceable answers · Faster retrieval · Controlled scope' : '回答可追溯・縮短查找時間・限制資料範圍',
-    ui: en ? ['Approved sources', 'Answer with citations', 'Access: verified'] : ['核准來源', '回答＋引用', '權限：已確認']
+    audience: copy('知識、行政與營運團隊', 'Knowledge, HR and operations teams', locale),
+    promise: copy('從核准文件中找到答案，保留來源、版本與權限界線。', 'Find answers in approved documents with sources, versions and access boundaries.', locale),
+    outcome: copy('回答可追溯・縮短查找時間・限制資料範圍', 'Traceable answers · Faster retrieval · Controlled scope', locale),
+    ui: list(['核准來源', '回答＋引用', '權限：已確認'], ['Approved sources', 'Answer with citations', 'Access: verified'], locale)
   },
   {
     id: 'service', status: 'CONCEPT', image: '/images/elias-net-human-decision.jpg',
     name: 'Elias Service Copilot',
-    audience: en ? 'Service desks and customer support teams' : '服務台與客服團隊',
-    promise: en ? 'Organize requests, prepare summaries and suggest replies for human approval.' : '整理案件、建立摘要與建議回覆，最後由服務人員確認。',
-    outcome: en ? 'Clearer handoffs · Consistent replies · Human approval' : '交接更清楚・回覆更一致・人工最終核准',
-    ui: en ? ['Intent classified', 'Reply prepared', 'Awaiting approval'] : ['意圖已分類', '建議回覆已準備', '等待人員核准']
+    audience: copy('服務台與客服團隊', 'Service desks and customer support teams', locale),
+    promise: copy('整理案件、建立摘要與建議回覆，最後由服務人員確認。', 'Organize requests, prepare summaries and suggest replies for human approval.', locale),
+    outcome: copy('交接更清楚・回覆更一致・人工最終核准', 'Clearer handoffs · Consistent replies · Human approval', locale),
+    ui: list(['意圖已分類', '建議回覆已準備', '等待人員核准'], ['Intent classified', 'Reply prepared', 'Awaiting approval'], locale)
   },
   {
     id: 'ops', status: 'LAB VALIDATED', image: '/images/elias-net-ai-operations.jpg',
     name: 'Elias Ops Sentinel',
-    audience: en ? 'IT, MIS and operations teams' : 'IT、MIS 與營運團隊',
-    promise: en ? 'Correlate monitoring events, build a timeline and recommend read-only checks.' : '關聯多套監控事件、建立時間線並提出唯讀檢查順序。',
-    outcome: en ? 'Faster context · Read-only first · High-impact actions gated' : '更快掌握脈絡・唯讀優先・高影響操作需核准',
-    ui: en ? ['Events correlated', 'Read-only checks', 'Action: gated'] : ['事件已關聯', '唯讀檢查', '操作：等待核准']
+    audience: copy('IT、MIS 與營運團隊', 'IT, MIS and operations teams', locale),
+    promise: copy('關聯多套監控事件、建立時間線並提出唯讀檢查順序。', 'Correlate monitoring events, build a timeline and recommend read-only checks.', locale),
+    outcome: copy('更快掌握脈絡・唯讀優先・高影響操作需核准', 'Faster context · Read-only first · High-impact actions gated', locale),
+    ui: list(['事件已關聯', '唯讀檢查', '操作：等待核准'], ['Events correlated', 'Read-only checks', 'Action: gated'], locale)
   }
 ];
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -34,9 +35,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <section id="products" class="main-section products light-section" data-section="products" aria-labelledby="products-title">
   <div class="shell">
     <header class="section-heading" data-reveal>
-      <p class="section-index">{en ? 'PRODUCTS' : '產品方案'}</p>
-      <h2 id="products-title">{en ? 'Start with one workflow—not a company-wide replacement.' : '從一個流程開始，不必一次汰換所有系統'}</h2>
-      <p>{en ? 'Three focused products turn approved information and existing tools into controlled AI-assisted work.' : '三個聚焦產品，把核准資訊與既有工具，轉化成可控制、可驗證的 AI 協作流程。'}</p>
+      <p class="section-index">{copy('產品方案', 'PRODUCTS', locale)}</p>
+      <h2 id="products-title">{copy('從一個流程開始，不必一次汰換所有系統', 'Start with one workflow—not a company-wide replacement.', locale)}</h2>
+      <p>{copy('三個聚焦產品，把核准資訊與既有工具，轉化成可控制、可驗證的 AI 協作流程。', 'Three focused products turn approved information and existing tools into controlled AI-assisted work.', locale)}</p>
     </header>
     <div class="product-grid">
       {products.map((product,index) => <article class={`product-card product-${product.id}`} data-reveal>
@@ -50,7 +51,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             {product.ui.map((step,stepIndex) => <span><i>{String(stepIndex + 1).padStart(2,'0')}</i>{step}</span>)}
           </div>
           <p class="product-outcome">{product.outcome}</p>
-          <a class="product-link" href="#method">{en ? 'See the pilot path' : '查看 Pilot 導入方式'} →</a>
+          <a class="product-link" href="#method">{copy('查看 Pilot 導入方式', 'See the pilot path', locale)} →</a>
         </div>
       </article>)}
     </div>

@@ -1,26 +1,24 @@
 ---
 import type { Locale } from '../data/site';
+import { copy, list } from '../data/site';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
-const en = locale === 'en';
-const prompts = en
-  ? ['The most time-consuming work','The most repeated process','The hardest information to find','The service you most want to improve','Your concern about adopting AI']
-  : ['現在最耗時的工作','最常重複的流程','最難查找的資訊','最希望改善的服務','對 AI 導入的疑慮'];
+const prompts = list(['現在最耗時的工作','最常重複的流程','最難查找的資訊','最希望改善的服務','對 AI 導入的疑慮'], ['The most time-consuming work','The most repeated process','The hardest information to find','The service you most want to improve','Your concern about adopting AI'], locale);
 ---
 <section id="contact" class="main-section contact" data-section="contact" aria-labelledby="contact-title">
   <div class="shell contact-grid">
     <div data-reveal>
-      <p class="section-index">{en ? 'VISION & PARTNERSHIP' : '願景與合作'}</p>
-      <h2 id="contact-title">{en ? 'The next change starts with one real problem.' : '下一個改變，從一個問題開始'}</h2>
-      <p class="section-lead">{en ? 'Elias Net starts with a real work problem, helping teams identify where AI can assist and which choices must remain in their hands.' : 'Elias Net 從一個真實工作問題開始，陪團隊找出 AI 可以幫忙的地方，以及必須由我們掌握的選擇。'}</p>
-      <p class="contact-slogan"><strong>{en ? 'We make the important decisions.' : '重要決定，我們來做。'}</strong><span>{en ? 'We complete the work together with AI.' : '工作，我們和 AI 一起完成。'}</span></p>
+      <p class="section-index">{copy('願景與合作', 'VISION & PARTNERSHIP', locale)}</p>
+      <h2 id="contact-title">{copy('下一個改變，從一個問題開始', 'The next change starts with one real problem.', locale)}</h2>
+      <p class="section-lead">{copy('Elias Net 從一個真實工作問題開始，陪團隊找出 AI 可以幫忙的地方，以及必須由我們掌握的選擇。', 'Elias Net starts with a real work problem, helping teams identify where AI can assist and which choices must remain in their hands.', locale)}</p>
+      <p class="contact-slogan"><strong>{copy('重要決定，我們來做。', 'We make the important decisions.', locale)}</strong><span>{copy('工作，我們和 AI 一起完成。', 'We complete the work together with AI.', locale)}</span></p>
     </div>
-    <div class="contact-convergence" data-contact-convergence aria-hidden="true"><canvas class="semantic-particles" data-particle-stage="contact"></canvas><i></i><i></i><i></i><i></i><i></i><span><b>{en ? 'STARTING POINT' : '值得開始的方向'}</b><strong>{en ? 'ONE REAL PROBLEM' : '從一個真實問題開始'}</strong></span><em></em></div>
+    <div class="contact-convergence" data-contact-convergence aria-hidden="true"><canvas class="semantic-particles" data-particle-stage="contact"></canvas><i></i><i></i><i></i><i></i><i></i><span><b>{copy('值得開始的方向', 'STARTING POINT', locale)}</b><strong>{copy('從一個真實問題開始', 'ONE REAL PROBLEM', locale)}</strong></span><em></em></div>
     <form class="concept-form" data-concept-form data-contact-email="natsuki12089212@gmail.com" data-reveal>
-      <fieldset><legend>{en ? 'What would you like to improve first?' : '你最想先改善哪一件事？'}</legend>{prompts.map((item,index) => <label><input type="radio" name="focus" value={String(index)} required><span>{item}</span></label>)}</fieldset>
-      <label class="form-note"><span>{en ? 'Describe the work without personal or confidential information' : '簡單描述工作情境，請勿輸入個人或機密資料'}</span><textarea name="context" rows="3" maxlength="280"></textarea></label>
-      <div class="cta-row"><button class="button primary" type="submit">{en ? 'Discuss a pilot by email' : '透過 Email 討論 Pilot'}</button><a class="button ghost" href="#method">{en ? 'Review the approach' : '先查看導入方式'}</a></div>
-      <p class="form-status" role="status" aria-live="polite" data-form-status>{en ? 'Submitting opens your email app. The website does not transmit or store this information.' : '送出後會開啟你的郵件 App；本網站不會傳送或儲存填寫內容。'}</p>
+      <fieldset><legend>{copy('你最想先改善哪一件事？', 'What would you like to improve first?', locale)}</legend>{prompts.map((item,index) => <label><input type="radio" name="focus" value={String(index)} required><span>{item}</span></label>)}</fieldset>
+      <label class="form-note"><span>{copy('簡單描述工作情境，請勿輸入個人或機密資料', 'Describe the work without personal or confidential information', locale)}</span><textarea name="context" rows="3" maxlength="280"></textarea></label>
+      <div class="cta-row"><button class="button primary" type="submit">{copy('透過 Email 討論 Pilot', 'Discuss a pilot by email', locale)}</button><a class="button ghost" href="#method">{copy('先查看導入方式', 'Review the approach', locale)}</a></div>
+      <p class="form-status" role="status" aria-live="polite" data-form-status>{copy('送出後會開啟你的郵件 App；本網站不會傳送或儲存填寫內容。', 'Submitting opens your email app. The website does not transmit or store this information.', locale)}</p>
     </form>
   </div>
 </section>

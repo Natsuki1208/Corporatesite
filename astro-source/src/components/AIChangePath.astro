@@ -1,24 +1,19 @@
 ---
 import type { Locale } from '../data/site';
+import { copy } from '../data/site';
 import { governanceItems, text } from '../data/site';
 import '../styles/kinetic-ai.css';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
-const en = locale === 'en';
-const steps = en ? [
-  { label:'Need', word:'UNDERSTAND', title:'See the work that needs to change', copy:'Bring needs, knowledge, data and tools into one clear view.' },
-  { label:'Context', word:'CONNECT', title:'Connect the context around it', copy:'AI relates approved information and workflow context before suggesting a next step.' },
-  { label:'Our review', word:'PAUSE', title:'We make the important decisions', copy:'AI prepares and explains. We choose what moves forward when risk, access or consequences matter.' },
-  { label:'Outcome', word:'ENABLE', title:'We complete the work together with AI', copy:'Our decision and AI assistance move forward together, with the boundary and record intact.' }
-] : [
-  { label:'需求', word:'理解需求', title:'看見真正需要改變的工作', copy:'把企業需求、知識、資料與工具帶回同一個清楚視野。' },
-  { label:'脈絡', word:'建立脈絡', title:'串起問題周圍的脈絡', copy:'AI 先理解核准資訊與工作情境，再提出可以採取的下一步。' },
-  { label:'我們確認', word:'等待確認', title:'重要決定，我們來做', copy:'AI 負責整理與說明；涉及風險、權限或影響時，由我們選擇如何繼續。' },
-  { label:'成果', word:'形成成果', title:'工作，我們和 AI 一起完成', copy:'我們的決定與 AI 的協助一起回到工作流程，範圍與紀錄依然清楚。' }
+const steps = [
+  { label:copy('需求','Need',locale), word:copy('理解需求','UNDERSTAND',locale), title:copy('看見真正需要改變的工作','See the work that needs to change',locale), copy:copy('把企業需求、知識、資料與工具帶回同一個清楚視野。','Bring needs, knowledge, data and tools into one clear view.',locale) },
+  { label:copy('脈絡','Context',locale), word:copy('建立脈絡','CONNECT',locale), title:copy('串起問題周圍的脈絡','Connect the context around it',locale), copy:copy('AI 先理解核准資訊與工作情境，再提出可以採取的下一步。','AI relates approved information and workflow context before suggesting a next step.',locale) },
+  { label:copy('我們確認','Our review',locale), word:copy('等待確認','PAUSE',locale), title:copy('重要決定，我們來做','We make the important decisions',locale), copy:copy('AI 負責整理與說明；涉及風險、權限或影響時，由我們選擇如何繼續。','AI prepares and explains. We choose what moves forward when risk, access or consequences matter.',locale) },
+  { label:copy('成果','Outcome',locale), word:copy('形成成果','ENABLE',locale), title:copy('工作，我們和 AI 一起完成','We complete the work together with AI',locale), copy:copy('我們的決定與 AI 的協助一起回到工作流程，範圍與紀錄依然清楚。','Our decision and AI assistance move forward together, with the boundary and record intact.',locale) }
 ];
 ---
 <div class="perspective-path case-governance" data-reveal>
-  <header><p class="section-index">{en ? 'HOW WE MOVE FORWARD' : 'AI 工作路徑'}</p><h3>{en ? 'AI prepares the work. We choose the direction.' : 'AI 協助準備，我們掌握方向'}</h3><p>{en ? 'AI connects information and prepares the next step. We keep the choices that carry risk, access or real-world consequences.' : 'AI 串起資訊並準備下一步；涉及風險、權限或實際影響的選擇，仍由我們掌握。'}</p></header>
+  <header><p class="section-index">{copy('AI 工作路徑', 'HOW WE MOVE FORWARD', locale)}</p><h3>{copy('AI 協助準備，我們掌握方向', 'AI prepares the work. We choose the direction.', locale)}</h3><p>{copy('AI 串起資訊並準備下一步；涉及風險、權限或實際影響的選擇，仍由我們掌握。', 'AI connects information and prepares the next step. We keep the choices that carry risk, access or real-world consequences.', locale)}</p></header>
   <div class="ai-work-path" data-ai-change data-active-change="0">
     <div class="kinetic-workmark">
       <svg class="kinetic-workmark-svg" viewBox="0 0 620 360" aria-hidden="true">
@@ -30,11 +25,11 @@ const steps = en ? [
         <g class="work-output" data-work-output><path d="M520 178 H598"/><circle cx="598" cy="178" r="9"/><path d="M588 178 L594 184 L606 170"/></g>
       </svg>
       <div class="kinetic-workmark-label"><span data-ai-change-word>{steps[0].word}</span></div>
-      <div class="work-partner-legend" aria-hidden="true"><span>{en ? 'OUR JUDGMENT' : '我們的判斷'}</span><span>{en ? 'AI ASSISTANCE' : 'AI 的協助'}</span></div>
-      <button class="ai-work-replay" type="button" data-ai-change-replay data-replay-label={en ? 'Replay the full path' : '重播完整流程'} data-pause-label={en ? 'Pause demonstration' : '暫停示範'}>{en ? 'Replay the full path' : '重播完整流程'}</button>
+      <div class="work-partner-legend" aria-hidden="true"><span>{copy('我們的判斷', 'OUR JUDGMENT', locale)}</span><span>{copy('AI 的協助', 'AI ASSISTANCE', locale)}</span></div>
+      <button class="ai-work-replay" type="button" data-ai-change-replay data-replay-label={copy('重播完整流程', 'Replay the full path', locale)} data-pause-label={copy('暫停示範', 'Pause demonstration', locale)}>{copy('重播完整流程', 'Replay the full path', locale)}</button>
     </div>
-    <div class="ai-work-copy" id="ai-change-panel" role="tabpanel" aria-labelledby="ai-change-tab-0"><p class="eyebrow">{en ? 'ELIAS NET · AI CHANGE PATH' : 'ELIAS NET · AI 工作路徑'}</p><p class="ai-work-kicker" data-ai-change-kicker>{steps[0].label}</p><h3 data-ai-change-title>{steps[0].title}</h3><p data-ai-change-copy>{steps[0].copy}</p></div>
-    <div class="ai-work-tabs" role="tablist" aria-label={en ? 'AI change path' : 'AI 參與工作路徑'}>{steps.map((step,index) => <button id={`ai-change-tab-${index}`} type="button" role="tab" aria-controls="ai-change-panel" aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? '0' : '-1'} data-ai-change-tab data-kicker={step.label} data-word={step.word} data-title={step.title} data-copy={step.copy}>{step.label}</button>)}</div>
+    <div class="ai-work-copy" id="ai-change-panel" role="tabpanel" aria-labelledby="ai-change-tab-0"><p class="eyebrow">{copy('ELIAS NET · AI 工作路徑', 'ELIAS NET · AI CHANGE PATH', locale)}</p><p class="ai-work-kicker" data-ai-change-kicker>{steps[0].label}</p><h3 data-ai-change-title>{steps[0].title}</h3><p data-ai-change-copy>{steps[0].copy}</p></div>
+    <div class="ai-work-tabs" role="tablist" aria-label={copy('AI 參與工作路徑', 'AI change path', locale)}>{steps.map((step,index) => <button id={`ai-change-tab-${index}`} type="button" role="tab" aria-controls="ai-change-panel" aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? '0' : '-1'} data-ai-change-tab data-kicker={step.label} data-word={step.word} data-title={step.title} data-copy={step.copy}>{step.label}</button>)}</div>
   </div>
-  <details class="governance-details"><summary>{en ? 'View technical and governance capabilities' : '展開技術與治理能力'}</summary><div>{governanceItems.map((item,index) => <article><span>0{index+1}</span><h4>{text(item.title,locale)}</h4><p>{text(item.copy,locale)}</p></article>)}</div><p class="technical-note">{en ? 'Depending on the application: APIs, data interfaces, access control, model selection, logging, audit, testing, version management, and on-premises, cloud or hybrid architecture.' : '依應用評估 API、資料介面、權限控制、模型選擇、日誌與稽核、測試與版本管理，以及地端、雲端或混合架構。'}</p></details>
+  <details class="governance-details"><summary>{copy('展開技術與治理能力', 'View technical and governance capabilities', locale)}</summary><div>{governanceItems.map((item,index) => <article><span>0{index+1}</span><h4>{text(item.title,locale)}</h4><p>{text(item.copy,locale)}</p></article>)}</div><p class="technical-note">{copy('依應用評估 API、資料介面、權限控制、模型選擇、日誌與稽核、測試與版本管理，以及地端、雲端或混合架構。', 'Depending on the application: APIs, data interfaces, access control, model selection, logging, audit, testing, version management, and on-premises, cloud or hybrid architecture.', locale)}</p></details>
 </div>

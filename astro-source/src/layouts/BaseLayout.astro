@@ -8,20 +8,25 @@ import '../styles/innovation.css';
 import '../styles/motion-polish.css';
 import '../styles/partner-brand-motion.css';
 import '../styles/product-brand.css';
+import '../styles/leadership.css';
 import type { Locale } from '../data/site';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const en = locale === 'en';
+const zhCN = locale === 'zh-CN';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const rootUrl = new URL(base ? `${base}/` : '/', Astro.site);
-const canonical = new URL(en ? 'en/' : '', rootUrl).href;
-const title = en ? 'Elias Net | Controlled AI for Real Work' : 'Elias Net｜把 AI 安全地接進企業工作';
+const localePath = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
+const canonical = new URL(localePath, rootUrl).href;
+const title = en ? 'Elias Net | Controlled AI for Real Work' : zhCN ? 'Elias Net｜把 AI 安全地带入企业日常工作' : 'Elias Net｜把 AI 安全地接進企業工作';
 const description = en
-  ? 'Elias Net delivers controlled, traceable AI products for enterprise knowledge, service and IT operations workflows.'
-  : 'Elias Net 提供可控制、可追溯的企業 AI 產品，協助知識、服務與 IT 營運流程安全導入 AI。';
+  ? 'Elias Net is a virtual technology company helping organizations bring controlled, traceable AI into real work.'
+  : zhCN
+    ? 'Elias Net 是一家虚拟科技公司，帮助企业将可控、可追溯的 AI 带入真实工作。'
+    : 'Elias Net 是一間虛擬科技公司，協助企業把可控制、可追溯的 AI 帶進真實工作。';
 ---
 <!doctype html>
-<html lang={en ? 'en' : 'zh-Hant'}>
+<html lang={en ? 'en' : zhCN ? 'zh-CN' : 'zh-TW'}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -32,13 +37,14 @@ const description = en
     <meta property="og:type" content="website">
     <title>{title}</title>
     <link rel="canonical" href={canonical}>
-    <link rel="alternate" hreflang="zh-Hant" href={rootUrl.href}>
+    <link rel="alternate" hreflang="zh-TW" href={new URL('', rootUrl).href}>
+    <link rel="alternate" hreflang="zh-CN" href={new URL('zh-cn/', rootUrl).href}>
     <link rel="alternate" hreflang="en" href={new URL('en/', rootUrl).href}>
-    <link rel="alternate" hreflang="x-default" href={rootUrl.href}>
+    <link rel="alternate" hreflang="x-default" href={new URL('', rootUrl).href}>
     <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml">
     <script is:inline>document.documentElement.classList.add('js')</script>
   </head>
-  <body>
+  <body data-locale={locale}>
     <slot />
     <script>import '../scripts/main.ts';</script>
   </body>

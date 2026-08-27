@@ -1,0 +1,124 @@
+---
+import type { Locale } from '../data/site';
+import { copy, text, type LocalizedText } from '../data/site';
+
+interface Leader {
+  role: LocalizedText;
+  name: LocalizedText;
+  title: LocalizedText;
+  background: LocalizedText;
+  mindset: LocalizedText;
+  remit: LocalizedText;
+}
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+
+const leaders: Leader[] = [
+  {
+    role: { zh: '執行長 CEO', en: 'Chief Executive Officer' },
+    name: { zh: 'Mira Lin', en: 'Mira Lin' },
+    title: { zh: '企業 AI 與長期信任', en: 'Enterprise AI & long-term trust' },
+    background: { zh: '曾負責 B2B 平台策略、企業轉型與跨區域產品損益，擅長把複雜技術翻譯成可衡量的商業價值。', en: 'A B2B platform and enterprise transformation leader who turns complex technology into measurable business value across regions.' },
+    mindset: { zh: 'Satya Nadella 型：先建立企業信任，再用平台與文化讓 AI 長期產生價值。', en: 'Satya Nadella-inspired: earn enterprise trust first, then compound value through platforms and culture.' },
+    remit: { zh: '公司方向、商業模式、客戶價值與最終策略。', en: 'Company direction, business model, customer value and final strategy.' }
+  },
+  {
+    role: { zh: '營運長 COO', en: 'Chief Operating Officer' },
+    name: { zh: 'Alex Wu', en: 'Alex Wu' },
+    title: { zh: '把 Pilot 交付成可持續服務', en: 'Turn pilots into repeatable services' },
+    background: { zh: '曾建立客戶成功、導入服務與跨部門交付流程，專長是把試驗階段的洞察轉成可複製的營運節奏。', en: 'A customer success and delivery operator who turns pilot-stage insight into repeatable operating rhythms.' },
+    mindset: { zh: 'Javier Olivan 型：每個承諾都要有清楚的下一步、責任人、時程與衡量方式。', en: 'Javier Olivan-inspired: every promise needs a clear next step, owner, timing and measure.' },
+    remit: { zh: '專案交付、服務流程、資源配置與客戶成功。', en: 'Delivery, service operations, resource allocation and customer success.' }
+  },
+  {
+    role: { zh: '技術長 CTO', en: 'Chief Technology Officer' },
+    name: { zh: 'Noah Chen', en: 'Noah Chen' },
+    title: { zh: 'AI 平台與可靠工程', en: 'AI platform & reliable engineering' },
+    background: { zh: '具備 AI 應用、雲端架構、前端體驗、API 整合與資安工程背景，負責讓研究能力成為可部署、可維護的系統。', en: 'An AI application, cloud architecture, frontend, API integration and security engineer who makes research deployable and maintainable.' },
+    mindset: { zh: 'Kevin Scott 型，並加入 Elon Musk 型第一性原理：先拆掉不必要的複雜度，再建立可測試的技術底座。', en: 'Kevin Scott-inspired with an Elon Musk-style first-principles lens: remove unnecessary complexity, then build a testable technical foundation.' },
+    remit: { zh: 'AI、平台架構、工程品質、資安、網路與維運技術路線。', en: 'AI, platform architecture, engineering quality, security, networking and operations technology.' }
+  },
+  {
+    role: { zh: '資訊暨資料治理長 CIO', en: 'Chief Information & Data Officer' },
+    name: { zh: 'Iris Huang', en: 'Iris Huang' },
+    title: { zh: '把資料界線變成可見制度', en: 'Make data boundaries visible' },
+    background: { zh: '具備企業 IT、資料治理、權限設計、隱私風險與稽核流程經驗，專注於資料如何被使用、保護與追溯。', en: 'An enterprise IT, data governance, access design, privacy risk and audit leader focused on how data is used, protected and traced.' },
+    mindset: { zh: 'Jian Ping Huang 型：任何 AI 價值都必須建立在可理解的資料、權限與責任界線上。', en: 'Jian Ping Huang-inspired: every AI benefit must sit on understandable data, access and accountability boundaries.' },
+    remit: { zh: '企業資訊、資料生命週期、AI 治理、權限、稽核與風險。', en: 'Enterprise information, data lifecycle, AI governance, access, audit and risk.' }
+  },
+  {
+    role: { zh: '產品長 CPO', en: 'Chief Product Officer' },
+    name: { zh: 'Sofia Park', en: 'Sofia Park' },
+    title: { zh: '把真實工作變成產品路線', en: 'Turn real work into product direction' },
+    background: { zh: '具備服務設計、使用者研究、產品策略與 AI 體驗設計背景，從角色、流程與例外情況定義產品。', en: 'A service design, user research, product strategy and AI experience leader who defines products from roles, workflows and exceptions.' },
+    mindset: { zh: 'Steve Jobs 型：刪除不必要的選項，讓重要體驗在第一眼就能被理解。', en: 'Steve Jobs-inspired: remove unnecessary choices so the essential experience is understood at first glance.' },
+    remit: { zh: '產品組合、使用者體驗、需求優先順序與版本路線圖。', en: 'Portfolio, user experience, prioritization and product roadmap.' }
+  },
+  {
+    role: { zh: '品牌與市場長 CBO', en: 'Chief Brand & Market Officer' },
+    name: { zh: 'Ava Chen', en: 'Ava Chen' },
+    title: { zh: '讓公司價值被正確理解', en: 'Make the company value understood' },
+    background: { zh: '具備企業品牌、內容策略、產業研究與合作夥伴行銷經驗，負責把 ELIAS NET 的治理能力轉為可信的市場語言。', en: 'A corporate brand, content, industry research and partner marketing leader who turns ELIAS NET governance into credible market language.' },
+    mindset: { zh: '以品牌清晰度、產業洞察與平台分發思維建立長期信任，而不是追逐短期流量。', en: 'Build long-term trust through brand clarity, industry insight and platform distribution rather than short-term attention.' },
+    remit: { zh: '品牌、內容、產業定位、案例、夥伴與市場成長。', en: 'Brand, content, industry positioning, cases, partners and market growth.' }
+  },
+  {
+    role: { zh: '品質與確認總監 QA／Grill', en: 'Director of Quality & Verification' },
+    name: { zh: 'Kei Sato', en: 'Kei Sato' },
+    title: { zh: '沒有證據，不進下一階段', en: 'No evidence, no next stage' },
+    background: { zh: '具備軟體品質、可用性測試、發布管理與風險審查經驗，維持獨立驗收，不受產品速度影響。', en: 'A software quality, usability testing, release management and risk review leader who keeps verification independent from product speed.' },
+    mindset: { zh: '以使用者、資安與證據為先；對 Concept、Lab、Pilot、Production 進行明確分級。', en: 'Put users, security and evidence first, with explicit gates for Concept, Lab, Pilot and Production.' },
+    remit: { zh: '測試、回歸、可及性、跨裝置驗證、發布閘門與決策紀錄。', en: 'Testing, regression, accessibility, cross-device verification, release gates and decision logs.' }
+  }
+];
+
+const boardModels: LocalizedText[] = [
+  { zh: '產品體驗董事：Steve Jobs 型，檢查清晰度、必要性與端到端品味。', en: 'Product Experience Director: Steve Jobs-inspired, checks clarity, necessity and end-to-end craft.' },
+  { zh: '第一性原理董事：Elon Musk 型，檢查假設、成本、速度與工程突破。', en: 'First-Principles Director: Elon Musk-inspired, checks assumptions, cost, speed and engineering leverage.' },
+  { zh: '平台成長董事：Mark Zuckerberg 型，檢查分發、資料回饋、夥伴與規模化循環。', en: 'Platform Growth Director: Mark Zuckerberg-inspired, checks distribution, feedback, partners and scale.' },
+  { zh: '企業信任董事：監督資料、權限、AI 使用界線與治理證據。', en: 'Enterprise Trust Director: oversees data, access, AI boundaries and governance evidence.' }
+];
+---
+<section id="leadership" class="leadership main-section" data-section="leadership" aria-labelledby="leadership-title">
+  <div class="leadership-glow" aria-hidden="true"></div>
+  <div class="shell">
+    <header class="section-heading leadership-heading" data-reveal data-gsap="section-heading">
+      <p class="section-index">{copy('公司領導與治理', 'LEADERSHIP & GOVERNANCE', locale)}</p>
+      <h2 id="leadership-title">{copy('這不是一個孤立的 AI 工具，而是一間有人負責的虛擬科技公司。', 'Not an isolated AI tool—a virtual technology company with accountable people.', locale)}</h2>
+      <p>{copy('ELIAS NET 由創辦人、董事會與高階管理團隊共同建立。每個角色都有背景、思維設定、責任邊界與可驗證的決策輸出。', 'ELIAS NET is built by a founder, a board and an executive team. Every role has a background, a decision lens, clear boundaries and verifiable outputs.', locale)}</p>
+    </header>
+
+    <div class="leadership-command" data-gsap="leadership-grid">
+      <article class="founder-card" data-gsap="founder-card">
+        <p class="eyebrow">{copy('虛擬創辦人', 'VIRTUAL FOUNDER', locale)}</p>
+        <div class="founder-mark" aria-hidden="true"><span>EN</span><i></i><b></b></div>
+        <h3>{copy('Elias Net 創辦人暨董事長', 'Founder & Executive Chair of Elias Net', locale)}</h3>
+        <p>{copy('以企業工作為中心建立公司：讓 AI 先學會界線，再進入流程；讓人先保有責任，再擴大自動化。', 'Build the company around real work: teach AI its boundaries before it enters the workflow, and keep human accountability before expanding automation.', locale)}</p>
+        <div class="founder-principles"><span>{copy('使命', 'MISSION', locale)}<strong>{copy('把 AI 安全地接進每天的工作', 'Bring AI safely into everyday work', locale)}</strong></span><span>{copy('公司承諾', 'PROMISE', locale)}<strong>{copy('可用・可控・可證明', 'Useful · Controlled · Provable', locale)}</strong></span></div>
+      </article>
+      <article class="board-card" data-gsap="board-card">
+        <div class="board-header"><p class="eyebrow">{copy('虛擬董事會', 'VIRTUAL BOARD', locale)}</p><span>04 / 04</span></div>
+        <h3>{copy('四種檢查，才形成一項公司決定。', 'Four lenses before a company decision.', locale)}</h3>
+        <div class="board-list">{boardModels.map((model, index) => <div class="board-row" style={`--i:${index}`}><span>0{index + 1}</span><p>{text(model, locale)}</p></div>)}</div>
+      </article>
+    </div>
+
+    <div class="leadership-section-label"><span>{copy('高階管理團隊', 'EXECUTIVE TEAM', locale)}</span><span>{copy('具體背景／思維設定／責任範圍', 'BACKGROUND / MINDSET / REMIT', locale)}</span></div>
+    <div class="leadership-grid">
+      {leaders.map((leader, index) => <article class="leader-card" style={`--i:${index}`} data-gsap="leader-card">
+        <div class="leader-top"><span class="leader-number">0{index + 1}</span><span class="leader-role">{text(leader.role, locale)}</span></div>
+        <h3>{text(leader.name, locale)}</h3>
+        <p class="leader-title">{text(leader.title, locale)}</p>
+        <div class="leader-detail"><p><span>{copy('背景', 'BACKGROUND', locale)}</span>{text(leader.background, locale)}</p><p><span>{copy('思維設定', 'MINDSET', locale)}</span>{text(leader.mindset, locale)}</p><p><span>{copy('責任', 'REMIT', locale)}</span>{text(leader.remit, locale)}</p></div>
+      </article>)}
+    </div>
+
+    <div class="leadership-footer" data-gsap="decision-banner">
+      <span class="decision-pulse" aria-hidden="true"></span>
+      <p>{copy('共同判定協議', 'COLLECTIVE DECISION PROTOCOL', locale)}</p>
+      <strong>{copy('先問公司是否值得做，再問產品是否能做，最後問證據是否足以發布。', 'Ask whether it is worth doing, then whether it can be built, then whether the evidence is strong enough to release.', locale)}</strong>
+      <span>{copy('CEO × COO × CTO × CIO × 董事會思維模型 × QA／Grill', 'CEO × COO × CTO × CIO × board mindsets × QA / Grill', locale)}</span>
+    </div>
+  </div>
+</section>

@@ -1,43 +1,41 @@
 ---
 import type { Locale } from '../data/site';
+import { copy } from '../data/site';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
-const en = locale === 'en';
 ---
 <section id="innovation" class="main-section innovation light-section" data-section="innovation" aria-labelledby="innovation-title">
   <div class="shell partner-promise">
     <header class="partner-copy" data-reveal>
-      <p class="section-index">{en ? 'OUR PERSPECTIVE' : 'AI 創新觀點'}</p>
-      <h2 id="innovation-title">{en ? 'AI can become a true partner in how we work.' : 'AI，也能成為我們真正的夥伴'}</h2>
-      <p class="section-lead">{en
-        ? 'AI helps organize information, understand the context and prepare clear next-step recommendations. We retain judgment and choice, making every part of the collaboration clearer. Elias Net brings AI naturally into the way people work—without replacing them.'
-        : 'AI 協助整理資訊、理解脈絡，並準備下一步建議。我們保留判斷與選擇，也讓每一次協作都更清楚。Elias Net 讓 AI 自然走進工作，而不是取代工作中的人。'}</p>
-      <div class="partner-statements" aria-label={en ? 'Partnership principles' : '協作原則'}>
-        <strong>{en ? 'We make the important decisions.' : '重要決定，我們來做。'}</strong>
-        <span>{en ? 'We complete the work together with AI.' : '工作，我們和 AI 一起完成。'}</span>
+      <p class="section-index">{copy('AI 創新觀點', 'OUR PERSPECTIVE', locale)}</p>
+      <h2 id="innovation-title">{copy('AI，也能成為我們真正的夥伴', 'AI can become a true partner in how we work.', locale)}</h2>
+      <p class="section-lead">{copy('AI 協助整理資訊、理解脈絡，並準備下一步建議。我們保留判斷與選擇，也讓每一次協作都更清楚。Elias Net 讓 AI 自然走進工作，而不是取代工作中的人。', 'AI helps organize information, understand the context and prepare clear next-step recommendations. We retain judgment and choice, making every part of the collaboration clearer. Elias Net brings AI naturally into the way people work—without replacing them.', locale)}</p>
+      <div class="partner-statements" aria-label={copy('協作原則', 'Partnership principles', locale)}>
+        <strong>{copy('重要決定，我們來做。', 'We make the important decisions.', locale)}</strong>
+        <span>{copy('工作，我們和 AI 一起完成。', 'We complete the work together with AI.', locale)}</span>
       </div>
     </header>
 
     <div class="partner-motion elias-motion-stage" data-partner-motion data-reveal>
-      <div class="motion-stage-label"><span>{en ? 'WORKING TOGETHER' : '並肩協作'}</span><b>{en ? 'Our judgment + AI assistance' : '我們的判斷 ＋ AI 的協助'}</b></div>
-      <div class="partner-motion-figure" role="img" aria-label={en ? 'Our signal and AI work in parallel to form a clear outcome' : '我們的訊號與 AI 並肩協作，共同形成清楚成果'}>
+      <div class="motion-stage-label"><span>{copy('並肩協作', 'WORKING TOGETHER', locale)}</span><b>{copy('我們的判斷 ＋ AI 的協助', 'Our judgment + AI assistance', locale)}</b></div>
+      <div class="partner-motion-figure" role="img" aria-label={copy('我們的訊號與 AI 並肩協作，共同形成清楚成果', 'Our signal and AI work in parallel to form a clear outcome', locale)}>
       <canvas class="semantic-particles" data-particle-stage="partner" aria-hidden="true"></canvas>
       <svg viewBox="0 0 760 480" class="partner-motion-svg" aria-hidden="true">
         <defs>
           <linearGradient id={`partner-result-${locale}`} x1="0" x2="1"><stop stop-color="#42D4DA"/><stop offset=".52" stop-color="#E5C783"/><stop offset="1" stop-color="#B88679"/></linearGradient>
           <filter id={`partner-glow-${locale}`} x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         </defs>
-        <g class="partner-grid-detail" data-partner-part="context"><path d="M78 90 H278 M78 128 H246 M78 166 H300"/><circle cx="82" cy="90" r="4"/><circle cx="126" cy="128" r="4"/><circle cx="185" cy="166" r="4"/><text x="78" y="70">{en ? 'INFORMATION · CONTEXT' : '資訊 · 工作脈絡'}</text></g>
-        <g class="partner-us" data-partner-part="us"><path class="partner-us-entry" d="M32 268 C96 268 105 232 174 232 H244"/><circle cx="42" cy="268" r="7"/><circle cx="174" cy="232" r="10"/><text x="32" y="298">{en ? 'US · NEED & JUDGMENT' : '我們 · 需求與判斷'}</text></g>
+        <g class="partner-grid-detail" data-partner-part="context"><path d="M78 90 H278 M78 128 H246 M78 166 H300"/><circle cx="82" cy="90" r="4"/><circle cx="126" cy="128" r="4"/><circle cx="185" cy="166" r="4"/><text x="78" y="70">{copy('資訊 · 工作脈絡', 'INFORMATION · CONTEXT', locale)}</text></g>
+        <g class="partner-us" data-partner-part="us"><path class="partner-us-entry" d="M32 268 C96 268 105 232 174 232 H244"/><circle cx="42" cy="268" r="7"/><circle cx="174" cy="232" r="10"/><text x="32" y="298">{copy('我們 · 需求與判斷', 'US · NEED & JUDGMENT', locale)}</text></g>
         <g class="partner-ai" data-partner-part="ai"><path class="partner-ai-left" d="M304 318 L374 118"/><path class="partner-ai-right" d="M374 118 L444 318"/><path class="partner-ai-bar" d="M334 236 H416"/><path class="partner-ai-i" d="M484 126 V316"/><path class="partner-ai-cap" d="M458 126 H510 M458 316 H510"/><path class="partner-ai-branch" d="M336 226 C282 192 280 128 246 128 M415 226 C450 192 454 166 492 166"/></g>
-        <g class="partner-suggestion" data-partner-part="suggestion"><path d="M484 350 C438 390 294 390 244 312 C218 273 202 270 174 270"/><circle cx="484" cy="350" r="6"/><circle cx="174" cy="270" r="8"/><text x="282" y="422">{en ? 'CONTEXT READY · NEXT STEP PREPARED' : '脈絡整理完成 · 下一步建議已準備'}</text></g>
-        <g class="partner-decision" data-partner-part="decision"><path d="M174 232 V350"/><rect x="132" y="350" width="84" height="54" rx="9"/><path d="M154 377 L169 390 L196 364"/><text x="174" y="438">{en ? 'WE DECIDE' : '由我們決定'}</text></g>
+        <g class="partner-suggestion" data-partner-part="suggestion"><path d="M484 350 C438 390 294 390 244 312 C218 273 202 270 174 270"/><circle cx="484" cy="350" r="6"/><circle cx="174" cy="270" r="8"/><text x="282" y="422">{copy('脈絡整理完成 · 下一步建議已準備', 'CONTEXT READY · NEXT STEP PREPARED', locale)}</text></g>
+        <g class="partner-decision" data-partner-part="decision"><path d="M174 232 V350"/><rect x="132" y="350" width="84" height="54" rx="9"/><path d="M154 377 L169 390 L196 364"/><text x="174" y="438">{copy('由我們決定', 'WE DECIDE', locale)}</text></g>
         <g class="partner-parallel" data-partner-part="parallel"><path class="partner-human-track" d="M216 377 C304 377 318 348 384 348 C468 348 496 388 594 388"/><path class="partner-ai-track" d="M510 286 C546 286 552 330 594 330"/><circle cx="594" cy="388" r="6"/><circle cx="594" cy="330" r="6"/></g>
-        <g class="partner-outcome" data-partner-part="outcome" filter={`url(#partner-glow-${locale})`}><path d="M594 330 C626 330 626 359 658 359 M594 388 C626 388 626 359 658 359"/><circle cx="680" cy="359" r="28"/><circle cx="680" cy="359" r="8"/><path d="M708 359 H742"/><text x="680" y="416">{en ? 'SHARED OUTCOME' : '共同成果'}</text></g>
+        <g class="partner-outcome" data-partner-part="outcome" filter={`url(#partner-glow-${locale})`}><path d="M594 330 C626 330 626 359 658 359 M594 388 C626 388 626 359 658 359"/><circle cx="680" cy="359" r="28"/><circle cx="680" cy="359" r="8"/><path d="M708 359 H742"/><text x="680" y="416">{copy('共同成果', 'SHARED OUTCOME', locale)}</text></g>
       </svg>
-      <div class="partner-final" data-partner-final><strong>{en ? 'We make the important decisions.' : '重要決定，我們來做。'}</strong><span>{en ? 'We complete the work together with AI.' : '工作，我們和 AI 一起完成。'}</span></div>
+      <div class="partner-final" data-partner-final><strong>{copy('重要決定，我們來做。', 'We make the important decisions.', locale)}</strong><span>{copy('工作，我們和 AI 一起完成。', 'We complete the work together with AI.', locale)}</span></div>
       </div>
-      <button type="button" class="partner-replay" data-partner-replay>{en ? 'Replay collaboration' : '重播協作過程'}</button>
+      <button type="button" class="partner-replay" data-partner-replay>{copy('重播協作過程', 'Replay collaboration', locale)}</button>
     </div>
   </div>
 </section>

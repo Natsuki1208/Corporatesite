@@ -1,20 +1,20 @@
 ---
 import type { Locale } from '../data/site';
+import { copy } from '../data/site';
 import { adoptionStages, text } from '../data/site';
 import AIChangePath from './AIChangePath.astro';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
-const en = locale === 'en';
 ---
 <section id="method" class="main-section method light-section" data-section="method" aria-labelledby="method-title">
   <div class="shell">
-    <header class="section-heading" data-reveal><p class="section-index">{en ? 'APPROACH' : '導入方法'}</p><h2 id="method-title">{en ? 'You do not have to change everything at once.' : '不必一次改變所有事'}</h2><p>{en ? 'Start with one focused workflow, learn from real use, then expand with confidence. We confirm every important choice before moving forward.' : '從一個明確的工作場景開始，先用真實流程驗證，再有把握地擴大。每個重要選擇，都由我們確認後再繼續。'}</p></header>
+    <header class="section-heading" data-reveal><p class="section-index">{copy('導入方法', 'APPROACH', locale)}</p><h2 id="method-title">{copy('不必一次改變所有事', 'You do not have to change everything at once.', locale)}</h2><p>{copy('從一個明確的工作場景開始，先用真實流程驗證，再有把握地擴大。每個重要選擇，都由我們確認後再繼續。', 'Start with one focused workflow, learn from real use, then expand with confidence. We confirm every important choice before moving forward.', locale)}</p></header>
     <div class="method-console" data-method-console data-reveal>
       <canvas class="semantic-particles method-path-particles" data-particle-stage="adoption" aria-hidden="true"></canvas>
-      <ol class="method-path" role="tablist" aria-label={en ? 'AI adoption journey' : 'AI 導入旅程'}>{adoptionStages.map((stage,index) => <li class={index === 0 ? 'active' : ''}><button id={`method-tab-${stage.id}`} type="button" role="tab" aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`method-panel-${stage.id}`} tabindex={index === 0 ? '0' : '-1'} data-method-step={String(index)}><span>{String(index + 1).padStart(2,'0')}</span><b>{text(stage.name,locale)}</b></button></li>)}</ol>
-      <div class="method-detail">{adoptionStages.map((stage,index) => <article id={`method-panel-${stage.id}`} role="tabpanel" aria-labelledby={`method-tab-${stage.id}`} data-method-panel hidden={index !== 0}><h3>{text(stage.name,locale)}</h3><dl><div><dt>{en ? 'What happens' : '本階段做什麼'}</dt><dd>{text(stage.action,locale)}</dd></div><div><dt>{en ? 'What you provide' : '客戶提供什麼'}</dt><dd>{text(stage.input,locale)}</dd></div><div><dt>{en ? 'What Elias Net delivers' : 'Elias Net 交付什麼'}</dt><dd>{text(stage.delivery,locale)}</dd></div><div><dt>{en ? 'Before moving on' : '進入下一階段前'}</dt><dd>{text(stage.check,locale)}</dd></div></dl></article>)}</div>
+      <ol class="method-path" role="tablist" aria-label={copy('AI 導入旅程', 'AI adoption journey', locale)}>{adoptionStages.map((stage,index) => <li class={index === 0 ? 'active' : ''}><button id={`method-tab-${stage.id}`} type="button" role="tab" aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`method-panel-${stage.id}`} tabindex={index === 0 ? '0' : '-1'} data-method-step={String(index)}><span>{String(index + 1).padStart(2,'0')}</span><b>{text(stage.name,locale)}</b></button></li>)}</ol>
+      <div class="method-detail">{adoptionStages.map((stage,index) => <article id={`method-panel-${stage.id}`} role="tabpanel" aria-labelledby={`method-tab-${stage.id}`} data-method-panel hidden={index !== 0}><h3>{text(stage.name,locale)}</h3><dl><div><dt>{copy('本階段做什麼', 'What happens', locale)}</dt><dd>{text(stage.action,locale)}</dd></div><div><dt>{copy('客戶提供什麼', 'What you provide', locale)}</dt><dd>{text(stage.input,locale)}</dd></div><div><dt>{copy('Elias Net 交付什麼', 'What Elias Net delivers', locale)}</dt><dd>{text(stage.delivery,locale)}</dd></div><div><dt>{copy('進入下一階段前', 'Before moving on', locale)}</dt><dd>{text(stage.check,locale)}</dd></div></dl></article>)}</div>
     </div>
-    <div class="method-cta" data-reveal><a class="button primary" href="#contact">{en ? 'Plan the first AI opportunity' : '開始規劃第一個 AI 場景'}</a></div>
+    <div class="method-cta" data-reveal><a class="button primary" href="#contact">{copy('開始規劃第一個 AI 場景', 'Plan the first AI opportunity', locale)}</a></div>
     <AIChangePath locale={locale} />
   </div>
 </section>

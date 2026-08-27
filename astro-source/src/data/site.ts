@@ -1,7 +1,11 @@
-export type Locale = 'zh-TW' | 'en';
+import { simplify } from './simplified-map';
+
+export type Locale = 'zh-TW' | 'zh-CN' | 'en';
 
 export interface LocalizedText { zh: string; en: string }
-export const text = (value: LocalizedText, locale: Locale) => locale === 'en' ? value.en : value.zh;
+export const text = (value: LocalizedText, locale: Locale) => locale === 'en' ? value.en : locale === 'zh-CN' ? simplify(value.zh) : value.zh;
+export const copy = (zh: string, en: string, locale: Locale) => locale === 'en' ? en : locale === 'zh-CN' ? simplify(zh) : zh;
+export const list = (zh: string[], en: string[], locale: Locale) => locale === 'en' ? en : locale === 'zh-CN' ? zh.map(simplify) : zh;
 
 export interface ProblemItem {
   id: string;

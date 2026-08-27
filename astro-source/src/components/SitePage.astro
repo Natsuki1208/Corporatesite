@@ -2,6 +2,7 @@
 import type { Locale } from '../data/site';
 import Header from './Header.astro';
 import Hero from './Hero.astro';
+import Leadership from './Leadership.astro';
 import InnovationPromise from './InnovationPromise.astro';
 import BusinessProblems from './BusinessProblems.astro';
 import Capabilities from './Capabilities.astro';
@@ -17,10 +18,11 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const en = locale === 'en';
 ---
-<a class="skip-link" href="#main">{en ? 'Skip to main content' : '跳到主要內容'}</a>
+<a class="skip-link" href="#main">{en ? 'Skip to main content' : locale === 'zh-CN' ? '跳转到主要内容' : '跳到主要內容'}</a>
 <Header locale={locale} />
 <main id="main">
   <Hero locale={locale} />
+  <Leadership locale={locale} />
   <BusinessProblems locale={locale} />
   <ProductPortfolio locale={locale} />
   <TrustFramework locale={locale} />
