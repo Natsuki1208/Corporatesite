@@ -8,12 +8,14 @@ const localePath = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
 const homePath = `${base}/${localePath}`.replace(/\/\/$/, '/');
 const companyPath = `${homePath}company/`;
 const homeLink = (hash: string) => `${homePath}${hash}`;
+const companyLink = (hash: string) => `${companyPath}${hash}`;
 const links = page === 'company' ? [
   [companyPath, copy('公司首頁', 'Company', locale)],
-  [homeLink('#products'), copy('三項產品系統', 'Three product systems', locale)],
-  [homeLink('#control'), copy('人類控制', 'Human control', locale)],
-  [homeLink('#leadership'), copy('領導團隊', 'Leadership', locale)],
-  [homeLink('#contact'), copy('開始合作', 'Start a conversation', locale)]
+  [companyLink('#company-founder'), copy('創辦理念', 'Founder vision', locale)],
+  [companyLink('#company-governance'), copy('治理制度', 'Governance', locale)],
+  [companyLink('#company-products'), copy('三項產品系統', 'Three product systems', locale)],
+  [companyLink('#company-organization'), copy('組織架構', 'Organization', locale)],
+  [companyLink('#company-start'), copy('選擇 PoC', 'Choose a PoC', locale)]
 ] : [
   [companyPath, copy('關於公司', 'Company', locale)],
   [homeLink('#products'), copy('三項產品系統', 'Three product systems', locale)],

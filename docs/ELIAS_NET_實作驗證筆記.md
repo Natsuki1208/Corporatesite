@@ -31,3 +31,15 @@ Company 頁面 Header 顯示「公司使命、組織架構、治理制度、解�
 2026-08-27：本地預覽的首頁已更新為「從一個工作問題，到一個有責任的 AI 工作方式」。Capabilities 現在以五步白話工作路徑呈現：真實工作問題、核准資料、AI 協助、人的確認、可追蹤結果；六張能力卡也改用「從問題找起、把 AI 放進工作流程、把資料整理成可信脈絡、建立有界線的 AI 協助、接上原本的工具、把規則寫進每天的工作」等第一層名稱。
 
 瀏覽器抽取確認五步路徑、五項產品、Leadership、治理、三語導覽與既有內容均存在；點擊「技術能力」可保留 `#capabilities` 路徑。截圖當下受到平滑捲動／GSAP 進場時機影響，視覺層可能暫時偏暗，但 HTML 文字已完整載入；靜態 QA 已通過。
+
+## Company 2.0 減法與產品化本地驗證
+
+2026-08-27：Company 2.0 建立在 GitHub main 最新的 `4f47c22 fix: complete product motion and corporate presentation` 上，沒有覆蓋遠端新增的人類指揮與產品化內容。頁面順序已改為：公司主張、創辦理念、治理制度、三項產品系統、組織架構、公司發展紀錄、PoC 合作入口。
+
+Company Hero 已將標題控制在約 64–82px 的桌面級範圍，移除 `SYSTEM // ONLINE` 裝飾，只保留一個 `HUMAN / ACCOUNTABLE` 身份標記；創辦人原則整合到創辦理念區段，降低頁面分散與框線密度。
+
+三項產品均以四步因果流程呈現：輸入、AI 協助、人類控制、驗證結果。NETOPS 標記為 `LAB`，GUARDIAN 與 MEDIC 標記為 `CONCEPT`，並分別說明維運、非武裝救援與醫療協作的禁止事項。ELIAS CONTROL 被明確呈現為共用控制層。
+
+PoC 合作入口改成四選一：NETOPS 基礎設施 PoC、GUARDIAN 救援情境設計、MEDIC 醫療協作研究、ELIAS CONTROL 治理評估；選擇器提供 `aria-pressed` 狀態與帶 `poc` 查詢參數的開始對話連結。
+
+`npm run check`、`npm run build` 與 `npm run qa:static` 全部通過，六條三語路由的區段順序、Header／Footer、三項產品、PoC 入口、資產、錨點、重複 ID 與外部資源檢查均通過。瀏覽器互動檢查曾遇到 504 逾時，但頁面 HTML 已完整抽取，且不影響靜態建置與 QA 結果。

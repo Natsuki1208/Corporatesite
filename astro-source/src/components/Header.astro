@@ -10,11 +10,11 @@ const homePath = `${base}/${localePath}`.replace(/\/\/$/, '/');
 const companyPath = `${homePath}company/`;
 const nav = page === 'company'
   ? en ? [
-    ['#company-mission','Mission'],['#company-organization','Organization'],['#company-governance','Governance'],[`${homePath}#products`,'Solutions'],[`${homePath}#contact`,'Start']
+    ['#company-founder','Founder'],['#company-governance','Governance'],['#company-products','Solutions'],['#company-organization','Organization'],['#company-start','Start']
   ] : zhCN ? [
-    ['#company-mission','使命'],['#company-organization','组织架构'],['#company-governance','治理制度'],[`${homePath}#products`,'解决方案'],[`${homePath}#contact`,'开始合作']
+    ['#company-founder','创办理念'],['#company-governance','治理制度'],['#company-products','解决方案'],['#company-organization','组织架构'],['#company-start','开始合作']
   ] : [
-    ['#company-mission','公司使命'],['#company-organization','組織架構'],['#company-governance','治理制度'],[`${homePath}#products`,'解決方案'],[`${homePath}#contact`,'開始合作']
+    ['#company-founder','創辦理念'],['#company-governance','治理制度'],['#company-products','解決方案'],['#company-organization','組織架構'],['#company-start','開始合作']
   ]
   : en ? [
     [companyPath,'Company'],['#products','Products'],['#control','Human Control'],['#leadership','Leadership'],['#contact','Pilot']
@@ -41,7 +41,7 @@ const brandLabel = en ? 'Elias Net home' : zhCN ? 'Elias Net 首页' : 'Elias Ne
     <span>{menuLabel}</span><i aria-hidden="true"></i>
   </button>
   <nav id="site-nav" class="site-nav" aria-label={navLabel} data-nav>
-    {nav.map(([href,label]) => <a href={href} class:list={{ 'nav-current': page === 'company' && href === '#company-mission' }} aria-current={page === 'company' && href === '#company-mission' ? 'page' : undefined}>{label}</a>)}
+    {nav.map(([href,label]) => <a href={href} class:list={{ 'nav-current': page === 'company' && href === '#company-founder' }} aria-current={page === 'company' && href === '#company-founder' ? 'page' : undefined}>{label}</a>)}
   </nav>
   <div class="language-switcher" aria-label={en ? 'Language' : zhCN ? '语言' : '語言'}>
     {languageOptions.map((option) => <a class:list={['language-link', { active: option.id === locale }]} href={option.href} lang={option.lang} aria-current={option.id === locale ? 'page' : undefined} data-language-link>{option.label}</a>)}

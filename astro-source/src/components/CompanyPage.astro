@@ -3,16 +3,21 @@ import type { Locale } from '../data/site';
 import { copy } from '../data/site';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
+
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const en = locale === 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const localePath = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
+const homePath = `${base}/${localePath}`.replace(/\/\/$/, '/');
+
 const principles = [
   { code: '01', name: copy('看懂', 'SEE', locale), body: copy('先理解人正在做什麼、問題卡在哪裡，不急著導入 AI。', 'Understand what people are doing and where work is stuck before introducing AI.', locale) },
-  { code: '02', name: copy('深入', 'GO DEEPER', locale), body: copy('進入資料、流程、交接與決策斷點，找出表面看不見的問題。', 'Enter the authorized data, workflow, handoff and decision gaps that remain hidden at the surface.', locale) },
+  { code: '02', name: copy('深入', 'GO DEEPER', locale), body: copy('進入被授權的資料、流程、交接與決策斷點，找出表面看不見的問題。', 'Enter authorized data, workflows, handoffs and decision gaps that remain hidden at the surface.', locale) },
   { code: '03', name: copy('守住', 'PROTECT', locale), body: copy('守住資料、權限、人工核准與責任，不讓 AI 無限制越界。', 'Protect data, access, human approval and accountability instead of letting AI cross every boundary.', locale) },
   { code: '04', name: copy('證明', 'PROVE', locale), body: copy('留下來源、過程、結果與驗證，讓每次改變都可以回頭檢查。', 'Leave sources, steps, outcomes and checks so every change can be reviewed.', locale) }
 ];
+
 const governance = [
   { code: '01', title: copy('先定義問題', 'FRAME THE WORK', locale), body: copy('說清楚要改善哪一段工作、誰會受到影響、什麼不能被改變。', 'Define the work to improve, who is affected and what must not change.', locale) },
   { code: '02', title: copy('確認資料', 'CHECK THE DATA', locale), body: copy('確認資料從哪裡來、誰能看、是否足夠，以及哪些內容必須排除。', 'Check where information comes from, who can see it, whether it is sufficient and what must be excluded.', locale) },
@@ -21,16 +26,64 @@ const governance = [
   { code: '05', title: copy('由人核准', 'AUTHORIZE THE ACTION', locale), body: copy('由有責任的人確認是否可以進入下一階段，並留下原因。', 'An accountable person decides whether the work can move forward and records why.', locale) },
   { code: '06', title: copy('持續觀察', 'MONITOR THE CHANGE', locale), body: copy('追蹤變更、事件與使用情況，知道何時要調整、暫停或退回。', 'Track changes, incidents and use so the team knows when to adjust, pause or roll back.', locale) }
 ];
-const domains = [
-  { code: '01', name: 'ELIAS NETOPS', body: copy('整合監控、日誌、資安與備份事件，建立事件脈絡並提出受控處理建議。', 'Correlate monitoring, log, security and backup events into context and controlled response recommendations.', locale), engine: copy('成熟度／LAB', 'MATURITY / LAB', locale) },
-  { code: '02', name: 'ELIAS GUARDIAN', body: copy('協調非武裝機器人、無人載具與感測設備，支援搜索、巡檢、通訊中繼與物資運送。', 'Coordinate unarmed robots, unmanned vehicles and sensors for search, inspection, communications relay and supply delivery.', locale), engine: copy('成熟度／CONCEPT', 'MATURITY / CONCEPT', locale) },
-  { code: '03', name: 'ELIAS MEDIC', body: copy('彙整位置、生命徵象與救援資源，協助合格醫護及救援人員掌握現場並完成交接。', 'Bring location, vital signs and rescue resources together for qualified medical and response teams.', locale), engine: copy('成熟度／CONCEPT', 'MATURITY / CONCEPT', locale) }
+
+const products = [
+  {
+    code: '01',
+    name: 'ELIAS NETOPS',
+    maturity: copy('LAB', 'LAB', locale),
+    audience: copy('給資訊、維運與資安團隊', 'For IT, operations and security teams', locale),
+    body: copy('把監控、日誌、資安與備份事件放在同一張圖上，先看懂發生什麼，再決定要不要處理。', 'Bring monitoring, logs, security and backup events into one view so teams understand what happened before deciding what to do.', locale),
+    input: copy('監控、日誌、資安與備份事件', 'Monitoring, log, security and backup events', locale),
+    ai: copy('關聯事件、整理影響、提出檢查路徑', 'Correlate events, summarize impact and suggest a check path', locale),
+    human: copy('資訊人員核准、拒絕或停止處理', 'IT approves, rejects or stops the response', locale),
+    result: copy('事件脈絡、處理紀錄與可回溯 Trace', 'Incident context, action record and traceable trace', locale),
+    image: `${base}/images/elias-netops.webp`,
+    alt: copy('ELIAS NETOPS 網路維運協作概念視覺', 'ELIAS NETOPS network operations collaboration concept visual', locale),
+    boundary: copy('只提供受控建議；不直接改動正式環境。', 'Controlled recommendations only; no direct changes to production.', locale)
+  },
+  {
+    code: '02',
+    name: 'ELIAS GUARDIAN',
+    maturity: copy('CONCEPT', 'CONCEPT', locale),
+    audience: copy('給救援、巡檢與關鍵任務團隊', 'For rescue, inspection and critical mission teams', locale),
+    body: copy('協調非武裝機器人、無人載具、感測設備與通訊資源，讓現場團隊先掌握狀況，再安排下一步。', 'Coordinate unarmed robots, unmanned vehicles, sensors and communications resources so field teams can understand the situation before planning the next step.', locale),
+    input: copy('位置、感測器、可用資源與通訊狀態', 'Location, sensors, available resources and communications status', locale),
+    ai: copy('整理現場、建議路徑與資源分配', 'Organize the field picture and suggest routes and resource options', locale),
+    human: copy('救援指揮人員授權、改派或停止任務', 'A rescue lead authorizes, reassigns or stops the mission', locale),
+    result: copy('任務狀態、交接紀錄與資源使用軌跡', 'Mission status, handoff record and resource trail', locale),
+    image: `${base}/images/elias-guardian.webp`,
+    alt: copy('ELIAS GUARDIAN 非武裝救援系統概念視覺', 'ELIAS GUARDIAN unarmed rescue system concept visual', locale),
+    boundary: copy('不控制武器、不選擇攻擊目標、不自主執行高風險行動。', 'No weapon control, target selection or autonomous high-risk action.', locale)
+  },
+  {
+    code: '03',
+    name: 'ELIAS MEDIC',
+    maturity: copy('CONCEPT', 'CONCEPT', locale),
+    audience: copy('給醫療、照護與救援協作團隊', 'For medical, care and rescue coordination teams', locale),
+    body: copy('彙整位置、生命徵象、照護資訊與救援資源，讓合格專業人員更快完成交接與判斷。', 'Bring location, vital signs, care information and rescue resources together so qualified professionals can hand off and decide sooner.', locale),
+    input: copy('位置、生命徵象、照護紀錄與救援資源', 'Location, vital signs, care records and rescue resources', locale),
+    ai: copy('整理狀況、標出缺口、準備交接摘要', 'Summarize the situation, flag gaps and prepare a handoff brief', locale),
+    human: copy('合格醫護或救援人員判斷、核准或接管', 'Qualified medical or response staff decide, approve or take over', locale),
+    result: copy('有來源的交接摘要、時間線與責任紀錄', 'Sourced handoff brief, timeline and accountability record', locale),
+    image: `${base}/images/elias-medic.webp`,
+    alt: copy('ELIAS MEDIC 醫療救援協作概念視覺', 'ELIAS MEDIC medical response coordination concept visual', locale),
+    boundary: copy('不做診斷、不取代醫療專業、不自行發布醫療結論。', 'No diagnosis, replacement of clinicians or autonomous medical conclusion.', locale)
+  }
 ];
+
 const milestones = [
   { year: '00', title: copy('品牌建立', 'BRAND FORMED', locale), body: copy('ELIAS NET 以「自主系統，由人類指揮」作為產品與治理的起點。', 'ELIAS NET begins with autonomous systems under visible human command.', locale) },
   { year: '01', title: copy('治理原則建立', 'GOVERNANCE DEFINED', locale), body: copy('創辦人、董事會與 QA／Grill 建立 Concept、Lab、Pilot、Production 的判定方式。', 'The founder, board and QA / Grill define gates for Concept, Lab, Pilot and Production.', locale) },
-  { year: '02', title: copy('三項系統形成', 'THREE SYSTEMS MAPPED', locale), body: copy('把能力收斂為網路維運、高風險救援與醫療救援協作三項產品。', 'Capabilities converge into three products for network operations, high-risk rescue and medical response coordination.', locale) },
+  { year: '02', title: copy('三項系統形成', 'THREE SYSTEMS MAPPED', locale), body: copy('把能力收斂為網路維運、非武裝救援與醫療救援協作三項產品。', 'Capabilities converge into three products for network operations, unarmed rescue and medical response coordination.', locale) },
   { year: '03', title: copy('從一個流程開始', 'START WITH ONE WORKFLOW', locale), body: copy('每一次 Pilot 都從一個可說清楚、可核准、可驗證的工作流程開始。', 'Every pilot begins with one workflow that can be explained, approved and verified.', locale) }
+];
+
+const pocOptions = [
+  { key: 'netops', code: '01', name: copy('NETOPS 基礎設施 PoC', 'NETOPS infrastructure PoC', locale), body: copy('從唯讀事件與維運脈絡開始。', 'Start with read-only events and operations context.', locale) },
+  { key: 'guardian', code: '02', name: copy('GUARDIAN 救援情境設計', 'GUARDIAN rescue scenario design', locale), body: copy('設計非武裝設備與人員交接的受控流程。', 'Design a controlled handoff between unarmed systems and people.', locale) },
+  { key: 'medic', code: '03', name: copy('MEDIC 醫療協作研究', 'MEDIC medical collaboration study', locale), body: copy('以核准資料驗證交接與資訊整理。', 'Validate handoff and information organization with approved data.', locale) },
+  { key: 'control', code: '04', name: copy('ELIAS CONTROL 治理評估', 'ELIAS CONTROL governance assessment', locale), body: copy('先檢查資料、權限、停止點與驗證證據。', 'Check data, permissions, stop points and evidence first.', locale) }
 ];
 ---
 <a class="skip-link" href="#main">{en ? 'Skip to main content' : locale === 'zh-CN' ? '跳转到主要内容' : '跳到主要內容'}</a>
@@ -41,30 +94,16 @@ const milestones = [
       <div class="company-hero-copy">
         <p class="section-index" data-company-hero-item>{copy('關於 ELIAS NET／公司檔案', 'ABOUT ELIAS NET / CORPORATE RECORD', locale)}</p>
         <p class="company-eyebrow" data-company-hero-item>{copy('人類指揮的自主系統', 'HUMAN-COMMANDED AUTONOMOUS SYSTEMS', locale)}</p>
-        <h1 id="company-title" data-company-hero-item>{copy('自主系統，由人類指揮。', 'Autonomous systems. Human command.', locale)}</h1>
-        <p class="company-lead" data-company-hero-item>{copy('ELIAS NET 連結 AI、關鍵基礎設施與非武裝救援設備，協助團隊理解風險、協調回應並保護生命。', 'ELIAS NET connects AI, critical infrastructure and unarmed rescue systems to help teams understand risk, coordinate response and protect life.', locale)}</p>
+        <h1 id="company-title" data-company-hero-item><span>{copy('自主能力越強，', 'The more autonomous a system becomes,', locale)}</span><span>{copy('人類的指揮權就必須越清楚。', 'the clearer human command must become.', locale)}</span></h1>
+        <p class="company-lead" data-company-hero-item>{copy('ELIAS NET 連結 AI、關鍵基礎設施與非武裝救援系統，協助團隊理解風險、協調回應並保護生命。', 'ELIAS NET connects AI, critical infrastructure and unarmed rescue systems to help teams understand risk, coordinate response and protect life.', locale)}</p>
         <p class="company-thesis" data-company-hero-item>{copy('AI 可以加速判斷；授權、停止與責任始終留在人類手中。', 'AI can accelerate understanding; authorization, stop authority and accountability remain human.', locale)}</p>
       </div>
       <div class="company-hero-visual" data-company-hero-visual>
-        <div class="company-portrait-frame"><img src={`${base}/images/elias-founder-chair.webp`} alt={copy('ELIAS NET 創辦人暨董事長 Helena Vale', 'ELIAS NET founder and chair Helena Vale', locale)} width="1200" height="900"></div>
+        <div class="company-portrait-frame"><img src={`${base}/images/elias-founder-chair.webp`} alt={copy('ELIAS NET 創辦人暨董事長 Helena Vale 的寫實虛擬肖像', 'Photorealistic fictional portrait of ELIAS NET founder and chair Helena Vale', locale)} width="1200" height="900"></div>
         <div class="company-signal company-signal-a">HUMAN / ACCOUNTABLE</div>
-        <div class="company-signal company-signal-b">{copy('SYSTEM // ONLINE', 'SYSTEM // ONLINE', locale)}</div>
       </div>
     </div>
-    <div class="company-hero-statement shell"><span>{copy('表面看見問題，深入才看見斷點。', 'The surface shows the problem. Depth reveals the gap.', locale)}</span><span>25°02′ N / 121°33′ E</span></div>
-  </section>
-
-  <section id="company-mission" class="company-mission main-section light-section" data-section="company-mission" aria-labelledby="mission-title">
-    <div class="shell">
-      <header class="section-heading" data-reveal data-gsap="section-heading">
-        <p class="section-index">{copy('公司使命／公開版本', 'CORPORATE MISSION / PUBLIC', locale)}</p>
-        <h2 id="mission-title">{copy('把被忽略的問題逼近，讓改變留下證據。', 'Move closer to the overlooked problem. Leave evidence of the change.', locale)}</h2>
-        <p>{copy('我們把人的工作、AI 的協助與企業的責任放在同一條路徑上。深入，不是越界；是把真正卡住的地方看清楚。', 'We put human work, AI assistance and enterprise accountability on one path. Going deep is not crossing a boundary—it is making the real blockage visible.', locale)}</p>
-      </header>
-      <div class="principle-grid">
-        {principles.map((item) => <article data-company-card data-reveal><span>{item.code}</span><h3>{item.name}</h3><p>{item.body}</p></article>)}
-      </div>
-    </div>
+    <div class="company-hero-statement shell"><span>{copy('ELIAS NET 讓 AI 進入現實世界，但權力仍在人類手上。', 'ELIAS NET brings AI into the real world while authority stays with people.', locale)}</span></div>
   </section>
 
   <section id="company-founder" class="company-founder main-section" data-section="company-founder" aria-labelledby="founder-title">
@@ -73,23 +112,75 @@ const milestones = [
         <p class="section-index">{copy('創辦人檔案', 'FOUNDER FILE', locale)}</p>
         <div class="founder-file-head"><span>EN / 001</span><span>ELIAS NET</span></div>
         <div class="founder-file-mark" aria-hidden="true"><b>EN</b><i></i></div>
-        <p class="founder-file-status">{copy('責任範圍：長期願景／董事會治理', 'RESPONSIBILITY: LONG-TERM VISION / BOARD GOVERNANCE', locale)}</p>
+        <p class="founder-file-status">{copy('角色狀態：虛構公司／非真實任職', 'ROLE STATUS: FICTIONAL COMPANY / NOT REAL EMPLOYMENT', locale)}</p>
       </div>
       <div class="founder-copy" data-reveal>
-        <p class="eyebrow">{copy('FOUNDER’S VISION', 'FOUNDER’S VISION', locale)}</p>
+        <p class="eyebrow">FOUNDER’S VISION</p>
         <h2 id="founder-title">{copy('科技的價值，不在於它能做多少，而在於它知道何時應該停下。', 'Technology is not measured by how much it can do, but by whether it knows when to stop.', locale)}</h2>
-        <p>{copy('Helena Vale 是 ELIAS NET 的創辦人暨董事長。她以一個原則建立公司：自主能力越深入現實世界，人類的授權、停止權與責任就必須越清楚。', 'Helena Vale is the founder and chair of ELIAS NET. She builds the company on one principle: the further autonomy enters the physical world, the clearer human authorization, stop authority and accountability must become.', locale)}</p>
+        <p>{copy('Helena Vale 是 ELIAS NET 的虛構創辦人暨董事長。她把公司建立在一個原則上：自主能力越深入現實世界，人類的授權、停止權與責任就必須越清楚。', 'Helena Vale is the fictional founder and chair of ELIAS NET. She builds the company on one principle: the further autonomy enters the physical world, the clearer human authorization, stop authority and accountability must become.', locale)}</p>
         <blockquote>{copy('讓 AI 先學會界線，再進入流程；讓人先保有責任，再擴大自動化。', 'Teach AI its boundaries before it enters the workflow. Keep human accountability before expanding automation.', locale)}</blockquote>
+      </div>
+    </div>
+    <div class="shell founder-principles" aria-label={en ? 'Founder principles' : locale === 'zh-CN' ? '创办原则' : '創辦原則'}>
+      {principles.map((item) => <article data-company-card data-reveal><span>{item.code}</span><h3>{item.name}</h3><p>{item.body}</p></article>)}
+    </div>
+  </section>
+
+  <section id="company-governance" class="company-governance main-section" data-section="company-governance" aria-labelledby="governance-title">
+    <div class="shell">
+      <header class="section-heading" data-reveal data-gsap="section-heading">
+        <p class="section-index">{copy('治理協議／從意圖到監測', 'GOVERNANCE PROTOCOL / FROM INTENT TO MONITORING', locale)}</p>
+        <h2 id="governance-title">{copy('每一次前進，都必須通過一個看得懂的閘門。', 'Every step forward passes through a gate people can understand.', locale)}</h2>
+        <p>{copy('治理不是頁尾的免責聲明，而是產品、人物與公司每天做決定的方式。', 'Governance is not a disclaimer at the bottom of a page. It is how the company makes decisions every day.', locale)}</p>
+      </header>
+      <div class="company-governance-flow" data-company-timeline>
+        <div class="company-governance-line" aria-hidden="true"><i></i></div>
+        {governance.map((item,index) => <article data-company-card data-reveal style={`--i:${index}`}><span>{item.code}</span><h3>{item.title}</h3><p>{item.body}</p></article>)}
       </div>
     </div>
   </section>
 
-  <section id="company-organization" class="company-organization main-section light-section" data-section="company-organization" aria-labelledby="organization-title">
+  <section id="company-products" class="company-domains main-section light-section" data-section="company-products" aria-labelledby="products-title">
+    <div class="shell">
+      <header class="section-heading" data-reveal data-gsap="section-heading">
+        <p class="section-index">{copy('三項產品系統／公司矩陣', 'THREE PRODUCT SYSTEMS / COMPANY MATRIX', locale)}</p>
+        <h2 id="products-title">{copy('三項產品，共用一套人類控制層。', 'Three products. One human-command layer.', locale)}</h2>
+        <p>{copy('NETOPS 是近期實驗室核心；GUARDIAN 與 MEDIC 是概念產品。三者都必須說清楚輸入、AI 協助、人的控制與可驗證結果。', 'NETOPS is the near-term lab core. GUARDIAN and MEDIC are concept products. Each one makes inputs, AI assistance, human control and verifiable outcomes explicit.', locale)}</p>
+      </header>
+      <div class="company-product-grid">
+        {products.map((product) => <article class="product-system-card" data-company-card data-product-card data-reveal>
+          <div class="product-system-media"><img src={product.image} alt={product.alt} loading="lazy" width="1200" height="800"><span>{product.maturity}</span></div>
+          <div class="product-system-copy">
+            <div class="domain-card-head"><span>{product.code}</span><span>ELIAS NET</span></div>
+            <h3>{product.name}</h3>
+            <p class="product-system-audience">{product.audience}</p>
+            <p>{product.body}</p>
+            <div class="product-boundary"><strong>{copy('安全界線', 'SAFETY BOUNDARY', locale)}</strong><span>{product.boundary}</span></div>
+          </div>
+          <div class="product-causal-flow" aria-label={en ? `${product.name} operating flow` : locale === 'zh-CN' ? `${product.name} 工作流程` : `${product.name} 工作流程`}>
+            <div class="product-flow-heading"><span>{copy('它如何運作', 'HOW IT WORKS', locale)}</span><span>{copy('輸入 → 協助 → 控制 → 證據', 'INPUT → ASSIST → CONTROL → EVIDENCE', locale)}</span></div>
+            <ol class="product-flow">
+              <li data-product-flow-step><span>01</span><strong>{copy('輸入', 'INPUT', locale)}</strong><p>{product.input}</p></li>
+              <li data-product-flow-step><span>02</span><strong>{copy('AI 協助', 'AI ASSISTANCE', locale)}</strong><p>{product.ai}</p></li>
+              <li data-product-flow-step><span>03</span><strong>{copy('人類控制', 'HUMAN CONTROL', locale)}</strong><p>{product.human}</p></li>
+              <li data-product-flow-step><span>04</span><strong>{copy('驗證結果', 'VERIFIABLE RESULT', locale)}</strong><p>{product.result}</p></li>
+            </ol>
+          </div>
+        </article>)}
+      </div>
+      <div class="control-layer-note" data-company-card data-reveal>
+        <span class="section-index">ELIAS CONTROL</span>
+        <p>{copy('共用控制層：身分、權限、核准、停止、稽核與成熟度，讓三項產品都能在同一套責任制度下被驗證。', 'Shared control layer: identity, permission, authorization, stop authority, audit and maturity keep all three products inside one accountability system.', locale)}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="company-organization" class="company-organization main-section" data-section="company-organization" aria-labelledby="organization-title">
     <div class="shell">
       <header class="section-heading" data-reveal data-gsap="section-heading">
         <p class="section-index">{copy('公司組織／權責地圖', 'COMPANY ORGANIZATION / ACCOUNTABILITY MAP', locale)}</p>
         <h2 id="organization-title">{copy('不是一群名字，而是一條有人負責的決策鏈。', 'Not a wall of names—a decision chain with accountable owners.', locale)}</h2>
-        <p>{copy('ELIAS NET 讓創辦人、董事會、高階管理團隊、專業中心、產品領域與獨立驗收各自站在清楚的位置。', 'ELIAS NET gives the founder, board, executive team, professional centers, product domains and independent assurance a clear place in the company.', locale)}</p>
+        <p>{copy('創辦人、董事會、高階管理團隊、專業中心、產品系統與獨立驗收各自站在清楚的位置。', 'The founder, board, executive team, professional centers, product systems and independent assurance each have a clear place.', locale)}</p>
       </header>
       <div class="company-org-map" data-company-card data-reveal>
         <div class="org-layer org-company"><span>01</span><strong>{copy('ELIAS NET 自主系統公司', 'ELIAS NET AUTONOMOUS SYSTEMS', locale)}</strong></div>
@@ -111,39 +202,12 @@ const milestones = [
     </div>
   </section>
 
-  <section id="company-governance" class="company-governance main-section" data-section="company-governance" aria-labelledby="governance-title">
-    <div class="shell">
-      <header class="section-heading" data-reveal data-gsap="section-heading">
-        <p class="section-index">{copy('治理協議／從意圖到監測', 'GOVERNANCE PROTOCOL / FROM INTENT TO MONITORING', locale)}</p>
-        <h2 id="governance-title">{copy('每一次前進，都必須通過一個看得懂的閘門。', 'Every step forward passes through a gate people can understand.', locale)}</h2>
-        <p>{copy('治理不是頁尾的免責聲明，而是產品、人物與公司每天做決定的方式。', 'Governance is not a disclaimer at the bottom of a page. It is how the company makes decisions every day.', locale)}</p>
-      </header>
-      <div class="company-governance-flow" data-company-timeline>
-        <div class="company-governance-line" aria-hidden="true"><i></i></div>
-        {governance.map((item,index) => <article data-company-card data-reveal style={`--i:${index}`}><span>{item.code}</span><h3>{item.title}</h3><p>{item.body}</p></article>)}
-      </div>
-    </div>
-  </section>
-
-  <section id="company-domains" class="company-domains main-section light-section" data-section="company-domains" aria-labelledby="domains-title">
-    <div class="shell">
-      <header class="section-heading" data-reveal data-gsap="section-heading">
-        <p class="section-index">{copy('三項產品系統／公司矩陣', 'THREE PRODUCT SYSTEMS / COMPANY MATRIX', locale)}</p>
-        <h2 id="domains-title">{copy('三項產品，共用一套人類控制層。', 'Three products. One human-command layer.', locale)}</h2>
-        <p>{copy('NETOPS 是近期實驗室核心；GUARDIAN 與 MEDIC 是救援方向的概念產品。ELIAS CONTROL 管理三者的身分、權限、核准、停止與稽核。', 'NETOPS is the near-term lab core. GUARDIAN and MEDIC are rescue concepts. ELIAS CONTROL governs identity, permission, authorization, stop authority and audit across all three.', locale)}</p>
-      </header>
-      <div class="company-domain-grid">
-        {domains.map((domain) => <article data-company-card data-reveal><div class="domain-card-head"><span>{domain.code}</span><span>ELIAS NET</span></div><h3>{domain.name}</h3><p>{domain.body}</p><small>{copy('核心引擎／', 'CORE ENGINES / ', locale)}{domain.engine}</small></article>)}
-      </div>
-    </div>
-  </section>
-
   <section id="company-record" class="company-record main-section" data-section="company-record" aria-labelledby="record-title">
     <div class="shell">
       <header class="section-heading" data-reveal data-gsap="section-heading">
         <p class="section-index">{copy('公司發展紀錄／產品時間線', 'COMPANY RECORD / PRODUCT TIMELINE', locale)}</p>
         <h2 id="record-title">{copy('用可追蹤的制度，承接一間公司的長期願景。', 'Carry a company’s long-term vision through a traceable record.', locale)}</h2>
-        <p>{copy('以品牌建立、治理原則與產品驗證，記錄 ELIAS NET 的發展路徑。', 'A development path across brand formation, governance principles and product validation.', locale)}</p>
+        <p>{copy('這不是對真實營運歷史的聲稱，而是 ELIAS NET 目前的虛擬公司宇宙紀錄。', 'This is not a claim of real operating history. It is the current fictional record of the ELIAS NET company world.', locale)}</p>
       </header>
       <div class="company-record-list">
         {milestones.map((item,index) => <article data-company-card data-reveal style={`--i:${index}`}><span>{item.year}</span><div><h3>{item.title}</h3><p>{item.body}</p></div></article>)}
@@ -152,9 +216,18 @@ const milestones = [
   </section>
 
   <section id="company-start" class="company-start main-section light-section" data-section="company-start" aria-labelledby="start-title">
-    <div class="shell company-start-grid">
-      <div data-reveal><p class="section-index">{copy('下一個工作現場', 'THE NEXT WORK ENVIRONMENT', locale)}</p><h2 id="start-title">{copy('先選一個值得深入的流程。', 'Choose one workflow worth going deeper into.', locale)}</h2><p>{copy('從一個能說清楚、能獲得授權、能留下證據的 Pilot 開始，讓 ELIAS NET 的理念在真正的工作裡被檢驗。', 'Start with one pilot that can be explained, authorized and evidenced, then let ELIAS NET be tested in real work.', locale)}</p></div>
-      <a class="company-start-button" href={en ? `${base}/en/#contact` : locale === 'zh-CN' ? `${base}/zh-cn/#contact` : `${base}/#contact`} data-reveal><span>{copy('開始一段對話', 'START A CONVERSATION', locale)}</span><strong>→</strong></a>
+    <div class="shell">
+      <div class="company-start-intro" data-reveal>
+        <p class="section-index">{copy('下一個工作現場／PoC 入口', 'THE NEXT WORK ENVIRONMENT / POC ENTRY', locale)}</p>
+        <h2 id="start-title">{copy('先選一個值得驗證的系統。', 'Choose one system worth validating.', locale)}</h2>
+        <p>{copy('不要從一張空白表單開始。先選擇要驗證的產品或治理層，再從一個能說清楚、能獲得授權、能留下證據的 Pilot 開始。', 'Do not start with a blank form. Choose a product or governance layer first, then begin with a pilot that can be explained, authorized and evidenced.', locale)}</p>
+      </div>
+      <div class="poc-picker" data-poc-picker>
+        <div class="poc-options" role="group" aria-label={en ? 'Choose a proof of concept' : locale === 'zh-CN' ? '选择概念验证方向' : '選擇概念驗證方向'}>
+          {pocOptions.map((option) => <button type="button" class="poc-option" data-poc-option data-poc-key={option.key} aria-pressed="false"><span>{option.code}</span><strong>{option.name}</strong><small>{option.body}</small></button>)}
+        </div>
+        <div class="poc-picker-footer"><span data-poc-selected>{copy('尚未選擇', 'NOT SELECTED', locale)}</span><a class="company-start-button" data-poc-start href={`${homePath}#contact`} data-base-href={`${homePath}#contact`} data-reveal><span>{copy('選擇後開始對話', 'START AFTER CHOOSING', locale)}</span><strong>→</strong></a></div>
+      </div>
     </div>
   </section>
 </main>
