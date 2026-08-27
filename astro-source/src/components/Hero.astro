@@ -1,22 +1,23 @@
 ---
 import type { Locale } from '../data/site';
-import { copy } from '../data/site';
-import MissionSequence from './MissionSequence.astro';
+import InnovationCore from './InnovationCore.astro';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
+const en = locale === 'en';
 ---
-<section id="hero" class="hero main-section" data-section="hero" data-gsap-hero aria-labelledby="hero-title">
+<section id="hero" class="hero main-section" data-section="hero" aria-labelledby="hero-title">
   <div class="hero-backdrop" aria-hidden="true"></div>
   <div class="shell hero-grid">
-    <div class="hero-copy">
-      <p class="section-index">{copy('首頁', 'HOME', locale)}</p>
-      <p class="brand-kicker">ELIAS NET · HUMAN-COMMANDED AUTONOMOUS SYSTEMS</p>
-      <h1 id="hero-title">{copy('自主系統，由人類指揮。', 'Autonomous systems. Human command.', locale)}</h1>
-      <p class="hero-lead">{copy('ELIAS NET 連結 AI、企業基礎設施與非武裝救援機器人，協助人們理解風險、協調應變並保護生命；任何高影響行動都必須先經人類授權。', 'ELIAS NET connects AI, enterprise infrastructure and unarmed rescue robotics to understand risk, coordinate response and protect life. Every high-impact action requires human authorization.', locale)}</p>
-      <p class="hero-principle">{copy('可用・可控・可證明', 'Useful · Controlled · Provable', locale)}</p>
-      <div class="cta-row"><a class="button primary" href="#products">{copy('查看產品系統', 'Explore product systems', locale)}</a><a class="button ghost" href="#control">{copy('了解人類控制', 'See human control', locale)}</a></div>
+    <div class="hero-copy" data-reveal>
+      <p class="section-index">{en ? 'HOME' : '首頁'}</p>
+      <p class="brand-kicker">ELIAS NET · {en ? 'AI INNOVATION & BUSINESS TRANSFORMATION PARTNER' : 'AI 創新與企業轉型夥伴'}</p>
+      <h1 id="hero-title">{en ? 'Reimagine how business works.' : '重新想像，企業如何工作'}</h1>
+      <p class="hero-lead">{en ? 'Elias Net brings AI, data and system integration together to turn new ideas into ways of working that function in the real world.' : 'Elias Net 結合 AI、資料與系統整合，協助企業把新的想法，轉化成真正能運作的工作方式。'}</p>
+      <p class="hero-audience">{en ? 'For business, service, operations and digital teams that want to adopt AI but need a practical place to start.' : '適合想導入 AI、卻還在尋找實際起點的管理、服務、營運與數位團隊。'}</p>
+      <p class="hero-principle">{en ? 'AI helps us understand the work and prepare the next step. We make the important decisions.' : 'AI 協助我們理解工作、準備下一步。重要決定，我們來做。'}</p>
+      <div class="cta-row"><a class="button primary" href="#problems">{en ? 'Start with the business challenge' : '從企業問題看起'}</a><a class="button ghost" href="#contact">{en ? 'Start with one problem' : '從一個問題開始'}</a></div>
     </div>
-    <div class="hero-mission"><MissionSequence locale={locale} /></div>
+    <InnovationCore locale={locale} />
   </div>
-  <div class="hero-statement shell"><span>{copy('感知全局。只在授權內行動。以保護生命為目的。', 'Sense the whole. Act within authority. Protect life.', locale)}</span></div>
+  <div class="hero-statement shell"><span>{en ? 'We complete the work together with AI.' : '工作，我們和 AI 一起完成。'}</span></div>
 </section>

@@ -1,54 +1,30 @@
 ---
 import type { Locale } from '../data/site';
-interface Props { locale: Locale; page?: 'home' | 'company' }
-const { locale, page = 'home' } = Astro.props;
+interface Props { locale: Locale }
+const { locale } = Astro.props;
 const en = locale === 'en';
-const zhCN = locale === 'zh-CN';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const localePath = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
-const homePath = `${base}/${localePath}`.replace(/\/\/$/, '/');
-const companyPath = `${homePath}company/`;
-const nav = page === 'company'
-  ? en ? [
-    ['#company-founder','Founder'],['#company-governance','Governance'],['#company-products','Solutions'],['#company-organization','Organization'],['#company-start','Start']
-  ] : zhCN ? [
-    ['#company-founder','创办理念'],['#company-governance','治理制度'],['#company-products','解决方案'],['#company-organization','组织架构'],['#company-start','开始合作']
-  ] : [
-    ['#company-founder','創辦理念'],['#company-governance','治理制度'],['#company-products','解決方案'],['#company-organization','組織架構'],['#company-start','開始合作']
-  ]
-  : en ? [
-    [companyPath,'Company'],['#products','Products'],['#control','Human Control'],['#leadership','Leadership'],['#contact','Pilot']
-  ] : zhCN ? [
-    [companyPath,'公司'],['#products','产品系统'],['#control','人类控制'],['#leadership','领导团队'],['#contact','概念验证']
-  ] : [
-    [companyPath,'公司'],['#products','產品系統'],['#control','人類控制'],['#leadership','領導團隊'],['#contact','概念驗證']
-  ];
-const languageOptions = [
-  { id: 'zh-TW' as Locale, label: '繁中', lang: 'zh-TW', href: `${base}/` },
-  { id: 'zh-CN' as Locale, label: '简中', lang: 'zh-CN', href: `${base}/zh-cn/` },
-  { id: 'en' as Locale, label: 'EN', lang: 'en', href: `${base}/en/` }
-].map((option) => ({ ...option, href: page === 'company' ? `${option.href}company/` : option.href }));
-const navLabel = en ? 'Primary navigation' : zhCN ? '主要导航' : '主要導覽';
-const menuLabel = en ? 'Menu' : zhCN ? '菜单' : '選單';
-const closeLabel = en ? 'Close menu' : zhCN ? '关闭菜单' : '關閉選單';
-const brandLabel = en ? 'Elias Net home' : zhCN ? 'Elias Net 首页' : 'Elias Net 首頁';
+const localeHref = en ? `${base}/` : `${base}/en/`;
+const nav = en ? [
+  ['#problems','Challenges'],['#innovation','AI partnership'],['#scenes','Applications'],['#capabilities','How we help'],['#cases','Cases'],['#method','Approach'],['#contact','Start']
+] : [
+  ['#problems','挑戰'],['#innovation','AI 夥伴'],['#scenes','工作應用'],['#capabilities','服務能力'],['#cases','案例'],['#method','導入方法'],['#contact','開始規劃']
+];
 ---
-<header class="site-header" data-header data-page={page}>
-  <a class="brand" href={page === 'company' ? companyPath : `${homePath}#hero`} aria-label={brandLabel}>
+<header class="site-header" data-header>
+  <a class="brand" href="#hero" aria-label={en ? 'Elias Net home' : 'Elias Net 首頁'}>
     <img src={`${base}/images/elias-net-logo.svg`} alt="Elias Net" width="238" height="56">
   </a>
-  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={menuLabel} data-open-label={menuLabel} data-close-label={closeLabel} data-menu-toggle>
-    <span>{menuLabel}</span><i aria-hidden="true"></i>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={en ? 'Open menu' : '開啟選單'} data-open-label={en ? 'Open menu' : '開啟選單'} data-close-label={en ? 'Close menu' : '關閉選單'} data-menu-toggle>
+    <span>{en ? 'Menu' : '選單'}</span><i aria-hidden="true"></i>
   </button>
-  <nav id="site-nav" class="site-nav" aria-label={navLabel} data-nav>
-    {nav.map(([href,label]) => <a href={href} class:list={{ 'nav-current': page === 'company' && href === '#company-founder' }} aria-current={page === 'company' && href === '#company-founder' ? 'page' : undefined}>{label}</a>)}
+  <nav id="site-nav" class="site-nav" aria-label={en ? 'Primary navigation' : '主要導覽'} data-nav>
+    {nav.map(([href,label]) => <a href={href}>{label}</a>)}
   </nav>
-  <div class="language-switcher" aria-label={en ? 'Language' : zhCN ? '语言' : '語言'}>
-    {languageOptions.map((option) => <a class:list={['language-link', { active: option.id === locale }]} href={option.href} lang={option.lang} aria-current={option.id === locale ? 'page' : undefined} data-language-link>{option.label}</a>)}
-  </div>
+  <a class="language-link" href={localeHref} lang={en ? 'zh-Hant' : 'en'}>{en ? '繁中' : 'EN'}</a>
   <div class="journey-progress" aria-hidden="true"><i data-journey-progress></i></div>
   <div class="journey-controls">
-    <button type="button" data-section-prev aria-label={en ? 'Previous section' : zhCN ? '上一部分' : '上一個區段'}>←</button>
-    <button type="button" data-section-next aria-label={en ? 'Next section' : zhCN ? '下一部分' : '下一個區段'}>→</button>
+    <button type="button" data-section-prev aria-label={en ? 'Previous section' : '上一個區段'}>←</button>
+    <button type="button" data-section-next aria-label={en ? 'Next section' : '下一個區段'}>→</button>
   </div>
 </header>

@@ -7,61 +7,37 @@ import '../styles/accessibility.css';
 import '../styles/innovation.css';
 import '../styles/motion-polish.css';
 import '../styles/partner-brand-motion.css';
-import '../styles/product-brand.css';
-import '../styles/leadership.css';
-import '../styles/company.css';
-import '../styles/responsible-systems.css';
 import type { Locale } from '../data/site';
-interface Props { locale: Locale; page?: 'home' | 'company' }
-const { locale, page = 'home' } = Astro.props;
+interface Props { locale: Locale }
+const { locale } = Astro.props;
 const en = locale === 'en';
-const zhCN = locale === 'zh-CN';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const rootUrl = new URL(base ? `${base}/` : '/', Astro.site);
-const localePath = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
-const homePath = localePath;
-const companyPath = `${localePath}company/`;
-const currentPath = page === 'company' ? companyPath : homePath;
-const canonical = new URL(currentPath, rootUrl).href;
-const title = page === 'company'
-  ? en ? 'Company | Elias Net' : zhCN ? '公司｜Elias Net' : '公司｜Elias Net'
-  : en ? 'ELIAS NET | Autonomous Systems. Human Command.' : zhCN ? 'ELIAS NET｜自主系统，由人类指挥' : 'ELIAS NET｜自主系統，由人類指揮';
-const description = page === 'company'
-  ? en
-    ? 'Meet ELIAS NET, an autonomous-systems company with three products, visible human command and accountable leadership.'
-    : zhCN
-      ? '认识 ELIAS NET：一家拥有三项产品、明确人类指挥与责任团队的自主系统公司。'
-      : '認識 ELIAS NET：一間擁有三項產品、明確人類指揮與責任團隊的自主系統公司。'
-  : en
-    ? 'ELIAS NET connects AI, infrastructure and unarmed rescue robotics through visible human command, emergency stop and traceable evidence.'
-    : zhCN
-      ? 'ELIAS NET 连接 AI、基础设施与非武装救援机器人，并保留人类指挥、紧急停止与完整稽核。'
-      : 'ELIAS NET 連結 AI、基礎設施與非武裝救援機器人，並保留人類指揮、緊急停止與完整稽核。';
-const hrefFor = (targetLocale: Locale) => {
-  const targetPath = targetLocale === 'en' ? 'en/' : targetLocale === 'zh-CN' ? 'zh-cn/' : '';
-  return new URL(page === 'company' ? `${targetPath}company/` : targetPath, rootUrl).href;
-};
+const canonical = new URL(en ? 'en/' : '', rootUrl).href;
+const title = en ? 'Elias Net | AI Innovation & Business Transformation Partner' : 'Elias Net｜AI 創新與企業轉型夥伴';
+const description = en
+  ? 'Elias Net brings AI, data and system integration together to turn new ideas into ways of working that function in the real world.'
+  : 'Elias Net 結合 AI、資料與系統整合，協助企業把新的想法轉化成真正能運作的工作方式。';
 ---
 <!doctype html>
-<html lang={en ? 'en' : zhCN ? 'zh-CN' : 'zh-TW'}>
+<html lang={en ? 'en' : 'zh-Hant'}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content={description}>
-    <meta name="theme-color" content="#F3F5F4">
+    <meta name="theme-color" content="#080A0D">
     <meta property="og:title" content={title}>
     <meta property="og:description" content={description}>
     <meta property="og:type" content="website">
     <title>{title}</title>
     <link rel="canonical" href={canonical}>
-    <link rel="alternate" hreflang="zh-TW" href={hrefFor('zh-TW')}>
-    <link rel="alternate" hreflang="zh-CN" href={hrefFor('zh-CN')}>
-    <link rel="alternate" hreflang="en" href={hrefFor('en')}>
-    <link rel="alternate" hreflang="x-default" href={hrefFor('zh-TW')}>
+    <link rel="alternate" hreflang="zh-Hant" href={rootUrl.href}>
+    <link rel="alternate" hreflang="en" href={new URL('en/', rootUrl).href}>
+    <link rel="alternate" hreflang="x-default" href={rootUrl.href}>
     <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml">
     <script is:inline>document.documentElement.classList.add('js')</script>
   </head>
-  <body data-locale={locale} data-page={page}>
+  <body>
     <slot />
     <script>import '../scripts/main.ts';</script>
   </body>

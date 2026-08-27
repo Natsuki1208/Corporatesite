@@ -1,40 +1,12 @@
 ---
 import type { Locale } from '../data/site';
-import { copy } from '../data/site';
-interface Props { locale: Locale; page?: 'home' | 'company' }
-const { locale, page = 'home' } = Astro.props;
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const localePath = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
-const homePath = `${base}/${localePath}`.replace(/\/\/$/, '/');
-const companyPath = `${homePath}company/`;
-const homeLink = (hash: string) => `${homePath}${hash}`;
-const companyLink = (hash: string) => `${companyPath}${hash}`;
-const links = page === 'company' ? [
-  [companyPath, copy('公司首頁', 'Company', locale)],
-  [companyLink('#company-founder'), copy('創辦理念', 'Founder vision', locale)],
-  [companyLink('#company-governance'), copy('治理制度', 'Governance', locale)],
-  [companyLink('#company-products'), copy('三項產品系統', 'Three product systems', locale)],
-  [companyLink('#company-organization'), copy('組織架構', 'Organization', locale)],
-  [companyLink('#company-start'), copy('選擇 PoC', 'Choose a PoC', locale)]
-] : [
-  [companyPath, copy('關於公司', 'Company', locale)],
-  [homeLink('#products'), copy('三項產品系統', 'Three product systems', locale)],
-  [homeLink('#control'), copy('人類控制', 'Human control', locale)],
-  [homeLink('#leadership'), copy('領導團隊', 'Leadership', locale)],
-  [homeLink('#contact'), copy('開始合作', 'Start a conversation', locale)]
-];
 ---
-<footer class="site-footer">
-  <div class="shell footer-grid">
-    <div class="footer-brand">
-      <img src={`${base}/images/elias-net-logo.svg`} alt="Elias Net" width="238" height="56">
-      <p>{copy('人類指揮的自主 AI、基礎設施與非武裝救援系統', 'Human-commanded AI, infrastructure and unarmed rescue systems', locale)}</p>
-      <span class="footer-status">{copy('自主系統／人類指揮', 'AUTONOMOUS SYSTEMS / HUMAN COMMAND', locale)}</span>
-    </div>
-    <nav aria-label={copy('頁尾導覽', 'Footer navigation', locale)}>
-      {links.map(([href,label]) => <a href={href}>{label}</a>)}
-    </nav>
-    <p class="footer-note">{copy('本站展示品牌、產品方向與開發階段；產品狀態以 LAB、CONCEPT 或 PILOT 標籤為準，不構成已部署成果或服務承諾。', 'This site presents brand, product direction and development stages. LAB, CONCEPT and PILOT labels define current status and do not constitute deployment results or service commitments.', locale)}</p>
-    <small>© 2026 Elias Net. {copy('自主系統，由人類指揮。', 'Autonomous systems. Human command.', locale)}</small>
-  </div>
-</footer>
+<footer class="site-footer"><div class="shell footer-grid">
+  <div class="footer-brand"><img src={`${base}/images/elias-net-logo.svg`} alt="Elias Net" width="238" height="56"><p>{en ? 'AI Innovation & Business Transformation Partner' : 'AI 創新與企業轉型夥伴'}</p></div>
+  <nav aria-label={en ? 'Footer navigation' : '頁尾導覽'}><a href="#problems">{en ? 'Challenges' : '挑戰'}</a><a href="#innovation">{en ? 'AI partnership' : 'AI 夥伴'}</a><a href="#scenes">{en ? 'Applications' : '工作應用'}</a><a href="#capabilities">{en ? 'How we help' : '服務能力'}</a><a href="#cases">{en ? 'Concept cases' : '概念案例'}</a><a href="#method">{en ? 'Approach' : '導入方法'}</a><a href="#contact">{en ? 'Start together' : '開始規劃'}</a></nav>
+  <p class="footer-note">{en ? 'Concept website for human review. No data is collected.' : '人工檢閱用概念網站，不蒐集任何資料。'}</p><small>© 2026 Elias Net. Concept demonstration.</small>
+</div></footer>

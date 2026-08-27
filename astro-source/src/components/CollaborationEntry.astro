@@ -1,24 +1,26 @@
 ---
 import type { Locale } from '../data/site';
-import { copy, list } from '../data/site';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
-const prompts = list(['企業網路與基礎設施維運','高風險環境巡檢與救援','醫療救援資訊協作','人類控制與安全治理'], ['Network and infrastructure operations','High-risk inspection and rescue','Medical rescue coordination','Human control and safety governance'], locale);
+const en = locale === 'en';
+const prompts = en
+  ? ['The most time-consuming work','The most repeated process','The hardest information to find','The service you most want to improve','Your concern about adopting AI']
+  : ['現在最耗時的工作','最常重複的流程','最難查找的資訊','最希望改善的服務','對 AI 導入的疑慮'];
 ---
 <section id="contact" class="main-section contact" data-section="contact" aria-labelledby="contact-title">
   <div class="shell contact-grid">
     <div data-reveal>
-      <p class="section-index">{copy('概念驗證與合作', 'PILOT & PARTNERSHIP', locale)}</p>
-      <h2 id="contact-title">{copy('從受控場景開始驗證自主能力。', 'Validate autonomy in a controlled setting.', locale)}</h2>
-      <p class="section-lead">{copy('與我們討論企業網路維運、高風險設備協作或救援資訊整合；先定義資料、權限與停止條件，再建立 Pilot。', 'Discuss infrastructure operations, high-risk equipment or rescue coordination. Define data, authority and stop conditions before building a pilot.', locale)}</p>
-      <p class="contact-slogan"><strong>{copy('AI 協助理解與執行。', 'AI helps understand and execute.', locale)}</strong><span>{copy('人類保有指揮與責任。', 'People retain command and accountability.', locale)}</span></p>
+      <p class="section-index">{en ? 'VISION & PARTNERSHIP' : '願景與合作'}</p>
+      <h2 id="contact-title">{en ? 'The next change starts with one real problem.' : '下一個改變，從一個問題開始'}</h2>
+      <p class="section-lead">{en ? 'Elias Net starts with a real work problem, helping teams identify where AI can assist and which choices must remain in their hands.' : 'Elias Net 從一個真實工作問題開始，陪團隊找出 AI 可以幫忙的地方，以及必須由我們掌握的選擇。'}</p>
+      <p class="contact-slogan"><strong>{en ? 'We make the important decisions.' : '重要決定，我們來做。'}</strong><span>{en ? 'We complete the work together with AI.' : '工作，我們和 AI 一起完成。'}</span></p>
     </div>
-    <div class="contact-command" aria-hidden="true"><span>OBSERVE</span><span>AUTHORIZE</span><span>ASSIST</span><strong>HUMAN COMMAND</strong></div>
-    <form class="concept-form" data-concept-form data-contact-email="natsuki12089212@gmail.com" data-reveal>
-      <fieldset><legend>{copy('你最想先改善哪一件事？', 'What would you like to improve first?', locale)}</legend>{prompts.map((item,index) => <label><input type="radio" name="focus" value={String(index)} required><span>{item}</span></label>)}</fieldset>
-      <label class="form-note"><span>{copy('請勿提交病歷、身分資料、正式系統憑證或未公開事件資訊', 'Do not submit health records, identity data, production credentials or undisclosed incident information', locale)}</span><textarea name="context" rows="3" maxlength="280"></textarea></label>
-      <div class="cta-row"><button class="button primary" type="submit">{copy('透過 Email 提出驗證情境', 'Propose a pilot by email', locale)}</button><a class="button ghost" href="#control">{copy('查看控制機制', 'Review human control', locale)}</a></div>
-      <p class="form-status" role="status" aria-live="polite" data-form-status>{copy('送出後會開啟你的郵件 App；本網站不會傳送或儲存填寫內容。', 'Submitting opens your email app. The website does not transmit or store this information.', locale)}</p>
+    <div class="contact-convergence" data-contact-convergence aria-hidden="true"><canvas class="semantic-particles" data-particle-stage="contact"></canvas><i></i><i></i><i></i><i></i><i></i><span><b>{en ? 'STARTING POINT' : '值得開始的方向'}</b><strong>{en ? 'ONE REAL PROBLEM' : '從一個真實問題開始'}</strong></span><em></em></div>
+    <form class="concept-form" data-concept-form data-reveal>
+      <fieldset><legend>{en ? 'What would you like to improve first?' : '你最想先改善哪一件事？'}</legend>{prompts.map((item,index) => <label><input type="radio" name="focus" value={String(index)} required><span>{item}</span></label>)}</fieldset>
+      <label class="form-note"><span>{en ? 'Describe the work without personal or confidential information' : '簡單描述工作情境，請勿輸入個人或機密資料'}</span><textarea rows="3" maxlength="280"></textarea></label>
+      <div class="cta-row"><button class="button primary" type="submit">{en ? 'Plan the first AI opportunity' : '開始規劃第一個 AI 場景'}</button></div>
+      <p class="form-status" role="status" aria-live="polite" data-form-status>{en ? 'This is a demonstration form. No information is sent or stored.' : '此為示範表單，不會傳送或儲存資料。'}</p>
     </form>
   </div>
 </section>
