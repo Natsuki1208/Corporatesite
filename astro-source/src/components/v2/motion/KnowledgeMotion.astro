@@ -1,0 +1,10 @@
+---
+import type { SiteLocale } from '../../../data/products'; import { simplify } from '../../../data/simplified-map';
+interface Props { locale: SiteLocale }
+const { locale }=Astro.props; const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
+---
+<div class="v2-product-motion v2-knowledge-motion" data-product-motion="knowledge" aria-label={t('企業知識助理如何整理文件並讓使用者確認來源','How the knowledge assistant organizes documents and lets users verify sources')}>
+  <div class="knowledge-docs" aria-hidden="true"><span>{t('員工手冊','Employee handbook')}</span><span>{t('工作規範','Work policy')}</span><span>{t('費用辦法','Expense guide')}</span></div>
+  <div class="knowledge-answer"><small>{t('整理後的回答','Prepared answer')}</small><p>{t('相關規範與適用範圍已整理完成。','The relevant policy and scope have been organized.')}</p><mark>{t('附上來源與版本','Sources and versions included')}</mark></div>
+  <div class="knowledge-confirm"><span>{t('來源 01 · 來源 02','Source 01 · Source 02')}</span><strong>{t('由使用者確認','Verified by the user')}</strong></div>
+</div>

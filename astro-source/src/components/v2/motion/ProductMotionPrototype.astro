@@ -1,0 +1,39 @@
+---
+import type { ProductDefinition,SiteLocale } from '../../../data/products'; import { simplify } from '../../../data/simplified-map'; import { l } from '../../../data/products';
+import MotionPicture from './MotionPicture.astro'; import ProductMotionScene from './ProductMotionScene.astro';
+interface Props { product:ProductDefinition; locale:SiteLocale }
+const { product,locale }=Astro.props; const base=import.meta.env.BASE_URL.replace(/\/$/,''); const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
+const desktop=`${base}/${product.media.hero.desktop}`; const mobile=`${base}/${product.media.hero.mobile}`;
+const storyTitle=product.slug==='elias-home'
+  ?t('需求有被了解照顧，下一步才真正有用。','When needs are understood and cared for, the next step can truly help.')
+  :product.slug==='elias-rescue'
+    ?t('危險先行預測，才能保障人們的安全。','Predict danger early, so people can stay safe.')
+    :t('問題先被看懂，下一步才真正有用。','Understand the situation. Prepare a useful next step.');
+const liveVideo=product.slug==='elias-home'
+  ?{src:`${base}/media/elias-home-live-scenario.mp4`,label:t('Elias Home 與家庭成員協作的真人情境影片','Live-action Elias Home family collaboration scenario')}
+  :product.slug==='elias-rescue'
+    ?{src:`${base}/media/elias-rescue-live-scenario.mp4`,label:t('Elias Rescue 與救援人員協作的真人情境影片','Live-action Elias Rescue response-team collaboration scenario')}
+    :null;
+---
+<section id="product-story" class="v2-product-observe" data-product-prototype aria-labelledby={`${product.slug}-motion-title`}>
+  <div class="v2-product-observe-copy">
+    <p class="v2-eyebrow">{t('真實工作情境 / 產品模擬','REAL WORK / PRODUCT SIMULATION')}</p>
+    <h2 id={`${product.slug}-motion-title`}>{storyTitle}</h2>
+    <p class="v2-product-observe-lead">{l(product.scenario,locale)}</p>
+    <div class="v2-observe-states" aria-label={t('產品協作階段','Product collaboration stages')}>
+      <span>{t('看見問題','OBSERVE')}</span><span>{t('整理脈絡','UNDERSTAND')}</span><span>{t('由人決定','AUTHORIZE')}</span>
+    </div>
+  </div>
+  <div class="v2-prototype-stage">
+    {liveVideo?<video class="v2-live-product-video" data-product-video muted loop playsinline controls preload="metadata" poster={desktop} aria-label={liveVideo.label}>
+      <source src={liveVideo.src} type="video/mp4" />
+      {t('你的瀏覽器不支援此產品情境影片。','Your browser does not support this product scenario video.')}
+    </video>:<MotionPicture desktop={desktop} mobile={mobile} alt={l(product.media.hero.alt,locale)}/>}
+    <ProductMotionScene product={product} locale={locale}/>
+  </div>
+  {product.family==='embodied'&&<aside class="v2-preorder-note"><strong>{t('概念研究｜產品消息登記','Research concept | Product updates')}</strong><p>{t('此情境用來說明研究方向，不代表已量產或部署。可登記接收後續研究與展示消息；不收取款項，也不承諾售價或交付日期。','This scene explains the research direction and does not imply production or deployment. Register for future research and demonstration updates; no payment, pricing or delivery date is promised.')}</p></aside>}
+</section>
+<script>
+import { initProductMotionControllers } from '../../../scripts/product-motion-controller';
+initProductMotionControllers();
+</script>

@@ -1,0 +1,6 @@
+---
+import type { SiteLocale } from '../../data/products';
+interface Props { href: string; label: string; locale: SiteLocale; secondary?: boolean }
+const { href, label, secondary = false } = Astro.props;
+---
+<a class:list={['v2-button',{'is-secondary':secondary}]} href={href} aria-label={label}>{label}<span aria-hidden="true">→</span></a>

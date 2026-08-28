@@ -1,0 +1,6 @@
+---
+import type { SiteLocale } from '../../data/products'; import CTA from './CTA.astro';
+interface Props { locale: SiteLocale; title: string; copy: string; href: string; label: string }
+const { locale,title,copy,href,label }=Astro.props;
+---
+<section class="v2-section v2-contact"><div class="v2-shell v2-contact-inner v2-reveal"><h2>{title}</h2><p>{copy}</p><CTA href={href} label={label} locale={locale}/></div></section>

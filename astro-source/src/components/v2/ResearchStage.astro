@@ -1,0 +1,7 @@
+---
+import type { ProductStatusValue, SiteLocale } from '../../data/products';
+import ProductStatus from './ProductStatus.astro';
+interface Props { status: ProductStatusValue; locale: SiteLocale; note: string }
+const { status, locale, note } = Astro.props;
+---
+<div class="v2-status-row" aria-label={locale === 'en' ? 'Research stage' : locale === 'zh-CN' ? '研发阶段' : '研發階段'}><ProductStatus status={status} locale={locale} note={note}/><span>{note}</span></div>

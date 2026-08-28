@@ -1,0 +1,16 @@
+---
+import type { ProductDefinition, SiteLocale } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+import { getFamilyProducts } from '../../data/products';
+import ProductCard from './ProductCard.astro';
+import SafetyNotice from './SafetyNotice.astro';
+import CTA from './CTA.astro';
+interface Props { locale: SiteLocale; family: ProductDefinition['family'] }
+const { locale, family } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/,''); const prefix = locale === 'en' ? `${base}/en/` : locale === 'zh-CN' ? `${base}/zh-cn/` : `${base}/`;
+const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh; const digital=family==='digital'; const list=getFamilyProducts(family);
+---
+<section class="v2-page-hero"><div class="v2-shell v2-reveal"><p class="v2-eyebrow">{digital?'DIGITAL INTELLIGENCE':'EMBODIED INTELLIGENCE'}</p><h1>{digital?t('讓企業資訊與流程，更容易理解與推進。','Make enterprise information and workflows easier to understand and move forward.'):t('讓智慧在真實世界中，以安全和人為中心地行動。','Bring intelligence into the real world with safety and people at the center.')}</h1><p>{digital?t('四項產品從文件、客服、流程與維運切入。AI 協助整理與準備，人保留重要決定。','Four products address documents, service, workflows and operations. AI organizes and prepares while people retain important decisions.'):t('實體智慧是能透過感測器理解環境，並在受控範圍內執行動作的智慧系統。Elias Home 與 Rescue 目前皆為概念研究。','Embodied intelligence uses sensors to understand environments and act within controlled boundaries. Elias Home and Rescue are currently research concepts.')}</p></div></section>
+<section class="v2-section"><div class="v2-shell"><div class="v2-product-grid">{list.map((product)=><ProductCard product={product} locale={locale} basePath={prefix}/>)}</div></div></section>
+<section class="v2-section v2-tint"><div class="v2-shell v2-split v2-reveal"><div><p class="v2-eyebrow">{t('共同工作原則','SHARED WORKING PRINCIPLE')}</p><h2>{digital?t('資料有來源，建議有界線，重要步驟有人確認。','Sources stay visible, suggestions have boundaries and people review important steps.'):t('感知與行動都有任務界線、停止方式與人員授權。','Perception and action require mission boundaries, stop controls and human authorization.')}</h2></div><p>{digital?t('核准資料進入工作脈絡，系統整理並準備下一步，人員確認後才形成正式結果與紀錄。','Approved data enters the work context, the system organizes and prepares, and people confirm before a formal outcome and record are created.'):t('目前沒有硬體原型或現場測試證據。所有情境圖都只用來說明研究方向，不代表已量產或部署。','No hardware prototype or field-test evidence currently exists. All scenario imagery explains research direction only and does not imply production or deployment.')}</p></div></section>
+<section class="v2-section"><div class="v2-shell"><SafetyNotice locale={locale}><ul class="v2-check-list"><li>{digital?t('資料來源與角色權限必須先核准','Data sources and role permissions require approval'):t('Home 重視隱私、自主與實體急停','Home prioritizes privacy, autonomy and physical emergency stop')}</li><li>{digital?t('高影響更新停在指定人員確認','High-impact updates stop for designated review'):t('Rescue 採遠端優先、失聯安全與非武器化','Rescue is remote-first, fail-safe and non-weaponized')}</li><li>{t('所有能力依真實證據標示狀態','Every capability carries an evidence-based status')}</li></ul></SafetyNotice><div class="v2-inline-cta"><CTA href={`${prefix}contact/`} label={digital?t('討論合作可能','Discuss collaboration possibilities'):t('了解研發方向','Explore the research direction')} locale={locale}/></div></div></section>

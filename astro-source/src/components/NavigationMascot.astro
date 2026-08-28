@@ -1,0 +1,44 @@
+---
+import { copy, type Locale } from '../data/site';
+interface Props { locale: Locale; page?: 'home' | 'company' }
+const { locale, page = 'home' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const localeRoot = locale === 'en' ? `${base}/en/` : locale === 'zh-CN' ? `${base}/zh-cn/` : `${base}/`;
+const companyRoot = `${localeRoot}company/`;
+const homeAnchors = locale === 'zh-TW'
+  ? { products:'#eh-products', capabilities:'#eh-difference', control:'#eh-how', leadership:`${companyRoot}#company-organization`, start:'#eh-start' }
+  : { products:'#products', capabilities:'#products', control:'#control', leadership:'#leadership', start:'#contact' };
+const links = page === 'company' ? [
+  { href:'#company-founder', label:copy('公司介紹','Company',locale) },
+  { href:'#company-products', label:copy('產品系統','Product systems',locale) },
+  { href:'#company-products', label:copy('技術能力','Capabilities',locale) },
+  { href:'#company-governance', label:copy('人類控制','Human Control',locale) },
+  { href:'#company-organization', label:copy('領導與治理','Leadership',locale) },
+  { href:'#company-start', label:copy('開始合作','Start a conversation',locale) }
+] : [
+  { href:companyRoot, label:copy('公司介紹','Company',locale) },
+  { href:homeAnchors.products, label:copy('產品系統','Product systems',locale) },
+  { href:homeAnchors.capabilities, label:copy('技術能力','Capabilities',locale) },
+  { href:homeAnchors.control, label:copy('人類控制','Human Control',locale) },
+  { href:homeAnchors.leadership, label:copy('領導與治理','Leadership',locale) },
+  { href:homeAnchors.start, label:copy('開始合作','Start a conversation',locale) }
+];
+const openLabel = copy('開啟 ELIAS NET 導覽','Open ELIAS NET navigation',locale);
+const closeLabel = copy('關閉 ELIAS NET 導覽','Close ELIAS NET navigation',locale);
+---
+<aside class="nav-mascot" data-navigation-mascot>
+  <nav id="mascot-quick-nav" class="nav-mascot-panel" aria-label={copy('ELIAS NET 快速導覽','ELIAS NET quick navigation',locale)} hidden data-mascot-panel>
+    <div class="nav-mascot-panel-head"><div><small>ELIAS NET</small><strong>{copy('想先看看哪裡？','Where would you like to go?',locale)}</strong></div><button type="button" aria-label={closeLabel} data-mascot-close>×</button></div>
+    <div class="nav-mascot-links">{links.map((item,index) => <a href={item.href}><span>{String(index + 1).padStart(2,'0')}</span>{item.label}<b aria-hidden="true">↗</b></a>)}</div>
+  </nav>
+  <button class="nav-mascot-trigger" type="button" aria-label={openLabel} aria-expanded="false" aria-controls="mascot-quick-nav" data-open-label={openLabel} data-close-label={closeLabel} data-mascot-toggle>
+    <img src={`${base}/images/elias-net-nav-hello-mascot.png`} alt="" width="640" height="640">
+  </button>
+</aside>
+
+<style>
+  .nav-mascot{position:fixed;z-index:125;right:max(22px,env(safe-area-inset-right));bottom:max(22px,env(safe-area-inset-bottom));pointer-events:none}.nav-mascot-trigger{position:relative;width:82px;height:82px;padding:0;border:0;background:transparent;cursor:pointer;pointer-events:auto;filter:drop-shadow(0 12px 20px rgba(0,0,0,.34));transition:transform .25s ease,opacity .25s ease}.nav-mascot-trigger::before{content:"";position:absolute;inset:15%;border-radius:50%;background:rgba(46,215,197,.14);box-shadow:0 0 24px rgba(46,215,197,.18);z-index:-1}.nav-mascot-trigger img{width:100%;height:100%;object-fit:contain;display:block;animation:mascot-float 5.8s ease-in-out infinite}.nav-mascot-trigger:hover,.nav-mascot-trigger:focus-visible{transform:translateY(-3px) scale(1.03)}.nav-mascot-panel{pointer-events:auto;position:absolute;right:0;bottom:calc(100% + 14px);width:min(330px,calc(100vw - 32px));padding:17px;background:#0d141b;color:#f2f5f4;border:1px solid rgba(46,215,197,.32);border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.48);transform-origin:bottom right;animation:mascot-panel-in .24s ease-out}.nav-mascot-panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding-bottom:12px;border-bottom:1px solid rgba(242,245,244,.12)}.nav-mascot-panel-head small{display:block;margin-bottom:4px;color:#d9a441;font:700 .62rem ui-monospace,monospace;letter-spacing:.14em}.nav-mascot-panel-head strong{font-size:.95rem}.nav-mascot-panel-head button{width:36px;height:36px;border:1px solid rgba(242,245,244,.18);border-radius:50%;background:transparent;color:#f2f5f4;font-size:1.25rem;cursor:pointer}.nav-mascot-links{display:grid;margin-top:7px}.nav-mascot-links a{min-height:44px;display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:8px;color:#d9e0df;text-decoration:none;border-bottom:1px solid rgba(242,245,244,.08);font-size:.86rem}.nav-mascot-links a:last-child{border-bottom:0}.nav-mascot-links a span{color:#2ed7c5;font:700 .62rem ui-monospace,monospace}.nav-mascot-links a b{color:#d9a441;font-weight:400}.nav-mascot-links a:hover,.nav-mascot-links a:focus-visible{color:#fff;background:rgba(46,215,197,.07)}:global(main section[id]){scroll-margin-top:calc(var(--header,80px) + 18px)}
+  @keyframes mascot-float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}@keyframes mascot-panel-in{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+  @media(max-width:600px){.nav-mascot{right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom))}.nav-mascot-trigger{width:58px;height:58px}.nav-mascot-panel{bottom:calc(100% + 10px);width:min(310px,calc(100vw - 28px));max-height:min(480px,70vh);overflow:auto}}
+  @media(prefers-reduced-motion:reduce){.nav-mascot-trigger,.nav-mascot-trigger img,.nav-mascot-panel{animation:none!important;transition:none!important}}
+</style>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" role="img" aria-labelledby="title desc">
+  <title id="title">Elias Net</title><desc id="desc">Elias Intelligence Core — an E and N monogram assembled from four precision modules.</desc>
+  <defs><linearGradient id="e" x1="22" y1="18" x2="68" y2="66" gradientUnits="userSpaceOnUse"><stop stop-color="#2ED7C5"/><stop offset=".52" stop-color="#F2F5F4"/><stop offset="1" stop-color="#D9A441"/></linearGradient><linearGradient id="m" x1="12" y1="9" x2="72" y2="70"><stop stop-color="#F2F5F4"/><stop offset=".55" stop-color="#85979A"/><stop offset="1" stop-color="#3B5057"/></linearGradient></defs>
+  <g transform="translate(4 4) scale(.4)">
+    <path d="M22 69V44l22-22h28l12 13-15 14H53L48 54v15Z" fill="url(#m)"/><path d="M111 22h25l22 22v28l-13 12-14-15V53l-5-5h-15Z" fill="#64777D"/><path d="M158 111v25l-22 22h-28l-12-13 15-14h16l5-5v-15Z" fill="url(#m)"/><path d="M69 158H44l-22-22v-28l13-12 14 15v16l5 5h15Z" fill="#86989B"/>
+    <path d="M61 43h58l18 18v58l-18 18H61l-18-18V61Z" fill="#08141A" stroke="#DDE7E4" stroke-width="2.2"/><path d="M67 53h46l14 14v46l-14 14H67l-14-14V67Z" fill="none" stroke="#32474E" stroke-width="1.5"/>
+    <path d="M62 63h34v11H75v10h17v11H75v11h22v11H62Z" fill="#2ED7C5"/><path d="M94 63h12l18 31V63h12v54h-12l-18-31v31H94V96l10-10-10-17Z" fill="url(#e)"/><path d="M94 84h12L94 96Z" fill="#08141A"/>
+    <path d="M32 75v25M38 106l13 13M72 148h24" fill="none" stroke="#2ED7C5" stroke-width="3"/><path d="M148 76V56l-13-13M108 32h16M108 148h18l12-12" fill="none" stroke="#D9A441" stroke-width="3"/>
+  </g>
+  <text x="88" y="38" fill="#F2F5F4" font-family="Inter,Arial,sans-serif" font-size="25" font-weight="760" letter-spacing="5">ELIAS NET</text>
+  <path d="M89 47h182" stroke="#506268" stroke-width=".7"/><text x="89" y="61" fill="#9DA8AB" font-family="Inter,Arial,sans-serif" font-size="7.5" font-weight="650" letter-spacing="2.2">INTELLIGENCE ALONGSIDE HUMANITY</text>
+</svg>

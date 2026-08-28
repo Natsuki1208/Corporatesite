@@ -1,5 +1,6 @@
 ---
 import type { Locale } from '../data/site';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 interface Props { locale: Locale; page?: 'home' | 'company' }
 const { locale, page = 'home' } = Astro.props;
 const en = locale === 'en';
@@ -23,11 +24,6 @@ const nav = page === 'company'
   ] : [
     [companyPath,'公司'],['#products','產品系統'],['#control','人類控制'],['#leadership','領導團隊'],['#contact','概念驗證']
   ];
-const languageOptions = [
-  { id: 'zh-TW' as Locale, label: '繁中', lang: 'zh-TW', href: `${base}/` },
-  { id: 'zh-CN' as Locale, label: '简中', lang: 'zh-CN', href: `${base}/zh-cn/` },
-  { id: 'en' as Locale, label: 'EN', lang: 'en', href: `${base}/en/` }
-].map((option) => ({ ...option, href: page === 'company' ? `${option.href}company/` : option.href }));
 const navLabel = en ? 'Primary navigation' : zhCN ? '主要导航' : '主要導覽';
 const menuLabel = en ? 'Menu' : zhCN ? '菜单' : '選單';
 const closeLabel = en ? 'Close menu' : zhCN ? '关闭菜单' : '關閉選單';
@@ -35,7 +31,7 @@ const brandLabel = en ? 'Elias Net home' : zhCN ? 'Elias Net 首页' : 'Elias Ne
 ---
 <header class="site-header" data-header data-page={page}>
   <a class="brand" href={page === 'company' ? companyPath : `${homePath}#hero`} aria-label={brandLabel}>
-    <img src={`${base}/images/elias-net-logo.svg`} alt="Elias Net" width="238" height="56">
+    <img src={`${base}/images/elias-net-logo-core.svg`} alt="Elias Net" width="252" height="56">
   </a>
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={menuLabel} data-open-label={menuLabel} data-close-label={closeLabel} data-menu-toggle>
     <span>{menuLabel}</span><i aria-hidden="true"></i>
@@ -43,9 +39,7 @@ const brandLabel = en ? 'Elias Net home' : zhCN ? 'Elias Net 首页' : 'Elias Ne
   <nav id="site-nav" class="site-nav" aria-label={navLabel} data-nav>
     {nav.map(([href,label]) => <a href={href} class:list={{ 'nav-current': page === 'company' && href === '#company-founder' }} aria-current={page === 'company' && href === '#company-founder' ? 'page' : undefined}>{label}</a>)}
   </nav>
-  <div class="language-switcher" aria-label={en ? 'Language' : zhCN ? '语言' : '語言'}>
-    {languageOptions.map((option) => <a class:list={['language-link', { active: option.id === locale }]} href={option.href} lang={option.lang} aria-current={option.id === locale ? 'page' : undefined} data-language-link>{option.label}</a>)}
-  </div>
+  <LanguageSwitcher locale={locale} page={page} />
   <div class="journey-progress" aria-hidden="true"><i data-journey-progress></i></div>
   <div class="journey-controls">
     <button type="button" data-section-prev aria-label={en ? 'Previous section' : zhCN ? '上一部分' : '上一個區段'}>←</button>

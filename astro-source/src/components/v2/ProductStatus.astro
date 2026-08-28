@@ -1,0 +1,11 @@
+---
+import type { ProductStatusValue, SiteLocale } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+interface Props { status: ProductStatusValue; locale: SiteLocale; note?: string }
+const { status, locale, note } = Astro.props;
+const labels: Record<ProductStatusValue, { zh:string; en:string }> = {
+  '概念':{zh:'概念',en:'Concept'}, '研究中':{zh:'研究中',en:'In research'}, '原型':{zh:'原型',en:'Prototype'},
+  '測試中':{zh:'測試中',en:'In testing'}, '可展示':{zh:'可展示',en:'Demo-ready'}, '可部署':{zh:'可部署',en:'Deployable'}
+};
+---
+<span class={`v2-status status-${status}`} title={note}>{locale === 'en' ? labels[status].en : locale === 'zh-CN' ? simplify(labels[status].zh) : labels[status].zh}</span>

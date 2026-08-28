@@ -1,0 +1,10 @@
+---
+import type { SiteLocale } from '../../data/products';
+interface Props { locale: SiteLocale; title?: string }
+const { locale, title = locale === 'en' ? 'Trustworthy by design' : '讓每一次協作都更安心' } = Astro.props;
+---
+<aside class="v2-safety" aria-labelledby="safety-notice-title">
+  <p class="v2-eyebrow">{locale === 'en' ? 'TRUSTED COLLABORATION' : '安心同行'}</p>
+  <h2 id="safety-notice-title">{title}</h2>
+  <slot />
+</aside>

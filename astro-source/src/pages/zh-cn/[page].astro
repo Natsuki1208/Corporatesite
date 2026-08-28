@@ -1,0 +1,6 @@
+---
+import NewSiteLayout from '../../layouts/NewSiteLayout.astro'; import InfoPage from '../../components/v2/InfoPage.astro';
+type PageName='technology'|'safety'|'research'|'about'|'contact';
+export function getStaticPaths(){const pageDefs={technology:{title:'技术方向｜Elias Net',description:'理解、协作、感知与行动的技术方向。'},safety:{title:'信任与选择｜Elias Net',description:'让人工智能安心陪伴，并让每个人保有理解、调整与选择的空间。'},research:{title:'研发进度｜Elias Net',description:'依可查核证据说明六项产品的概念与原型状态。'},about:{title:'关于我们｜Elias Net',description:'Elias Net 是一家研发人工智能与仿生人系统的科技公司。'},contact:{title:'合作与联络｜Elias Net',description:'从工作问题、研究题目或应用情境开始交流。'}};return Object.entries(pageDefs).map(([page,meta])=>({params:{page},props:{page,meta}}))} const {page:rawPage,meta}=Astro.props; const page=rawPage as PageName;
+---
+<NewSiteLayout locale="zh-CN" current={page} path={`${page}/`} title={meta.title} description={meta.description}><InfoPage locale="zh-CN" page={page}/></NewSiteLayout>

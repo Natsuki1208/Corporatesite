@@ -1,0 +1,203 @@
+---
+import '../styles/enterprise-home.css';
+import AmbientField from './AmbientField.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const entries = [
+  { href:'#eh-product-knowledge', tag:'AI PRODUCT 01', title:'企業知識助理', copy:'從核准文件中，快速找到附來源的答案。', ui:['輸入問題','標示段落','開啟來源'] },
+  { href:'#eh-product-service', tag:'AI PRODUCT 02', title:'智慧客服協作助理', copy:'讓 AI 準備回覆，讓我們處理真正需要判斷的問題。', ui:['客戶訊息','回覆草稿','案件更新'] },
+  { href:'#eh-product-operations', tag:'AI PRODUCT 03', title:'營運維運協作助理', copy:'從大量告警中，找出真正需要立即處理的事件。', ui:['告警進入','事件合併','工程師選擇'] },
+  { href:'#eh-product-workflow', tag:'AI PRODUCT 04', title:'智慧流程自動化助理', copy:'把跨系統重複工作，轉化成看得見進度的 AI 流程。', ui:['收到任務','同步更新','完成紀錄'] },
+  { href:'#eh-how', tag:'HOW IT WORKS', title:'AI 如何工作', copy:'看懂 AI 如何理解資訊、準備下一步並和我們一起完成。', ui:['理解需求','準備建議','一起完成'] },
+  { href:'#eh-difference', tag:'WHY ELIAS NET', title:'技術為什麼不同', copy:'來源、權限、確認與紀錄，都直接出現在工作畫面。', ui:['顯示來源','確認界線','留下紀錄'] },
+  { href:'#eh-adoption', tag:'START SMALL', title:'如何開始導入', copy:'從一個值得改善的問題開始，分階段驗證與整合。', ui:['看清問題','小型驗證','接入工作'] },
+  { href:'#eh-cases', tag:'WORK SCENES', title:'工作情境與案例', copy:'不靠虛構成效，也能看懂產品如何改善每天的工作。', ui:['原本問題','AI 幫忙','共同結果'] }
+];
+---
+<a class="eh-skip" href="#eh-main">跳到主要內容</a>
+<header class="eh-header">
+  <a class="eh-brand" href="#eh-hero" aria-label="Elias Net 首頁">
+    <span class="eh-brand-placeholder"><strong>ELIAS NET</strong><small>NEW LOGO PENDING</small></span>
+  </a>
+  <nav aria-label="主要導覽">
+    <a href="#eh-products">AI 產品</a><a href="#eh-how">如何工作</a><a href="#eh-difference">技術差異</a><a href="#eh-start">開始合作</a>
+  </nav>
+  <LanguageSwitcher locale="zh-TW" variant="enterprise" />
+  <a class="eh-header-cta" href="#eh-start">聊聊工作問題</a>
+</header>
+
+<main id="eh-main" class="eh-home">
+  <section id="eh-hero" class="eh-hero eh-hero-photo" aria-labelledby="eh-title" style={`--eh-hero-image:url("${base}/images/elias-net-home-hero.webp")`}>
+    <div class="eh-hero-field" aria-hidden="true">
+      {Array.from({ length:28 }, (_, index) => <i style={`--x:${4 + ((index * 17) % 93)}%;--y:${5 + ((index * 29) % 88)}%;--dx:${-34 + ((index * 11) % 74)}px;--dy:${-42 + ((index * 19) % 76)}px;--size:${1 + (index % 3)}px;--dur:${13 + (index % 9)}s;--delay:${-1 * ((index * 7) % 19)}s;--peak:${.18 + (index % 5) * .07};--lull:${.02 + (index % 3) * .02}`}></i>)}
+    </div>
+    <div class="eh-hero-pulse" aria-hidden="true">
+      {Array.from({ length:8 }, (_, index) => <i style={`--x:${8 + ((index * 23) % 84)}%;--y:${16 + ((index * 31) % 68)}%;--tx:${36 + ((index * 17) % 74)}px;--ty:${-28 + ((index * 13) % 58)}px;--dur:${5.6 + (index % 4) * .8}s;--delay:${-1 * ((index * 5) % 9)}s`}></i>)}
+    </div>
+    <div class="eh-shell eh-hero-grid">
+      <div class="eh-hero-copy">
+        <p class="eh-kicker">人工智慧與仿生人科技</p>
+        <h1 id="eh-title">人類想像未來，<span>我們讓智慧與之同行。</span></h1>
+        <p class="eh-lead">Elias Net 研發能理解環境、與人協作，並走進真實世界的人工智慧與仿生人系統。</p>
+        <div class="eh-promise"><strong>讓智慧與人類同行，</strong><strong>讓生活走向更好的未來。</strong></div>
+        <div class="eh-actions"><a class="eh-button primary" href="#eh-products">探索人工智慧</a><a class="eh-button" href="#eh-humanoid">認識仿生人計畫</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="eh-section eh-problems" aria-labelledby="eh-problems-title"><AmbientField tone="cyan" />
+    <div class="eh-shell"><header class="eh-section-head"><div><p class="eh-kicker">企業問題</p><h2 id="eh-problems-title">讓 AI 看見散落在工作裡的線索</h2></div><p>資訊、流程與責任常分散在不同工具裡。Elias Net 從每天真正發生的工作問題開始，找出 AI 可以幫忙、也適合與團隊一起完成的位置。</p></header>
+      <div class="eh-problem-grid"><article><b>需要答案時找不到文件</b><p>來源、版本與權限分散，查找與確認都耗時。</p></article><article><b>重複整理占用工作時間</b><p>摘要、轉錄、分類與追蹤每天反覆發生。</p></article><article><b>服務品質難以一致</b><p>回覆、轉派與交接常缺少完整脈絡。</p></article><article><b>跨系統工作容易中斷</b><p>資料靠人工搬運，進度與例外不容易追蹤。</p></article></div>
+    </div>
+  </section>
+
+  <section id="eh-products" class="eh-section eh-products" aria-labelledby="eh-products-title"><AmbientField tone="gold" />
+    <div class="eh-shell">
+      <header class="eh-section-head"><div><p class="eh-kicker">四項產品＋四個深入入口</p><h2 id="eh-products-title">八個入口，找到適合一起開始的方式</h2></div><p>每張卡片都有自己的工作場景，點擊後可以直接進入產品或說明內容。動畫只負責幫助理解，所有重點都能直接閱讀。</p></header>
+      <div class="eh-entry-grid">
+        {entries.map((entry, index) => <a class:list={['eh-entry-card', { inverse:index === 2 || index === 4 }]} href={entry.href} data-card-motion>
+          <div class="eh-entry-visual" aria-hidden="true"><div class="eh-mini-window"><small>{entry.tag}</small>{entry.ui.map((item, itemIndex) => <span class={`m${itemIndex + 1}`}>{item}</span>)}</div><i></i></div>
+          <p>{entry.tag}</p><h3>{entry.title}</h3><span>{entry.copy}</span><b>查看內容 ↗</b>
+        </a>)}
+      </div>
+
+      <div class="eh-product-stories">
+        <article id="eh-product-knowledge" class="eh-product-card" data-work-scene>
+          <figure class="eh-product-assets" aria-label="企業知識助理正式專案圖片">
+            <div class="eh-asset-placeholder"><strong>企業知識助理｜圖片 2</strong><span>正式資產待重新提供</span><small>收到的檔案為錯誤訊息，未以其他圖片替換。</small></div>
+            <img src={`${base}/images/product-enterprise-knowledge-02.webp`} alt="企業知識助理正式情境圖：使用者查看附來源與核准文件的回答" width="1672" height="941" loading="lazy" decoding="async">
+          </figure>
+          <div class="eh-scene" aria-label="員工提問，AI 搜尋核准文件並產生附來源答案"><div class="eh-scene-person" aria-hidden="true"></div><div class="eh-app-window"><div class="eh-app-bar"><strong>企業知識助理</strong><span>核准資料庫</span></div><div class="eh-app-body">
+            <div class="eh-scene-step s1"><small>我的問題</small><b>出差費用如何申請？</b></div><div class="eh-scene-step s2 search"><small>AI 正在搜尋</small><span>員工手冊 · 差旅辦法 · 費用規範</span></div><div class="eh-scene-step s3 source"><small>相關段落</small><p>住宿費依城市級距核銷，須附上 <mark>正式收據與行程證明</mark>。</p></div><div class="eh-scene-step s4 answer"><small>附來源的答案</small><p>完成申請表並附收據，由主管確認後送出。</p></div><div class="eh-scene-step s5 final"><span>差旅辦法 v3.2 · 第 4.1 節</span><button type="button">開啟原始文件</button></div>
+          </div></div></div><div class="eh-product-copy"><p>ENTERPRISE KNOWLEDGE AI</p><h3>企業知識助理</h3><strong>從核准文件中，快速找到附來源的答案。</strong><span>AI 搜尋、整理並標示段落；我們確認答案如何用在正式工作。</span><button type="button" data-replay>重新播放</button></div>
+        </article>
+
+        <article id="eh-product-service" class="eh-product-card reverse" data-work-scene>
+          <figure class="eh-product-assets" aria-label="智慧客服協作助理正式專案圖片">
+            <img src={`${base}/images/product-customer-service-01.webp`} alt="智慧客服協作助理正式情境圖一" width="1672" height="941" loading="lazy" decoding="async">
+            <img src={`${base}/images/product-customer-service-02.webp`} alt="智慧客服協作助理正式情境圖二：團隊檢視 AI 準備的回覆與風險提醒" width="1672" height="941" loading="lazy" decoding="async">
+          </figure>
+          <div class="eh-scene" aria-label="客戶訊息進入客服工作台，AI 準備草稿，客服修改後送出"><div class="eh-scene-person" aria-hidden="true"></div><div class="eh-app-window"><div class="eh-app-bar"><strong>客服工作台</strong><span>案件 CS-1842</span></div><div class="eh-app-body">
+            <div class="eh-scene-step s1 customer">我收到的商品尺寸不對，明天要送人，可以協助嗎？</div><div class="eh-scene-step s2 source"><small>AI 對話整理</small><p>換貨需求 · 時間緊急 · 訂單已核對</p></div><div class="eh-scene-step s3 answer"><small>回覆草稿</small><p>您好，我們已確認訂單，將為您安排優先換貨。</p></div><div class="eh-scene-step s4 edit"><small>客服修改</small><p>今天 18:00 前安排寄出</p><button type="button">送出</button></div><div class="eh-scene-step s5 final"><span>回覆已送出</span><strong>案件狀態：換貨處理中</strong></div>
+          </div></div></div><div class="eh-product-copy"><p>CUSTOMER SERVICE AI</p><h3>智慧客服協作助理</h3><strong>讓 AI 準備回覆，讓我們處理真正需要判斷的問題。</strong><span>AI 整理對話與草稿；客服修改重要內容後送出，案件狀態同步更新。</span><button type="button" data-replay>重新播放</button></div>
+        </article>
+
+        <article id="eh-product-operations" class="eh-product-card" data-work-scene>
+          <figure class="eh-product-assets" aria-label="營運維運協作助理正式專案圖片">
+            <img src={`${base}/images/product-operations-response-01.webp`} alt="營運維運協作助理正式情境圖一：工程師檢視事件分析與下一步建議" width="1672" height="941" loading="lazy" decoding="async">
+            <img src={`${base}/images/product-operations-response-02.webp`} alt="營運維運協作助理正式情境圖二" width="1672" height="941" loading="lazy" decoding="async">
+          </figure>
+          <div class="eh-scene" aria-label="多項系統告警進入控制台，AI 合併事件並整理處置建議"><div class="eh-scene-person" aria-hidden="true"></div><div class="eh-app-window"><div class="eh-app-bar"><strong>營運控制台</strong><span>即時事件</span></div><div class="eh-app-body compact">
+            <div class="eh-scene-step s1 alerts"><span>02:14 · API 回應時間升高</span><span>02:15 · 付款服務逾時</span></div><div class="eh-scene-step s2 source"><small>AI 已合併</small><p>7 則重複告警整理為 1 個事件</p></div><div class="eh-scene-step s3 timeline"><small>事件時間線</small><p>02:12 資料庫波動　→　02:15 付款服務受到影響</p></div><div class="eh-scene-step s4 answer"><small>影響與建議</small><p>影響結帳流程；建議先切換備援連線並觀察。</p></div><div class="eh-scene-step s5 choices"><button type="button">切換備援</button><button type="button">繼續觀察</button><button type="button">交由主管</button></div>
+          </div></div></div><div class="eh-product-copy"><p>OPERATIONS RESPONSE AI</p><h3>營運維運協作助理</h3><strong>從大量告警中，找出真正需要立即處理的事件。</strong><span>AI 合併重複事件、整理時間線與影響；工程師選擇下一步。</span><button type="button" data-replay>重新播放</button></div>
+        </article>
+
+        <article id="eh-product-workflow" class="eh-product-card reverse" data-work-scene>
+          <figure class="eh-product-assets" aria-label="智慧流程自動化助理正式專案圖片">
+            <img src={`${base}/images/product-workflow-automation-01.webp`} alt="智慧流程自動化助理正式情境圖一" width="1672" height="941" loading="lazy" decoding="async">
+            <img src={`${base}/images/product-workflow-automation-02.webp`} alt="智慧流程自動化助理正式情境圖二" width="1672" height="941" loading="lazy" decoding="async">
+          </figure>
+          <div class="eh-scene" aria-label="Email 產生工作，AI 擷取內容並同步更新任務、文件與企業系統"><div class="eh-scene-person" aria-hidden="true"></div><div class="eh-app-window"><div class="eh-app-bar"><strong>智慧流程工作台</strong><span>採購申請</span></div><div class="eh-app-body">
+            <div class="eh-scene-step s1 search"><small>新 Email</small><p>請新增 12 組軟體授權，下週一前完成。</p></div><div class="eh-scene-step s2 fields"><span>數量 <b>12 組</b></span><span>期限 <b>9 月 1 日</b></span></div><div class="eh-scene-step s3 source"><small>AI 準備工作</small><p>建立採購任務 · 更新申請文件 · 準備系統資料</p></div><div class="eh-scene-step s4 progress"><span>任務完成</span><span>文件完成</span><span>系統更新中</span></div><div class="eh-scene-step s5 final"><span>處理完成</span><strong>3 項更新皆已留下紀錄</strong></div>
+          </div></div></div><div class="eh-product-copy"><p>WORKFLOW AUTOMATION AI</p><h3>智慧流程自動化助理</h3><strong>把跨系統重複工作，轉化成看得見進度的 AI 流程。</strong><span>AI 擷取工作內容並同步準備更新；我們在同一畫面掌握進度與結果。</span><button type="button" data-replay>重新播放</button></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="eh-humanoid" class="eh-section eh-humanoid" aria-labelledby="eh-humanoid-title"><AmbientField tone="mint" />
+    <div class="eh-shell">
+      <header class="eh-section-head"><div><p class="eh-kicker">仿生人科技｜概念研發方向</p><h2 id="eh-humanoid-title">讓智慧走進人類難以抵達與日常需要協助的地方</h2></div><p>救援與居家仿生人圖片尚未提供，因此目前只保留清楚的資產位置，不使用生成圖或相似作品替代。</p></header>
+      <div class="eh-humanoid-placeholders">
+        <article><span>CONCEPT ASSET PLACEHOLDER</span><h3>Elias Rescue／救援仿生人</h3><p>正式產品圖尚未提供。定位為人道救援、醫療支援、搜救與危險環境作業，不展示或暗示武器能力。</p></article>
+        <article><span>CONCEPT ASSET PLACEHOLDER</span><h3>Elias Home／居家仿生人</h3><p>正式產品圖尚未提供。定位為日常生活、提醒與安全協助，不取代家人、照護者、醫師或緊急服務。</p></article>
+      </div>
+      <p class="eh-concept-note">本頁為 Elias Net 概念產品與技術願景展示。實際功能、規格、上市時間與可用範圍，將依研發與測試結果調整。</p>
+    </div>
+  </section>
+
+  <section id="eh-how" class="eh-section eh-how" aria-labelledby="eh-how-title"><AmbientField tone="violet" /><div class="eh-shell"><header class="eh-section-head"><div><p class="eh-kicker">AI 如何工作</p><h2 id="eh-how-title">AI 先理解，我們再一起完成</h2></div><p>AI 整理資訊、檢查來源並準備下一步；重要選擇由我們掌握，完成後也留下清楚紀錄。</p></header><div class="eh-work-steps"><article><small>01</small><b>工作進入</b><p>文件、訊息、告警或表單進入熟悉的工作畫面。</p></article><article><small>02</small><b>AI 準備</b><p>整理脈絡、找出線索並提出下一步建議。</p></article><article><small>03</small><b>我們確認</b><p>查看來源、影響與例外，掌握重要選擇。</p></article><article><small>04</small><b>一起完成</b><p>工作完成，結果與處理紀錄保留下來。</p></article></div></div></section>
+
+  <section id="eh-difference" class="eh-section eh-difference" aria-labelledby="eh-difference-title"><AmbientField tone="mint" /><div class="eh-shell"><header class="eh-section-head"><div><p class="eh-kicker">技術差異</p><h2 id="eh-difference-title">懂得幫忙，也懂得界線</h2></div><p>Elias Net 讓 AI 在企業核准的資料與權限範圍內工作。來源、風險、確認與紀錄都直接出現在工作畫面。</p></header><div class="eh-difference-list"><article><span>01</span><b>答案看得到來源</b><p>顯示核准文件、段落與版本，方便我們直接回到原文。</p></article><article><span>02</span><b>能準備真正的工作</b><p>不只回答問題，也能整理任務、資料與待執行內容。</p></article><article><span>03</span><b>重要選擇由我們掌握</b><p>敏感或具有實際影響的動作，確認後才會繼續。</p></article><article><span>04</span><b>接得上既有工具</b><p>透過 API 與權限控制連接現有系統，不必全部更換。</p></article><article><span>05</span><b>每一步都留有紀錄</b><p>保存使用資料、AI 建議、確認方式與最後結果。</p></article></div></div></section>
+
+  <section id="eh-adoption" class="eh-section eh-adoption" aria-labelledby="eh-adoption-title"><AmbientField tone="gold" /><div class="eh-shell"><header class="eh-section-head"><div><p class="eh-kicker">導入方式</p><h2 id="eh-adoption-title">先從一個工作問題開始</h2></div><p>我們先一起看清問題、資料與工作方式，再決定 AI 如何加入。每一階段都有能確認的成果。</p></header><div class="eh-adoption-grid"><article><small>01</small><b>看清工作問題</b><p>確認角色、流程、耗時與成功條件。</p></article><article><small>02</small><b>建立小型驗證</b><p>用有限資料測試核心體驗與風險。</p></article><article><small>03</small><b>接入真實工作</b><p>分階段連接資料、權限與既有工具。</p></article><article><small>04</small><b>持續維運改善</b><p>追蹤品質、例外、版本與使用回饋。</p></article></div></div></section>
+
+  <section id="eh-cases" class="eh-section eh-cases" aria-labelledby="eh-cases-title"><AmbientField tone="cyan" /><div class="eh-shell"><header class="eh-section-head"><div><p class="eh-kicker">概念情境</p><h2 id="eh-cases-title">先看工作如何變得更順</h2></div><p>以下為概念示意，用來說明產品運作方式，不代表既有客戶或已部署成果。</p></header><div class="eh-case-grid"><article><small>企業規章查詢</small><h3>從多份文件找到可追溯答案</h3><p>AI 找出相關段落並附上版本；我們確認正式用途。</p></article><article><small>敏感客服案件</small><h3>把完整對話變成清楚下一步</h3><p>AI 準備草稿；退款與個資內容由客服確認。</p></article><article><small>夜間營運告警</small><h3>讓工程師先看懂影響再處理</h3><p>AI 合併事件與建議；所有高影響操作由工程師選擇。</p></article></div></div></section>
+
+  <section id="eh-start" class="eh-section eh-start"><AmbientField tone="lime" /><div class="eh-shell"><p class="eh-kicker">下一步</p><h2>一起找出 AI 可以幫忙的第一步</h2><p>帶著目前最耗時、最容易出錯或最難交接的工作來談。Elias Net 會陪你看清適合的產品、資料範圍與驗證方式。</p><div class="eh-actions"><a class="eh-button primary" href="mailto:natsuki12089212@gmail.com?subject=Elias%20Net%20工作問題討論">聊聊你的工作問題</a><a class="eh-button" href="#eh-products">查看八個入口</a></div></div></section>
+
+  <footer class="eh-footer"><div class="eh-shell"><span class="eh-brand-placeholder"><strong>ELIAS NET</strong><small>NEW LOGO PENDING</small></span><p>人類想像未來，我們讓智慧與之同行。</p><small>© 2026 Elias Net. 本站產品畫面與情境為概念示意。</small></div></footer>
+</main>
+
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const productScenes = [...document.querySelectorAll<HTMLElement>('[data-work-scene]')];
+  const playProduct = (scene: HTMLElement) => {
+    if (reduced.matches) return;
+    scene.classList.remove('is-playing');
+    void scene.offsetWidth;
+    scene.classList.add('is-playing');
+  };
+
+  if (reduced.matches) productScenes.forEach((scene) => scene.classList.add('is-complete'));
+  else {
+    const sceneObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      playProduct(entry.target as HTMLElement);
+      sceneObserver.unobserve(entry.target);
+    }), { threshold: .3 });
+    productScenes.forEach((scene) => sceneObserver.observe(scene));
+  }
+  document.querySelectorAll<HTMLButtonElement>('[data-replay]').forEach((button) => button.addEventListener('click', () => {
+    const scene = button.closest<HTMLElement>('[data-work-scene]');
+    if (scene) playProduct(scene);
+  }));
+
+  const cardObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('is-visible');
+    cardObserver.unobserve(entry.target);
+  }), { threshold: .25 });
+  document.querySelectorAll<HTMLElement>('[data-card-motion]').forEach((card) => {
+    if (reduced.matches) card.classList.add('is-visible'); else cardObserver.observe(card);
+  });
+
+  const hero = document.querySelector<HTMLElement>('[data-hero-motion]');
+  const playHero = () => {
+    if (!hero || reduced.matches) return;
+    hero.getAnimations({ subtree:true }).forEach((animation) => animation.cancel());
+    const inputs = [...hero.querySelectorAll<HTMLElement>('[data-hero-input]')];
+    const modules = [...hero.querySelectorAll<SVGPathElement>('[data-hero-module]')];
+    const paths = [...hero.querySelectorAll<SVGPathElement>('[data-hero-path]')];
+    const bridge = hero.querySelector<SVGPathElement>('[data-hero-bridge]');
+    const ring = hero.querySelector<HTMLElement>('[data-hero-ring]');
+    const wordmark = hero.querySelector<HTMLElement>('[data-hero-wordmark]');
+    const logoStage = hero.querySelector<HTMLElement>('.eh-logo-stage');
+    const productInterface = hero.querySelector<HTMLElement>('[data-hero-interface]');
+    const finalMessage = hero.querySelector<HTMLElement>('[data-hero-final]');
+    inputs.forEach((input, index) => input.animate([
+      { opacity:0, transform:'translateX(-14px)' },
+      { opacity:1, transform:'translateX(0)', offset:.55 },
+      { opacity:.22, transform:'translateX(52px)' }
+    ], { duration:2600, delay:index * 130, fill:'forwards', easing:'cubic-bezier(.22,.61,.36,1)' }));
+    modules.forEach((module, index) => module.animate([
+      { opacity:0, transform:`translate(${index % 2 ? 24 : -24}px,${index < 2 ? -18 : 18}px) scale(.88)` },
+      { opacity:1, transform:'translate(0,0) scale(1)' }
+    ], { duration:900, delay:1500 + index * 180, fill:'forwards', easing:'cubic-bezier(.22,.61,.36,1)' }));
+    paths.forEach((path, index) => path.animate(
+      [{ strokeDashoffset:1 }, { strokeDashoffset:0 }],
+      { duration:1450, delay:2550 + index * 180, fill:'forwards', easing:'cubic-bezier(.22,.61,.36,1)' }
+    ));
+    wordmark?.animate([{ opacity:0, transform:'translateY(8px)' }, { opacity:1, transform:'translateY(0)' }], { duration:700, delay:3650, fill:'forwards', easing:'ease-out' });
+    ring?.animate([{ opacity:0, transform:'scale(.76)' }, { opacity:.72, transform:'scale(1)', offset:.35 }, { opacity:.16, transform:'scale(1.2)' }], { duration:1400, delay:3900, fill:'forwards', easing:'cubic-bezier(.22,.61,.36,1)' });
+    bridge?.animate([{ strokeDashoffset:1 }, { strokeDashoffset:0 }], { duration:800, delay:4400, fill:'forwards', easing:'ease-in-out' });
+    const compactHero = matchMedia('(max-width:560px)').matches;
+    logoStage?.animate([{ transform:'translateX(0) scale(1)' }, { transform:`translateX(${compactHero ? 0 : -68}px) scale(${compactHero ? .72 : .76})` }], { duration:950, delay:4550, fill:'forwards', easing:'cubic-bezier(.22,.61,.36,1)' });
+    productInterface?.animate([{ opacity:0, transform:'translateX(32px)' }, { opacity:1, transform:'translateX(0)' }], { duration:950, delay:5050, fill:'forwards', easing:'cubic-bezier(.22,.61,.36,1)' });
+    finalMessage?.animate([{ opacity:0, transform:'translateY(10px)' }, { opacity:1, transform:'translateY(0)' }], { duration:850, delay:6900, fill:'forwards', easing:'ease-out' });
+  };
+  if (hero) {
+    if (reduced.matches) hero.classList.add('is-static'); else playHero();
+    hero.querySelector<HTMLButtonElement>('[data-hero-replay]')?.addEventListener('click', playHero);
+  }
+</script>

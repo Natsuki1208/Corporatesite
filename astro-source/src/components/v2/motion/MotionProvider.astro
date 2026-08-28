@@ -1,0 +1,62 @@
+---
+interface Props { class?: string }
+const { class: className = '' } = Astro.props;
+---
+<div class:list={['v2-motion-provider', className]} data-motion-provider>
+  <canvas class="v2-field-canvas" data-field-canvas aria-hidden="true"></canvas>
+  <slot />
+</div>
+<script>
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLElement>('[data-motion-provider]').forEach((provider) => {
+    if (provider.dataset.ready) return;
+    provider.dataset.ready = 'true';
+    const canvas = provider.querySelector<HTMLCanvasElement>('[data-field-canvas]');
+    const hero = provider.querySelector<HTMLElement>('.v2-immersive-hero');
+    const scenes = [...provider.querySelectorAll<HTMLElement>('[data-motion-scene]')];
+    const reveals = [...provider.querySelectorAll<HTMLElement>('[data-motion-reveal]')];
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      const node = entry.target as HTMLElement;
+      node.toggleAttribute('data-active', entry.isIntersecting);
+      if (entry.isIntersecting) node.setAttribute('data-seen', '');
+    }), { rootMargin: '-18% 0px -18%', threshold: .08 });
+    scenes.forEach((scene) => observer.observe(scene));
+    const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) { (entry.target as HTMLElement).setAttribute('data-visible',''); revealObserver.unobserve(entry.target); }
+    }), { threshold: .12 });
+    reveals.forEach((node) => revealObserver.observe(node));
+    let scrollQueued = false;
+    const syncScroll = () => { scrollQueued = false; scenes.forEach((scene) => {
+      const rect = scene.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / (innerHeight + rect.height)));
+      scene.style.setProperty('--scene-progress', progress.toFixed(3));
+    }); };
+    const queueScroll = () => { if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(syncScroll); } };
+    addEventListener('scroll', queueScroll, { passive: true }); syncScroll();
+    if (!canvas || reduced.matches) { provider.setAttribute('data-static-motion',''); return; }
+    const context = canvas.getContext('2d', { alpha: true }); if (!context) return;
+    let width = 0, height = 0, dpr = 1, raf = 0, last = 0, visible = !document.hidden, heroVisible = true;
+    type Particle = {x:number;y:number;vx:number;vy:number;r:number;a:number;depth:number;kind:'field'|'pulse';life:number;phase:number};
+    let particles: Particle[] = [];
+    const reset = () => {
+      width = hero?.clientWidth || provider.clientWidth; height = hero?.clientHeight || innerHeight; dpr = Math.min(devicePixelRatio || 1, innerWidth < 641 ? 1.25 : 1.5);
+      canvas.width = Math.max(1, Math.floor(width*dpr)); canvas.height = Math.max(1, Math.floor(height*dpr)); canvas.style.width=`${width}px`; canvas.style.height=`${height}px`; context.setTransform(dpr,0,0,dpr,0,0);
+      const count = innerWidth < 641 ? 28 : 88;
+      particles = Array.from({length:count},(_,index)=>{ const pulse=index%9===0; return {x:Math.random()*width,y:Math.random()*height,vx:pulse?.16+Math.random()*.16:(Math.random()-.42)*.07,vy:pulse?-.04-Math.random()*.1:(Math.random()-.58)*.075,r:.65+Math.random()*1.35,a:.1+Math.random()*.23,depth:index%3,kind:pulse?'pulse':'field',life:Math.random(),phase:Math.random()*Math.PI*2}; });
+    };
+    const draw = (time:number) => {
+      raf = requestAnimationFrame(draw); if (!visible || !heroVisible || time-last < 33) return; last=time;
+      context.clearRect(0,0,width,height);
+      const density=.62+.24*Math.sin(time*.00042)+.14*Math.sin(time*.0011+1.7);
+      particles.forEach((p) => { p.x+=p.vx*(p.depth+1);p.y+=p.vy*(p.depth+1);p.life+=.002;if(p.x>width+26)p.x=-26;if(p.y<-26)p.y=height+26;
+        const pulse=p.kind==='pulse'; const breathe=.52+.48*Math.sin(p.life*9+p.phase); const alpha=Math.max(.025,p.a*breathe*density);
+        if(pulse){ const tail=32+p.depth*13; const gradient=context.createLinearGradient(p.x-tail,p.y+tail*.25,p.x,p.y); gradient.addColorStop(0,'rgba(46,215,197,0)');gradient.addColorStop(1,p.depth%2?'rgba(46,215,197,.7)':'rgba(217,164,65,.72)');context.beginPath();context.strokeStyle=gradient;context.lineWidth=.7+p.depth*.35;context.moveTo(p.x-tail,p.y+tail*.25);context.lineTo(p.x,p.y);context.stroke(); }
+        context.beginPath(); context.fillStyle=pulse?(p.depth%2?`rgba(46,215,197,${Math.min(.92,alpha*3.2)})`:`rgba(217,164,65,${Math.min(.9,alpha*3.1)})`):`rgba(${p.depth===2?'224,245,244':p.depth===1?'198,231,232':'242,245,244'},${alpha})`; context.shadowBlur=pulse?14:p.depth+2; context.shadowColor=pulse?(p.depth%2?'rgba(46,215,197,.62)':'rgba(217,164,65,.58)'):'rgba(210,240,239,.18)'; context.arc(p.x,p.y,pulse?p.r*1.35:p.r,0,Math.PI*2);context.fill();context.shadowBlur=0;
+      });
+    };
+    const heroObserver = hero && 'IntersectionObserver' in window ? new IntersectionObserver(([entry]) => { heroVisible=Boolean(entry?.isIntersecting); },{threshold:.01}) : null;
+    if (hero && heroObserver) heroObserver.observe(hero);
+    const onVisibility=()=>{visible=!document.hidden}; document.addEventListener('visibilitychange',onVisibility); addEventListener('resize',reset,{passive:true}); reset(); raf=requestAnimationFrame(draw);
+    reduced.addEventListener('change',()=>{ if(reduced.matches){cancelAnimationFrame(raf);canvas.hidden=true;provider.setAttribute('data-static-motion','')}});
+  });
+</script>

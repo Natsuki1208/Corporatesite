@@ -1,0 +1,7 @@
+---
+interface Props { product?: string; purpose: string; status?: string; alt: string }
+const { product = 'Elias Net', purpose, status = '待人工確認', alt } = Astro.props;
+---
+<div class="v2-picture-placeholder" role="img" aria-label={alt}>
+  <span>{product}</span><strong>{purpose}</strong><small>{status}</small>
+</div>

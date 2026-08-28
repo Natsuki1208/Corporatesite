@@ -1,0 +1,39 @@
+---
+import type { SiteLocale } from '../../data/products';
+import LanguageMenu from './LanguageMenu.astro';
+import AnimatedBrandMark from './AnimatedBrandMark.astro';
+import { simplify } from '../../data/simplified-map';
+interface Props { locale: SiteLocale; current?: string; path?: string }
+const { locale, current = '', path = '' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const lang = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
+const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
+const labelsBase = locale === 'en' ? [
+  ['#products','Products'],['#solutions','Solutions'],['#organization','Product System'],['#governance','People + AI'],['founder/','Vision'],['company/','About Elias Net']
+] : [
+  ['#products','產品'],['#solutions','解決方案'],['#organization','產品架構'],['#governance','人與 AI 同行'],['founder/','創辦理念'],['company/','關於 Elias Net']
+];
+const labels = locale === 'zh-CN' ? labelsBase.map(([href,label])=>[href,simplify(label)]) : labelsBase;
+const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
+---
+<header class="v2-header" data-v2-header>
+  <a class="v2-brand" href={root} aria-label={t('Elias Net 首頁','Elias Net home')}><AnimatedBrandMark id="header" /></a>
+  <button class="v2-menu" type="button" aria-expanded="false" aria-controls="v2-nav" data-v2-menu>{t('選單','Menu')}<span aria-hidden="true"></span></button>
+  <nav id="v2-nav" class="v2-nav" aria-label={t('主要導覽','Primary navigation')} data-v2-nav>
+    {labels.map(([href,label]) => <a href={href.startsWith('#')?`${root}${href}`:`${root}${href}`} aria-current={current === href.replace('/','') ? 'page' : undefined}>{label}</a>)}
+    <a class="v2-nav-cta" href={`${root}contact/`}>{t('合作與聯絡','Contact')}</a>
+    <LanguageMenu locale={locale} path={path}/>
+  </nav>
+</header>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-v2-header]').forEach((header) => {
+    const button = header.querySelector<HTMLButtonElement>('[data-v2-menu]');
+    const nav = header.querySelector<HTMLElement>('[data-v2-nav]');
+    if (!button || !nav || button.dataset.ready) return;
+    button.dataset.ready = 'true';
+    const close = () => { button.setAttribute('aria-expanded','false'); nav.removeAttribute('data-open'); };
+    button.addEventListener('click', () => { const open = button.getAttribute('aria-expanded') !== 'true'; button.setAttribute('aria-expanded',String(open)); open ? nav.setAttribute('data-open','') : nav.removeAttribute('data-open'); });
+    nav.addEventListener('click', (event) => { if ((event.target as Element).closest('a')) close(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') { close(); button.focus(); } });
+  });
+</script>

@@ -12,6 +12,8 @@ import '../styles/leadership.css';
 import '../styles/company.css';
 import '../styles/responsible-systems.css';
 import type { Locale } from '../data/site';
+import RouteAmbient from '../components/RouteAmbient.astro';
+import NavigationMascot from '../components/NavigationMascot.astro';
 interface Props { locale: Locale; page?: 'home' | 'company' }
 const { locale, page = 'home' } = Astro.props;
 const en = locale === 'en';
@@ -25,7 +27,7 @@ const currentPath = page === 'company' ? companyPath : homePath;
 const canonical = new URL(currentPath, rootUrl).href;
 const title = page === 'company'
   ? en ? 'Company | Elias Net' : zhCN ? '公司｜Elias Net' : '公司｜Elias Net'
-  : en ? 'ELIAS NET | Autonomous Systems. Human Command.' : zhCN ? 'ELIAS NET｜自主系统，由人类指挥' : 'ELIAS NET｜自主系統，由人類指揮';
+  : en ? 'ELIAS NET | Autonomous Systems. Human Command.' : zhCN ? 'ELIAS NET｜自主系统，由人类指挥' : 'Elias Net｜讓 AI 成為一起工作的好夥伴';
 const description = page === 'company'
   ? en
     ? 'Meet ELIAS NET, an autonomous-systems company with three products, visible human command and accountable leadership.'
@@ -36,7 +38,7 @@ const description = page === 'company'
     ? 'ELIAS NET connects AI, infrastructure and unarmed rescue robotics through visible human command, emergency stop and traceable evidence.'
     : zhCN
       ? 'ELIAS NET 连接 AI、基础设施与非武装救援机器人，并保留人类指挥、紧急停止与完整稽核。'
-      : 'ELIAS NET 連結 AI、基礎設施與非武裝救援機器人，並保留人類指揮、緊急停止與完整稽核。';
+      : 'Elias Net 是企業 AI 轉型與智慧工作流程解決方案公司，協助企業讓 AI 理解資訊、熟悉工作並自然融入團隊。';
 const hrefFor = (targetLocale: Locale) => {
   const targetPath = targetLocale === 'en' ? 'en/' : targetLocale === 'zh-CN' ? 'zh-cn/' : '';
   return new URL(page === 'company' ? `${targetPath}company/` : targetPath, rootUrl).href;
@@ -62,7 +64,9 @@ const hrefFor = (targetLocale: Locale) => {
     <script is:inline>document.documentElement.classList.add('js')</script>
   </head>
   <body data-locale={locale} data-page={page}>
+    {!(locale === 'zh-TW' && page === 'home') && <RouteAmbient locale={locale} page={page} />}
     <slot />
+    <NavigationMascot locale={locale} page={page} />
     <script>import '../scripts/main.ts';</script>
   </body>
 </html>

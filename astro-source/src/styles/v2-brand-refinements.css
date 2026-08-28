@@ -1,0 +1,345 @@
+/* Product pages keep the positive companionship message below the product itself. */
+.v2-product-evidence-copy h2 {
+  max-width: 16ch;
+  font-size: clamp(2rem, 3.35vw, 3.7rem);
+  line-height: 1.06;
+  letter-spacing: -.042em;
+}
+
+@media (max-width: 640px) {
+  .v2-product-evidence-copy h2 { font-size: clamp(1.9rem, 8.5vw, 2.75rem); }
+}
+
+/* Compact brand lockups and footer hierarchy for the second-generation mark. */
+.v2-product-observe > .v2-prototype-stage > .v2-live-product-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #071116;
+}
+
+.v2-product-observe > .v2-prototype-stage:has(.v2-live-product-video)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(4, 14, 19, .03) 55%, rgba(4, 14, 19, .36));
+}
+
+.v2-product-observe > .v2-prototype-stage:has(.v2-live-product-video) .v2-product-motion-scene {
+  z-index: 2;
+}
+
+@media (max-width: 700px) {
+  .v2-product-observe > .v2-prototype-stage:has(.v2-live-product-video) {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-live-product-video { animation: none !important; }
+}
+
+/* Human + AI principles: a real-world relationship, not another process diagram. */
+.v2-cocreation-scene {
+  min-height: clamp(760px, 70vw, 940px);
+  padding: 0 !important;
+  display: grid;
+  align-items: stretch;
+  background: #071116;
+}
+
+.v2-cocreation-backdrop,
+.v2-cocreation-shade {
+  position: absolute;
+  inset: 0;
+}
+
+.v2-cocreation-backdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.v2-cocreation-shade {
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(4, 13, 19, .84) 0%, rgba(4, 13, 19, .56) 31%, rgba(4, 13, 19, .08) 58%, rgba(4, 13, 19, .24) 100%),
+    linear-gradient(0deg, rgba(4, 13, 19, .96) 0%, rgba(4, 13, 19, .18) 56%, rgba(4, 13, 19, .2) 100%);
+}
+
+.v2-cocreation-inner {
+  position: relative;
+  z-index: 2;
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: clamp(72px, 8vw, 110px) clamp(42px, 5vw, 70px);
+}
+
+.v2-cocreation-copy {
+  max-width: 690px;
+}
+
+.v2-cocreation-copy h2 {
+  max-width: 18ch;
+  margin: .2em 0 .35em;
+  font-size: clamp(2.35rem, 3.9vw, 4.15rem) !important;
+  line-height: 1.04;
+}
+
+.v2-cocreation-copy > p:last-child {
+  max-width: 58ch;
+  color: #e0e8e7 !important;
+  font-size: clamp(.96rem, 1.2vw, 1.08rem);
+}
+
+.v2-cocreation-principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: auto;
+}
+
+.v2-cocreation-principles article {
+  min-height: 170px;
+  padding: 24px 26px;
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(17, 39, 45, .72), rgba(17, 30, 36, .43));
+  box-shadow: inset 0 1px rgba(255, 255, 255, .11), 0 18px 44px rgba(2, 9, 13, .18);
+  backdrop-filter: blur(9px);
+}
+
+.v2-cocreation-principles article:nth-child(2) { transform: translateY(10px); }
+.v2-cocreation-principles span { color: #d9a441; font-size: .68rem; font-weight: 900; letter-spacing: .16em; }
+.v2-cocreation-principles h3 { margin: 20px 0 8px; font-size: clamp(1.05rem, 1.55vw, 1.35rem); }
+.v2-cocreation-principles p { margin: 0; color: #c8d4d3 !important; font-size: .82rem; line-height: 1.65; }
+.v2-cocreation-link { align-self: flex-start; color: #f2f5f4; font-size: .78rem; font-weight: 850; text-decoration: none; }
+
+@media (max-width: 760px) {
+  .v2-cocreation-scene { min-height: 0; padding-top: 320px !important; }
+  .v2-cocreation-backdrop { height: 360px; }
+  .v2-cocreation-backdrop img { object-position: 46% center; }
+  .v2-cocreation-shade {
+    background: linear-gradient(0deg, #071116 0%, rgba(7, 17, 22, .12) 72%, rgba(7, 17, 22, .08) 100%);
+  }
+  .v2-cocreation-inner { padding-block: 44px 58px; }
+  .v2-cocreation-copy h2 { font-size: clamp(2.1rem, 10vw, 3.3rem) !important; }
+  .v2-cocreation-principles { grid-template-columns: 1fr; margin-top: 36px; }
+  .v2-cocreation-principles article,
+  .v2-cocreation-principles article + article { min-height: 0; padding: 22px; }
+  .v2-cocreation-principles article:nth-child(2) { transform: none; }
+  .v2-cocreation-principles h3 { margin-top: 12px; }
+  .v2-cocreation-link { margin-top: 28px; }
+}
+
+.v2-header > .v2-brand {
+  width: 172px;
+  max-width: 20vw;
+  flex: 0 0 auto;
+}
+
+.v2-footer {
+  padding: 58px 0 20px;
+}
+
+.v2-footer-grid.is-expanded {
+  grid-template-columns: .82fr .64fr .7fr .9fr 1.25fr;
+  gap: clamp(24px, 3.2vw, 48px);
+}
+
+.v2-footer-lockup {
+  gap: 10px;
+}
+
+.v2-footer-lockup > .v2-brand-mark,
+.v2-footer-lockup .v2-brand-mark {
+  width: 44px !important;
+  max-width: 44px;
+  flex: 0 0 44px;
+}
+
+.v2-footer-lockup strong {
+  font-size: .8rem;
+  letter-spacing: .21em;
+}
+
+.v2-footer-brand > p {
+  max-width: 28ch;
+  margin: 22px 0 11px;
+  font-size: .8rem;
+  line-height: 1.7;
+}
+
+.v2-footer-brand > small {
+  font-size: .5rem;
+}
+
+.v2-footer-column,
+.v2-footer-statement {
+  gap: 8px;
+}
+
+.v2-footer-column h2,
+.v2-footer-statement h2 {
+  margin-bottom: 13px;
+  font-size: .51rem;
+}
+
+.v2-footer-column a {
+  font-size: .7rem;
+}
+
+.v2-footer-column small {
+  font-size: .54rem;
+}
+
+.v2-footer-statement p {
+  font-size: .68rem;
+  line-height: 1.65;
+}
+
+.v2-footer-bottom {
+  margin-top: 46px;
+  font-size: .53rem;
+}
+
+@media (max-width: 1120px) {
+  .v2-header > .v2-brand { max-width: 180px; }
+  .v2-footer-grid.is-expanded { grid-template-columns: 1fr repeat(3, .76fr); }
+}
+
+@media (max-width: 760px) {
+  .v2-header > .v2-brand { width: 146px; max-width: 48vw; }
+  .v2-footer { padding-top: 46px; }
+  .v2-footer-grid.is-expanded { grid-template-columns: 1fr 1fr; gap: 34px 22px; }
+  .v2-footer-column a { font-size: .68rem; }
+}
+
+@media (max-width: 420px) {
+  .v2-footer-grid.is-expanded { grid-template-columns: 1fr; }
+  .v2-footer-lockup > .v2-brand-mark,
+  .v2-footer-lockup .v2-brand-mark { width: 40px !important; max-width: 40px; flex-basis: 40px; }
+}
+
+/* Core people profiles: names and responsibilities stay ahead of decorative biography. */
+.v2-people-grid {
+  gap: 20px;
+  align-items: stretch;
+}
+
+.v2-people-grid .v2-person-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border: 1px solid #d6dfdd;
+  background: #fff;
+  box-shadow: 0 18px 46px rgba(16, 33, 41, .07);
+}
+
+.v2-people-grid .v2-person-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.v2-people-grid .v2-person-card > div {
+  display: flex;
+  flex-direction: column;
+  padding: 23px;
+}
+
+.v2-person-kicker {
+  margin: 0 0 8px;
+  color: #159f95 !important;
+  font-size: .55rem;
+  font-weight: 850;
+  letter-spacing: .16em;
+}
+
+.v2-people-grid .v2-person-card h3 {
+  margin: 0;
+  color: #102129;
+  font-size: 1.35rem;
+  line-height: 1.12;
+  letter-spacing: -.02em;
+}
+
+.v2-person-title {
+  min-height: 2.6em;
+  margin: 8px 0 14px;
+  color: #a8731d !important;
+  font-size: .68rem;
+  font-weight: 850;
+  letter-spacing: .07em;
+  line-height: 1.45;
+}
+
+.v2-person-bio {
+  margin: 0;
+  color: #59676c !important;
+  font-size: .82rem;
+  line-height: 1.7;
+}
+
+.v2-person-background {
+  margin-top: auto;
+  padding-top: 19px;
+}
+
+.v2-person-background strong {
+  display: block;
+  padding-top: 14px;
+  border-top: 1px solid #d6dfdd;
+  color: #718186;
+  font-size: .55rem;
+  letter-spacing: .14em;
+}
+
+.v2-person-background ul {
+  display: grid;
+  gap: 7px;
+  margin: 11px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.v2-person-background li {
+  position: relative;
+  padding-left: 13px;
+  color: #263a41;
+  font-size: .73rem;
+  line-height: 1.45;
+}
+
+.v2-person-background li::before {
+  content: '';
+  position: absolute;
+  top: .52em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background: #2ed7c5;
+}
+
+@media (max-width: 900px) {
+  .v2-people-grid { grid-template-columns: 1fr; }
+  .v2-people-grid .v2-person-card { grid-template-columns: minmax(230px, .8fr) 1.2fr; grid-template-rows: 1fr; }
+  .v2-people-grid .v2-person-card img { height: 100%; aspect-ratio: auto; }
+}
+
+@media (max-width: 640px) {
+  .v2-people-grid .v2-person-card { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .v2-people-grid .v2-person-card img { height: auto; aspect-ratio: 4 / 3; }
+  .v2-person-title { min-height: 0; }
+}

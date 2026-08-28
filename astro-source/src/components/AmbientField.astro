@@ -1,0 +1,7 @@
+---
+interface Props { tone: 'cyan' | 'gold' | 'violet' | 'lime' | 'mint' }
+const { tone } = Astro.props;
+---
+<div class={`eh-section-particles tone-${tone}`} aria-hidden="true">
+  {Array.from({ length:18 }, (_, index) => <i style={`--x:${3 + ((index * 23) % 95)}%;--y:${7 + ((index * 31) % 86)}%;--dx:${-48 + ((index * 17) % 105)}px;--dy:${-54 + ((index * 13) % 106)}px;--size:${1 + (index % 3)}px;--dur:${12 + (index % 9)}s;--delay:${-1 * ((index * 7) % 18)}s;--peak:${.2 + (index % 5) * .08};--lull:${.02 + (index % 3) * .02}`}></i>)}
+</div>

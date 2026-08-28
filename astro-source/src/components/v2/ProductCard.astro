@@ -1,0 +1,18 @@
+---
+import type { ProductDefinition, SiteLocale } from '../../data/products';
+import { l } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+import ProductStatus from './ProductStatus.astro';
+import ResponsivePicture from './ResponsivePicture.astro';
+interface Props { product: ProductDefinition; locale: SiteLocale; basePath: string }
+const { product, locale, basePath } = Astro.props;
+const assetBase = import.meta.env.BASE_URL.replace(/\/$/,'');
+---
+<article class="v2-product-card v2-reveal">
+  <ResponsivePicture desktop={`${assetBase}/${product.media.hero.desktop}`} mobile={`${assetBase}/${product.media.hero.mobile}`} alt={l(product.media.hero.alt,locale)} />
+  <div class="v2-card-top"><p>{product.family === 'digital' ? 'DIGITAL INTELLIGENCE' : 'EMBODIED INTELLIGENCE'}</p><ProductStatus status={product.status} locale={locale} note={l(product.statusNote,locale)} /></div>
+  <h3>{product.name}</h3><span class="v2-product-cn">{locale === 'zh-CN' ? simplify(product.chineseName) : product.chineseName}</span>
+  <h4>{l(product.headline,locale)}</h4><p>{l(product.intro,locale)}</p>
+  <dl><div><dt>{locale === 'en' ? 'Who it helps' : '適合誰'}</dt><dd>{product.audience.slice(0,2).map((item)=>l(item,locale)).join(' · ')}</dd></div><div><dt>{locale === 'en' ? 'What stays with people' : '人保留什麼'}</dt><dd>{l(product.collaboration,locale)}</dd></div></dl>
+  <a href={`${basePath}products/${product.slug}/`}>{locale === 'en' ? 'View product concept' : locale === 'zh-CN' ? '查看产品概念' : '查看產品概念'} <span aria-hidden="true">↗</span></a>
+</article>

@@ -7,17 +7,20 @@ import CollaborationEntry from './CollaborationEntry.astro';
 import ProductPortfolio from './ProductPortfolio.astro';
 import TrustFramework from './TrustFramework.astro';
 import Footer from './Footer.astro';
+import EnterpriseHome from './EnterpriseHome.astro';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const en = locale === 'en';
 ---
-<a class="skip-link" href="#main">{en ? 'Skip to main content' : locale === 'zh-CN' ? '跳转到主要内容' : '跳到主要內容'}</a>
-<Header locale={locale} />
-<main id="main">
-  <Hero locale={locale} />
-  <ProductPortfolio locale={locale} />
-  <TrustFramework locale={locale} />
-  <Leadership locale={locale} />
-  <CollaborationEntry locale={locale} />
-</main>
-<Footer locale={locale} />
+{locale === 'zh-TW' ? <EnterpriseHome /> : <>
+  <a class="skip-link" href="#main">{en ? 'Skip to main content' : '跳转到主要内容'}</a>
+  <Header locale={locale} />
+  <main id="main">
+    <Hero locale={locale} />
+    <ProductPortfolio locale={locale} />
+    <TrustFramework locale={locale} />
+    <Leadership locale={locale} />
+    <CollaborationEntry locale={locale} />
+  </main>
+  <Footer locale={locale} />
+</>}

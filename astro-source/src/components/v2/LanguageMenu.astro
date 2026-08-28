@@ -1,0 +1,11 @@
+---
+import type { SiteLocale } from '../../data/products';
+interface Props { locale: SiteLocale; path?: string }
+const { locale,path='' }=Astro.props; const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const items=[{locale:'zh-TW',label:'繁中',href:`${base}/${path}`},{locale:'zh-CN',label:'简中',href:`${base}/zh-cn/${path}`},{locale:'en',label:'USA',href:`${base}/en/${path}`}];
+const current=items.find((item)=>item.locale===locale) ?? items[0];
+---
+<div class="v2-lang" data-v2-lang><button type="button" aria-expanded="false" aria-controls="v2-lang-menu" aria-label={locale==='en'?'Choose language':locale==='zh-CN'?'选择语言':'選擇語言'} data-v2-lang-button><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.4 3 14.6 0 18M12 3c-3 3.4-3 14.6 0 18"/></svg><span>{current.label}</span><i aria-hidden="true"></i></button><div id="v2-lang-menu" role="menu" data-v2-lang-menu>{items.map((item)=><a role="menuitem" lang={item.locale==='en'?'en':item.locale==='zh-CN'?'zh-Hans':'zh-Hant'} href={item.href} aria-current={item.locale===locale?'page':undefined}>{item.label}</a>)}</div></div>
+<script>
+document.querySelectorAll<HTMLElement>('[data-v2-lang]').forEach((root)=>{const b=root.querySelector<HTMLButtonElement>('[data-v2-lang-button]');const m=root.querySelector<HTMLElement>('[data-v2-lang-menu]');if(!b||!m||b.dataset.ready)return;b.dataset.ready='1';const close=()=>{b.setAttribute('aria-expanded','false');m.removeAttribute('data-open')};b.addEventListener('click',()=>{const open=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',String(open));open?m.setAttribute('data-open',''):m.removeAttribute('data-open')});document.addEventListener('click',(e)=>{if(!root.contains(e.target as Node))close()});document.addEventListener('keydown',(e)=>{if(e.key==='Escape'){close();b.focus()}})});
+</script>

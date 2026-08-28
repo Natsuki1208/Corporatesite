@@ -1,0 +1,5 @@
+---
+interface Props { desktop: string; mobile: string; alt: string; eager?: boolean; class?: string }
+const { desktop,mobile,alt,eager=false,class:className='' }=Astro.props;
+---
+<picture class:list={['v2-motion-picture',className]}><source media="(max-width:640px)" srcset={mobile}/><img src={desktop} alt={alt} loading={eager?'eager':'lazy'} decoding="async"/></picture>

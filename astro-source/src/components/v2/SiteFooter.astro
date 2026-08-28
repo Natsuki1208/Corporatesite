@@ -1,0 +1,49 @@
+---
+import type { SiteLocale } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+import AnimatedBrandMark from './AnimatedBrandMark.astro';
+interface Props { locale: SiteLocale }
+const { locale } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const lang = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
+const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
+const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
+const talentRoles = locale === 'en'
+  ? ['AI Engineer','AI Training Engineer','Operations Engineer','Robotics & Controls Engineer','Product & UX Design']
+  : locale === 'zh-CN'
+    ? ['AI 工程师','AI 训练工程师','运维工程师','机器人与控制工程师','产品与 UX 设计']
+    : ['AI 工程師','AI 訓練工程師','維運工程師','機器人與控制工程師','產品與 UX 設計'];
+---
+<footer class="v2-footer">
+  <div class="v2-shell v2-footer-grid is-expanded">
+    <section class="v2-footer-brand" aria-label="Elias Net">
+      <div class="v2-footer-lockup"><AnimatedBrandMark variant="icon" id="footer"/><strong>ELIAS NET</strong></div>
+      <p>{t('人類想像未來，我們讓智慧與之同行。','Humanity imagines the future. We bring intelligence alongside it.')}</p>
+      <small>THE FUTURE OF YESTERDAY, TODAY.</small>
+    </section>
+    <nav class="v2-footer-column" aria-label={t('產品導覽','Product navigation')}>
+      <h2>PRODUCTS</h2>
+      <a href={`${root}digital-intelligence/`}>{t('數位智慧','Digital Intelligence')}</a>
+      <a href={`${root}embodied-intelligence/`}>{t('實體智慧','Embodied Intelligence')}</a>
+      <a href={`${root}founder/`}>{t('創辦人理念','Founder Vision')}</a>
+    </nav>
+    <nav class="v2-footer-column" aria-label={t('公司導覽','Company navigation')}>
+      <h2>COMPANY</h2>
+      <a href={`${root}company/`}>{t('關於 Elias Net','About Elias Net')}</a>
+      <a href={`${root}technology/`}>{t('技術方向','Technology')}</a>
+      <a href={`${root}safety/`}>{t('信任與選擇','Trust & Choice')}</a>
+      <a href={`${root}research/`}>{t('研發進度','Research')}</a>
+    </nav>
+    <nav class="v2-footer-column is-talent" aria-label={t('人才招募','Careers')}>
+      <h2>TALENT / {t('人才招募','CAREERS')}</h2>
+      {talentRoles.map((role) => <a href={`${root}contact/?topic=talent`} aria-label={t(`交流 ${role} 職涯與合作機會`,`Explore ${role} opportunities`)}>{role}</a>)}
+      <small>{t('職務與合作形式依團隊規劃確認。','Roles and engagement models follow current team plans.')}</small>
+    </nav>
+    <section class="v2-footer-statement">
+      <h2>ELIAS NET</h2>
+      <p>{t('我們研發能理解資訊、協調任務並走進真實環境的人工智慧與仿生人系統。產品狀態依實際研究與驗證進度說明。','We develop AI and embodied systems that understand information, coordinate tasks and operate in real environments. Product status reflects actual research and validation progress.')}</p>
+      <p>{t('概念與原型不代表已量產、部署或可立即提供。','Concepts and prototypes do not imply production, deployment or immediate availability.')}</p>
+    </section>
+  </div>
+  <div class="v2-shell v2-footer-bottom"><small>© 2026 Elias Net</small><span>INTELLIGENCE ALONGSIDE HUMANITY</span></div>
+</footer>

@@ -1,0 +1,31 @@
+---
+import { copy, type Locale } from '../data/site';
+interface Props { locale: Locale; page?: 'home' | 'company'; variant?: 'default' | 'enterprise' }
+const { locale, page = 'home', variant = 'default' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const languageNames: Record<Locale, string> = { 'zh-TW':'繁體中文', 'zh-CN':'简体中文', en:'English' };
+const options: Array<{ id:Locale; lang:string; label:string; root:string }> = [
+  { id:'zh-TW', lang:'zh-TW', label:'繁體中文', root:`${base}/` },
+  { id:'zh-CN', lang:'zh-CN', label:'简体中文', root:`${base}/zh-cn/` },
+  { id:'en', lang:'en', label:'English', root:`${base}/en/` }
+];
+const label = copy('選擇網站語言', 'Choose site language', locale);
+---
+<div class:list={['locale-picker', `locale-picker-${variant}`]} data-language-switcher>
+  <button class="locale-trigger" type="button" aria-expanded="false" aria-controls={`locale-menu-${variant}`} aria-label={label} data-language-toggle>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.4 2.5 3.6 5.5 3.6 9S14.4 18.5 12 21M12 3C9.6 5.5 8.4 8.5 8.4 12s1.2 6.5 3.6 9"></path></svg>
+    <span>{languageNames[locale]}</span><i aria-hidden="true"></i>
+  </button>
+  <div id={`locale-menu-${variant}`} class="locale-menu" hidden data-language-menu>
+    {options.map((option) => {
+      const href = page === 'company' ? `${option.root}company/` : option.root;
+      return <a href={href} lang={option.lang} aria-current={option.id === locale ? 'page' : undefined} data-language-link>{option.label}<span aria-hidden="true">{option.id === locale ? '●' : ''}</span></a>;
+    })}
+  </div>
+</div>
+
+<style>
+  .locale-picker{position:relative;color:#f2f5f4}.locale-trigger{min-height:44px;display:flex;align-items:center;gap:9px;padding:0 10px;border:0;background:transparent;color:inherit;cursor:pointer;font-weight:700;white-space:nowrap}.locale-trigger svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.6}.locale-trigger i{width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s ease}.locale-trigger[aria-expanded="true"] i{transform:rotate(225deg) translate(-2px,-2px)}.locale-menu{position:absolute;z-index:140;right:0;top:calc(100% + 9px);width:max-content;min-width:166px;padding:7px;background:#0d141b;border:1px solid rgba(242,245,244,.18);box-shadow:0 18px 45px rgba(0,0,0,.35)}.locale-menu a{min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:0 12px;color:#dce3e2;text-decoration:none;font-size:.84rem}.locale-menu a:hover,.locale-menu a:focus-visible{background:rgba(46,215,197,.1);color:#f2f5f4}.locale-menu a[aria-current="page"]{color:#d9a441}.locale-menu span{font-size:.55rem}.locale-picker-enterprise{color:#172426}.locale-picker-enterprise .locale-trigger{font-size:.82rem}.locale-picker-enterprise .locale-menu{top:calc(100% + 16px)}
+  @media(max-width:600px){.locale-trigger span{display:none}.locale-trigger{padding-inline:8px}.locale-menu{right:-8px}}
+  @media(prefers-reduced-motion:reduce){.locale-trigger i{transition:none}}
+</style>

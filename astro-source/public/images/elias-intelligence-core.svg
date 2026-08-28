@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="title desc">
+  <title id="title">Elias Intelligence Core</title><desc id="desc">E 與 N 結合的幾何核心，外圍配置四個產品模組。</desc>
+  <defs><linearGradient id="core-gradient" x1="70" y1="65" x2="133" y2="135" gradientUnits="userSpaceOnUse"><stop stop-color="#2ED7C5"/><stop offset="1" stop-color="#D9A441"/></linearGradient></defs>
+  <g fill="none" stroke-linejoin="round">
+    <path d="M72 61H38V34h43l11 11-11 16Z" stroke="#2ED7C5" stroke-width="9"/>
+    <path d="M128 61h34V34h-43l-11 11 11 16Z" stroke="#D9A441" stroke-width="9"/>
+    <path d="M72 139H38v27h43l11-11-11-16Z" stroke="#D9A441" stroke-width="9"/>
+    <path d="M128 139h34v27h-43l-11-11 11-16Z" stroke="#2ED7C5" stroke-width="9"/>
+    <path d="M70 65v70h36M70 100h31" stroke="#F2F5F4" stroke-width="11"/>
+    <path d="M111 135V65l22 70V65" stroke="url(#core-gradient)" stroke-width="11"/>
+  </g>
+</svg>

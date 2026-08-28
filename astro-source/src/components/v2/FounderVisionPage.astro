@@ -1,0 +1,91 @@
+---
+import type { SiteLocale } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+import AnimatedBrandMark from './AnimatedBrandMark.astro';
+import CTA from './CTA.astro';
+interface Props { locale: SiteLocale }
+const { locale } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const prefix = locale === 'en' ? `${base}/en/` : locale === 'zh-CN' ? `${base}/zh-cn/` : `${base}/`;
+const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? simplify(zh) : zh;
+const tracks = [
+  { locale:'zh-TW', srclang:'zh-Hant', label:'繁體中文', src:`${base}/captions/elias-net-founder-zh-TW.vtt` },
+  { locale:'zh-CN', srclang:'zh-Hans', label:'简体中文', src:`${base}/captions/elias-net-founder-zh-CN.vtt` },
+  { locale:'en', srclang:'en', label:'English', src:`${base}/captions/elias-net-founder-en.vtt` }
+];
+const visionSteps = [
+  { code:'01', title:t('不是取代，而是看見更多。','Not replacement—greater clarity.'), body:t('科技的價值，是協助我們理解環境、辨認問題，抵達過去難以抵達的地方。','Technology should help us understand our environment, recognize problems and reach places that were previously out of reach.') },
+  { code:'02', title:t('AI 準備，人類決定。','AI prepares. People decide.'), body:t('AI 可以整理資訊、協調任務與提出下一步；目的、界線與授權仍由人掌握。','AI can organize information, coordinate tasks and prepare next steps; people retain purpose, boundaries and authorization.') },
+  { code:'03', title:t('每一次行動，都有清楚界線。','Every action has a clear boundary.'), body:t('越接近真實世界，停止、接管、責任與紀錄就必須越清楚。','The closer intelligence gets to the real world, the clearer stop, override, accountability and records must become.') },
+  { code:'04', title:t('一起走向值得信任的未來。','Move toward a future worthy of trust.'), body:t('我們打造的不只是更智慧的科技，而是人與智慧系統能共同前進的工作方式。','We are building more than intelligent technology—we are building a way for people and intelligent systems to move forward together.') }
+];
+---
+<article class="founder-vision-page" data-founder-vision>
+  <section class="founder-vision-hero" aria-labelledby="founder-vision-title">
+    <div class="v2-shell founder-vision-heading v2-reveal">
+      <p class="v2-eyebrow">FOUNDER'S VISION / {t('創辦人理念','FOUNDER MESSAGE')}</p>
+      <h1 id="founder-vision-title">{t('人工智能不取代人們，而是一起走向未來。','Artificial intelligence does not replace people. We move toward the future together.')}</h1>
+      <p>{t('Elias Net 從一個簡單的信念出發：人工智能協助我們看清資訊、回應風險並走進真實世界；未來科技，始終掌握在人類手中。','Elias Net began with a simple belief: artificial intelligence helps us understand information, respond to risk and enter the real world, while the future of technology remains in human hands.')}</p>
+    </div>
+
+    <div class="v2-shell founder-vision-stage">
+      <div class="founder-video-panel v2-reveal">
+        <div class="founder-video-meta"><span>ELIAS NET / 2026</span><strong>{t('創辦人理念','FOUNDER MESSAGE')}</strong></div>
+        <video data-founder-video controls playsinline preload="metadata" aria-label={t('Elias Net 創辦人理念影片','Elias Net founder vision video')}>
+          <source src={`${base}/media/elias-net-founder-message-1080p.mp4`} type="video/mp4" />
+          {tracks.map((track) => <track kind="captions" src={track.src} srclang={track.srclang} label={track.label} default={track.locale === locale} />)}
+          {t('你的瀏覽器無法播放此影片。','Your browser cannot play this video.')}
+        </video>
+        <p class="founder-caption-note">{t('可在播放器的字幕選單切換繁體中文、簡體中文與英文。','Use the player caption menu to switch between Traditional Chinese, Simplified Chinese and English.')}</p>
+      </div>
+
+      <aside class="founder-logo-stage v2-reveal" data-founder-logo-stage data-vision-step="0" aria-labelledby="founder-logo-title">
+        <div class="founder-logo-field" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="founder-logo-core"><AnimatedBrandMark variant="icon" id="founder-vision" /></div>
+        <div class="founder-logo-copy" aria-live="polite">
+          <p id="founder-logo-title">ELIAS INTELLIGENCE CORE</p>
+          {visionSteps.map((step,index) => <div class="founder-logo-message" data-vision-message={index} data-active={index === 0 ? '' : undefined}><span>{step.code}</span><strong>{step.title}</strong></div>)}
+        </div>
+        <ol class="founder-logo-principles" aria-label={t('創辦理念的四個段落','Four parts of the founder vision')}>
+          {visionSteps.map((step,index) => <li data-vision-label={index} data-active={index === 0 ? '' : undefined}><span>{step.code}</span>{step.title}</li>)}
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <section class="founder-vision-principles v2-section" aria-labelledby="founder-principles-title">
+    <div class="v2-shell">
+      <header class="v2-section-head v2-reveal"><p class="v2-eyebrow">IDEA INTO PRACTICE / {t('理念如何落地','FROM VISION TO PRACTICE')}</p><h2 id="founder-principles-title">{t('把信任，設計進每一項產品。','Design trust into every product.')}</h2></header>
+      <div class="founder-principle-grid">{visionSteps.map((step) => <article class="v2-reveal"><span>{step.code}</span><h3>{step.title}</h3><p>{step.body}</p></article>)}</div>
+    </div>
+  </section>
+
+  <section class="founder-vision-closing v2-section v2-dark"><div class="v2-shell founder-closing-grid"><blockquote class="v2-reveal">“{t('未來科技掌握在人類手中。','The future of technology remains in human hands.')}”</blockquote><div class="v2-reveal"><p>{t('這項原則連結 Elias Net 的企業 AI、居家協助與非武裝救援研究。','This principle connects Elias Net’s enterprise AI, home assistance and unarmed rescue research.')}</p><div class="v2-actions"><CTA href={`${prefix}company/`} label={t('了解 Elias Net','About Elias Net')} locale={locale}/><CTA href={`${prefix}contact/`} label={t('討論合作可能','Discuss collaboration')} locale={locale} secondary/></div></div></div></section>
+</article>
+
+<style>
+  .founder-vision-page{background:#f4f7f5}.founder-vision-hero{padding:clamp(66px,7vw,104px) 0 clamp(72px,8vw,118px);overflow:hidden;background:radial-gradient(circle at 82% 28%,rgba(46,215,197,.12),transparent 28%),linear-gradient(145deg,#071016 0%,#0b171e 58%,#10242a 100%);color:#f2f5f4}.founder-vision-heading{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:26px 64px;align-items:end;margin-bottom:42px}.founder-vision-heading .v2-eyebrow{grid-column:1/-1;color:#d9a441!important}.founder-vision-heading h1{max-width:17ch;margin:0;font-size:clamp(2.55rem,4.7vw,5.15rem);line-height:1;letter-spacing:-.05em}.founder-vision-heading>p:last-child{max-width:54ch;margin:0;color:#bac9c8;font-size:.92rem}.founder-vision-stage{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(330px,.62fr);gap:18px;align-items:stretch}.founder-video-panel{overflow:hidden;border:1px solid rgba(255,255,255,.16);background:#020506;box-shadow:0 28px 72px rgba(0,0,0,.28)}.founder-video-meta{display:flex;justify-content:space-between;gap:20px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.12);font-size:.58rem;letter-spacing:.13em;color:#9eb1b2}.founder-video-meta strong{color:#f2f5f4}.founder-video-panel video{display:block;width:100%;aspect-ratio:16/9;background:#000;object-fit:contain}.founder-caption-note{margin:0;padding:10px 16px;color:#9eb1b2;font-size:.66rem}.founder-logo-stage{position:relative;isolation:isolate;min-height:100%;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:28px;border:1px solid rgba(255,255,255,.14);background:radial-gradient(circle at 50% 34%,rgba(46,215,197,.13),transparent 34%),rgba(255,255,255,.025);transition:background 1s ease}.founder-logo-stage:before{content:"";position:absolute;z-index:-1;inset:-30%;opacity:.5;background:conic-gradient(from 20deg,transparent,#2ed7c5 10%,transparent 20%,transparent 58%,#d9a441 68%,transparent 78%);filter:blur(46px);animation:founder-field 14s linear infinite}.founder-logo-field{position:absolute;inset:0;pointer-events:none}.founder-logo-field i{position:absolute;left:50%;top:37%;width:58%;aspect-ratio:1;border:1px solid rgba(46,215,197,.18);border-radius:50%;transform:translate(-50%,-50%) scale(.6);opacity:0}.founder-logo-field i:nth-child(2){border-color:rgba(217,164,65,.25)}.founder-logo-field i:nth-child(3){border-style:dashed}.founder-logo-field i:nth-child(4){border-color:rgba(139,108,255,.23)}.founder-logo-stage[data-vision-step="0"] .founder-logo-field i:nth-child(1),.founder-logo-stage[data-vision-step="1"] .founder-logo-field i:nth-child(2),.founder-logo-stage[data-vision-step="2"] .founder-logo-field i:nth-child(3),.founder-logo-stage[data-vision-step="3"] .founder-logo-field i:nth-child(4){animation:founder-ring 2.8s ease-out infinite}.founder-logo-core{position:relative;width:min(230px,68%);margin:0 auto 20px;filter:drop-shadow(0 22px 34px rgba(0,0,0,.32));transition:transform .9s cubic-bezier(.2,.75,.2,1),filter .9s ease}.founder-logo-stage[data-vision-step="1"] .founder-logo-core{transform:scale(1.045);filter:drop-shadow(0 0 30px rgba(46,215,197,.25))}.founder-logo-stage[data-vision-step="2"] .founder-logo-core{transform:scale(.96);filter:drop-shadow(0 0 28px rgba(217,164,65,.28))}.founder-logo-stage[data-vision-step="3"] .founder-logo-core{transform:scale(1.06);filter:drop-shadow(0 0 34px rgba(139,108,255,.25))}.founder-logo-copy{position:relative;min-height:76px;text-align:center}.founder-logo-copy>p{margin:0 0 10px;color:#8fa5a7;font-size:.54rem;letter-spacing:.16em}.founder-logo-message{position:absolute;left:0;right:0;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;opacity:0;transform:translateY(8px);transition:.55s ease;text-align:left}.founder-logo-message[data-active]{opacity:1;transform:none}.founder-logo-message span{color:#d9a441;font-size:.58rem;font-weight:900}.founder-logo-message strong{font-size:.88rem;line-height:1.3}.founder-logo-principles{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:18px 0 0;padding:0;list-style:none}.founder-logo-principles li{padding:8px;border-top:1px solid rgba(255,255,255,.13);color:#718789;font-size:.56rem;line-height:1.35;transition:.45s ease}.founder-logo-principles li[data-active]{border-color:#2ed7c5;color:#f2f5f4;background:rgba(46,215,197,.06)}.founder-logo-principles span{display:block;margin-bottom:3px;color:#d9a441;font-weight:900}.founder-vision-principles{background:#f4f7f5}.founder-principle-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #bdc9c7;border-left:1px solid #bdc9c7}.founder-principle-grid article{min-height:275px;padding:24px;border-right:1px solid #bdc9c7;border-bottom:1px solid #bdc9c7;background:#fff}.founder-principle-grid article>span{color:#b48222;font-size:.62rem;font-weight:900}.founder-principle-grid h3{margin:42px 0 14px;font-size:clamp(1.15rem,1.65vw,1.55rem);line-height:1.15}.founder-principle-grid p{color:#5d6d72;font-size:.88rem}.founder-closing-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(38px,7vw,92px);align-items:end}.founder-closing-grid blockquote{max-width:18ch;margin:0;font-size:clamp(2rem,3.7vw,4.2rem);line-height:1.04;letter-spacing:-.045em}.founder-closing-grid>div>p{max-width:45ch;font-size:.9rem}.founder-vision-closing .v2-button{background:#f2f5f4;color:#102129!important;border-color:#f2f5f4}.founder-vision-closing .v2-button.is-secondary{background:transparent;color:#fff!important;border-color:#fff}@keyframes founder-field{to{transform:rotate(1turn)}}@keyframes founder-ring{0%{opacity:0;transform:translate(-50%,-50%) scale(.58)}28%{opacity:.8}100%{opacity:0;transform:translate(-50%,-50%) scale(1.18)}}@media(max-width:980px){.founder-vision-heading,.founder-vision-stage,.founder-closing-grid{grid-template-columns:1fr}.founder-vision-heading h1{max-width:17ch}.founder-logo-stage{min-height:500px}.founder-principle-grid{grid-template-columns:1fr 1fr}}@media(max-width:640px){.founder-vision-hero{padding-top:52px}.founder-vision-heading{margin-bottom:30px}.founder-vision-heading h1{font-size:clamp(2.15rem,9.7vw,3.1rem)}.founder-video-meta{font-size:.52rem}.founder-caption-note{font-size:.61rem}.founder-logo-stage{min-height:440px;padding:21px}.founder-logo-core{width:min(205px,72%)}.founder-principle-grid{grid-template-columns:1fr}.founder-principle-grid article{min-height:215px}.founder-principle-grid h3{margin-top:28px}.founder-closing-grid blockquote{font-size:clamp(2rem,9.5vw,3rem)}}@media(prefers-reduced-motion:reduce){.founder-logo-stage:before,.founder-logo-field i{animation:none!important}.founder-logo-stage:before{display:none}.founder-logo-core{transform:none!important;filter:none!important}.founder-logo-message,.founder-logo-principles li{transition:none}}
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-founder-vision]').forEach((root) => {
+    const video = root.querySelector<HTMLVideoElement>('[data-founder-video]');
+    const stage = root.querySelector<HTMLElement>('[data-founder-logo-stage]');
+    if (!video || !stage || video.dataset.visionReady) return;
+    video.dataset.visionReady = 'true';
+    let active = -1;
+    const update = () => {
+      const time = video.currentTime;
+      const next = time < 12.5 ? 0 : time < 24.9 ? 1 : time < 31.7 ? 2 : 3;
+      if (next === active) return;
+      active = next;
+      stage.dataset.visionStep = String(next);
+      stage.querySelectorAll<HTMLElement>('[data-vision-message],[data-vision-label]').forEach((item) => {
+        const index = Number(item.dataset.visionMessage ?? item.dataset.visionLabel);
+        if (index === next) item.setAttribute('data-active',''); else item.removeAttribute('data-active');
+      });
+    };
+    ['loadedmetadata','timeupdate','seeked','ended'].forEach((event) => video.addEventListener(event,update));
+    update();
+  });
+</script>

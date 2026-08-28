@@ -1,0 +1,56 @@
+---
+import type { ProductDefinition, SiteLocale } from '../../../data/products';
+import { simplify } from '../../../data/simplified-map';
+interface Props { product: ProductDefinition; locale: SiteLocale }
+const { product, locale } = Astro.props;
+const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? simplify(zh) : zh;
+const slug = product.slug;
+const isEmbodied = slug === 'elias-home' || slug === 'elias-rescue';
+---
+<div class:list={['v2-product-motion-scene',`is-${slug}`,isEmbodied&&'is-photo-only']} data-product-motion-stage data-product={slug} data-motion-state="idle" aria-label={t(`${product.name} 產品協作動畫`,`${product.name} product collaboration animation`)}>
+  {isEmbodied ? <>
+    <span class="v2-sr-only" data-motion-status>{t('真人情境影片準備播放','Live-action scenario ready')}</span>
+    <span class="v2-sr-only" data-motion-step="0">{t('看見使用者與現場情境','User and real-world context')}</span>
+    <span class="v2-sr-only" data-motion-step="1">{t('仿生人開始協助','The humanoid begins assisting')}</span>
+    <span class="v2-sr-only" data-motion-step="2">{t('任務持續進行','The task continues')}</span>
+    <span class="v2-sr-only" data-motion-step="3">{slug === 'elias-home' ? t('家庭協作情境持續進行','The family collaboration continues') : t('救援人員持續指揮現場任務','Responders remain in command of the field mission')}</span>
+    <button class="v2-photo-replay" type="button" data-motion-replay aria-label={t('從頭重新播放產品情境影片','Replay the product scenario video from the beginning')}>{t('重新播放影片','Replay video')}</button>
+  </> : <header class="v2-motion-scene-header"><span>{product.name}</span><small data-motion-status>{t('準備播放','Ready')}</small></header>}
+
+  {slug === 'elias-knowledge' && <div class="v2-scene-canvas scene-knowledge">
+    <div class="scene-search" data-motion-step="0"><small>{t('同事提問','TEAM QUESTION')}</small><strong>{t('遠距設備補助有哪些規定？','What are the remote-work equipment rules?')}</strong></div>
+    <div class="scene-doc-list">
+      <article data-motion-step="1"><b>{t('混合工作政策','Hybrid Work Policy')}</b><span>{t('核准版本 · 人資','Approved · People Ops')}</span></article>
+      <article data-motion-step="2"><b>{t('費用報支辦法','Expense Guide')}</b><span>{t('核准版本 · 財務','Approved · Finance')}</span></article>
+    </div>
+    <div class="scene-answer" data-motion-step="3"><small>{t('AI 整理的答案','AI-PREPARED ANSWER')}</small><p>{t('每週最多三天；設備補助需符合核准品項。','Up to three days weekly; equipment must be on the approved list.')}</p><mark>{t('查看來源段落與版本','Open cited passage and version')}</mark></div>
+    <button type="button" data-motion-step="4">{t('由我們確認原始文件','We verify the original document')}</button>
+    <div class="scene-done" data-motion-step="5">✓ {t('附來源的答案已準備完成','Sourced answer ready')}</div>
+  </div>}
+
+  {slug === 'elias-care' && <div class="v2-scene-canvas scene-care">
+    <div class="care-message" data-motion-step="0"><small>{t('客戶訊息','CUSTOMER MESSAGE')}</small><p>{t('信用卡似乎被重複扣款，可以幫我確認嗎？','It looks like I was charged twice. Can you check?')}</p></div>
+    <aside class="care-context" data-motion-step="1"><b>{t('AI 已整理脈絡','AI ORGANIZED CONTEXT')}</b><span>{t('訂單、付款紀錄與退款規範已找到','Order, payment record and refund policy found')}</span></aside>
+    <div class="care-draft" data-motion-step="2"><small>{t('回覆草稿','RESPONSE DRAFT')}</small><p>{t('我們已找到重複授權紀錄，正在為你確認後續處理。','We found a duplicate authorization and are confirming the next step for you.')}</p><em data-motion-step="3">{t('客服修改一句內容','Agent edits one sentence')}</em></div>
+    <div class="care-review" data-motion-step="4"><span>✓</span>{t('由客服確認承諾與語氣','Agent confirms commitment and tone')}</div>
+    <div class="scene-done" data-motion-step="5">{t('回覆可送出 · 案件狀態同步更新','Response ready · Case status updated')}</div>
+  </div>}
+
+  {slug === 'elias-flow' && <div class="v2-scene-canvas scene-flow">
+    <div class="flow-mail" data-motion-step="0"><small>EMAIL</small><strong>{t('供應商發票與附件已收到','Supplier invoice and attachment received')}</strong></div>
+    <div class="flow-fields" data-motion-step="1"><small>{t('AI 擷取資料','AI EXTRACTED')}</small><dl><div><dt>{t('供應商','Vendor')}</dt><dd>Northbridge</dd></div><div><dt>{t('金額','Amount')}</dt><dd>$12,839</dd></div><div><dt>{t('到期日','Due date')}</dt><dd>Jun 11</dd></div></dl></div>
+    <div class="flow-task" data-motion-step="2">✓ {t('待辦已建立並指派負責人','Task created and owner assigned')}</div>
+    <button type="button" data-motion-step="3">{t('由我們核對並核准','We verify and approve')}</button>
+    <div class="flow-progress" data-motion-step="4"><span></span><b>{t('系統更新中','Updating systems')}</b></div>
+    <div class="scene-done" data-motion-step="5">{t('更新完成 · 稽核紀錄已建立','Update complete · Audit record created')}</div>
+  </div>}
+
+  {slug === 'elias-ops' && <div class="v2-scene-canvas scene-ops">
+    <div class="ops-alerts"><span data-motion-step="0">P1 · Payment timeout</span><span data-motion-step="1">P2 · API latency</span><span data-motion-step="2">P2 · Queue saturation</span></div>
+    <div class="ops-incident" data-motion-step="3"><small>{t('AI 合併為一項事件','AI CORRELATED ONE INCIDENT')}</small><strong>{t('付款授權服務異常','Payment authorization service issue')}</strong><p>{t('143 則告警 · 18 個來源 · 3 項受影響服務','143 alerts · 18 sources · 3 affected services')}</p></div>
+    <div class="ops-choice" data-motion-step="4"><small>{t('工程師選擇下一步','ENGINEER CHOOSES NEXT STEP')}</small><div><button type="button">{t('繼續觀察','Observe')}</button><button type="button">{t('轉派處理','Escalate')}</button><button type="button">{t('申請授權','Request approval')}</button></div></div>
+    <div class="scene-done" data-motion-step="5">{t('未授權操作維持停止','Unauthorized action remains stopped')}</div>
+  </div>}
+
+  {!isEmbodied && <div class="v2-motion-actions"><span>{t('重要決定保留人類授權','Important decisions retain human authorization')}</span><button type="button" data-motion-replay>{t('重新播放','Replay')}</button></div>}
+</div>

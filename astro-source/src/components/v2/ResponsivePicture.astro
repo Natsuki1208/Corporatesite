@@ -1,0 +1,9 @@
+---
+import ImagePlaceholder from './ImagePlaceholder.astro';
+interface Props { desktop?: string; mobile?: string; alt: string; label?: string; product?: string; status?: string; eager?: boolean; ratio?: '16:9'|'4:5' }
+const { desktop, mobile, alt, label = '形象或產品素材', product='Elias Net', status='待人工確認', eager = false } = Astro.props;
+---
+{desktop ? <picture class="v2-picture">
+  {mobile && <source media="(max-width: 640px)" srcset={mobile} />}
+  <img src={desktop} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+</picture> : <ImagePlaceholder product={product} purpose={label} status={status} alt={alt}/>}

@@ -1,0 +1,20 @@
+---
+import type { Locale } from '../data/site';
+interface Props { locale: Locale; page: 'home' | 'company' }
+const { locale, page } = Astro.props;
+const tone = page === 'company' ? 'mint' : locale === 'en' ? 'cyan' : 'violet';
+---
+<div class={`route-ambient tone-${tone}`} aria-hidden="true">
+  {Array.from({ length:28 }, (_, index) => <i style={`--x:${2 + ((index * 19) % 96)}%;--y:${5 + ((index * 31) % 90)}%;--dx:${-42 + ((index * 13) % 92)}px;--dy:${-64 + ((index * 17) % 116)}px;--size:${1 + (index % 3)}px;--dur:${12 + (index % 9)}s;--delay:${-1 * ((index * 7) % 19)}s;--peak:${.22 + (index % 5) * .07};--lull:${.025 + (index % 3) * .02}`}></i>)}
+</div>
+
+<style>
+  .route-ambient{--particle:#eafdf9;--glow:rgba(190,239,255,.42);position:fixed;z-index:90;inset:0;overflow:hidden;pointer-events:none;mix-blend-mode:screen;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .route-ambient.tone-mint{--particle:#dffcf1;--glow:rgba(139,255,213,.38)}.route-ambient.tone-violet{--particle:#edf2ff;--glow:rgba(139,108,255,.34)}
+  .route-ambient i{position:absolute;left:var(--x);top:var(--y);width:var(--size);height:var(--size);border-radius:50%;background:var(--particle);opacity:0;box-shadow:0 0 5px var(--glow),0 0 14px color-mix(in srgb,var(--glow) 35%,transparent);animation:route-field var(--dur) var(--delay) cubic-bezier(.37,.02,.42,1) infinite}
+  .route-ambient i:nth-child(6n){--particle:#8b6cff;--glow:rgba(139,108,255,.3)}.route-ambient i:nth-child(4n){filter:blur(.55px);transform:scale(1.5)}.route-ambient i:nth-child(3n){animation-name:route-field-alt}
+  @keyframes route-field{0%{opacity:var(--lull);transform:translate3d(0,8px,0) scale(.8)}16%{opacity:var(--peak)}33%{opacity:var(--lull)}61%{opacity:var(--peak)}78%{opacity:var(--lull)}100%{opacity:var(--lull);transform:translate3d(var(--dx),var(--dy),0) scale(1.08)}}
+  @keyframes route-field-alt{0%{opacity:var(--lull);transform:translate3d(0,0,0)}28%{opacity:var(--peak)}47%{opacity:var(--lull)}72%{opacity:var(--peak)}100%{opacity:var(--lull);transform:translate3d(var(--dx),var(--dy),0)}}
+  @media(max-width:560px){.route-ambient i:nth-child(n+13){display:none}}
+  @media(prefers-reduced-motion:reduce){.route-ambient i{animation:none;opacity:.1}.route-ambient i:nth-child(n+13){display:none}}
+</style>
