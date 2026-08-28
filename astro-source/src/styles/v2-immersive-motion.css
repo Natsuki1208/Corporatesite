@@ -32,10 +32,10 @@
 
 /* One restrained meteor crosses the Earth while persistent field particles remain active. */
 .v2-hero-meteor{position:absolute;right:1.5%;top:5%;width:8px;height:8px;border-radius:50%;opacity:0;background:radial-gradient(circle at 36% 35%,#fff 0 28%,#fff8c8 46%,#d9a441 76%,transparent 78%);box-shadow:0 0 7px 2px #fff,0 0 18px 5px rgba(255,238,175,.82),0 0 34px 10px rgba(217,164,65,.38)}
-.v2-hero-meteor:after{content:"";position:absolute;right:5px;top:3px;width:190px;height:2px;background:linear-gradient(90deg,transparent,rgba(46,215,197,.12) 24%,rgba(255,230,145,.55) 68%,#fff 100%);box-shadow:0 0 7px rgba(255,241,190,.62);filter:blur(.25px);transform-origin:right}
+.v2-hero-meteor:after{content:none}
 .v2-immersive-hero.is-hero-playing .v2-hero-meteor{animation:v2-meteor-pass 2.2s 2.65s cubic-bezier(.15,.6,.16,1) both}
 @keyframes v2-meteor-pass{0%{opacity:0;transform:translate(0,0) rotate(-5deg) scale(.7)}10%{opacity:1;transform:translate(-5vw,.4vh) rotate(-7deg) scale(.78)}28%{opacity:1;transform:translate(-15vw,2.5vh) rotate(-11deg) scale(.84)}48%{opacity:1;transform:translate(-27vw,7.5vh) rotate(-16deg) scale(.9)}68%{opacity:.96;transform:translate(-39vw,15vh) rotate(-21deg) scale(.95)}84%{opacity:.7;transform:translate(-48vw,22vh) rotate(-25deg) scale(.98)}100%{opacity:0;transform:translate(-57vw,31vh) rotate(-29deg) scale(1)}}
-@media(max-width:700px){.v2-hero-meteor{right:-1%;top:9%;width:7px;height:7px}.v2-hero-meteor:after{width:105px;height:1.5px}.live-action-stage{min-height:130px}.live-frame{font-size:.5rem}}
+@media(max-width:700px){.v2-hero-meteor{right:-1%;top:9%;width:7px;height:7px}.live-action-stage{min-height:130px}.live-frame{font-size:.5rem}}
 @media(prefers-reduced-motion:reduce){.v2-hero-meteor{display:none}.live-route,.live-return{transform:scaleX(1)}.live-scan{opacity:.35;transform:scale(1)}}
 
 /* Four fast live-action frames create a film-like 2.15 second product story. */
