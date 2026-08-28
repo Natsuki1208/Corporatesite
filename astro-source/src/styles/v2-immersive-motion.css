@@ -106,16 +106,3 @@
 @keyframes virtual-home-delivery{0%{transform:translateX(0)}38%,52%{transform:translateX(136px)}100%{transform:translateX(314px)}}@keyframes virtual-target{50%{filter:drop-shadow(0 0 10px rgba(217,164,65,.9))}}@keyframes virtual-rescue-enter{0%{transform:translateX(-35px)}28%{transform:translateX(46px)}100%{transform:translateX(190px)}}@keyframes virtual-rescue-scan{0%{opacity:0;transform:translateX(70px) scale(.55)}35%{opacity:.8}100%{opacity:.15;transform:translateX(190px) scale(1.25)}}@keyframes virtual-return{to{stroke-dashoffset:0}}
 @media(max-width:700px){.virtual-embodied-stage{grid-column:1;min-height:126px}.virtual-embodied-stage svg{height:126px}.scene-home .virtual-status{grid-column:1}.scene-rescue .virtual-embodied-stage{grid-column:1}}
 @media(prefers-reduced-motion:reduce){.home-bot{transform:translateX(314px)!important}.rescue-bot,.rescue-scan{transform:translateX(190px)!important}.rescue-scan{opacity:.2!important}.rescue-return{stroke-dashoffset:0!important}}
-
-/* Three restrained meteors follow the visible Earth edge. */
-.v2-hero-orbit-meteor{position:absolute;right:3.5%;top:9%;width:5px;height:5px;border-radius:50%;opacity:0;background:#fff8d9;box-shadow:0 0 5px #fff,0 0 13px rgba(217,164,65,.58)}
-.v2-hero-orbit-meteor:after{content:"";position:absolute;right:3px;top:2px;width:62px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,232,157,.36),#fff);filter:blur(.15px);transform-origin:right}
-.v2-immersive-hero.is-hero-playing .meteor-one{animation:v2-orbit-meteor 5.8s 2.25s cubic-bezier(.18,.58,.18,1) both}
-.v2-immersive-hero.is-hero-playing .meteor-two{animation:v2-orbit-meteor-two 6.2s 5.5s cubic-bezier(.18,.58,.18,1) both}
-.v2-immersive-hero.is-hero-playing .meteor-three{animation:v2-orbit-meteor-three 5.4s 9.1s cubic-bezier(.18,.58,.18,1) both}
-.meteor-two{right:8%;top:6%;width:3px;height:3px}.meteor-two:after{width:42px;opacity:.7}.meteor-three{right:0;top:14%;width:4px;height:4px}.meteor-three:after{width:48px;opacity:.82}
-@keyframes v2-orbit-meteor{0%{opacity:0;transform:translate(0,0) rotate(-7deg)}10%{opacity:.92;transform:translate(-5vw,.6vh) rotate(-9deg)}30%{opacity:.9;transform:translate(-16vw,3.5vh) rotate(-13deg)}52%{opacity:.82;transform:translate(-29vw,9vh) rotate(-18deg)}74%{opacity:.62;transform:translate(-42vw,17vh) rotate(-23deg)}100%{opacity:0;transform:translate(-55vw,28vh) rotate(-28deg)}}
-@keyframes v2-orbit-meteor-two{0%{opacity:0;transform:translate(0,0) rotate(-5deg)}12%{opacity:.72;transform:translate(-5vw,.4vh) rotate(-8deg)}38%{opacity:.7;transform:translate(-20vw,5vh) rotate(-14deg)}68%{opacity:.52;transform:translate(-39vw,15vh) rotate(-21deg)}100%{opacity:0;transform:translate(-57vw,29vh) rotate(-27deg)}}
-@keyframes v2-orbit-meteor-three{0%{opacity:0;transform:translate(0,0) rotate(-8deg)}10%{opacity:.78;transform:translate(-4vw,.8vh) rotate(-10deg)}40%{opacity:.74;transform:translate(-20vw,7vh) rotate(-16deg)}72%{opacity:.5;transform:translate(-40vw,19vh) rotate(-24deg)}100%{opacity:0;transform:translate(-54vw,30vh) rotate(-29deg)}}
-@media(max-width:700px){.v2-hero-orbit-meteor{right:1%;top:12%;width:4px;height:4px}.v2-hero-orbit-meteor:after{width:42px}.meteor-two{right:7%;top:9%;width:3px;height:3px}.meteor-three{top:16%;width:3px;height:3px}}
-@media(prefers-reduced-motion:reduce){.v2-hero-orbit-meteor{display:none}}

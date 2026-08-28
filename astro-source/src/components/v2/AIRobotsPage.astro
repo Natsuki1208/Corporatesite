@@ -1,0 +1,34 @@
+---
+import type { SiteLocale } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+import RobotModelGrid from './RobotModelGrid.astro';
+import CTA from './CTA.astro';
+const { locale }=Astro.props as {locale:SiteLocale};
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${base}/`;
+const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
+---
+<div class="v2-ai-robots">
+  <section class="v2-robot-hero">
+    <img src={`${base}/images/v2/robot-models/care-arc-hc02.jpg`} alt={t('原創人工智慧機器人在明亮空間中準備協助人類','An original AI robot ready to assist people in a bright environment')} width="1800" height="1350"/>
+    <div class="v2-robot-hero-shade" aria-hidden="true"></div>
+    <div class="v2-shell v2-robot-hero-copy v2-reveal">
+      <p class="v2-eyebrow">AI ROBOTICS / {t('人工智慧機器人','AI ROBOTS')}</p>
+      <h1>{t('讓人工智慧理解環境，也能在真實世界伸出援手。','Intelligence that understands its surroundings—and lends a hand in the real world.')}</h1>
+      <p>{t('人工智慧機器人把感知、理解與行動放進同一個系統。它們可以協助生活照顧，也能先進入不適合人員冒險的環境；每一項重要任務仍由人設定、確認與停止。','AI robots bring perception, understanding and action into one system. They can assist daily care and enter environments where people should not take the first risk, while every important mission remains directed, confirmed and stoppable by people.')}</p>
+      <CTA href="#models" label={t('查看產品型號','Explore models')} locale={locale}/>
+    </div>
+  </section>
+
+  <section class="v2-section v2-robot-explainer"><div class="v2-shell v2-two-grid">
+    <article class="v2-reveal"><p class="v2-eyebrow">UNDERSTAND</p><h2>{t('先理解需要，再提供剛剛好的協助。','Understand the need before offering the right help.')}</h2><p>{t('機器人透過感測器理解物品、空間與人的指示，再由人工智慧整理情境並準備動作。它不是自己決定生活或救援方向，而是成為人們可以溝通、調整與信任的行動夥伴。','Sensors help the robot understand objects, spaces and human instructions. AI then organizes the situation and prepares an action. It does not decide the direction of care or rescue on its own; it becomes an action partner people can guide, adjust and trust.')}</p></article>
+    <ol class="v2-robot-steps v2-reveal"><li><span>01</span><strong>{t('看見環境','Sense the environment')}</strong></li><li><span>02</span><strong>{t('理解需求','Understand the need')}</strong></li><li><span>03</span><strong>{t('準備協助','Prepare assistance')}</strong></li><li><span>04</span><strong>{t('由人確認行動','People confirm the action')}</strong></li></ol>
+  </div></section>
+
+  <section id="models" class="v2-section v2-robot-models"><div class="v2-shell">
+    <header class="v2-section-head v2-reveal"><p class="v2-eyebrow">PRODUCT ARCHITECTURE + MODELS</p><h2>{t('兩個產品方向，六種不同任務。','Two product directions. Six distinct missions.')}</h2><p>{t('居家系列把陪伴與日常協助帶進生活；救援系列協助專業人員看見危險、運送物資並進入高風險環境。以下均為概念機型，外觀與能力將依後續研究驗證調整。','The home series brings companionship and everyday assistance into daily life. The rescue series helps professionals understand hazards, move supplies and enter high-risk environments. All models shown are concepts whose design and capabilities will evolve through research and validation.')}</p></header>
+    <RobotModelGrid locale={locale}/>
+  </div></section>
+
+  <section class="v2-section v2-robot-trust"><div class="v2-shell v2-two-grid"><article><p class="v2-eyebrow">PEOPLE + AI</p><h2>{t('人工智能不取代人們，而是一起走向未來。','Artificial intelligence does not replace people. It moves toward the future with us.')}</h2></article><article><p>{t('居家照顧保留使用者與家庭的選擇；救援任務保留專業人員的指揮、停止與接管。從溫柔的日常協助到高風險現場，每一次行動都應該讓人更安心，而不是失去主導。','Home care preserves the choices of users and families. Rescue missions remain under professional command, with stop and takeover controls. From gentle daily assistance to high-risk response, every action should give people greater confidence—not less agency.')}</p><CTA href={`${prefix}safety/`} label={t('了解信任與選擇','Explore trust and choice')} locale={locale} secondary/></article></div></section>
+</div>

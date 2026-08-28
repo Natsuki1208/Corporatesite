@@ -9,9 +9,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const lang = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
 const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
 const labelsBase = locale === 'en' ? [
-  ['#products','Products'],['#solutions','Solutions'],['#organization','Product System'],['#governance','People + AI'],['founder/','Vision'],['company/','About Elias Net']
+  ['#products','Products'],['#solutions','Solutions'],['#organization','Architecture + Models'],['#governance','People + AI'],['founder/','Vision'],['company/','About Elias Net']
 ] : [
-  ['#products','產品'],['#solutions','解決方案'],['#organization','產品架構'],['#governance','人與 AI 同行'],['founder/','創辦理念'],['company/','關於 Elias Net']
+  ['#products','產品'],['#solutions','解決方案'],['#organization','產品架構與型號'],['#governance','人與 AI 同行'],['founder/','創辦理念'],['company/','關於 Elias Net']
 ];
 const labels = locale === 'zh-CN' ? labelsBase.map(([href,label])=>[href,simplify(label)]) : labelsBase;
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;

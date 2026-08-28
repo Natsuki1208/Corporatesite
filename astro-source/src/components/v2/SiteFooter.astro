@@ -25,6 +25,7 @@ const talentRoles = locale === 'en'
       <h2>PRODUCTS</h2>
       <a href={`${root}digital-intelligence/`}>{t('數位智慧','Digital Intelligence')}</a>
       <a href={`${root}embodied-intelligence/`}>{t('實體智慧','Embodied Intelligence')}</a>
+      <a href={`${root}ai-robots/`}>{t('人工智慧機器人','AI Robots')}</a>
       <a href={`${root}founder/`}>{t('創辦人理念','Founder Vision')}</a>
     </nav>
     <nav class="v2-footer-column" aria-label={t('公司導覽','Company navigation')}>
@@ -36,7 +37,8 @@ const talentRoles = locale === 'en'
     </nav>
     <nav class="v2-footer-column is-talent" aria-label={t('人才招募','Careers')}>
       <h2>TALENT / {t('人才招募','CAREERS')}</h2>
-      {talentRoles.map((role) => <a href={`${root}contact/?topic=talent`} aria-label={t(`交流 ${role} 職涯與合作機會`,`Explore ${role} opportunities`)}>{role}</a>)}
+      {talentRoles.map((role,index) => <a href={`${root}careers/#${['ai-engineer','ai-training-engineer','operations-engineer','robotics-controls-engineer','product-ux-designer'][index]}`} aria-label={t(`了解 ${role} 所需能力與合作機會`,`Explore ${role} skills and opportunities`)}>{role}</a>)}
+      <a href={`${root}careers/`}>{t('查看人才招募頁','View all roles')}</a>
       <small>{t('職務與合作形式依團隊規劃確認。','Roles and engagement models follow current team plans.')}</small>
     </nav>
     <section class="v2-footer-statement">
