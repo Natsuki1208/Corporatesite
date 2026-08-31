@@ -9,31 +9,47 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const lang = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
 const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
-const navItems = [
-  { href:`${root}#products`, label:t('產品','Products'), active:current==='' },
-  { href:`${root}#solutions`, label:t('應用區域','Application Areas'), active:false },
-  { href:`${root}technology/`, label:t('技術與安全','Technology + Safety'), active:current==='technology'||current==='safety' },
-  { href:`${root}company/`, label:t('關於 Elias Net','About Elias Net'), active:current==='company'||current==='founder'||current==='about' }
+const groups = [
+  { id:'products', label:t('產品','Products'), active:['digital-intelligence','ai-robots','elias-knowledge','elias-care','elias-flow','elias-ops','elias-home','elias-rescue'].includes(current), intro:t('從線上智慧到人工智慧機器人，依照你想改善的事情選擇方向。','From digital intelligence to AI robotics, begin with what you want to improve.'), columns:[
+    { eyebrow:'DIGITAL INTELLIGENCE', title:t('線上智慧支援','Digital Intelligence'), href:`${root}digital-intelligence/`, links:[['Elias Knowledge',`${root}products/elias-knowledge/`],['Elias Care',`${root}products/elias-care/`],['Elias Flow',`${root}products/elias-flow/`],['Elias Ops',`${root}products/elias-ops/`]] },
+    { eyebrow:'AI ROBOTICS', title:t('人工智慧機器人','AI Robotics'), href:`${root}ai-robots/`, links:[['Elias Home',`${root}products/elias-home/`],['Elias Rescue',`${root}products/elias-rescue/`]] }
+  ]},
+  { id:'api', label:'API', active:['api','docs','pricing'].includes(current), intro:t('先了解可整合的能力方向，再依資料、權限與驗證範圍規劃合作。','Explore integration directions, then plan around data, permissions and validation scope.'), columns:[
+    { eyebrow:'PLATFORM', title:t('開發與整合','Build & Integrate'), href:`${root}api/`, links:[[t('API 概覽','API Overview'),`${root}api/`],[t('合作方案','Plans'),`${root}pricing/`],[t('整合文件','Documentation'),`${root}docs/`]] },
+    { eyebrow:'API DIRECTIONS', title:t('四個能力方向','Four Capability Areas'), href:`${root}api/`, links:[['Knowledge API',`${root}api/#knowledge`],['Care API',`${root}api/#care`],['Flow API',`${root}api/#flow`],['Ops API',`${root}api/#ops`]] }
+  ]},
+  { id:'resources', label:t('資源','Resources'), active:['technology','safety','research'].includes(current), intro:t('快速找到產品資訊、技術原則、研發進度與品牌觀點。','Find product information, technical principles, research progress and our point of view.'), columns:[
+    { eyebrow:'GET STARTED', title:t('探索 Elias Net','Explore Elias Net'), href:`${root}digital-intelligence/`, links:[[t('產品總覽','Product Overview'),`${root}#products`],[t('線上智慧支援','Digital Intelligence'),`${root}digital-intelligence/`],[t('人工智慧機器人','AI Robotics'),`${root}ai-robots/`]] },
+    { eyebrow:'TRUST + PROGRESS', title:t('技術與信任','Technology & Trust'), href:`${root}technology/`, links:[[t('技術方向','Technology'),`${root}technology/`],[t('信任與選擇','Trust & Choice'),`${root}safety/`],[t('研發進度','Research Progress'),`${root}research/`],[t('創辦人理念','Founder Vision'),`${root}founder/`]] }
+  ]},
+  { id:'features', label:t('特性','Features'), active:false, intro:t('不是另一組產品，而是 Elias 智慧系統能協助完成的六件事。','Not another product list—six things Elias intelligence is designed to help with.'), columns:[
+    { eyebrow:'DIGITAL AI', title:t('工作中的智慧','Intelligence at Work'), href:`${root}#features`, links:[[t('看懂資訊','Understand information'),`${root}#features`],[t('找出重點','Find what matters'),`${root}#features`],[t('協助回覆','Prepare responses'),`${root}#features`],[t('推進流程','Keep work moving'),`${root}#features`]] },
+    { eyebrow:'REAL-WORLD AI', title:t('真實世界的智慧','Intelligence in the Real World'), href:`${root}#features`, links:[[t('感知環境','Sense environments'),`${root}#features`],[t('支援行動','Support action'),`${root}#features`],[t('由人指揮','Under human command'),`${root}safety/`]] }
+  ]},
+  { id:'company', label:t('關於我們','About'), active:['company','founder','about','careers'].includes(current), intro:t('認識我們相信的未來、正在形成的團隊，以及可以一起前進的方式。','Meet the future we believe in, the team taking shape and ways to move forward together.'), columns:[
+    { eyebrow:'COMPANY', title:'ELIAS NET', href:`${root}company/`, links:[[t('關於 Elias Net','About Elias Net'),`${root}company/`],[t('創辦人理念','Founder Vision'),`${root}founder/`]] },
+    { eyebrow:'TOGETHER', title:t('一起前進','Move Forward Together'), href:`${root}careers/`, links:[[t('人才招募','Careers'),`${root}careers/`],[t('合作與聯絡','Collaboration'),`${root}contact/`]] }
+  ]},
+  { id:'downloads', label:t('下載','Downloads'), active:false, intro:t('下載救援機器人概念型錄，或回到網站查看最新產品說明。','Download the rescue robotics concept catalog or view the latest product information online.'), columns:[
+    { eyebrow:'CATALOG', title:t('救援機器人型錄','Rescue Robotics Catalog'), href:`${base}/downloads/elias-rescue-robot-catalog-zh-TW.pdf`, links:[[t('下載 PDF 型錄','Download PDF Catalog'),`${base}/downloads/elias-rescue-robot-catalog-zh-TW.pdf`]] },
+    { eyebrow:'ONLINE', title:t('線上產品資訊','Online Product Information'), href:`${root}ai-robots/`, links:[[t('機器人與型號','Robots & Models'),`${root}ai-robots/`],[t('線上智慧產品線','Digital Product Lines'),`${root}digital-intelligence/`]] }
+  ]}
 ];
 ---
 <header class="v2-header" data-v2-header>
   <a class="v2-brand" href={root} aria-label={t('Elias Net 首頁','Elias Net home')}><AnimatedBrandMark id="header" /></a>
   <button class="v2-menu" type="button" aria-expanded="false" aria-controls="v2-nav" data-v2-menu>{t('選單','Menu')}<span aria-hidden="true"></span></button>
   <nav id="v2-nav" class="v2-nav" aria-label={t('主要導覽','Primary navigation')} data-v2-nav>
-    {navItems.map((item) => <a href={item.href} aria-current={item.active ? 'page' : undefined}>{item.label}</a>)}
+    {groups.map((group,index)=><div class="v2-nav-group" data-nav-group>
+      <button type="button" aria-expanded="false" aria-controls={`v2-mega-${group.id}`} aria-current={group.active?'page':undefined} data-nav-trigger>{group.label}<i aria-hidden="true"></i></button>
+      <section id={`v2-mega-${group.id}`} class="v2-mega-menu" data-mega-menu aria-label={group.label}>
+        <div class="v2-mega-shell"><header><span>0{index+1}</span><p>{group.intro}</p></header><div class="v2-mega-columns">{group.columns.map((column)=><article><p>{column.eyebrow}</p><a class="v2-mega-title" href={column.href}>{column.title}<span aria-hidden="true">↗</span></a><ul>{column.links.map(([label,href])=><li><a href={href}>{label}<span aria-hidden="true">→</span></a></li>)}</ul></article>)}</div></div>
+      </section>
+    </div>)}
     <a class="v2-nav-cta" href={`${root}contact/`}>{t('合作與聯絡','Contact')}</a>
     <LanguageMenu locale={locale} path={path}/>
   </nav>
 </header>
 <script>
-  document.querySelectorAll<HTMLElement>('[data-v2-header]').forEach((header) => {
-    const button = header.querySelector<HTMLButtonElement>('[data-v2-menu]');
-    const nav = header.querySelector<HTMLElement>('[data-v2-nav]');
-    if (!button || !nav || button.dataset.ready) return;
-    button.dataset.ready = 'true';
-    const close = () => { button.setAttribute('aria-expanded','false'); nav.removeAttribute('data-open'); };
-    button.addEventListener('click', () => { const open = button.getAttribute('aria-expanded') !== 'true'; button.setAttribute('aria-expanded',String(open)); open ? nav.setAttribute('data-open','') : nav.removeAttribute('data-open'); });
-    nav.addEventListener('click', (event) => { if ((event.target as Element).closest('a')) close(); });
-    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') { close(); button.focus(); } });
-  });
+document.querySelectorAll<HTMLElement>('[data-v2-header]').forEach((header)=>{const menu=header.querySelector<HTMLButtonElement>('[data-v2-menu]');const nav=header.querySelector<HTMLElement>('[data-v2-nav]');const groups=[...header.querySelectorAll<HTMLElement>('[data-nav-group]')];if(!menu||!nav||menu.dataset.ready)return;menu.dataset.ready='1';const closeGroups=(except?:HTMLElement)=>groups.forEach((group)=>{if(group===except)return;group.querySelector('[data-nav-trigger]')?.setAttribute('aria-expanded','false');group.removeAttribute('data-open')});const close=()=>{menu.setAttribute('aria-expanded','false');nav.removeAttribute('data-open');closeGroups()};groups.forEach((group)=>{const trigger=group.querySelector<HTMLButtonElement>('[data-nav-trigger]');if(!trigger)return;trigger.addEventListener('click',()=>{const open=trigger.getAttribute('aria-expanded')!=='true';closeGroups(group);trigger.setAttribute('aria-expanded',String(open));open?group.setAttribute('data-open',''):group.removeAttribute('data-open')})});menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));open?nav.setAttribute('data-open',''):close()});nav.addEventListener('click',(event)=>{if((event.target as Element).closest('a'))close()});document.addEventListener('click',(event)=>{if(!header.contains(event.target as Node))closeGroups()});document.addEventListener('keydown',(event)=>{if(event.key==='Escape'){close();menu.focus()}})});
 </script>

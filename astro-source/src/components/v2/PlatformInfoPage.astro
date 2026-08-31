@@ -1,0 +1,38 @@
+---
+import type { SiteLocale } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+import AmbientLightField from './AmbientLightField.astro';
+import CTA from './CTA.astro';
+interface Props { locale:SiteLocale; page:'api'|'docs'|'pricing' }
+const { locale,page }=Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${base}/`;
+const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
+const apiItems=[
+  ['knowledge','Knowledge API',t('讓核准知識能被搜尋、引用與追溯。','Search, cite and trace approved knowledge.')],
+  ['care','Care API',t('把需求分類、回覆準備與人工確認接進服務流程。','Bring intent routing, response preparation and human review into service workflows.')],
+  ['flow','Flow API',t('連接表單、任務、狀態與交接。','Connect forms, tasks, status and handoffs.')],
+  ['ops','Ops API',t('整理事件訊號，協助團隊看見影響與處理順序。','Organize incident signals so teams can see impact and response order.')]
+];
+const docs=[
+  [t('01｜定義問題','01 | Define the problem'),t('先確認使用者、工作流程與要改善的結果。','Confirm users, workflow and the result to improve.')],
+  [t('02｜界定資料','02 | Bound the data'),t('只使用核准來源，說清楚權限、保存與責任。','Use approved sources with clear permissions, retention and ownership.')],
+  [t('03｜設計人工確認','03 | Design human review'),t('在高影響輸出前安排確認、停止與回復。','Place review, stop and recovery before high-impact outputs.')],
+  [t('04｜小範圍驗證','04 | Validate narrowly'),t('用一個情境測試價值、限制與整合成本。','Test value, limits and integration cost in one scenario.')]
+];
+const plans=[
+  [t('需求探索','DISCOVERY'),t('把問題說清楚','Clarify the problem'),t('一起確認使用者、現況、資料範圍與成功條件。','Define users, current work, data scope and success criteria together.')],
+  [t('原型驗證','PROTOTYPE'),t('先用一個情境驗證','Validate one scenario first'),t('建立小範圍原型，測試價值、風險與操作方式。','Build a focused prototype to test value, risk and interaction.')],
+  [t('系統整合','INTEGRATION'),t('把可行能力接進工作','Bring proven capability into work'),t('依確認範圍規劃介接、安全、部署與持續維運。','Plan integration, security, deployment and operations around an agreed scope.')]
+];
+const meta=page==='api'
+  ? {eyebrow:'ELIAS API',title:t('四個 API 方向，讓智慧接進現有工作。','Four API directions for bringing intelligence into existing work.'),intro:t('目前為合作規劃方向。實際介面、權限與可用範圍，會依原型驗證結果確認。','These are collaboration directions. Interfaces, permissions and availability are confirmed through prototype validation.')}
+  : page==='docs'
+  ? {eyebrow:'DOCUMENTATION',title:t('先看懂如何整合，再開始驗證。','Understand the integration before validation begins.'),intro:t('用簡單步驟說清楚資料、權限、人工確認與驗證方式。','A clear path through data, permissions, human review and validation.')}
+  : {eyebrow:'PLANS',title:t('先選合作階段，再評估範圍與費用。','Choose the collaboration stage, then define scope and cost.'),intro:t('我們不以固定售價掩蓋差異。費用依資料、整合、安全與驗證範圍評估。','We do not hide meaningful differences behind a fixed price. Cost follows data, integration, safety and validation scope.')};
+---
+<section class="v2-platform-hero"><AmbientLightField variant={page==='pricing'?'warm':'teal'}/><div class="v2-shell"><p class="v2-eyebrow">{meta.eyebrow}</p><h1>{meta.title}</h1><p>{meta.intro}</p><div class="v2-actions">{page!=='docs'&&<CTA href={`${prefix}docs/`} label={t('查看整合文件','Read documentation')} locale={locale} secondary/>}<CTA href={`${prefix}contact/`} label={t('洽談合作','Talk with us')} locale={locale}/></div></div></section>
+
+{page==='api'&&<section class="v2-platform-content"><div class="v2-shell"><header><p class="v2-eyebrow">CAPABILITY MAP</p><h2>{t('從一項能力開始。','Start with one capability.')}</h2></header><div class="v2-platform-card-grid">{apiItems.map(([id,title,copy],index)=><article id={id}><span>0{index+1}</span><h3>{title}</h3><p>{copy}</p><small>{t('合作規劃中','COLLABORATION DIRECTION')}</small></article>)}</div></div></section>}
+{page==='docs'&&<section class="v2-platform-content"><div class="v2-shell"><header><p class="v2-eyebrow">QUICK START</p><h2>{t('四步完成第一次整合評估。','Four steps to a first integration assessment.')}</h2></header><div class="v2-docs-grid">{docs.map(([title,copy])=><article><h3>{title}</h3><p>{copy}</p></article>)}</div><aside class="v2-platform-note"><strong>{t('文件狀態','DOCUMENT STATUS')}</strong><p>{t('正式 API 規格、認證與服務等級，將依合作原型與產品進度發布。','Formal API specifications, authentication and service levels will be published as prototypes and products mature.')}</p></aside></div></section>}
+{page==='pricing'&&<section class="v2-platform-content"><div class="v2-shell"><header><p class="v2-eyebrow">ENGAGEMENT</p><h2>{t('三種開始方式。','Three ways to begin.')}</h2></header><div class="v2-plan-grid">{plans.map(([name,label,copy],index)=><article><span>0{index+1}</span><p>{label}</p><h3>{name}</h3><p>{copy}</p><strong>{t('依範圍評估','SCOPE-BASED')}</strong></article>)}</div></div></section>}

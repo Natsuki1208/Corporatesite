@@ -14,10 +14,10 @@ const tracks = [
   { locale:'en', srclang:'en', label:'English', src:`${base}/captions/elias-net-founder-en.vtt` }
 ];
 const visionSteps = [
-  { code:'01', title:t('不是取代，而是看見更多。','Not replacement—greater clarity.'), body:t('科技的價值，是協助我們理解環境、辨認問題，抵達過去難以抵達的地方。','Technology should help us understand our environment, recognize problems and reach places that were previously out of reach.') },
-  { code:'02', title:t('AI 準備，人類決定。','AI prepares. People decide.'), body:t('AI 可以整理資訊、協調任務與提出下一步；目的、界線與授權仍由人掌握。','AI can organize information, coordinate tasks and prepare next steps; people retain purpose, boundaries and authorization.') },
-  { code:'03', title:t('每一次行動，都有清楚界線。','Every action has a clear boundary.'), body:t('越接近真實世界，停止、接管、責任與紀錄就必須越清楚。','The closer intelligence gets to the real world, the clearer stop, override, accountability and records must become.') },
-  { code:'04', title:t('一起走向值得信任的未來。','Move toward a future worthy of trust.'), body:t('我們打造的不只是更智慧的科技，而是人與智慧系統能共同前進的工作方式。','We are building more than intelligent technology—we are building a way for people and intelligent systems to move forward together.') }
+  { code:'01', title:t('不是取代，而是看見更多。','Not replacement—greater clarity.'), body:t('科技幫我們看懂環境、發現問題，也走進人類不易抵達的地方。','Technology helps us understand our surroundings, find problems and reach places people cannot easily enter.') },
+  { code:'02', title:t('AI 準備，人類決定。','AI prepares. People decide.'), body:t('AI 整理資訊、協助任務；方向與決定由人掌握。','AI organizes information and supports tasks; people retain direction and decisions.') },
+  { code:'03', title:t('每一次行動，都有清楚界線。','Every action has a clear boundary.'), body:t('科技越接近生活，停止、接管與責任越要清楚。','The closer technology gets to daily life, the clearer stopping, takeover and responsibility must be.') },
+  { code:'04', title:t('一起走向值得信任的未來。','Move toward a future worthy of trust.'), body:t('我們打造人與 AI 能安心並肩前進的未來。','We are building a future where people and AI can move forward together with confidence.') }
 ];
 ---
 <article class="founder-vision-page" data-founder-vision>
@@ -25,7 +25,7 @@ const visionSteps = [
     <div class="v2-shell founder-vision-heading v2-reveal">
       <p class="v2-eyebrow">FOUNDER'S VISION / {t('創辦人理念','FOUNDER MESSAGE')}</p>
       <h1 id="founder-vision-title">{t('人工智慧不取代人們，而是一起走向未來。','Artificial intelligence does not replace people. We move toward the future together.')}</h1>
-      <p>{t('Elias Net 從一個簡單的信念出發：人工智慧協助我們看清資訊、回應風險並走進真實世界；未來科技，始終掌握在人類手中。','Elias Net began with a simple belief: artificial intelligence helps us understand information, respond to risk and enter the real world, while the future of technology remains in human hands.')}</p>
+      <p>{t('AI 幫我們看清資訊、回應風險並走進真實世界；未來科技，始終掌握在人類手中。','AI helps us understand information, respond to risk and enter the real world. The future of technology remains in human hands.')}</p>
     </div>
 
     <div class="v2-shell founder-vision-stage">
@@ -60,7 +60,7 @@ const visionSteps = [
     </div>
   </section>
 
-  <section class="founder-vision-closing v2-section v2-dark"><div class="v2-shell founder-closing-grid"><blockquote class="v2-reveal">“{t('未來科技掌握在人類手中。','The future of technology remains in human hands.')}”</blockquote><div class="v2-reveal"><p>{t('這項原則連結 Elias Net 的企業 AI、居家協助與非武裝救援研究。','This principle connects Elias Net’s enterprise AI, home assistance and unarmed rescue research.')}</p><div class="v2-actions"><CTA href={`${prefix}company/`} label={t('了解 Elias Net','About Elias Net')} locale={locale}/><CTA href={`${prefix}contact/`} label={t('討論合作可能','Discuss collaboration')} locale={locale} secondary/></div></div></div></section>
+  <section class="founder-vision-closing v2-section v2-dark"><div class="v2-shell founder-closing-grid"><blockquote class="v2-reveal">“{t('未來科技掌握在人類手中。','The future of technology remains in human hands.')}”</blockquote><div class="v2-reveal"><p>{t('這項原則連結 Elias Net 的企業 AI、居家協助與救援研究。','This principle connects Elias Net’s enterprise AI, home assistance and rescue research.')}</p><div class="v2-actions"><CTA href={`${prefix}company/`} label={t('了解 Elias Net','About Elias Net')} locale={locale}/><CTA href={`${prefix}contact/`} label={t('洽談合作','Talk with us')} locale={locale} secondary/></div></div></div></section>
 </article>
 
 <style>

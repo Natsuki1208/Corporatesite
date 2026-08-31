@@ -1,0 +1,28 @@
+---
+import AnimatedBrandMark from './AnimatedBrandMark.astro';
+interface Props { pageKey: string; alt: string }
+const { pageKey, alt } = Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const digital = ['technology','digital-intelligence','knowledge-service','operations-workflow'].includes(pageKey);
+const robotic = ['ai-robots','embodied-intelligence'].includes(pageKey);
+const image = pageKey === 'knowledge-service'
+  ? `${base}/images/elias-net-shared-knowledge.jpg`
+  : pageKey === 'operations-workflow'
+    ? `${base}/images/elias-net-ai-operations.jpg`
+    : digital
+      ? `${base}/images/elias-net-human-decision.jpg`
+  : robotic
+    ? `${base}/images/v2/human-ai-cocreation.webp`
+    : pageKey === 'safety'
+      ? `${base}/images/v2/human-ai-cocreation.webp`
+      : pageKey === 'careers'
+        ? `${base}/images/elias-leadership-board.webp`
+        : `${base}/images/v2/human-ai-cocreation.webp`;
+---
+<figure class:list={['v2-page-hero-visual',digital&&'is-digital',robotic&&'is-robotic']}>
+  <img src={image} alt={alt} width="1200" height="800" loading="eager" decoding="async" />
+  <div class="v2-page-hero-visual-shade" aria-hidden="true"></div>
+  <div class="v2-page-hero-core" aria-hidden="true"><AnimatedBrandMark variant="icon" id={`page-${pageKey}`} continuous/></div>
+  <div class="v2-page-hero-signal" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <figcaption><span>HUMAN</span><i></i><span>AI</span><strong>ALONGSIDE</strong></figcaption>
+</figure>

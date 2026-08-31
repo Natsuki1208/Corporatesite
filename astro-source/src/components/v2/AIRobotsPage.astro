@@ -14,19 +14,19 @@ const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh
     <div class="v2-robot-hero-shade" aria-hidden="true"></div>
     <div class="v2-shell v2-robot-hero-copy v2-reveal">
       <p class="v2-eyebrow">AI ROBOTICS / {t('人工智慧機器人','AI ROBOTS')}</p>
-      <h1>{t('讓人工智慧理解環境，也能在真實世界伸出援手。','Intelligence that understands its surroundings—and lends a hand in the real world.')}</h1>
-      <p>{t('人工智慧機器人能理解環境，也能在真實世界提供協助。從居家生活到危險現場，任務都由人設定、確認與停止。','AI robots can understand their surroundings and offer help in the real world. From daily life to hazardous environments, people set, confirm and stop every mission.')}</p>
+      <h1>{t('看懂環境，在真實世界伸出援手。','Understand the world. Lend a hand where it matters.')}</h1>
+      <p>{t('從居家生活到危險現場，AI 機器人提供協助，每個任務都由人設定、確認與停止。','From daily life to hazardous environments, AI robots assist while people set, confirm and stop every mission.')}</p>
       <CTA href="#models" label={t('查看產品型號','Explore models')} locale={locale}/>
     </div>
   </section>
 
   <section class="v2-section v2-robot-explainer"><div class="v2-shell v2-two-grid">
-    <article class="v2-reveal"><p class="v2-eyebrow">UNDERSTAND</p><h2>{t('先理解需要，再提供剛剛好的協助。','Understand the need before offering the right help.')}</h2><p>{t('感測器協助機器人看懂物品、空間與人的指示，人工智慧再整理情境並準備動作。人們可以隨時溝通、調整或停止。','Sensors help the robot understand objects, spaces and human instructions. AI then prepares an action that people can guide, adjust or stop at any time.')}</p></article>
+    <article class="v2-reveal"><p class="v2-eyebrow">UNDERSTAND</p><h2>{t('先理解需要，再提供剛好的協助。','Understand the need, then offer the right help.')}</h2><p>{t('感測器看懂物品、空間與指示，AI 準備動作；人們隨時可以調整或停止。','Sensors understand objects, spaces and instructions. AI prepares the action, and people can adjust or stop it at any time.')}</p></article>
     <ol class="v2-robot-steps v2-reveal"><li><span>01</span><strong>{t('看見環境','Sense the environment')}</strong></li><li><span>02</span><strong>{t('理解需求','Understand the need')}</strong></li><li><span>03</span><strong>{t('準備協助','Prepare assistance')}</strong></li><li><span>04</span><strong>{t('由人確認行動','People confirm the action')}</strong></li></ol>
   </div></section>
 
   <section id="models" class="v2-section v2-robot-models"><div class="v2-shell">
-    <header class="v2-section-head v2-reveal"><p class="v2-eyebrow">PRODUCT ARCHITECTURE + MODELS</p><h2>{t('兩個產品方向，六種任務型號。','Two product directions. Six mission-focused models.')}</h2><p>{t('居家系列陪伴生活、協助日常；救援系列協助專業人員掌握危險並運送物資。以下都是概念機型，外觀與能力會隨研究調整。','The home series supports daily life. The rescue series helps professionals understand hazards and move supplies. These are concept models whose design and capabilities will evolve through research.')}</p></header>
+    <header class="v2-section-head v2-reveal"><p class="v2-eyebrow">PRODUCT ARCHITECTURE + MODELS</p><h2>{t('兩個方向，六種任務型號。','Two directions. Six mission-focused models.')}</h2><p>{t('居家系列協助日常；救援系列協助專業人員掌握危險、運送物資。以下皆為概念機型。','The home series supports daily life. The rescue series helps professionals understand hazards and move supplies. All models shown are concepts.')}</p></header>
     <RobotModelGrid locale={locale}/>
   </div></section>
 

@@ -14,9 +14,18 @@ const liveVideo=product.slug==='elias-home'
   :product.slug==='elias-rescue'
     ?{src:`${base}/media/elias-rescue-live-scenario.mp4`,label:t('Elias Rescue 與救援人員協作的真人情境影片','Live-action Elias Rescue response-team collaboration scenario')}
     :null;
+const particleSeed=[
+  ['12%','18%','3px','0s'],['31%','12%','2px','1.4s'],['72%','20%','4px','2.8s'],['88%','36%','2px','.7s'],
+  ['18%','56%','2px','3.5s'],['44%','48%','3px','1.9s'],['78%','62%','2px','4.2s'],['26%','81%','4px','2.3s'],
+  ['61%','86%','2px','.4s'],['92%','78%','3px','3.1s'],['54%','28%','2px','4.7s'],['8%','72%','2px','1.1s']
+];
 ---
-<section id="product-story" class="v2-product-observe" data-product-prototype aria-labelledby={`${product.slug}-motion-title`}>
+<section id="product-story" class:list={['v2-product-observe',`is-${product.family}`]} data-product-prototype aria-labelledby={`${product.slug}-motion-title`}>
   <div class="v2-product-observe-copy">
+    <div class="v2-product-story-light" aria-hidden="true">
+      <span class="v2-product-story-beam"></span>
+      {particleSeed.map(([left,top,size,delay],index)=><i style={`--x:${left};--y:${top};--size:${size};--delay:${delay};--index:${index}`}></i>)}
+    </div>
     <p class="v2-eyebrow">{t('真實工作情境 / 產品模擬','REAL WORK / PRODUCT SIMULATION')}</p>
     <h2 id={`${product.slug}-motion-title`}>{storyTitle}</h2>
     <p class="v2-product-observe-lead">{l(product.scenario,locale)}</p>

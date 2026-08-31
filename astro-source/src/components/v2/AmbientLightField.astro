@@ -1,0 +1,12 @@
+---
+interface Props { variant?: 'teal'|'warm'|'violet'|'human'; density?: 'standard'|'quiet' }
+const { variant='teal', density='standard' } = Astro.props;
+const lights = density === 'quiet' ? 9 : 15;
+const statement = variant === 'warm' ? 'HUMANITY MOVES TECHNOLOGY FORWARD' : variant === 'violet' ? 'INTELLIGENCE ALONGSIDE HUMANITY' : variant === 'human' ? 'SIDE BY SIDE' : 'INTELLIGENCE WITH CONTEXT';
+---
+<div class:list={['v2-ambient-light-field',`is-${variant}`,density === 'quiet' && 'is-quiet']} aria-hidden="true">
+  <b>{statement}</b>
+  <span class="v2-light-haze"></span>
+  <span class="v2-light-haze is-secondary"></span>
+  {Array.from({length:lights},(_,index)=><i style={`--light-index:${index}`}></i>)}
+</div>
