@@ -13,7 +13,7 @@ const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${ba
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
 const media=(path:string)=>`${base}/${path}`;
 const features=[
-  {id:'understand',title:t('看懂資訊','UNDERSTAND INFORMATION'),copy:t('整理核准資料與現場訊號，建立清楚、可追溯的脈絡。','Turn approved data and real-world signals into clear, traceable context.'),tag:'UNDERSTAND'},
+  {id:'understand',title:t('看懂資訊','UNDERSTAND INFORMATION'),copy:t('把可靠資料與現場資訊整理清楚，也保留來源。','Organize reliable data and real-world information clearly, while preserving sources.'),tag:'UNDERSTAND'},
   {id:'focus',title:t('找出重點','FIND WHAT MATTERS'),copy:t('從大量內容中指出需要留意的變化、問題與下一步。','Surface the changes, issues and next steps that deserve attention.'),tag:'FOCUS'},
   {id:'assist',title:t('協助回覆','PREPARE RESPONSES'),copy:t('依可靠來源準備內容，讓人更快確認、調整與送出。','Prepare grounded responses for people to review, refine and send.'),tag:'ASSIST'},
   {id:'coordinate',title:t('推進流程','KEEP WORK MOVING'),copy:t('整理任務、狀態與交接，讓負責的人知道接下來要做什麼。','Organize tasks, status and handoffs so ownership stays clear.'),tag:'COORDINATE'},

@@ -51,5 +51,62 @@ const groups = [
   </nav>
 </header>
 <script>
-document.querySelectorAll<HTMLElement>('[data-v2-header]').forEach((header)=>{const menu=header.querySelector<HTMLButtonElement>('[data-v2-menu]');const nav=header.querySelector<HTMLElement>('[data-v2-nav]');const groups=[...header.querySelectorAll<HTMLElement>('[data-nav-group]')];if(!menu||!nav||menu.dataset.ready)return;menu.dataset.ready='1';const closeGroups=(except?:HTMLElement)=>groups.forEach((group)=>{if(group===except)return;group.querySelector('[data-nav-trigger]')?.setAttribute('aria-expanded','false');group.removeAttribute('data-open')});const close=()=>{menu.setAttribute('aria-expanded','false');nav.removeAttribute('data-open');closeGroups()};groups.forEach((group)=>{const trigger=group.querySelector<HTMLButtonElement>('[data-nav-trigger]');if(!trigger)return;trigger.addEventListener('click',()=>{const open=trigger.getAttribute('aria-expanded')!=='true';closeGroups(group);trigger.setAttribute('aria-expanded',String(open));open?group.setAttribute('data-open',''):group.removeAttribute('data-open')})});menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));open?nav.setAttribute('data-open',''):close()});nav.addEventListener('click',(event)=>{if((event.target as Element).closest('a'))close()});document.addEventListener('click',(event)=>{if(!header.contains(event.target as Node))closeGroups()});document.addEventListener('keydown',(event)=>{if(event.key==='Escape'){close();menu.focus()}})});
+document.querySelectorAll<HTMLElement>('[data-v2-header]').forEach((header)=>{
+  const menu=header.querySelector<HTMLButtonElement>('[data-v2-menu]');
+  const nav=header.querySelector<HTMLElement>('[data-v2-nav]');
+  const groups=[...header.querySelectorAll<HTMLElement>('[data-nav-group]')];
+  const desktopHover=window.matchMedia('(min-width:1181px) and (hover:hover) and (pointer:fine)');
+  if(!menu||!nav||menu.dataset.ready)return;
+  menu.dataset.ready='1';
+
+  let openTimer=0;
+  let closeTimer=0;
+  const clearTimers=()=>{window.clearTimeout(openTimer);window.clearTimeout(closeTimer)};
+  const setGroup=(group:HTMLElement,open:boolean)=>{
+    group.querySelector('[data-nav-trigger]')?.setAttribute('aria-expanded',String(open));
+    open?group.setAttribute('data-open',''):group.removeAttribute('data-open');
+  };
+  const closeGroups=(except?:HTMLElement)=>groups.forEach((group)=>{if(group!==except)setGroup(group,false)});
+  const openGroup=(group:HTMLElement)=>{closeGroups(group);setGroup(group,true)};
+  const close=()=>{clearTimers();menu.setAttribute('aria-expanded','false');nav.removeAttribute('data-open');closeGroups()};
+
+  groups.forEach((group)=>{
+    const trigger=group.querySelector<HTMLButtonElement>('[data-nav-trigger]');
+    if(!trigger)return;
+    trigger.addEventListener('click',()=>{
+      clearTimers();
+      const open=trigger.getAttribute('aria-expanded')!=='true';
+      open?openGroup(group):setGroup(group,false);
+    });
+    group.addEventListener('pointerenter',()=>{
+      if(!desktopHover.matches)return;
+      clearTimers();
+      if(!group.hasAttribute('data-open')){
+        closeGroups();
+        openTimer=window.setTimeout(()=>openGroup(group),1000);
+      }
+    });
+    group.addEventListener('pointerleave',()=>{
+      if(!desktopHover.matches)return;
+      clearTimers();
+      closeTimer=window.setTimeout(()=>setGroup(group,false),140);
+    });
+    trigger.addEventListener('focus',()=>{if(desktopHover.matches){clearTimers();openGroup(group)}});
+  });
+
+  menu.addEventListener('click',()=>{
+    const open=menu.getAttribute('aria-expanded')!=='true';
+    menu.setAttribute('aria-expanded',String(open));
+    open?nav.setAttribute('data-open',''):close();
+  });
+  nav.addEventListener('click',(event)=>{if((event.target as Element).closest('a'))close()});
+  nav.addEventListener('focusout',()=>window.setTimeout(()=>{if(!nav.contains(document.activeElement))closeGroups()},0));
+  document.addEventListener('click',(event)=>{if(!header.contains(event.target as Node))closeGroups()});
+  document.addEventListener('keydown',(event)=>{if(event.key==='Escape'){close();menu.focus()}});
+  desktopHover.addEventListener('change',close);
+
+  const updateHeader=()=>header.toggleAttribute('data-scrolled',window.scrollY>12);
+  updateHeader();
+  window.addEventListener('scroll',updateHeader,{passive:true});
+});
 </script>
