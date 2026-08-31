@@ -36,7 +36,7 @@ export const products: ProductDefinition[] = [
   {
     slug:'elias-knowledge', family:'digital', name:'Elias Knowledge', chineseName:'企業知識助理', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-knowledge-desktop.webp',mobile:'images/v2/products/elias-knowledge-mobile.webp',alt:L('員工使用 Elias Knowledge 搜尋核准文件並查看來源','An employee using Elias Knowledge to search approved documents and review sources')},secondary:{desktop:'images/v2/products/elias-knowledge-02.webp',mobile:'images/v2/products/elias-knowledge-02.webp',alt:L('團隊在會議中核對企業知識助理提供的引用與文件版本','A team reviewing citations and document versions provided by the enterprise knowledge assistant')}},
-    statusNote:L('已完成可操作的介面原型；下一步將驗證真實資料連接、權限與回答品質。','An interactive interface prototype is complete. Next, we will validate live data connections, permissions and answer quality.'),
+    statusNote:L('目前以可操作介面原型呈現；下一步將驗證真實資料連接、權限與回答品質。','Currently presented as an interactive interface prototype. Next, we will validate live data connections, permissions and answer quality.'),
     headline:L('讓公司的知識更容易找到。','Make company knowledge easier to find.'),
     intro:L('Elias Knowledge 幫團隊找到可靠的公司資訊，並在回答旁標示來源。使用者可以回到原始文件確認，再決定下一步。','Elias Knowledge finds reliable company information and shows the source beside each answer. People can check the original before choosing what comes next.'),
     audience:[L('一般員工','Employees'),L('專案團隊','Project teams'),L('人資與法務','HR and legal'),L('內部服務台','Internal service desks')],
@@ -53,7 +53,7 @@ export const products: ProductDefinition[] = [
   {
     slug:'elias-care', family:'digital', name:'Elias Care', chineseName:'客服協作助理', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-care.webp',mobile:'images/v2/products/elias-care.webp',alt:L('客服團隊檢視 AI 準備的回覆與敏感內容提醒','A service team reviewing an AI-prepared response and sensitive-content notice')}},
-    statusNote:L('已完成客服工作台介面原型；下一步將驗證 CRM 整合與服務品質。','A service-workbench interface prototype is complete. Next, we will validate CRM integration and service quality.'),
+    statusNote:L('目前以客服工作台介面原型呈現；下一步將驗證 CRM 整合與服務品質。','Currently presented as a service-workbench interface prototype. Next, we will validate CRM integration and service quality.'),
     headline:L('讓客服更快看懂每一次需求。','Help service teams understand every request faster.'),
     intro:L('Elias Care 把客戶訊息、過往紀錄與服務規範整理在一起，幫客服準備回覆。涉及退款、個資或重要承諾時，再由服務人員確認。','Elias Care brings messages, history and service policies together and prepares a reply. Service teams review refunds, personal data and important commitments.'),
     audience:[L('客服人員','Service agents'),L('客服主管','Service managers'),L('售後服務團隊','After-sales teams'),L('品質管理人員','Quality managers')],
@@ -70,7 +70,7 @@ export const products: ProductDefinition[] = [
   {
     slug:'elias-flow', family:'digital', name:'Elias Flow', chineseName:'流程協作助理', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-flow.webp',mobile:'images/v2/products/elias-flow.webp',alt:L('工作人員在同一畫面確認發票資料、審核與系統更新進度','A worker reviewing invoice data, approval and system-update progress in one view')},secondary:{desktop:'images/v2/products/elias-flow-02.webp',mobile:'images/v2/products/elias-flow-02.webp',alt:L('團隊共同檢視流程例外、處理進度與稽核紀錄','A team reviewing workflow exceptions, progress and audit records together')}},
-    statusNote:L('已完成流程介面原型；下一步將驗證企業系統連接、例外處理與交易安全。','A workflow interface prototype is complete. Next, we will validate enterprise integration, exception handling and transaction safety.'),
+    statusNote:L('目前以流程介面原型呈現；下一步將驗證企業系統連接、例外處理與交易安全。','Currently presented as a workflow interface prototype. Next, we will validate enterprise integration, exception handling and transaction safety.'),
     headline:L('讓重複工作順暢往前走。','Keep repetitive work moving smoothly.'),
     intro:L('Elias Flow 把 Email、表單與文件整理成清楚的待辦，提醒負責的人並追蹤進度。重要決定由人確認，完成後留下紀錄。','Elias Flow turns email, forms and documents into clear tasks, reminds the right people and tracks progress. People confirm important decisions, and completed work leaves a record.'),
     audience:[L('行政人員','Administration'),L('營運團隊','Operations'),L('採購與財務','Procurement and finance'),L('流程管理人員','Process managers')],
@@ -79,15 +79,15 @@ export const products: ProductDefinition[] = [
     capabilities:[L('擷取表單欄位','Extract form fields'),L('建立待辦事項','Create tasks'),L('通知負責人','Notify owners'),L('追蹤核准狀態','Track approvals'),L('準備跨系統更新','Prepare cross-system updates')],
     scenario:L('供應商發票進入信箱。AI 擷取金額與編號、建立審核任務；財務確認後才準備 ERP 更新與稽核紀錄。','A supplier invoice arrives by email. AI extracts the amount and number and creates a review task. Only after finance approval does it prepare the ERP update and audit record.'),
     collaboration:L('AI 整理與追蹤；指定人員核對資料、處理例外並核准關鍵更新。','AI organizes and tracks. Designated people verify data, handle exceptions and approve critical updates.'),
-    dataPermissions:L('需要表單與 Email、欄位規則、流程角色、核准層級、目標 API 與回復方式。','Requires forms and email, field rules, workflow roles, approval levels, destination APIs and recovery procedures.'),
-    safeguards:[L('最小權限與執行前預覽','Least privilege and pre-execution preview'),L('核准節點與例外佇列','Approval points and exception queues'),L('重試、回復與稽核紀錄','Retry, recovery and audit records')],
+    dataPermissions:L('需要表單與 Email、欄位規則、流程角色、核准層級、目標 API 與復原方式。','Requires forms and email, field rules, workflow roles, approval levels, destination APIs and recovery procedures.'),
+    safeguards:[L('最小權限與執行前預覽','Least privilege and pre-execution preview'),L('核准節點與例外佇列','Approval points and exception queues'),L('重試、復原與稽核紀錄','Retry, recovery and audit records')],
     limitations:[L('未經授權，不會批准','Does not approve without authorization'),L('不自動執行高風險交易','Does not autonomously execute high-risk transactions'),L('不會完全取代人工管理','Does not eliminate human management')],
-    next:L('選定單一低風險流程，驗證欄位、權限、例外與回復。','Select one low-risk workflow and validate fields, permissions, exceptions and recovery.'), cta:L('與我們交流','Talk with us')
+    next:L('選定單一低風險流程，驗證欄位、權限、例外與復原。','Select one low-risk workflow and validate fields, permissions, exceptions and recovery.'), cta:L('與我們交流','Talk with us')
   },
   {
-    slug:'elias-ops', family:'digital', name:'Elias Ops', chineseName:'營運維運協作助理', status:'原型',
+    slug:'elias-ops', family:'digital', name:'Elias Ops', chineseName:'系統維運協作助理', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-ops.webp',mobile:'images/v2/products/elias-ops.webp',alt:L('維運人員檢視整併後的告警、時間線與處置建議','An operations specialist reviewing consolidated alerts, a timeline and response suggestions')},secondary:{desktop:'images/v2/products/elias-ops-02.webp',mobile:'images/v2/products/elias-ops-02.webp',alt:L('維運團隊確認服務影響與等待人員授權的下一步','An operations team reviewing service impact and the next step awaiting human authorization')}},
-    statusNote:L('已完成維運控制台介面原型；下一步將驗證即時監控整合與操作可靠性。','An operations-console interface prototype is complete. Next, we will validate live telemetry integration and operational reliability.'),
+    statusNote:L('目前以維運控制台介面原型呈現；下一步將驗證即時監控整合與操作可靠性。','Currently presented as an operations-console interface prototype. Next, we will validate live telemetry integration and operational reliability.'),
     headline:L('把複雜異常整理成清楚的下一步。','Turn complex incidents into a clear next step.'),
     intro:L('Elias Ops 把分散的告警與處理紀錄整理成清楚脈絡，幫維運團隊看懂影響。系統準備建議，實際操作由工程師決定。','Elias Ops turns scattered alerts and response history into a clear incident story. It prepares suggestions while engineers decide what action to take.'),
     audience:[L('IT 維運','IT operations'),L('NOC 與 SRE','NOC and SRE'),L('系統管理員','System administrators'),L('營運管理人員','Operations managers')],
@@ -97,7 +97,7 @@ export const products: ProductDefinition[] = [
     scenario:L('付款服務出現多項告警。AI 合併重複事件、標示受影響服務與證據；工程師決定觀察、轉派或申請操作授權。','Multiple alerts affect a payment service. AI groups duplicates and shows affected services and evidence; an engineer decides whether to observe, escalate or request action authorization.'),
     collaboration:L('AI 整理與建議；維運人員判斷根因、風險、優先順序與實際操作。','AI organizes and suggests. Operations staff decide root cause, risk, priority and actual action.'),
     dataPermissions:L('需要監控、日誌、事件單、資產關係、唯讀查詢與另行核准的操作權。','Requires monitoring, logs, incident tickets, asset relationships, read-only queries and separately approved action rights.'),
-    safeguards:[L('預設唯讀與操作分級','Read-only by default and tiered actions'),L('執行前預覽與人工授權','Pre-execution preview and human authorization'),L('緊急停止、回復與稽核','Emergency stop, recovery and audit trails')],
+    safeguards:[L('預設唯讀與操作分級','Read-only by default and tiered actions'),L('執行前預覽與人工授權','Pre-execution preview and human authorization'),L('緊急停止、復原與稽核','Emergency stop, recovery and audit trails')],
     limitations:[L('不自動修復所有問題','Does not automatically repair every problem'),L('未經授權，不會重啟或變更','Does not restart or change systems without authorization'),L('不保證系統永不中斷','Does not guarantee uninterrupted service')],
     next:L('以唯讀測試資料驗證事件關聯、告警去重、證據顯示與人工評估。','Use read-only test data to validate correlation, deduplication, evidence display and human assessment.'), cta:L('了解技術方向','Explore the technology direction')
   },
@@ -116,7 +116,7 @@ export const products: ProductDefinition[] = [
     dataPermissions:L('需要家庭成員同意、空間地圖、設備權限、任務歷史與可刪除偏好。','Requires household consent, spatial maps, device permissions, task history and deletable preferences.'),
     safeguards:[L('低速與力矩限制','Speed and force limits'),L('碰撞避免與實體急停','Collision avoidance and physical emergency stop'),L('感測器狀態與本地資料選項','Visible sensor status and local-data options')],
     limitations:[L('不提供醫療診斷','No medical diagnosis'),L('不取代照護者','Does not replace caregivers'),L('不處理所有家務或持續監控全家','Does not handle every task or continuously monitor everyone')],
-    next:L('定義 Design DNA、尺寸與力矩邊界、家庭權限模型及單一物品遞送測試。','Define design DNA, size and force boundaries, a household permission model and a single object-delivery test.'), cta:L('了解研發方向','Explore the research direction')
+    next:L('定義產品設計原則、尺寸與力矩邊界、家庭權限模型及單一物品遞送測試。','Define product design principles, size and force boundaries, a household permission model and a single object-delivery test.'), cta:L('了解研發方向','Explore the research direction')
   },
   {
     slug:'elias-rescue', family:'embodied', name:'Elias Rescue', chineseName:'救援人工智慧機器人概念', status:'概念',
@@ -128,7 +128,7 @@ export const products: ProductDefinition[] = [
     problem:L('人員難以安全進入，現場資訊不足，設備與物資運送也受限。','People may not be able to enter safely, field information is limited and equipment or supply transport is constrained.'),
     values:[L('先取得環境資訊','Gather environmental information first'),L('減少不必要的人員暴露','Reduce unnecessary human exposure'),L('支援而不取代現場指揮','Support rather than replace field command')],
     capabilities:[L('危險環境感測研究','Hazard sensing research'),L('搜尋與資訊回傳','Search and information relay'),L('物資運送','Supply transport'),L('救援路線協助','Route assistance'),L('遠端控制','Remote control')],
-    scenario:L('建築倒塌後，救援人員指揮機器人進入受控區域。系統先量測環境風險，再安全帶出受困的貓並交給救援人員；現場指揮決定下一步。','After a building collapse, responders direct the robot into a controlled area. It checks environmental hazards, safely brings out a trapped cat and transfers it to responders; incident command decides what comes next.'),
+    scenario:L('在模擬倒塌場域中，救援人員遠端指揮機器人量測風險、回傳影像並運送輕量物資；現場指揮決定下一步。','In a simulated collapse site, responders remotely direct the robot to measure hazards, relay video and carry lightweight supplies; incident command decides what comes next.'),
     collaboration:L('人員設定任務、路線限制與停止條件；系統感測與回傳，不自行改變救援目標。','Responders define the task, route limits and stop conditions. The system senses and reports without changing rescue objectives autonomously.'),
     dataPermissions:L('需要任務地圖、感測資料、遠端控制權、角色授權、通訊紀錄與保留政策。','Requires mission maps, sensor data, remote-control rights, role authorization, communications logs and retention policies.'),
     safeguards:[L('遠端優先與通訊失效安全','Remote-first operation and communications fail-safe'),L('任務界線與緊急停止','Mission boundaries and emergency stop'),L('動作、載重與完整事件紀錄','Motion and load limits with complete event records')],

@@ -13,7 +13,11 @@ const liveVideo=product.slug==='elias-home'
   ?{src:`${base}/media/elias-home-live-scenario.mp4`,label:t('Elias Home 與家庭成員協作的真人情境影片','Live-action Elias Home family collaboration scenario')}
   :product.slug==='elias-rescue'
     ?{src:`${base}/media/elias-rescue-live-scenario.mp4`,label:t('Elias Rescue 與救援人員協作的真人情境影片','Live-action Elias Rescue response-team collaboration scenario')}
-    :null;
+    :product.slug==='elias-care'
+      ?{src:`${base}/media/elias-care-live-scenario.mp4`,label:t('客服人員與人工智慧共同整理客戶需求的情境影片','A service specialist and AI organizing customer needs together')}
+      :product.slug==='elias-ops'
+        ?{src:`${base}/media/elias-ops-live-scenario.mp4`,label:t('維運人員與人工智慧共同檢視事件訊號的情境影片','An operations specialist and AI reviewing incident signals together')}
+        :null;
 const particleSeed=[
   ['12%','18%','3px','0s'],['31%','12%','2px','1.4s'],['72%','20%','4px','2.8s'],['88%','36%','2px','.7s'],
   ['18%','56%','2px','3.5s'],['44%','48%','3px','1.9s'],['78%','62%','2px','4.2s'],['26%','81%','4px','2.3s'],
@@ -34,7 +38,7 @@ const particleSeed=[
     </div>
   </div>
   <div class="v2-prototype-stage">
-    {liveVideo?<video class="v2-live-product-video" data-product-video muted loop playsinline controls preload="metadata" poster={desktop} aria-label={liveVideo.label}>
+    {liveVideo?<video class="v2-live-product-video" data-product-video autoplay muted loop playsinline controls preload="metadata" poster={desktop} aria-label={liveVideo.label}>
       <source src={liveVideo.src} type="video/mp4" />
       {t('你的瀏覽器不支援此產品情境影片。','Your browser does not support this product scenario video.')}
     </video>:<MotionPicture desktop={desktop} mobile={mobile} alt={l(product.media.hero.alt,locale)}/>}
