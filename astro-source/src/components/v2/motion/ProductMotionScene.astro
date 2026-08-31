@@ -1,21 +1,22 @@
 ---
 import type { ProductDefinition, SiteLocale } from '../../../data/products';
 import { simplify } from '../../../data/simplified-map';
-interface Props { product: ProductDefinition; locale: SiteLocale }
-const { product, locale } = Astro.props;
+interface Props { product: ProductDefinition; locale: SiteLocale; hasLiveVideo?: boolean }
+const { product, locale, hasLiveVideo = false } = Astro.props;
 const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? simplify(zh) : zh;
 const slug = product.slug;
 const isEmbodied = slug === 'elias-home' || slug === 'elias-rescue';
-const isCinematic = isEmbodied || slug === 'elias-care';
+const isCinematic = hasLiveVideo;
 ---
 <div class:list={['v2-product-motion-scene',`is-${slug}`,isCinematic&&'is-live-only',isEmbodied&&'is-photo-only']} data-product-motion-stage data-product={slug} data-motion-state="idle" aria-label={t(`${product.name} 產品協作動畫`,`${product.name} product collaboration animation`)}>
   {isCinematic ? <>
     <span class="v2-sr-only" data-motion-status>{t('真人情境影片準備播放','Live-action scenario ready')}</span>
     <span class="v2-sr-only" data-motion-step="0">{t('看見使用者與現場情境','User and real-world context')}</span>
-    <span class="v2-sr-only" data-motion-step="1">{slug === 'elias-care'?t('人工智慧整理客戶訊息','AI organizes the customer request'):t('機器人開始協助','The robot begins assisting')}</span>
-    <span class="v2-sr-only" data-motion-step="2">{slug === 'elias-care'?t('客服人員確認回覆','The service specialist reviews the response'):t('任務持續進行','The task continues')}</span>
-    <span class="v2-sr-only" data-motion-step="3">{slug === 'elias-home' ? t('家庭協作情境持續進行','The family collaboration continues') : slug === 'elias-rescue' ? t('救援人員持續指揮現場任務','Responders remain in command of the field mission') : t('由客服人員決定是否送出','The service specialist decides whether to send')}</span>
+    <span class="v2-sr-only" data-motion-step="1">{slug === 'elias-care'?t('人工智慧整理客戶訊息','AI organizes the customer request'):slug === 'elias-ops'?t('人工智慧彙整系統與網路服務告警','AI consolidates system and network service alerts'):t('機器人開始協助','The robot begins assisting')}</span>
+    <span class="v2-sr-only" data-motion-step="2">{slug === 'elias-care'?t('客服人員確認回覆','The service specialist reviews the response'):slug === 'elias-ops'?t('工程師判斷影響與處理順序','The engineer reviews impact and priority'):t('任務持續進行','The task continues')}</span>
+    <span class="v2-sr-only" data-motion-step="3">{slug === 'elias-home' ? t('家庭協作情境持續進行','The family collaboration continues') : slug === 'elias-rescue' ? t('救援人員持續指揮現場任務','Responders remain in command of the field mission') : slug === 'elias-ops' ? t('工程師決定如何處理','The engineer decides how to respond') : t('由客服人員決定是否送出','The service specialist decides whether to send')}</span>
     {slug === 'elias-care'&&<div class="v2-live-caption" data-motion-step="4"><small>AI + HUMAN SERVICE</small><strong>{t('AI 先整理，客服確認後回覆。','AI organizes first. A service specialist confirms the response.')}</strong></div>}
+    {slug === 'elias-ops'&&<div class="v2-live-caption" data-motion-step="4"><small>AI + HUMAN OPERATIONS</small><strong>{t('AI 彙整告警，工程師決定如何處理。','AI consolidates alerts. Engineers decide how to respond.')}</strong></div>}
     <button class="v2-photo-replay" type="button" data-motion-replay aria-label={t('從頭重新播放產品情境影片','Replay the product scenario video from the beginning')}>{t('重新播放影片','Replay video')}</button>
   </> : <header class="v2-motion-scene-header"><span>{product.name}</span><small data-motion-status>{t('準備播放','Ready')}</small></header>}
 
@@ -47,9 +48,9 @@ const isCinematic = isEmbodied || slug === 'elias-care';
     <div class="scene-done" data-motion-step="5">{t('更新完成 · 稽核紀錄已建立','Update complete · Audit record created')}</div>
   </div>}
 
-  {slug === 'elias-ops' && <div class="v2-scene-canvas scene-ops">
-    <div class="ops-alerts"><span data-motion-step="0">P1 · Payment timeout</span><span data-motion-step="1">P2 · API latency</span><span data-motion-step="2">P2 · Queue saturation</span></div>
-    <div class="ops-incident" data-motion-step="3"><small>{t('AI 合併為一項事件','AI CORRELATED ONE INCIDENT')}</small><strong>{t('付款授權服務異常','Payment authorization service issue')}</strong><p>{t('143 則告警 · 18 個來源 · 3 項受影響服務','143 alerts · 18 sources · 3 affected services')}</p></div>
+  {slug === 'elias-ops' && !isCinematic && <div class="v2-scene-canvas scene-ops">
+    <div class="ops-alerts"><span data-motion-step="0">P1 · Network service outage</span><span data-motion-step="1">P2 · API latency</span><span data-motion-step="2">P2 · Queue saturation</span></div>
+    <div class="ops-incident" data-motion-step="3"><small>{t('AI 合併為一項事件','AI CORRELATED ONE INCIDENT')}</small><strong>{t('系統與網路服務異常','System and network service issue')}</strong><p>{t('143 則告警 · 18 個來源 · 3 項受影響服務','143 alerts · 18 sources · 3 affected services')}</p></div>
     <div class="ops-choice" data-motion-step="4"><small>{t('工程師選擇下一步','ENGINEER CHOOSES NEXT STEP')}</small><div><button type="button">{t('繼續觀察','Observe')}</button><button type="button">{t('轉派處理','Escalate')}</button><button type="button">{t('申請授權','Request approval')}</button></div></div>
     <div class="scene-done" data-motion-step="5">{t('未授權操作維持停止','Unauthorized action remains stopped')}</div>
   </div>}

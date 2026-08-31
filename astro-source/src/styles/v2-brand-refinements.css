@@ -34,7 +34,7 @@
   z-index: 2;
 }
 
-/* Live-action Care: keep the people visible and reduce the interface to one quiet caption. */
+/* Live-action product scenes keep people visible and reduce the interface to one quiet caption. */
 .v2-product-observe > .v2-prototype-stage > .v2-product-motion-scene.is-live-only {
   position: absolute;
   inset: 0;

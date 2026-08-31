@@ -8,7 +8,9 @@ const storyTitle=product.slug==='elias-home'
   ?t('需求有被了解照顧，下一步才真正有用。','When needs are understood and cared for, the next step can truly help.')
   :product.slug==='elias-rescue'
     ?t('危險先行預測，才能保障人們的安全。','Predict danger early, so people can stay safe.')
-    :t('問題先被看懂，下一步才真正有用。','Understand the situation. Prepare a useful next step.');
+    :product.slug==='elias-ops'
+      ?t('告警不再分散，判斷更快到位。','Bring scattered alerts together. Decide with clarity.')
+      :t('問題先被看懂，下一步才真正有用。','Understand the situation. Prepare a useful next step.');
 const liveVideo=product.slug==='elias-home'
   ?{src:`${base}/media/elias-home-live-scenario.mp4`,label:t('Elias Home 與家庭成員協作的真人情境影片','Live-action Elias Home family collaboration scenario')}
   :product.slug==='elias-rescue'
@@ -42,7 +44,7 @@ const particleSeed=[
       <source src={liveVideo.src} type="video/mp4" />
       {t('你的瀏覽器不支援此產品情境影片。','Your browser does not support this product scenario video.')}
     </video>:<MotionPicture desktop={desktop} mobile={mobile} alt={l(product.media.hero.alt,locale)}/>}
-    <ProductMotionScene product={product} locale={locale}/>
+    <ProductMotionScene product={product} locale={locale} hasLiveVideo={Boolean(liveVideo)}/>
   </div>
   {product.family==='embodied'&&<aside class="v2-preorder-note"><strong>{t('概念研究｜參與下一步','Concept research | Follow what comes next')}</strong><p>{t('我們正用真人情境探索產品價值與互動方式。可登記接收後續研究及展示消息；此階段不收取款項，也不承諾售價或交付日期。','We are using real-world scenarios to explore product value and interaction. Register for future research and demonstration updates; no payment, pricing or delivery date is offered at this stage.')}</p></aside>}
 </section>

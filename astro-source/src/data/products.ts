@@ -94,7 +94,7 @@ export const products: ProductDefinition[] = [
     problem:L('告警重複、訊號分散、影響難判斷，處理紀錄也不完整。','Alerts repeat, signals are scattered, impact is difficult to assess and response records are incomplete.'),
     values:[L('壓縮告警雜訊','Reduce alert noise'),L('建立事件脈絡','Build incident context'),L('讓授權與操作可追溯','Keep authorization and action traceable')],
     capabilities:[L('彙整事件訊號','Consolidate event signals'),L('關聯相關異常','Correlate anomalies'),L('整理事件時間線','Build incident timelines'),L('說明可能影響','Explain possible impact'),L('提出檢查順序','Suggest a check sequence')],
-    scenario:L('付款服務出現多項告警。AI 合併重複事件、標示受影響服務與證據；工程師決定觀察、轉派或申請操作授權。','Multiple alerts affect a payment service. AI groups duplicates and shows affected services and evidence; an engineer decides whether to observe, escalate or request action authorization.'),
+    scenario:L('系統與網路服務出現多項告警。AI 合併重複事件、標示影響與相關證據；工程師決定觀察、轉派或申請操作授權。','Multiple alerts affect system and network services. AI groups duplicates and shows impact and related evidence; an engineer decides whether to observe, escalate or request action authorization.'),
     collaboration:L('AI 整理與建議；維運人員判斷根因、風險、優先順序與實際操作。','AI organizes and suggests. Operations staff decide root cause, risk, priority and actual action.'),
     dataPermissions:L('需要監控、日誌、事件單、資產關係、唯讀查詢與另行核准的操作權。','Requires monitoring, logs, incident tickets, asset relationships, read-only queries and separately approved action rights.'),
     safeguards:[L('預設唯讀與操作分級','Read-only by default and tiered actions'),L('執行前預覽與人工授權','Pre-execution preview and human authorization'),L('緊急停止、復原與稽核','Emergency stop, recovery and audit trails')],
