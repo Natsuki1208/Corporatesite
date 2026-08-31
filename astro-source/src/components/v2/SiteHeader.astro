@@ -14,15 +14,15 @@ const groups = [
     { eyebrow:'DIGITAL INTELLIGENCE', title:t('線上智慧支援','Digital Intelligence'), href:`${root}digital-intelligence/`, links:[[t('知識與客服','Knowledge & Service'),`${root}digital-intelligence/knowledge-service/`],[t('Ops 與流程','Ops & Workflow'),`${root}digital-intelligence/operations-workflow/`]] },
     { eyebrow:'AI ROBOTICS', title:t('人工智慧機器人','AI Robotics'), href:`${root}ai-robots/`, links:[['Elias Home',`${root}products/elias-home/`],['Elias Rescue',`${root}products/elias-rescue/`]] }
   ]},
-  { id:'api', label:'API', active:['api','docs','pricing'].includes(current), intro:t('API 說明的是如何介接；產品頁說明的是能解決什麼問題。','API explains how to integrate. Product pages explain what each product helps solve.'), columns:[
+  { id:'api', label:'API', active:['api','docs','pricing'].includes(current), intro:t('用 API 把 Elias AI 接進現有工具；產品頁則說明能解決什麼問題。','Use APIs to bring Elias AI into existing tools. Product pages explain what each product helps solve.'), columns:[
     { eyebrow:'DEVELOPER PATH', title:t('開發與整合','Build & Integrate'), href:`${root}api/`, links:[[t('整合文件','Documentation'),`${root}docs/`],[t('合作方案','Plans'),`${root}pricing/`],[t('討論整合','Discuss Integration'),`${root}contact/`]] },
-    { eyebrow:'INTEGRATION DIRECTIONS', title:t('四種介接方向','Four Integration Areas'), href:`${root}api/#integration-map`, links:[[t('知識檢索介接','Knowledge Retrieval'),`${root}api/#knowledge`],[t('客服協作介接','Service Collaboration'),`${root}api/#care`],[t('流程任務介接','Workflow Tasks'),`${root}api/#flow`],[t('事件脈絡介接','Incident Context'),`${root}api/#ops`]] }
+    { eyebrow:'AI INTEGRATION', title:t('四種 AI 整合方式','Four AI Integration Areas'), href:`${root}api/#integration-map`, links:[[t('知識搜尋','Knowledge Retrieval'),`${root}api/#knowledge`],[t('客服協作','Service Collaboration'),`${root}api/#care`],[t('流程任務','Workflow Tasks'),`${root}api/#flow`],[t('事件整理','Incident Context'),`${root}api/#ops`]] }
   ]},
   { id:'resources', label:t('資源','Resources'), active:['technology','safety','research'].includes(current), intro:t('查看技術原則、研發進度、品牌觀點與可下載資料。','Explore technology principles, research progress, brand perspectives and downloads.'), columns:[
     { eyebrow:'TRUST + PROGRESS', title:t('技術與信任','Technology & Trust'), href:`${root}technology/`, links:[[t('信任與選擇','Trust & Choice'),`${root}safety/`],[t('研發進度','Research Progress'),`${root}research/`]] },
     { eyebrow:'PERSPECTIVE + MATERIALS', title:t('觀點與資料','Perspective & Materials'), href:`${root}founder/`, links:[[t('關於 Elias Net','About Elias Net'),`${root}company/`],[t('下載救援機器人型錄','Download Rescue Catalog'),`${base}/downloads/elias-rescue-robot-catalog-zh-TW.pdf`]] }
   ]},
-  { id:'features', label:t('特性','Features'), active:false, intro:t('不是另一組產品，而是 Elias 智慧系統能協助完成的六件事。','Not another product list—six things Elias intelligence is designed to help with.'), columns:[
+  { id:'features', label:t('特性','Features'), active:false, intro:t('六項核心能力，貫穿 Elias 的數位系統與機器人研究。','Six core capabilities across Elias digital systems and robotics research.'), columns:[
     { eyebrow:'DIGITAL AI', title:t('工作中的智慧','Intelligence at Work'), href:`${root}#feature-understand`, links:[[t('看懂資訊','Understand information'),`${root}#feature-understand`],[t('找出重點','Find what matters'),`${root}#feature-focus`],[t('協助回覆','Prepare responses'),`${root}#feature-assist`],[t('推進流程','Keep work moving'),`${root}#feature-coordinate`]] },
     { eyebrow:'REAL-WORLD AI', title:t('真實世界的智慧','Intelligence in the Real World'), href:`${root}#feature-sense`, links:[[t('感知環境','Sense environments'),`${root}#feature-sense`],[t('支援行動','Support action'),`${root}#feature-act`],[t('由人指揮','Under human command'),`${root}safety/`]] }
   ]},

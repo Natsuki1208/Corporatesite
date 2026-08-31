@@ -7,9 +7,10 @@ import ResponsivePicture from './ResponsivePicture.astro';
 interface Props { product: ProductDefinition; locale: SiteLocale; basePath: string }
 const { product, locale, basePath } = Astro.props;
 const assetBase = import.meta.env.BASE_URL.replace(/\/$/,'');
+const cardMedia = product.media.secondary ?? product.media.hero;
 ---
 <article class="v2-product-card v2-reveal">
-  <ResponsivePicture desktop={`${assetBase}/${product.media.hero.desktop}`} mobile={`${assetBase}/${product.media.hero.mobile}`} alt={l(product.media.hero.alt,locale)} />
+  <ResponsivePicture desktop={`${assetBase}/${cardMedia.desktop}`} mobile={`${assetBase}/${cardMedia.mobile}`} alt={l(cardMedia.alt,locale)} />
   <div class="v2-card-top"><p>{product.family === 'digital' ? 'DIGITAL INTELLIGENCE' : 'AI ROBOTICS'}</p><ProductStatus status={product.status} locale={locale} note={l(product.statusNote,locale)} /></div>
   <h3>{product.name}</h3><span class="v2-product-cn">{locale === 'zh-CN' ? simplify(product.chineseName) : product.chineseName}</span>
   <h4>{l(product.headline,locale)}</h4><p>{l(product.intro,locale)}</p>

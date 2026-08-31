@@ -8,9 +8,14 @@ import ProductMotionPrototype from './motion/ProductMotionPrototype.astro';
 interface Props { product: ProductDefinition; locale: SiteLocale }
 const { product, locale }=Astro.props; const base=import.meta.env.BASE_URL.replace(/\/$/,''); const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${base}/`; const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh; const statusLabel=locale==='en'?(product.status==='概念'?'Concept':product.status==='原型'?'Prototype':product.status):locale==='zh-CN'?simplify(product.status):product.status;
 const mediaUrl=(path:string)=>`${base}/${path}`;
-const productPosition=products.findIndex((item)=>item.slug===product.slug);
-const previousProduct=products[(productPosition-1+products.length)%products.length];
-const nextProduct=products[(productPosition+1)%products.length];
+const navigationGroup=product.family==='embodied'
+  ? products.filter((item)=>item.family==='embodied')
+  : ['elias-knowledge','elias-care'].includes(product.slug)
+    ? products.filter((item)=>['elias-knowledge','elias-care'].includes(item.slug))
+    : products.filter((item)=>['elias-flow','elias-ops'].includes(item.slug));
+const productPosition=navigationGroup.findIndex((item)=>item.slug===product.slug);
+const previousProduct=navigationGroup[(productPosition-1+navigationGroup.length)%navigationGroup.length];
+const nextProduct=navigationGroup[(productPosition+1)%navigationGroup.length];
 ---
 <ProductPageLayout product={product} locale={locale} prefix={prefix}>
 <ProductMotionPrototype product={product} locale={locale}/>
