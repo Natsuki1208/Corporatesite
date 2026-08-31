@@ -9,15 +9,21 @@ const image = pageKey === 'knowledge-service'
   ? `${base}/images/elias-net-shared-knowledge.jpg`
   : pageKey === 'operations-workflow'
     ? `${base}/images/elias-net-ai-operations.jpg`
+    : pageKey === 'technology'
+      ? `${base}/images/elias-net-trust-boundary.jpg`
     : digital
       ? `${base}/images/elias-net-human-decision.jpg`
   : robotic
-    ? `${base}/images/v2/human-ai-cocreation.webp`
+    ? `${base}/images/v2/products/elias-home-02-desktop.webp`
     : pageKey === 'safety'
-      ? `${base}/images/v2/human-ai-cocreation.webp`
+      ? `${base}/images/v2/human-ai-shared-view-v2.jpg`
       : pageKey === 'careers'
-        ? `${base}/images/elias-leadership-board.webp`
-        : `${base}/images/v2/human-ai-cocreation.webp`;
+        ? `${base}/images/v2/human-ai-careers-studio-v2.jpg`
+        : pageKey === 'research'
+          ? `${base}/images/elias-net-signal-studio.jpg`
+          : pageKey === 'contact'
+            ? `${base}/images/elias-net-integration-hero.jpg`
+            : `${base}/images/v2/human-ai-shared-view-v2.jpg`;
 ---
 <figure class:list={['v2-page-hero-visual',digital&&'is-digital',robotic&&'is-robotic']}>
   <img src={image} alt={alt} width="1200" height="800" loading="eager" decoding="async" />
