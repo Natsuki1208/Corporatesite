@@ -6,14 +6,16 @@ const { product, locale } = Astro.props;
 const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? simplify(zh) : zh;
 const slug = product.slug;
 const isEmbodied = slug === 'elias-home' || slug === 'elias-rescue';
+const isCinematic = isEmbodied || slug === 'elias-care';
 ---
-<div class:list={['v2-product-motion-scene',`is-${slug}`,isEmbodied&&'is-photo-only']} data-product-motion-stage data-product={slug} data-motion-state="idle" aria-label={t(`${product.name} 產品協作動畫`,`${product.name} product collaboration animation`)}>
-  {isEmbodied ? <>
+<div class:list={['v2-product-motion-scene',`is-${slug}`,isCinematic&&'is-live-only',isEmbodied&&'is-photo-only']} data-product-motion-stage data-product={slug} data-motion-state="idle" aria-label={t(`${product.name} 產品協作動畫`,`${product.name} product collaboration animation`)}>
+  {isCinematic ? <>
     <span class="v2-sr-only" data-motion-status>{t('真人情境影片準備播放','Live-action scenario ready')}</span>
     <span class="v2-sr-only" data-motion-step="0">{t('看見使用者與現場情境','User and real-world context')}</span>
-    <span class="v2-sr-only" data-motion-step="1">{t('機器人開始協助','The robot begins assisting')}</span>
-    <span class="v2-sr-only" data-motion-step="2">{t('任務持續進行','The task continues')}</span>
-    <span class="v2-sr-only" data-motion-step="3">{slug === 'elias-home' ? t('家庭協作情境持續進行','The family collaboration continues') : t('救援人員持續指揮現場任務','Responders remain in command of the field mission')}</span>
+    <span class="v2-sr-only" data-motion-step="1">{slug === 'elias-care'?t('人工智慧整理客戶訊息','AI organizes the customer request'):t('機器人開始協助','The robot begins assisting')}</span>
+    <span class="v2-sr-only" data-motion-step="2">{slug === 'elias-care'?t('客服人員確認回覆','The service specialist reviews the response'):t('任務持續進行','The task continues')}</span>
+    <span class="v2-sr-only" data-motion-step="3">{slug === 'elias-home' ? t('家庭協作情境持續進行','The family collaboration continues') : slug === 'elias-rescue' ? t('救援人員持續指揮現場任務','Responders remain in command of the field mission') : t('由客服人員決定是否送出','The service specialist decides whether to send')}</span>
+    {slug === 'elias-care'&&<div class="v2-live-caption" data-motion-step="4"><small>AI + HUMAN SERVICE</small><strong>{t('AI 先整理，客服確認後回覆。','AI organizes first. A service specialist confirms the response.')}</strong></div>}
     <button class="v2-photo-replay" type="button" data-motion-replay aria-label={t('從頭重新播放產品情境影片','Replay the product scenario video from the beginning')}>{t('重新播放影片','Replay video')}</button>
   </> : <header class="v2-motion-scene-header"><span>{product.name}</span><small data-motion-status>{t('準備播放','Ready')}</small></header>}
 
@@ -28,7 +30,7 @@ const isEmbodied = slug === 'elias-home' || slug === 'elias-rescue';
     <div class="scene-done" data-motion-step="5">✓ {t('附來源的答案已準備完成','Sourced answer ready')}</div>
   </div>}
 
-  {slug === 'elias-care' && <div class="v2-scene-canvas scene-care">
+  {slug === 'elias-care' && !isCinematic && <div class="v2-scene-canvas scene-care">
     <div class="care-message" data-motion-step="0"><small>{t('客戶訊息','CUSTOMER MESSAGE')}</small><p>{t('信用卡似乎被重複扣款，可以幫我確認嗎？','It looks like I was charged twice. Can you check?')}</p></div>
     <aside class="care-context" data-motion-step="1"><b>{t('AI 已整理脈絡','AI ORGANIZED CONTEXT')}</b><span>{t('訂單、付款紀錄與退款規範已找到','Order, payment record and refund policy found')}</span></aside>
     <div class="care-draft" data-motion-step="2"><small>{t('回覆草稿','RESPONSE DRAFT')}</small><p>{t('我們已找到重複授權紀錄，正在為你確認後續處理。','We found a duplicate authorization and are confirming the next step for you.')}</p><em data-motion-step="3">{t('客服修改一句內容','Agent edits one sentence')}</em></div>
@@ -52,5 +54,5 @@ const isEmbodied = slug === 'elias-home' || slug === 'elias-rescue';
     <div class="scene-done" data-motion-step="5">{t('未授權操作維持停止','Unauthorized action remains stopped')}</div>
   </div>}
 
-  {!isEmbodied && <div class="v2-motion-actions"><span>{t('重要決定保留人類授權','Important decisions retain human authorization')}</span><button type="button" data-motion-replay>{t('重新播放','Replay')}</button></div>}
+  {!isCinematic && <div class="v2-motion-actions"><span>{t('重要決定保留人類授權','Important decisions retain human authorization')}</span><button type="button" data-motion-replay>{t('重新播放','Replay')}</button></div>}
 </div>

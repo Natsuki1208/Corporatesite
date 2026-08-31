@@ -30,7 +30,7 @@ const particleSeed=[
       <span class="v2-product-story-beam"></span>
       {particleSeed.map(([left,top,size,delay],index)=><i style={`--x:${left};--y:${top};--size:${size};--delay:${delay};--index:${index}`}></i>)}
     </div>
-    <p class="v2-eyebrow">{t('真實工作情境 / 產品模擬','REAL WORK / PRODUCT SIMULATION')}</p>
+    <p class="v2-eyebrow">{liveVideo?t('真人協作情境','LIVE HUMAN + AI COLLABORATION'):t('真實工作情境 / 產品模擬','REAL WORK / PRODUCT SIMULATION')}</p>
     <h2 id={`${product.slug}-motion-title`}>{storyTitle}</h2>
     <p class="v2-product-observe-lead">{l(product.scenario,locale)}</p>
     <div class="v2-observe-states" aria-label={t('產品協作階段','Product collaboration stages')}>

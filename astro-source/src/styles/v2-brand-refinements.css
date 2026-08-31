@@ -34,11 +34,45 @@
   z-index: 2;
 }
 
+/* Live-action Care: keep the people visible and reduce the interface to one quiet caption. */
+.v2-product-observe > .v2-prototype-stage > .v2-product-motion-scene.is-live-only {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  min-height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  overflow: visible;
+  pointer-events: none;
+}
+.v2-live-caption {
+  position: absolute;
+  z-index: 4;
+  left: clamp(14px, 2.4vw, 28px);
+  bottom: clamp(14px, 2.4vw, 26px);
+  display: grid;
+  gap: 3px;
+  max-width: min(360px, calc(100% - 150px));
+  padding: 9px 13px;
+  border-left: 2px solid #2ed7c5;
+  background: rgba(5, 15, 20, .58);
+  color: #f4f8f7;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .18);
+  backdrop-filter: blur(8px);
+}
+.v2-live-caption small { color: #79ddd2; font-size: .52rem; font-weight: 850; letter-spacing: .13em; }
+.v2-live-caption strong { font-size: clamp(.72rem, 1vw, .86rem); line-height: 1.35; }
+
 @media (max-width: 700px) {
   .v2-product-observe > .v2-prototype-stage:has(.v2-live-product-video) {
     min-height: 0;
     aspect-ratio: 16 / 9;
   }
+  .v2-live-caption { max-width: calc(100% - 118px); padding: 7px 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
