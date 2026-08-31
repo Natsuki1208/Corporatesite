@@ -13,6 +13,6 @@ const assetBase = import.meta.env.BASE_URL.replace(/\/$/,'');
   <div class="v2-card-top"><p>{product.family === 'digital' ? 'DIGITAL INTELLIGENCE' : 'AI ROBOTICS'}</p><ProductStatus status={product.status} locale={locale} note={l(product.statusNote,locale)} /></div>
   <h3>{product.name}</h3><span class="v2-product-cn">{locale === 'zh-CN' ? simplify(product.chineseName) : product.chineseName}</span>
   <h4>{l(product.headline,locale)}</h4><p>{l(product.intro,locale)}</p>
-  <dl><div><dt>{locale === 'en' ? 'Who it helps' : locale === 'zh-CN' ? '适合谁' : '適合誰'}</dt><dd>{product.audience.slice(0,2).map((item)=>l(item,locale)).join(' · ')}</dd></div><div><dt>{locale === 'en' ? 'How we work together' : locale === 'zh-CN' ? '如何一起完成' : '如何一起完成'}</dt><dd>{l(product.collaboration,locale)}</dd></div></dl>
+  <dl><div><dt>{locale === 'en' ? 'Who it helps' : locale === 'zh-CN' ? '适合谁' : '適合誰'}</dt><dd>{product.audience.slice(0,2).map((item)=>l(item,locale)).join(' · ')}</dd></div><div><dt>{locale === 'en' ? 'Core value' : locale === 'zh-CN' ? '核心价值' : '核心價值'}</dt><dd>{product.values.slice(0,2).map((item)=>l(item,locale)).join(' · ')}</dd></div></dl>
   <a class="v2-card-action" href={`${basePath}products/${product.slug}/`}>{locale === 'en' ? 'View product' : locale === 'zh-CN' ? '查看产品' : '查看產品'} <span aria-hidden="true">→</span></a>
 </article>

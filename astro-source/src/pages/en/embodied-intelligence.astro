@@ -1,4 +1,4 @@
 ---
-import NewSiteLayout from '../../layouts/NewSiteLayout.astro'; import FamilyPage from '../../components/v2/FamilyPage.astro';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+return Astro.redirect(`${base}/en/ai-robots/`,301);
 ---
-<NewSiteLayout locale="en" current="embodied-intelligence" path="embodied-intelligence/" title="Embodied Intelligence | Elias Net" description="Elias Home and Elias Rescue explore safe, human-centered humanoid and embodied intelligence systems."><FamilyPage locale="en" family="embodied"/></NewSiteLayout>

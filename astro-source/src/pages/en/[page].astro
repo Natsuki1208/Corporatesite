@@ -2,5 +2,6 @@
 import NewSiteLayout from '../../layouts/NewSiteLayout.astro'; import InfoPage from '../../components/v2/InfoPage.astro';
 type PageName='technology'|'safety'|'research'|'about'|'contact';
 export function getStaticPaths(){const pageDefs={technology:{title:'Technology | Elias Net',description:'Technology directions for understanding, collaboration, perception and action.'},safety:{title:'Trust & Choice | Elias Net',description:'Artificial intelligence people can welcome, with room to understand, adjust and choose.'},research:{title:'Research Progress | Elias Net',description:'Evidence-based concept and prototype status across our product directions.'},about:{title:'About | Elias Net',description:'Elias Net is an AI and embodied intelligence technology company.'},contact:{title:'Contact | Elias Net',description:'Start a conversation with a work problem, research question or application scenario.'}};return Object.entries(pageDefs).map(([page,meta])=>({params:{page},props:{page,meta}}))} const {page:rawPage,meta}=Astro.props; const page=rawPage as PageName;
+if(page==='about'){const base=import.meta.env.BASE_URL.replace(/\/$/,'');return Astro.redirect(`${base}/en/company/`,301)}
 ---
 <NewSiteLayout locale="en" current={page} path={`${page}/`} title={meta.title} description={meta.description}><InfoPage locale="en" page={page}/></NewSiteLayout>

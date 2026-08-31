@@ -224,9 +224,22 @@ export const traditionalToSimplified: Record<string, string> = {
   "驗": "验",
   "體": "体",
   "麼": "么",
-  "點": "点"
+  "點": "点",
+  "職": "职",
+  "揮": "挥",
+  "齡": "龄",
+  "遞": "递",
+  "築": "筑",
+  "貓": "猫",
+  "藥": "药",
+  "訓": "训",
+  "練": "练",
+  "佈": "布",
+  "纔": "才"
 };
 
 export function simplify(value: string): string {
-  return Array.from(value).map((char) => traditionalToSimplified[char] ?? char).join('');
+  const normalized = value
+    .replaceAll('人工智慧', '人工智能');
+  return Array.from(normalized).map((char) => traditionalToSimplified[char] ?? char).join('');
 }

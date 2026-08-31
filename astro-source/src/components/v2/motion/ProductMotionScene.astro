@@ -11,7 +11,7 @@ const isEmbodied = slug === 'elias-home' || slug === 'elias-rescue';
   {isEmbodied ? <>
     <span class="v2-sr-only" data-motion-status>{t('真人情境影片準備播放','Live-action scenario ready')}</span>
     <span class="v2-sr-only" data-motion-step="0">{t('看見使用者與現場情境','User and real-world context')}</span>
-    <span class="v2-sr-only" data-motion-step="1">{t('仿生人開始協助','The humanoid begins assisting')}</span>
+    <span class="v2-sr-only" data-motion-step="1">{t('機器人開始協助','The robot begins assisting')}</span>
     <span class="v2-sr-only" data-motion-step="2">{t('任務持續進行','The task continues')}</span>
     <span class="v2-sr-only" data-motion-step="3">{slug === 'elias-home' ? t('家庭協作情境持續進行','The family collaboration continues') : t('救援人員持續指揮現場任務','Responders remain in command of the field mission')}</span>
     <button class="v2-photo-replay" type="button" data-motion-replay aria-label={t('從頭重新播放產品情境影片','Replay the product scenario video from the beginning')}>{t('重新播放影片','Replay video')}</button>

@@ -3,7 +3,7 @@ import type { SiteLocale } from '../../../data/products'; import { simplify } fr
 interface Props { locale: SiteLocale }
 const { locale }=Astro.props; const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh; const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 ---
-<div class="v2-product-motion v2-home-motion" style={`background-image:url(${base}/images/v2/products/elias-home-desktop.webp)`} data-product-motion="home" aria-label={t('居家仿生人理解安全路徑並完成簡單物品遞送','The home humanoid understands a safe path and completes a simple object delivery')}>
+<div class="v2-product-motion v2-home-motion" style={`background-image:url(${base}/images/v2/products/elias-home-desktop.webp)`} data-product-motion="home" aria-label={t('居家機器人理解安全路徑並完成簡單物品遞送','The home robot understands a safe path and completes a simple object delivery')}>
   <span class="home-scan" aria-hidden="true"></span><span class="home-person" aria-hidden="true"></span><span class="home-object" aria-hidden="true"></span><svg viewBox="0 0 600 280" aria-hidden="true"><path d="M90 210 C190 165 260 230 350 165 S470 105 535 120"/></svg>
   <div class="home-motion-label"><small>{t('概念研究','Research concept')}</small><strong>{t('確認環境與安全路徑','Environment and safe path confirmed')}</strong><span>{t('等待使用者下一個指示','Waiting for the user’s next instruction')}</span></div>
 </div>
