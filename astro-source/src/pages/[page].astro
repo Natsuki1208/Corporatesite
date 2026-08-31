@@ -1,6 +1,6 @@
 ---
 import NewSiteLayout from '../layouts/NewSiteLayout.astro'; import InfoPage from '../components/v2/InfoPage.astro';
 type PageName='technology'|'safety'|'research'|'about'|'contact';
-export function getStaticPaths(){const pageDefs={technology:{title:'技術方向｜Elias Net',description:'理解、協作、感知與行動的技術方向。'},safety:{title:'信任與選擇｜Elias Net',description:'讓人工智能安心陪伴，並讓每個人保有理解、調整與選擇的空間。'},research:{title:'研發進度｜Elias Net',description:'依可查核證據說明六項產品的概念與原型狀態。'},about:{title:'關於我們｜Elias Net',description:'Elias Net 是一家研發人工智慧與仿生人系統的科技公司。'},contact:{title:'合作與聯絡｜Elias Net',description:'從工作問題、研究題目或應用情境開始交流。'}};return Object.entries(pageDefs).map(([page,meta])=>({params:{page},props:{page,meta}}))} const {page:rawPage,meta}=Astro.props; const page=rawPage as PageName;
+export function getStaticPaths(){const pageDefs={technology:{title:'技術方向｜Elias Net',description:'理解、協作、感知與行動的技術方向。'},safety:{title:'信任與選擇｜Elias Net',description:'讓人工智能安心陪伴，並讓每個人保有理解、調整與選擇的空間。'},research:{title:'研發進度｜Elias Net',description:'依可查核證據說明各項產品方向的概念與原型狀態。'},about:{title:'關於我們｜Elias Net',description:'Elias Net 是一家研發人工智慧與仿生人系統的科技公司。'},contact:{title:'合作與聯絡｜Elias Net',description:'從工作問題、研究題目或應用情境開始交流。'}};return Object.entries(pageDefs).map(([page,meta])=>({params:{page},props:{page,meta}}))} const {page:rawPage,meta}=Astro.props; const page=rawPage as PageName;
 ---
 <NewSiteLayout locale="zh-TW" current={page} path={`${page}/`} title={meta.title} description={meta.description}><InfoPage locale="zh-TW" page={page}/></NewSiteLayout>

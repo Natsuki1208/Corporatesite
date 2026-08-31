@@ -1,10 +1,9 @@
 ---
-import type { ProductDefinition, SiteLocale } from '../../data/products'; import { l, products } from '../../data/products'; import ResponsivePicture from './ResponsivePicture.astro'; import ResearchStage from './ResearchStage.astro'; import CTA from './CTA.astro';
+import type { ProductDefinition, SiteLocale } from '../../data/products'; import { l } from '../../data/products'; import ResponsivePicture from './ResponsivePicture.astro'; import ResearchStage from './ResearchStage.astro'; import CTA from './CTA.astro';
 import { simplify } from '../../data/simplified-map';
 interface Props { product: ProductDefinition; locale: SiteLocale; prefix: string }
 const { product,locale,prefix }=Astro.props; const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh; const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 const mediaUrl=(path:string)=>`${base}/${path}`;
-const productIndex=String(products.findIndex((item)=>item.slug===product.slug)+1).padStart(2,'0');
 const familyLabel=product.family==='digital'?t('數位智慧','DIGITAL INTELLIGENCE'):t('實體智慧','EMBODIED INTELLIGENCE');
 ---
 <article class="v2-product-page" data-product={product.slug}>
@@ -14,17 +13,24 @@ const familyLabel=product.family==='digital'?t('數位智慧','DIGITAL INTELLIGE
     <div class="v2-shell v2-product-hero-content">
       <div class="v2-product-hero-meta">
         <a href={`${prefix}${product.family==='digital'?'digital-intelligence/':'embodied-intelligence/'}`}>{familyLabel}</a>
-        <span>{productIndex} / 06</span>
+        <span>{t('產品方向','PRODUCT DIRECTION')}</span>
       </div>
       <div class="v2-product-hero-copy v2-reveal">
         <p class="v2-product-name">{product.name} · {product.chineseName}</p>
         <ResearchStage status={product.status} locale={locale} note={l(product.statusNote,locale)}/>
         <h1>{l(product.headline,locale)}</h1>
         <p>{l(product.intro,locale)}</p>
-        <CTA href="#product-story" label={t('看看它如何工作','See how it works')} locale={locale}/>
+        <CTA href="#product-story" label={product.family==='embodied'?t('觀看真人情境','Watch real-world scenario'):t('看看它如何工作','See how it works')} locale={locale}/>
       </div>
       <p class="v2-product-scroll-cue" aria-hidden="true">{t('向下探索','SCROLL TO EXPLORE')} <span></span></p>
     </div>
   </header>
+  <nav class="v2-product-subnav" aria-label={t('產品頁面導覽','Product page navigation')}>
+    <a href="#product-story">{product.family==='embodied'?t('真人情境','Real-world scenario'):t('產品運作','How it works')}</a>
+    <a href="#product-value">{t('產品價值','Value')}</a>
+    <a href="#product-capabilities">{t('如何協作','Collaboration')}</a>
+    <a href="#product-safety">{t('安心設計','Safety')}</a>
+    <a href="#collaboration">{t('合作方式','Work with us')}</a>
+  </nav>
   <slot />
 </article>

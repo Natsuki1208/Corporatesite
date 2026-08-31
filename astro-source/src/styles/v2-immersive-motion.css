@@ -102,3 +102,8 @@
 @keyframes virtual-home-delivery{0%{transform:translateX(0)}38%,52%{transform:translateX(136px)}100%{transform:translateX(314px)}}@keyframes virtual-target{50%{filter:drop-shadow(0 0 10px rgba(217,164,65,.9))}}@keyframes virtual-rescue-enter{0%{transform:translateX(-35px)}28%{transform:translateX(46px)}100%{transform:translateX(190px)}}@keyframes virtual-rescue-scan{0%{opacity:0;transform:translateX(70px) scale(.55)}35%{opacity:.8}100%{opacity:.15;transform:translateX(190px) scale(1.25)}}@keyframes virtual-return{to{stroke-dashoffset:0}}
 @media(max-width:700px){.virtual-embodied-stage{grid-column:1;min-height:126px}.virtual-embodied-stage svg{height:126px}.scene-home .virtual-status{grid-column:1}.scene-rescue .virtual-embodied-stage{grid-column:1}}
 @media(prefers-reduced-motion:reduce){.home-bot{transform:translateX(314px)!important}.rescue-bot,.rescue-scan{transform:translateX(190px)!important}.rescue-scan{opacity:.2!important}.rescue-return{stroke-dashoffset:0!important}}
+/* Application-led discovery keeps the four paths readable at a glance. */
+.v2-solution-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 42px}
+.v2-solution-grid a{display:inline-flex;margin-top:18px;color:#0b766f;font-weight:850;text-decoration:none}
+.v2-solution-grid a:hover,.v2-solution-grid a:focus-visible{text-decoration:underline;text-underline-offset:4px}
+@media(max-width:760px){.v2-solution-grid{grid-template-columns:1fr}}

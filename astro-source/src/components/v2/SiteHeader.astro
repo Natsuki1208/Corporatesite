@@ -8,19 +8,19 @@ const { locale, current = '', path = '' } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const lang = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
 const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
-const labelsBase = locale === 'en' ? [
-  ['#products','Products'],['#solutions','Solutions'],['#organization','Architecture + Models'],['#governance','People + AI'],['founder/','Vision'],['company/','About Elias Net']
-] : [
-  ['#products','產品'],['#solutions','解決方案'],['#organization','產品架構與型號'],['#governance','人與 AI 同行'],['founder/','創辦理念'],['company/','關於 Elias Net']
-];
-const labels = locale === 'zh-CN' ? labelsBase.map(([href,label])=>[href,simplify(label)]) : labelsBase;
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
+const navItems = [
+  { href:`${root}#products`, label:t('產品','Products'), active:current==='' },
+  { href:`${root}#solutions`, label:t('應用場景','Applications'), active:false },
+  { href:`${root}technology/`, label:t('技術與安全','Technology + Safety'), active:current==='technology'||current==='safety' },
+  { href:`${root}company/`, label:t('關於 Elias Net','About Elias Net'), active:current==='company'||current==='founder'||current==='about' }
+];
 ---
 <header class="v2-header" data-v2-header>
   <a class="v2-brand" href={root} aria-label={t('Elias Net 首頁','Elias Net home')}><AnimatedBrandMark id="header" /></a>
   <button class="v2-menu" type="button" aria-expanded="false" aria-controls="v2-nav" data-v2-menu>{t('選單','Menu')}<span aria-hidden="true"></span></button>
   <nav id="v2-nav" class="v2-nav" aria-label={t('主要導覽','Primary navigation')} data-v2-nav>
-    {labels.map(([href,label]) => <a href={href.startsWith('#')?`${root}${href}`:`${root}${href}`} aria-current={current === href.replace('/','') ? 'page' : undefined}>{label}</a>)}
+    {navItems.map((item) => <a href={item.href} aria-current={item.active ? 'page' : undefined}>{item.label}</a>)}
     <a class="v2-nav-cta" href={`${root}contact/`}>{t('合作與聯絡','Contact')}</a>
     <LanguageMenu locale={locale} path={path}/>
   </nav>
