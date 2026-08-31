@@ -585,3 +585,257 @@
 @media (prefers-reduced-motion: reduce) {
   .v2-site-atmosphere i { animation: none; }
 }
+
+/* Inner-page material system: cinematic like the opening, quieter and more editorial. */
+.v2-body.is-inner {
+  --v2-bg: #071016;
+  --v2-surface: #101e24;
+  --v2-ink: #102129;
+  --v2-muted: #a9baba;
+  --v2-line: rgba(201, 222, 218, .16);
+  --v2-shadow: 0 26px 68px rgba(0, 0, 0, .24);
+  background: #071016;
+  color: #edf4f2;
+}
+
+.v2-body.is-inner .v2-header .v2-nav-cta {
+  background: #102129 !important;
+  color: #fff !important;
+}
+
+.v2-body.is-inner main {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 14% 28%, rgba(46, 215, 197, .055), transparent 24%),
+    radial-gradient(circle at 88% 68%, rgba(217, 164, 65, .045), transparent 26%),
+    #071016;
+}
+
+.v2-inner-visual {
+  position: fixed;
+  inset: 76px 0 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: .25;
+}
+.v2-inner-visual > svg {
+  position: absolute;
+  right: -4vw;
+  top: 8vh;
+  width: min(72vw, 1050px);
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: #2ed7c5;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 16px rgba(46,215,197,.3));
+  animation: v2-ambient-breathe 12s ease-in-out infinite alternate;
+}
+.v2-inner-visual .ambient-lines,
+.v2-inner-visual .ambient-orbits { opacity: .58; }
+.v2-inner-visual .ambient-nodes { fill: #d9a441; stroke: #d9a441; }
+.v2-inner-visual .ambient-core { fill: rgba(46,215,197,.18); stroke: #d9a441; stroke-width: 3; }
+.v2-inner-visual .ambient-core-ring { stroke: #d9a441; stroke-dasharray: 8 14; }
+.v2-inner-visual .ambient-human-signal,
+.v2-inner-visual .ambient-people,
+.v2-inner-visual .ambient-companion-human { stroke: #dbe8e5; }
+.v2-inner-visual .ambient-companion-ai,
+.v2-inner-visual .ambient-core-shape { stroke: #2ed7c5; }
+.v2-inner-visual .ambient-link { stroke: #d9a441; stroke-dasharray: 12 10; }
+.v2-inner-visual .ambient-ground { stroke: rgba(219,232,229,.55); }
+.v2-inner-visual.is-network > svg { right: -2vw; top: 10vh; transform: rotate(-3deg); }
+.v2-inner-visual.is-companions > svg { right: -1vw; top: 7vh; }
+.v2-inner-visual.is-people > svg { right: 2vw; top: 12vh; }
+.v2-inner-visual.is-core > svg { right: -5vw; top: 5vh; transform: rotate(8deg); }
+.v2-body[data-page='elias-care'] .v2-inner-visual > svg,
+.v2-body[data-page='elias-home'] .v2-inner-visual > svg,
+.v2-body[data-page='safety'] .v2-inner-visual > svg { left: -5vw; right: auto; transform: scaleX(-1); }
+.v2-body[data-page='elias-flow'] .v2-inner-visual > svg,
+.v2-body[data-page='elias-rescue'] .v2-inner-visual > svg,
+.v2-body[data-page='research'] .v2-inner-visual > svg { top: 24vh; transform: rotate(-10deg) scale(.9); }
+.v2-body[data-page='founder'] .v2-inner-visual > svg,
+.v2-body[data-page='contact'] .v2-inner-visual > svg { right: 14vw; top: 18vh; transform: scale(.82); }
+.v2-inner-particles { position: absolute; inset: 0; }
+.v2-inner-particles i {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: #2ed7c5;
+  box-shadow: 0 0 9px #2ed7c5, 0 0 22px rgba(46,215,197,.6);
+  opacity: .3;
+  animation: v2-inner-particle var(--duration) var(--delay) ease-in-out infinite;
+}
+.v2-inner-particles i:nth-child(3n) { background: #d9a441; box-shadow: 0 0 9px #d9a441,0 0 22px rgba(217,164,65,.55); }
+.v2-inner-particles i:nth-child(4n) { background: #e7f3f1; box-shadow: 0 0 8px rgba(231,243,241,.8); }
+
+@keyframes v2-ambient-breathe {
+  0% { opacity: .64; filter: drop-shadow(0 0 10px rgba(46,215,197,.18)); }
+  100% { opacity: 1; filter: drop-shadow(0 0 22px rgba(46,215,197,.38)); }
+}
+
+@keyframes v2-inner-particle {
+  0%, 100% { opacity: .08; transform: translate3d(0,8px,0) scale(.68); }
+  48% { opacity: .75; transform: translate3d(0,-8px,0) scale(1.18); }
+}
+
+.v2-body.is-inner main .v2-section:not(.v2-dark):not(.v2-contact),
+.v2-body.is-inner main .v2-product-programs,
+.v2-body.is-inner main .v2-product-chapter,
+.v2-body.is-inner main .v2-product-audience,
+.v2-body.is-inner main .founder-vision-principles {
+  position: relative;
+  color: #edf4f2;
+  background:
+    linear-gradient(90deg, rgba(46, 215, 197, .035) 1px, transparent 1px),
+    linear-gradient(rgba(46, 215, 197, .025) 1px, transparent 1px),
+    radial-gradient(circle at 84% 18%, rgba(46, 215, 197, .075), transparent 25%),
+    linear-gradient(145deg, rgba(10,21,27,.87), rgba(13,28,34,.84) 58%, rgba(16,33,39,.87));
+  background-size: 76px 76px, 76px 76px, auto, auto;
+}
+
+.v2-body.is-inner main .v2-section:nth-of-type(even):not(.v2-dark):not(.v2-contact),
+.v2-body.is-inner main .v2-product-chapter,
+.v2-body.is-inner main .v2-product-audience {
+  background:
+    radial-gradient(circle at 12% 72%, rgba(217, 164, 65, .075), transparent 25%),
+    linear-gradient(135deg, rgba(13,27,33,.88), rgba(16,36,42,.84) 62%, rgba(11,24,30,.88));
+}
+
+.v2-body.is-inner main :where(.v2-section, .v2-product-programs, .v2-product-chapter, .v2-product-audience) :where(p, li, dd),
+.v2-body.is-inner .v2-section-head > p:last-child,
+.v2-body.is-inner .v2-programs-head > p,
+.v2-body.is-inner .v2-chapter-intro {
+  color: #a9baba;
+}
+
+.v2-body.is-inner main :where(.v2-section, .v2-product-programs, .v2-product-chapter, .v2-product-audience) :where(h1, h2, h3, h4, strong) {
+  color: #edf4f2;
+}
+
+.v2-body.is-inner .v2-tint {
+  background: linear-gradient(135deg, #0d2025, #12272b) !important;
+}
+
+.v2-body.is-inner :where(.v2-product-card, .v2-value-card, .v2-safety, .v2-program-card, .v2-robot-model-card) {
+  border-color: rgba(201, 222, 218, .16);
+  background:
+    radial-gradient(circle at 100% 0, rgba(46, 215, 197, .08), transparent 32%),
+    linear-gradient(145deg, rgba(18, 34, 41, .96), rgba(12, 25, 31, .96));
+  color: #edf4f2;
+  box-shadow: inset 0 1px rgba(255, 255, 255, .045), 0 24px 58px rgba(0, 0, 0, .2);
+}
+
+.v2-body.is-inner :where(.v2-product-card, .v2-value-card, .v2-safety, .v2-program-card, .v2-robot-model-card) :where(p, dd) {
+  color: #a9baba;
+}
+
+.v2-body.is-inner .v2-product-card:hover,
+.v2-body.is-inner .v2-value-card:hover,
+.v2-body.is-inner .v2-robot-model-card:hover {
+  border-color: rgba(46, 215, 197, .38);
+  box-shadow: 0 28px 68px rgba(0, 0, 0, .32), 0 0 34px rgba(46, 215, 197, .06);
+}
+
+.v2-body.is-inner :where(.v2-check-list li, .v2-limit-list li, .v2-product-card dl div, .v2-capability-list li, .v2-product-audience li, .v2-research-table article) {
+  border-color: rgba(201, 222, 218, .16);
+}
+
+.v2-body.is-inner .v2-tag-list li,
+.v2-body.is-inner .v2-concept-note {
+  border-color: rgba(217, 164, 65, .28);
+  background: rgba(217, 164, 65, .075);
+  color: #d7e2df;
+}
+
+.v2-body.is-inner .v2-contact {
+  color: #edf4f2;
+  background:
+    radial-gradient(circle at 20% 16%, rgba(46, 215, 197, .13), transparent 27%),
+    radial-gradient(circle at 82% 88%, rgba(217, 164, 65, .13), transparent 28%),
+    linear-gradient(135deg, #0a171d, #10262b);
+  border-block: 1px solid rgba(46, 215, 197, .14);
+}
+
+.v2-body.is-inner .v2-contact p { color: #afbfbe; }
+.v2-body.is-inner .v2-contact .v2-button { background: #edf4f2; border-color: #edf4f2; color: #102129 !important; }
+.v2-body.is-inner .v2-contact .v2-button.is-secondary { background: transparent; color: #edf4f2 !important; border-color: rgba(237,244,242,.55); }
+
+/* Company, careers and founder pages use the same material palette with brighter human imagery. */
+.v2-body.is-inner .v2-company-hero {
+  color: #edf4f2;
+  background:
+    radial-gradient(circle at 76% 30%, rgba(46, 215, 197, .12), transparent 28%),
+    linear-gradient(135deg, #09141a, #10242a);
+}
+.v2-body.is-inner .v2-company-hero p { color: #afbfbe; }
+.v2-body.is-inner .v2-company-hero figure img { box-shadow: 0 32px 84px rgba(0,0,0,.36); }
+.v2-body.is-inner .v2-people-grid .v2-person-card {
+  border-color: rgba(201,222,218,.16);
+  background: linear-gradient(145deg, #111f25, #0b181e);
+  box-shadow: 0 22px 58px rgba(0,0,0,.24);
+}
+.v2-body.is-inner .v2-people-grid .v2-person-card h3,
+.v2-body.is-inner .v2-person-background li { color: #edf4f2; }
+.v2-body.is-inner .v2-person-bio { color: #a9baba !important; }
+.v2-body.is-inner .v2-person-background strong,
+.v2-body.is-inner .v2-company-products article { border-color: rgba(201,222,218,.16); }
+
+.v2-body.is-inner .v2-career-list,
+.v2-body.is-inner .v2-career-role,
+.v2-body.is-inner .v2-career-details ul,
+.v2-body.is-inner .v2-career-details li { border-color: rgba(201,222,218,.16); }
+.v2-body.is-inner .v2-career-role-head p:last-child,
+.v2-body.is-inner .v2-career-details li { color: #a9baba; }
+.v2-body.is-inner .v2-career-details h3 { color: #91aaa9; }
+.v2-body.is-inner .v2-career-role > a { color: #4cddce; }
+
+.v2-body.is-inner .founder-vision-page,
+.v2-body.is-inner .founder-vision-principles { background: #09151b; }
+.v2-body.is-inner .founder-principle-grid { border-color: rgba(201,222,218,.16); }
+.v2-body.is-inner .founder-principle-grid article {
+  border-color: rgba(201,222,218,.16);
+  background: linear-gradient(145deg, #111f25, #0b181e);
+}
+.v2-body.is-inner .founder-principle-grid p { color: #a9baba; }
+
+/* Robot and product chapters alternate image-led dark stages instead of white sheets. */
+.v2-body.is-inner .v2-robot-explainer,
+.v2-body.is-inner .v2-robot-trust {
+  color: #edf4f2;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(46,215,197,.09), transparent 26%),
+    linear-gradient(135deg, #0b171d, #10242a);
+}
+.v2-body.is-inner .v2-robot-explainer p,
+.v2-body.is-inner .v2-robot-trust p { color: #a9baba; }
+.v2-body.is-inner .v2-robot-steps,
+.v2-body.is-inner .v2-robot-steps li { border-color: rgba(201,222,218,.16); }
+.v2-body.is-inner .v2-product-programs,
+.v2-body.is-inner .v2-product-chapter,
+.v2-body.is-inner .v2-product-audience { color: #edf4f2; }
+.v2-body.is-inner .v2-program-card { border-color: rgba(201,222,218,.16); }
+.v2-body.is-inner .v2-program-card p { color: #a9baba; }
+
+@media (max-width: 640px) {
+  .v2-inner-visual { inset: 68px 0 0; opacity: .15; }
+  .v2-inner-visual > svg { width: 150vw; right: -65vw; top: 16vh; }
+  .v2-inner-particles i:nth-child(n+9) { display: none; }
+  .v2-body.is-inner main .v2-section:not(.v2-dark):not(.v2-contact),
+  .v2-body.is-inner main .v2-product-programs,
+  .v2-body.is-inner main .v2-product-chapter,
+  .v2-body.is-inner main .v2-product-audience {
+    background-size: 48px 48px, 48px 48px, auto, auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-inner-visual > svg,
+  .v2-inner-particles i { animation: none; }
+  .v2-body.is-inner .v2-product-card,
+  .v2-body.is-inner .v2-value-card,
+  .v2-body.is-inner .v2-robot-model-card { transition: none; }
+}

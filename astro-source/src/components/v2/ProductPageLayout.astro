@@ -4,7 +4,7 @@ import { simplify } from '../../data/simplified-map';
 interface Props { product: ProductDefinition; locale: SiteLocale; prefix: string }
 const { product,locale,prefix }=Astro.props; const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh; const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 const mediaUrl=(path:string)=>`${base}/${path}`;
-const familyLabel=product.family==='digital'?t('數位智慧','DIGITAL INTELLIGENCE'):t('實體智慧','EMBODIED INTELLIGENCE');
+const familyLabel=product.family==='digital'?t('線上智慧支援','DIGITAL INTELLIGENCE'):t('人工智慧機器人','AI ROBOTICS');
 ---
 <article class="v2-product-page" data-product={product.slug}>
   <header class="v2-product-editorial-hero">
@@ -12,7 +12,7 @@ const familyLabel=product.family==='digital'?t('數位智慧','DIGITAL INTELLIGE
     <div class="v2-product-hero-shade" aria-hidden="true"></div>
     <div class="v2-shell v2-product-hero-content">
       <div class="v2-product-hero-meta">
-        <a href={`${prefix}${product.family==='digital'?'digital-intelligence/':'embodied-intelligence/'}`}>{familyLabel}</a>
+        <a href={`${prefix}${product.family==='digital'?'digital-intelligence/':'ai-robots/'}`}>{familyLabel}</a>
         <span>{t('產品方向','PRODUCT DIRECTION')}</span>
       </div>
       <div class="v2-product-hero-copy v2-reveal">

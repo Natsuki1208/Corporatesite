@@ -11,7 +11,7 @@ const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
 const navItems = [
   { href:`${root}#products`, label:t('產品','Products'), active:current==='' },
-  { href:`${root}#solutions`, label:t('應用場景','Applications'), active:false },
+  { href:`${root}#solutions`, label:t('應用區域','Application Areas'), active:false },
   { href:`${root}technology/`, label:t('技術與安全','Technology + Safety'), active:current==='technology'||current==='safety' },
   { href:`${root}company/`, label:t('關於 Elias Net','About Elias Net'), active:current==='company'||current==='founder'||current==='about' }
 ];

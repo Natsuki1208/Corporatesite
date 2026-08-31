@@ -1,0 +1,38 @@
+---
+interface Props { pageKey: string }
+const { pageKey } = Astro.props;
+const digitalPages = ['digital-intelligence','elias-knowledge','elias-care','elias-flow','elias-ops'];
+const embodiedPages = ['embodied-intelligence','ai-robots','elias-home','elias-rescue'];
+const peoplePages = ['company','founder','about','careers'];
+const variant = digitalPages.includes(pageKey) ? 'network' : embodiedPages.includes(pageKey) ? 'companions' : peoplePages.includes(pageKey) ? 'people' : 'core';
+const seed = [...pageKey].reduce((total,character)=>total+character.charCodeAt(0),0);
+const particles = Array.from({length:12},(_,index)=>({
+  x:(seed * (index + 3) + index * 29) % 94 + 3,
+  y:(seed * (index + 7) + index * 41) % 90 + 5,
+  delay:-((seed + index * 7) % 18),
+  duration:12 + ((seed + index * 5) % 13),
+  size:index % 5 === 0 ? 4 : index % 3 === 0 ? 3 : 2
+}));
+---
+<div class:list={['v2-inner-visual',`is-${variant}`]} data-ambient-page={pageKey} aria-hidden="true">
+  {variant === 'network' && <svg viewBox="0 0 1000 760" focusable="false">
+    <g class="ambient-lines"><path d="M110 190 265 112 405 225 566 126 735 248 890 150"/><path d="M88 500 245 392 398 535 590 392 760 520 930 410"/><path d="M265 112 245 392M405 225 398 535M566 126 590 392M735 248 760 520"/></g>
+    <g class="ambient-nodes"><circle cx="110" cy="190" r="8"/><circle cx="265" cy="112" r="12"/><circle cx="405" cy="225" r="7"/><circle cx="566" cy="126" r="15"/><circle cx="735" cy="248" r="8"/><circle cx="890" cy="150" r="10"/><circle cx="88" cy="500" r="7"/><circle cx="245" cy="392" r="13"/><circle cx="398" cy="535" r="9"/><circle cx="590" cy="392" r="18"/><circle cx="760" cy="520" r="10"/><circle cx="930" cy="410" r="7"/></g>
+    <path class="ambient-human-signal" d="M160 640c42-74 91-111 147-111s105 37 147 111M307 488a42 42 0 1 0 0-84 42 42 0 0 0 0 84Z"/>
+  </svg>}
+  {variant === 'companions' && <svg viewBox="0 0 1000 760" focusable="false">
+    <g class="ambient-companion-human"><circle cx="310" cy="236" r="58"/><path d="M194 592c17-150 53-244 116-244s99 94 116 244M252 430l-92 88M368 430l88 88"/></g>
+    <g class="ambient-companion-ai"><rect x="598" y="174" width="150" height="122" rx="54"/><path d="M622 233h102M673 296v84M586 548l26-168h122l30 168M612 392l-106 90M734 392l104 90"/><circle cx="638" cy="232" r="8"/><circle cx="708" cy="232" r="8"/></g>
+    <path class="ambient-link" d="M367 328c86-74 167-73 244 2"/><circle class="ambient-core" cx="490" cy="302" r="18"/>
+    <path class="ambient-ground" d="M126 612c204-32 515-32 754 0"/>
+  </svg>}
+  {variant === 'people' && <svg viewBox="0 0 1000 760" focusable="false">
+    <g class="ambient-people"><circle cx="260" cy="244" r="47"/><circle cx="500" cy="178" r="56"/><circle cx="740" cy="244" r="47"/><path d="M162 548c22-130 54-211 98-211s76 81 98 211M382 548c27-166 66-269 118-269s91 103 118 269M642 548c22-130 54-211 98-211s76 81 98 211"/></g>
+    <g class="ambient-lines"><path d="M260 337 500 279 740 337M260 337 500 470 740 337"/></g><circle class="ambient-core" cx="500" cy="470" r="30"/><circle class="ambient-core-ring" cx="500" cy="470" r="76"/>
+  </svg>}
+  {variant === 'core' && <svg viewBox="0 0 1000 760" focusable="false">
+    <g class="ambient-orbits"><ellipse cx="500" cy="370" rx="330" ry="174"/><ellipse cx="500" cy="370" rx="260" ry="270" transform="rotate(28 500 370)"/><ellipse cx="500" cy="370" rx="170" ry="330" transform="rotate(-38 500 370)"/></g>
+    <path class="ambient-core-shape" d="M430 286h140l70 84-70 84H430l-70-84Z"/><circle class="ambient-core" cx="500" cy="370" r="34"/><g class="ambient-nodes"><circle cx="170" cy="370" r="10"/><circle cx="830" cy="370" r="10"/><circle cx="500" cy="100" r="10"/><circle cx="500" cy="640" r="10"/></g>
+  </svg>}
+  <div class="v2-inner-particles">{particles.map((particle,index)=><i style={`--x:${particle.x}%;--y:${particle.y}%;--delay:${particle.delay}s;--duration:${particle.duration}s;--size:${particle.size}px;--index:${index}`}></i>)}</div>
+</div>

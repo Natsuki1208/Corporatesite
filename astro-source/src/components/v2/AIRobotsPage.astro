@@ -15,18 +15,18 @@ const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh
     <div class="v2-shell v2-robot-hero-copy v2-reveal">
       <p class="v2-eyebrow">AI ROBOTICS / {t('人工智慧機器人','AI ROBOTS')}</p>
       <h1>{t('讓人工智慧理解環境，也能在真實世界伸出援手。','Intelligence that understands its surroundings—and lends a hand in the real world.')}</h1>
-      <p>{t('人工智慧機器人把感知、理解與行動放進同一個系統。它們可以協助生活照顧，也能先進入不適合人員冒險的環境；每一項重要任務仍由人設定、確認與停止。','AI robots bring perception, understanding and action into one system. They can assist daily care and enter environments where people should not take the first risk, while every important mission remains directed, confirmed and stoppable by people.')}</p>
+      <p>{t('人工智慧機器人能理解環境，也能在真實世界提供協助。從居家生活到危險現場，任務都由人設定、確認與停止。','AI robots can understand their surroundings and offer help in the real world. From daily life to hazardous environments, people set, confirm and stop every mission.')}</p>
       <CTA href="#models" label={t('查看產品型號','Explore models')} locale={locale}/>
     </div>
   </section>
 
   <section class="v2-section v2-robot-explainer"><div class="v2-shell v2-two-grid">
-    <article class="v2-reveal"><p class="v2-eyebrow">UNDERSTAND</p><h2>{t('先理解需要，再提供剛剛好的協助。','Understand the need before offering the right help.')}</h2><p>{t('機器人透過感測器理解物品、空間與人的指示，再由人工智慧整理情境並準備動作。它不是自己決定生活或救援方向，而是成為人們可以溝通、調整與信任的行動夥伴。','Sensors help the robot understand objects, spaces and human instructions. AI then organizes the situation and prepares an action. It does not decide the direction of care or rescue on its own; it becomes an action partner people can guide, adjust and trust.')}</p></article>
+    <article class="v2-reveal"><p class="v2-eyebrow">UNDERSTAND</p><h2>{t('先理解需要，再提供剛剛好的協助。','Understand the need before offering the right help.')}</h2><p>{t('感測器協助機器人看懂物品、空間與人的指示，人工智慧再整理情境並準備動作。人們可以隨時溝通、調整或停止。','Sensors help the robot understand objects, spaces and human instructions. AI then prepares an action that people can guide, adjust or stop at any time.')}</p></article>
     <ol class="v2-robot-steps v2-reveal"><li><span>01</span><strong>{t('看見環境','Sense the environment')}</strong></li><li><span>02</span><strong>{t('理解需求','Understand the need')}</strong></li><li><span>03</span><strong>{t('準備協助','Prepare assistance')}</strong></li><li><span>04</span><strong>{t('由人確認行動','People confirm the action')}</strong></li></ol>
   </div></section>
 
   <section id="models" class="v2-section v2-robot-models"><div class="v2-shell">
-    <header class="v2-section-head v2-reveal"><p class="v2-eyebrow">PRODUCT ARCHITECTURE + MODELS</p><h2>{t('兩個產品方向，六種不同任務。','Two product directions. Six distinct missions.')}</h2><p>{t('居家系列把陪伴與日常協助帶進生活；救援系列協助專業人員看見危險、運送物資並進入高風險環境。以下均為概念機型，外觀與能力將依後續研究驗證調整。','The home series brings companionship and everyday assistance into daily life. The rescue series helps professionals understand hazards, move supplies and enter high-risk environments. All models shown are concepts whose design and capabilities will evolve through research and validation.')}</p></header>
+    <header class="v2-section-head v2-reveal"><p class="v2-eyebrow">PRODUCT ARCHITECTURE + MODELS</p><h2>{t('兩個產品方向，六種任務型號。','Two product directions. Six mission-focused models.')}</h2><p>{t('居家系列陪伴生活、協助日常；救援系列協助專業人員掌握危險並運送物資。以下都是概念機型，外觀與能力會隨研究調整。','The home series supports daily life. The rescue series helps professionals understand hazards and move supplies. These are concept models whose design and capabilities will evolve through research.')}</p></header>
     <RobotModelGrid locale={locale}/>
   </div></section>
 
