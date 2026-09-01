@@ -8,15 +8,19 @@ import ProductMotionPrototype from './motion/ProductMotionPrototype.astro';
 interface Props { product: ProductDefinition; locale: SiteLocale }
 const { product, locale }=Astro.props; const base=import.meta.env.BASE_URL.replace(/\/$/,''); const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${base}/`; const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh; const statusLabel=locale==='en'?(product.status==='概念'?'Concept':product.status==='原型'?'Prototype':product.status):locale==='zh-CN'?simplify(product.status):product.status;
 const mediaUrl=(path:string)=>`${base}/${path}`;
-const hasHeroVideo=['elias-care','elias-ops','elias-home','elias-rescue'].includes(product.slug);
+const hasHeroVideo=['elias-knowledge','elias-care','elias-flow','elias-ops','elias-home','elias-rescue'].includes(product.slug);
 const storyTitle:Record<string,{zh:string;en:string}>={
+  'elias-knowledge':{zh:'先找到依據，再放心使用答案。',en:'Find the source first, then use the answer with confidence.'},
   'elias-care':{zh:'資訊先整理，回覆仍有人的溫度。',en:'Organize the context while keeping the human touch.'},
+  'elias-flow':{zh:'工作排清楚，團隊自然接得上。',en:'Clarify the work so the team can keep moving.'},
   'elias-ops':{zh:'線索集中後，更快看清真正影響。',en:'Bring the signals together and see the real impact faster.'},
   'elias-home':{zh:'先問清楚，再把需要送到身邊。',en:'Ask first, then bring the right help closer.'},
   'elias-rescue':{zh:'先回傳現場，再由救援團隊決定路線。',en:'Relay the scene first, then let responders choose the route.'}
 };
 const ambientLabel:Record<string,string>={
+  'elias-knowledge':'TRUST STARTS WITH SOURCES',
   'elias-care':'EMPATHY GUIDES INTELLIGENCE',
+  'elias-flow':'CLEAR WORK MOVES FORWARD',
   'elias-ops':'CLARITY BEFORE ACTION',
   'elias-home':'TECHNOLOGY WITHIN REACH',
   'elias-rescue':'HUMANS LEAD THE MISSION'
@@ -29,7 +33,9 @@ const evidenceTitle:Record<string,{zh:string;en:string}>={
   'elias-rescue':{zh:'讓機器先進場，讓人掌握風險。',en:'Send the robot first so people can understand the risk.'}
 };
 const valueTitle:Record<string,{zh:string;en:string}>={
+  'elias-knowledge':{zh:'可信答案，更快找到。',en:'Trusted answers, found faster.'},
   'elias-care':{zh:'更快回覆，也更一致。',en:'Faster replies. More consistent service.'},
+  'elias-flow':{zh:'進度清楚，交接更順。',en:'Clear progress. Smoother handoffs.'},
   'elias-ops':{zh:'判斷更聚焦，處理更精準。',en:'Focused assessment. More precise response.'},
   'elias-home':{zh:'剛好的協助，不打擾生活。',en:'The right help without taking over daily life.'},
   'elias-rescue':{zh:'多一分現場資訊，少一分人員風險。',en:'More field insight. Less risk to responders.'}
