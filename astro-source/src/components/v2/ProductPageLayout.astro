@@ -13,9 +13,16 @@ const liveVideoByProduct:Record<string,{src:string;label:string}>={
   'elias-rescue':{src:`${base}/media/elias-rescue-live-scenario.mp4`,label:t('救援人員指揮 Elias Rescue 執行現場任務','Responders directing Elias Rescue during a field mission')}
 };
 const liveVideo=liveVideoByProduct[product.slug];
+const liveStoryByProduct:Record<string,{eyebrow:{zh:string;en:string};caption:{zh:string;en:string};decision:{zh:string;en:string};cta:{zh:string;en:string}}>={
+  'elias-care':{eyebrow:{zh:'真人客服協作',en:'LIVE HUMAN + AI SERVICE'},caption:{zh:'Elias AI 整理需求',en:'ELIAS AI ORGANIZES THE REQUEST'},decision:{zh:'客服確認後回覆',en:'THE SERVICE TEAM REVIEWS AND REPLIES'},cta:{zh:'查看如何協作',en:'See how the team works'}},
+  'elias-ops':{eyebrow:{zh:'真人維運協作',en:'LIVE HUMAN + AI OPERATIONS'},caption:{zh:'Elias AI 協助判讀',en:'ELIAS AI HELPS REVIEW THE SIGNALS'},decision:{zh:'工程師確認再處理',en:'ENGINEERS CONFIRM BEFORE ACTION'},cta:{zh:'查看如何協作',en:'See how the team works'}},
+  'elias-home':{eyebrow:{zh:'真人居家情境',en:'LIVE HUMAN + AI AT HOME'},caption:{zh:'Elias AI 確認需求',en:'ELIAS AI CONFIRMS THE REQUEST'},decision:{zh:'使用者隨時決定',en:'THE USER STAYS IN CONTROL'},cta:{zh:'查看居家情境',en:'Explore the home scenario'}},
+  'elias-rescue':{eyebrow:{zh:'真人救援情境',en:'LIVE HUMAN + AI RESCUE'},caption:{zh:'Elias AI 協助判斷',en:'ELIAS AI HELPS ASSESS THE SCENE'},decision:{zh:'救援團隊確認行動',en:'RESPONDERS CONFIRM EVERY ACTION'},cta:{zh:'查看救援情境',en:'Explore the rescue scenario'}}
+};
+const liveStory=liveStoryByProduct[product.slug];
 ---
 <article class="v2-product-page" data-product={product.slug}>
-  <header class:list={['v2-product-editorial-hero',liveVideo&&'has-live-video',product.slug==='elias-ops'&&'is-ops-split']}>
+  <header class:list={['v2-product-editorial-hero',liveVideo&&'has-live-video',liveVideo&&'has-split-live']}>
     {liveVideo?<video class="v2-product-hero-video" autoplay muted loop playsinline controls preload="metadata" poster={mediaUrl(product.media.hero.desktop)} aria-label={liveVideo.label}>
       <source src={liveVideo.src} type="video/mp4" />
       {t('你的瀏覽器不支援此產品情境影片。','Your browser does not support this product scenario video.')}
@@ -27,7 +34,7 @@ const liveVideo=liveVideoByProduct[product.slug];
         <span>{t('產品方向','PRODUCT DIRECTION')}</span>
       </div>
       <div class="v2-product-hero-copy v2-reveal">
-        {product.slug==='elias-ops'&&<p class="v2-product-split-eyebrow">{t('真人協作情境','LIVE HUMAN + AI OPERATIONS')}</p>}
+        {liveStory&&<p class="v2-product-split-eyebrow">{t(liveStory.eyebrow.zh,liveStory.eyebrow.en)}</p>}
         <p class="v2-product-name">{product.name} · {product.chineseName}</p>
         <ResearchStage status={product.status} locale={locale} note={l(product.statusNote,locale)}/>
         <h1>{l(product.headline,locale)}</h1>
@@ -37,11 +44,11 @@ const liveVideo=liveVideoByProduct[product.slug];
           <div><dt>{t('帶來什麼','CORE VALUE')}</dt><dd>{l(product.values[0],locale)}</dd></div>
           <div><dt>{t('目前階段','CURRENT STAGE')}</dt><dd>{statusLabel}</dd></div>
         </dl>
-        <CTA href="#product-story" label={product.slug==='elias-ops'?t('查看如何協作','See how the team works'):liveVideo?t('了解情境重點','Explore the scenario'):t('看看它如何工作','See how it works')} locale={locale}/>
+        {!liveVideo&&<CTA href="#product-story" label={t('看看它如何工作','See how it works')} locale={locale}/>}
       </div>
       <p class="v2-product-scroll-cue" aria-hidden="true">{t('向下探索','SCROLL TO EXPLORE')} <span></span></p>
     </div>
-    {product.slug==='elias-ops'&&<p class="v2-product-video-caption"><span>{t('人工智慧整理告警','AI ORGANIZES THE SIGNALS')}</span><strong>{t('工程師決定如何處理','ENGINEERS DECIDE WHAT HAPPENS NEXT')}</strong></p>}
+    {liveStory&&<p class="v2-product-video-caption"><span>{t(liveStory.caption.zh,liveStory.caption.en)}</span><strong>{t(liveStory.decision.zh,liveStory.decision.en)}</strong></p>}
   </header>
   <nav class="v2-product-subnav" aria-label={t('產品頁面導覽','Product page navigation')}>
     <a href="#product-story">{liveVideo?t('情境重點','Scenario'):t('產品運作','How it works')}</a>

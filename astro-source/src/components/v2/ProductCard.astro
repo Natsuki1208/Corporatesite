@@ -8,6 +8,15 @@ interface Props { product: ProductDefinition; locale: SiteLocale; basePath: stri
 const { product, locale, basePath } = Astro.props;
 const assetBase = import.meta.env.BASE_URL.replace(/\/$/,'');
 const cardMedia = product.media.secondary ?? product.media.hero;
+const actionByProduct:Record<string,{zh:string;en:string}>={
+  'elias-knowledge':{zh:'查找企業知識',en:'Explore enterprise knowledge'},
+  'elias-care':{zh:'了解客服協作',en:'Explore service collaboration'},
+  'elias-flow':{zh:'查看流程如何推進',en:'See how work moves forward'},
+  'elias-ops':{zh:'查看維運判讀',en:'Explore operations insight'},
+  'elias-home':{zh:'探索居家協助',en:'Explore help at home'},
+  'elias-rescue':{zh:'了解救援應用',en:'Explore rescue applications'}
+};
+const action=actionByProduct[product.slug]??{zh:'了解產品',en:'Explore the product'};
 ---
 <article class="v2-product-card v2-reveal">
   <ResponsivePicture desktop={`${assetBase}/${cardMedia.desktop}`} mobile={`${assetBase}/${cardMedia.mobile}`} alt={l(cardMedia.alt,locale)} />
@@ -15,5 +24,5 @@ const cardMedia = product.media.secondary ?? product.media.hero;
   <h3>{product.name}</h3><span class="v2-product-cn">{locale === 'zh-CN' ? simplify(product.chineseName) : product.chineseName}</span>
   <h4>{l(product.headline,locale)}</h4><p>{l(product.intro,locale)}</p>
   <dl><div><dt>{locale === 'en' ? 'Best for' : locale === 'zh-CN' ? '适合' : '適合'}</dt><dd>{product.audience.slice(0,2).map((item)=>l(item,locale)).join(' · ')}</dd></div></dl>
-  <a class="v2-card-action" href={`${basePath}products/${product.slug}/`}>{locale === 'en' ? 'View full product story' : locale === 'zh-CN' ? '查看完整介绍' : '查看完整介紹'} <span aria-hidden="true">→</span></a>
+  <a class="v2-card-action" href={`${basePath}products/${product.slug}/`}>{locale === 'en' ? action.en : locale === 'zh-CN' ? simplify(action.zh) : action.zh} <span aria-hidden="true">→</span></a>
 </article>
