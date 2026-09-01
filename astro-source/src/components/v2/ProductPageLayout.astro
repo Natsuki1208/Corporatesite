@@ -15,7 +15,7 @@ const liveVideoByProduct:Record<string,{src:string;label:string}>={
 const liveVideo=liveVideoByProduct[product.slug];
 ---
 <article class="v2-product-page" data-product={product.slug}>
-  <header class:list={['v2-product-editorial-hero',liveVideo&&'has-live-video']}>
+  <header class:list={['v2-product-editorial-hero',liveVideo&&'has-live-video',product.slug==='elias-ops'&&'is-ops-split']}>
     {liveVideo?<video class="v2-product-hero-video" autoplay muted loop playsinline controls preload="metadata" poster={mediaUrl(product.media.hero.desktop)} aria-label={liveVideo.label}>
       <source src={liveVideo.src} type="video/mp4" />
       {t('你的瀏覽器不支援此產品情境影片。','Your browser does not support this product scenario video.')}
@@ -27,6 +27,7 @@ const liveVideo=liveVideoByProduct[product.slug];
         <span>{t('產品方向','PRODUCT DIRECTION')}</span>
       </div>
       <div class="v2-product-hero-copy v2-reveal">
+        {product.slug==='elias-ops'&&<p class="v2-product-split-eyebrow">{t('真人協作情境','LIVE HUMAN + AI OPERATIONS')}</p>}
         <p class="v2-product-name">{product.name} · {product.chineseName}</p>
         <ResearchStage status={product.status} locale={locale} note={l(product.statusNote,locale)}/>
         <h1>{l(product.headline,locale)}</h1>
@@ -36,10 +37,11 @@ const liveVideo=liveVideoByProduct[product.slug];
           <div><dt>{t('帶來什麼','CORE VALUE')}</dt><dd>{l(product.values[0],locale)}</dd></div>
           <div><dt>{t('目前階段','CURRENT STAGE')}</dt><dd>{statusLabel}</dd></div>
         </dl>
-        <CTA href="#product-story" label={liveVideo?t('了解情境重點','Explore the scenario'):t('看看它如何工作','See how it works')} locale={locale}/>
+        <CTA href="#product-story" label={product.slug==='elias-ops'?t('查看如何協作','See how the team works'):liveVideo?t('了解情境重點','Explore the scenario'):t('看看它如何工作','See how it works')} locale={locale}/>
       </div>
       <p class="v2-product-scroll-cue" aria-hidden="true">{t('向下探索','SCROLL TO EXPLORE')} <span></span></p>
     </div>
+    {product.slug==='elias-ops'&&<p class="v2-product-video-caption"><span>{t('人工智慧整理告警','AI ORGANIZES THE SIGNALS')}</span><strong>{t('工程師決定如何處理','ENGINEERS DECIDE WHAT HAPPENS NEXT')}</strong></p>}
   </header>
   <nav class="v2-product-subnav" aria-label={t('產品頁面導覽','Product page navigation')}>
     <a href="#product-story">{liveVideo?t('情境重點','Scenario'):t('產品運作','How it works')}</a>
