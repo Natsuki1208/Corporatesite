@@ -71,7 +71,7 @@ export const products: ProductDefinition[] = [
     slug:'elias-flow', family:'digital', name:'Elias Flow', chineseName:'流程協作助理', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-flow.webp',mobile:'images/v2/products/elias-flow.webp',alt:L('工作人員在同一畫面確認發票資料、審核與系統更新進度','A worker reviewing invoice data, approval and system-update progress in one view')},secondary:{desktop:'images/v2/products/elias-flow-02.webp',mobile:'images/v2/products/elias-flow-02.webp',alt:L('團隊共同檢視流程例外、處理進度與稽核紀錄','A team reviewing workflow exceptions, progress and audit records together')}},
     statusNote:L('目前為流程介面原型，正準備測試常見工作情境。','This is a workflow prototype preparing for common workplace scenarios.'),
-    headline:L('讓重複工作順暢往前走。','Keep repetitive work moving smoothly.'),
+    headline:L('讓每一步更清楚，工作自然往前走。','Clear steps keep work moving.'),
     intro:L('Elias Flow 把訊息、表單與文件整理成清楚的待辦，提醒負責的人並追蹤進度。重要決定由人確認，完成後留下紀錄。','Elias Flow turns messages, forms and documents into clear tasks, reminds the right people and tracks progress. People confirm important decisions, and completed work leaves a record.'),
     audience:[L('行政人員','Administration'),L('營運團隊','Operations'),L('採購與財務','Procurement and finance'),L('流程管理人員','Process managers')],
     problem:L('資料反覆抄寫、責任人不清、審核進度分散，例外也難以追蹤。','Data is repeatedly re-entered, ownership is unclear, approval status is scattered and exceptions are hard to track.'),
