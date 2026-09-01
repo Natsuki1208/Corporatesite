@@ -11,7 +11,7 @@ const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
 const groups = [
   { id:'products', label:t('產品','Products'), active:['digital-intelligence','ai-robots','elias-knowledge','elias-care','elias-flow','elias-ops','elias-home','elias-rescue'].includes(current), intro:t('從線上智慧到人工智慧機器人，依照你想改善的事情選擇方向。','From digital intelligence to AI robotics, begin with what you want to improve.'), columns:[
-    { eyebrow:'DIGITAL INTELLIGENCE', title:t('線上智慧支援','Digital Intelligence'), href:`${root}digital-intelligence/`, links:[[t('知識與客服','Knowledge & Service'),`${root}digital-intelligence/knowledge-service/`],[t('Ops 與流程','Ops & Workflow'),`${root}digital-intelligence/operations-workflow/`]] },
+    { eyebrow:'DIGITAL INTELLIGENCE', title:t('線上智慧支援','Digital Intelligence'), href:`${root}digital-intelligence/`, links:[[t('知識與客服','Knowledge & Service'),`${root}digital-intelligence/knowledge-service/`],[t('系統與流程','Systems & Workflow'),`${root}digital-intelligence/operations-workflow/`]] },
     { eyebrow:'AI ROBOTICS', title:t('人工智慧機器人','AI Robotics'), href:`${root}ai-robots/`, links:[['Elias Home',`${root}products/elias-home/`],['Elias Rescue',`${root}products/elias-rescue/`]] }
   ]},
   { id:'api', label:'API', active:['api','docs','pricing'].includes(current), intro:t('用 API 把 Elias AI 接進現有工具；產品頁則說明能解決什麼問題。','Use APIs to bring Elias AI into existing tools. Product pages explain what each product helps solve.'), columns:[

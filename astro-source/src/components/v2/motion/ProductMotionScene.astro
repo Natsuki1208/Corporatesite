@@ -16,7 +16,7 @@ const isCinematic = hasLiveVideo;
     <span class="v2-sr-only" data-motion-step="2">{slug === 'elias-care'?t('客服人員確認回覆','The service specialist reviews the response'):slug === 'elias-ops'?t('工程師判斷影響與處理順序','The engineer reviews impact and priority'):t('任務持續進行','The task continues')}</span>
     <span class="v2-sr-only" data-motion-step="3">{slug === 'elias-home' ? t('家庭協作情境持續進行','The family collaboration continues') : slug === 'elias-rescue' ? t('救援人員持續指揮現場任務','Responders remain in command of the field mission') : slug === 'elias-ops' ? t('工程師決定如何處理','The engineer decides how to respond') : t('由客服人員決定是否送出','The service specialist decides whether to send')}</span>
     {slug === 'elias-care'&&<div class="v2-live-caption" data-motion-step="4"><small>AI + HUMAN SERVICE</small><strong>{t('AI 先整理，客服確認後回覆。','AI organizes first. A service specialist confirms the response.')}</strong></div>}
-    {slug === 'elias-ops'&&<div class="v2-live-caption" data-motion-step="4"><small>AI + HUMAN OPERATIONS</small><strong>{t('AI 彙整告警，工程師決定如何處理。','AI consolidates alerts. Engineers decide how to respond.')}</strong></div>}
+    {slug === 'elias-ops'&&<div class="v2-live-caption" data-motion-step="4"><small>AI + HUMAN SYSTEMS</small><strong>{t('AI 彙整告警，工程師決定如何處理。','AI consolidates alerts. Engineers decide how to respond.')}</strong></div>}
     <button class="v2-photo-replay" type="button" data-motion-replay aria-label={t('從頭重新播放產品情境影片','Replay the product scenario video from the beginning')}>{t('重新播放影片','Replay video')}</button>
   </> : <header class="v2-motion-scene-header"><span>{product.name}</span><small data-motion-status>{t('準備播放','Ready')}</small></header>}
 

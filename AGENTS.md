@@ -11,7 +11,7 @@ Follow the central [Elias Agent Standards](https://github.com/Natsuki1208/elias-
 ## Routes and product truth
 
 - Astro source is `astro-source/`; Traditional Chinese is the default, with `/zh-cn/` and `/en/` equivalents.
-- Digital products: Elias Knowledge, Care, Flow and Ops. Embodied research concepts: Elias Home and Rescue.
+- Digital products: Elias Knowledge, Care, Flow and System. The existing `elias-ops` route remains as a compatibility URL for Elias System. Embodied research concepts: Elias Home and Rescue.
 - Never imply that concepts, simulated pricing, prototypes or generated media are deployed, certified, purchasable or production-ready without evidence.
 - Human authorization remains explicit in consequential actions. Product pages with live-action video use the video-led, small-caption presentation.
 

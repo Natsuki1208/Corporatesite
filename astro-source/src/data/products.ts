@@ -85,11 +85,11 @@ export const products: ProductDefinition[] = [
     next:L('選定單一低風險流程，驗證欄位、權限、例外與復原。','Select one low-risk workflow and validate fields, permissions, exceptions and recovery.'), cta:L('與我們交流','Talk with us')
   },
   {
-    slug:'elias-ops', family:'digital', name:'Elias Ops', chineseName:'系統維運協作助理', status:'原型',
+    slug:'elias-ops', family:'digital', name:'Elias System', chineseName:'系統協作助理', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-ops.webp',mobile:'images/v2/products/elias-ops.webp',alt:L('維運人員檢視整併後的告警、時間線與處置建議','An operations specialist reviewing consolidated alerts, a timeline and response suggestions')},secondary:{desktop:'images/v2/products/elias-ops-02.webp',mobile:'images/v2/products/elias-ops-02.webp',alt:L('維運團隊確認服務影響與等待人員授權的下一步','An operations team reviewing service impact and the next step awaiting human authorization')}},
     statusNote:L('目前為操作介面原型，正測試告警整理與事件判讀。','This interface prototype is being tested for alert organization and incident review.'),
     headline:L('Elias 協助判讀，讓處理更快、更準。','Elias helps teams assess incidents faster and respond with precision.'),
-    intro:L('Elias Ops 把系統與網路告警整理成一個事件，標出影響與處理順序。工程師看清狀況後，再決定下一步。','Elias Ops brings system and network alerts into one incident view, showing impact and priority. Engineers see the situation clearly, then decide what happens next.'),
+    intro:L('Elias System 把系統與網路告警整理成一個事件，標出影響與處理順序。工程師看清狀況後，再決定下一步。','Elias System brings system and network alerts into one incident view, showing impact and priority. Engineers see the situation clearly, then decide what happens next.'),
     audience:[L('IT 維運','IT operations'),L('維運與可靠性團隊','Operations and reliability teams'),L('系統管理員','System administrators'),L('營運管理人員','Operations managers')],
     problem:L('同一個問題常帶來多項告警，團隊得花時間拼湊狀況，容易錯過真正的影響。','One problem can trigger many alerts, forcing teams to piece together the situation and making the real impact easy to miss.'),
     values:[L('合併重複告警','Group duplicate alerts'),L('快速看清影響','See the impact faster'),L('完整保留處理紀錄','Keep a clear response record')],
