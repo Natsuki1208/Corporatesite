@@ -7,6 +7,7 @@ import ScrollScene from './motion/ScrollScene.astro';
 import MotionReveal from './motion/MotionReveal.astro';
 import MotionPicture from './motion/MotionPicture.astro';
 import AmbientLightField from './AmbientLightField.astro';
+import VideoSoundToggle from './VideoSoundToggle.astro';
 const { locale }=Astro.props as {locale:SiteLocale};
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${base}/`;
@@ -23,9 +24,10 @@ const features=[
 ---
 <MotionProvider class="v2-immersive-home">
   <ScrollScene id="brand" tone="dark" class="v2-immersive-hero" labelledby="brand-title">
-    <video class="v2-hero-backdrop v2-hero-video" autoplay muted loop playsinline preload="metadata" poster={`${base}/images/v2/elias-net-home-hero-desktop.jpg`} aria-label={t('人與人工智慧機器人並肩走向所期盼的未來','A person and an AI robot walking side by side toward the future')}>
+    <video id="home-hero-video" class="v2-hero-backdrop v2-hero-video" autoplay muted={true} loop playsinline preload="metadata" poster={`${base}/images/v2/elias-net-home-hero-desktop.jpg`} aria-label={t('人與人工智慧機器人並肩走向所期盼的未來','A person and an AI robot walking side by side toward the future')}>
       <source src={`${base}/media/elias-net-home-hero.mp4`} type="video/mp4" />
     </video>
+    <VideoSoundToggle target="home-hero-video" locale={locale}/>
     <div class="v2-hero-shade" aria-hidden="true"></div>
     <div class="v2-hero-depth" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="v2-hero-stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>

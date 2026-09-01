@@ -1,0 +1,64 @@
+---
+import type { SiteLocale } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+
+interface Props { target: string; locale: SiteLocale }
+const { target, locale } = Astro.props;
+const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? simplify(zh) : zh;
+---
+<button
+  type="button"
+  class="v2-video-sound"
+  data-video-sound
+  data-video-target={target}
+  data-label-on={t('聲音已開啟','Sound on')}
+  data-label-off={t('開啟聲音','Turn sound on')}
+  aria-pressed="true"
+>
+  <span class="v2-video-sound-icon" aria-hidden="true"></span>
+  <span data-video-sound-label>{t('聲音已開啟','Sound on')}</span>
+</button>
+
+<script>
+  const setupVideoSound = (button: HTMLButtonElement) => {
+    if (button.dataset.ready === 'true') return;
+    const target = button.dataset.videoTarget;
+    const video = target ? document.getElementById(target) as HTMLVideoElement | null : null;
+    const label = button.querySelector<HTMLElement>('[data-video-sound-label]');
+    if (!video || !label) return;
+    button.dataset.ready = 'true';
+
+    const render = () => {
+      const soundOn = !video.muted && video.volume > 0;
+      button.setAttribute('aria-pressed', String(soundOn));
+      button.classList.toggle('is-muted', !soundOn);
+      label.textContent = soundOn ? button.dataset.labelOn || 'Sound on' : button.dataset.labelOff || 'Turn sound on';
+    };
+
+    const startWithSound = async () => {
+      video.muted = false;
+      video.volume = 1;
+      try {
+        await video.play();
+      } catch {
+        video.muted = true;
+        await video.play().catch(() => undefined);
+      }
+      render();
+    };
+
+    button.addEventListener('click', async () => {
+      video.muted = !video.muted;
+      if (!video.muted) video.volume = 1;
+      if (video.paused) await video.play().catch(() => undefined);
+      render();
+    });
+    video.addEventListener('volumechange', render);
+    void startWithSound();
+  };
+
+  document.querySelectorAll<HTMLButtonElement>('[data-video-sound]').forEach(setupVideoSound);
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLButtonElement>('[data-video-sound]').forEach(setupVideoSound);
+  });
+</script>
