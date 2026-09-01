@@ -6,6 +6,29 @@
   letter-spacing: -.042em;
 }
 
+/* Live-action products lead with the real human context instead of repeating it below. */
+.v2-product-editorial-hero.has-live-video > .v2-product-hero-video {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  background:#071116;
+}
+.v2-product-editorial-hero.has-live-video .v2-product-hero-shade {
+  background:linear-gradient(90deg,rgba(4,12,18,.96) 0%,rgba(4,12,18,.78) 38%,rgba(4,12,18,.13) 72%),linear-gradient(0deg,rgba(4,12,18,.7),transparent 45%);
+}
+.v2-product-editorial-hero.has-live-video .v2-product-hero-copy { max-width:min(660px,55vw); }
+.v2-product-story-brief { position:relative;isolation:isolate;overflow:hidden;padding:clamp(72px,8vw,118px) 0;background:radial-gradient(circle at 78% 30%,rgba(46,215,197,.13),transparent 30%),linear-gradient(135deg,#07151b,#0c2228);color:#edf4f2; }
+.v2-product-story-brief::after { content:attr(data-ambient-label);position:absolute;right:4vw;bottom:14px;z-index:-1;color:rgba(237,244,242,.045);font-size:clamp(1.2rem,2.4vw,2.8rem);font-weight:850;letter-spacing:.08em;white-space:nowrap; }
+.v2-product-story-brief-grid { display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(40px,8vw,110px);align-items:end; }
+.v2-product-story-brief h2 { max-width:13ch;margin:.2em 0 0;font-size:clamp(2.35rem,4.2vw,4.8rem);line-height:1;letter-spacing:-.045em; }
+.v2-product-story-brief-grid>div:last-child>p { max-width:54ch;margin:0;color:#afbfbe; }
+.v2-product-story-brief ol { display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0;padding:0;list-style:none; }
+.v2-product-story-brief li { padding:.64rem .82rem;border:1px solid rgba(203,225,221,.28);color:#dce9e6;font-size:.7rem;font-weight:800; }
+.v2-product-story-brief li:last-child { border-color:rgba(217,164,65,.68);color:#edc26e; }
+@media(max-width:760px){.v2-product-editorial-hero.has-live-video{min-height:auto;display:block;padding-top:56.25%}.v2-product-editorial-hero.has-live-video>.v2-product-hero-video{height:auto;aspect-ratio:16/9;object-position:center}.v2-product-editorial-hero.has-live-video .v2-product-hero-shade{background:linear-gradient(0deg,#061016 0%,rgba(6,16,22,.98) 49%,rgba(6,16,22,.06) 76%)}.v2-product-editorial-hero.has-live-video .v2-product-hero-content{min-height:auto}.v2-product-editorial-hero.has-live-video .v2-product-hero-copy{max-width:100%;padding-top:42px}.v2-product-story-brief-grid{grid-template-columns:1fr}.v2-product-story-brief::after{right:16px;font-size:.9rem}}
+
 @media (max-width: 640px) {
   .v2-product-evidence-copy h2 { font-size: clamp(1.9rem, 8.5vw, 2.75rem); }
 }
@@ -1426,7 +1449,7 @@
   border-right:1px solid rgba(199,224,220,.12);
 }
 .v2-body.is-inner .v2-product-observe-copy::after {
-  content:"HUMAN INTELLIGENCE  ×  ARTIFICIAL INTELLIGENCE";
+  content:attr(data-ambient-label);
   position:absolute;
   left:clamp(28px,6vw,92px);
   bottom:30px;

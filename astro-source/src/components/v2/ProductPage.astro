@@ -8,6 +8,26 @@ import ProductMotionPrototype from './motion/ProductMotionPrototype.astro';
 interface Props { product: ProductDefinition; locale: SiteLocale }
 const { product, locale }=Astro.props; const base=import.meta.env.BASE_URL.replace(/\/$/,''); const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${base}/`; const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh; const statusLabel=locale==='en'?(product.status==='概念'?'Concept':product.status==='原型'?'Prototype':product.status):locale==='zh-CN'?simplify(product.status):product.status;
 const mediaUrl=(path:string)=>`${base}/${path}`;
+const hasHeroVideo=['elias-care','elias-ops','elias-home','elias-rescue'].includes(product.slug);
+const storyTitle:Record<string,{zh:string;en:string}>={
+  'elias-care':{zh:'先理解需求，再準備合適的回覆。',en:'Understand the need, then prepare the right response.'},
+  'elias-ops':{zh:'把分散告警，整理成清楚事件。',en:'Turn scattered alerts into one clear incident.'},
+  'elias-home':{zh:'先確認需要，再提供剛好的協助。',en:'Confirm the need, then offer the right help.'},
+  'elias-rescue':{zh:'先掌握危險，再讓救援安心前進。',en:'Understand the danger, then help rescue move safely.'}
+};
+const ambientLabel:Record<string,string>={
+  'elias-care':'EMPATHY GUIDES INTELLIGENCE',
+  'elias-ops':'CLARITY BEFORE ACTION',
+  'elias-home':'TECHNOLOGY WITHIN REACH',
+  'elias-rescue':'HUMANS LEAD THE MISSION'
+};
+const evidenceTitle:Record<string,{zh:string;en:string}>={
+  'elias-knowledge':{zh:'答案附上來源，團隊才放心使用。',en:'Answers earn trust when the source is visible.'},
+  'elias-flow':{zh:'每一步都看得見，交接不用再猜。',en:'When every step is visible, handoffs stay clear.'},
+  'elias-ops':{zh:'看清影響，團隊才能安心判斷。',en:'See the impact clearly, then decide with confidence.'},
+  'elias-home':{zh:'協助融入日常，不打斷生活。',en:'Support that fits daily life without taking it over.'},
+  'elias-rescue':{zh:'讓機器先進場，讓人掌握風險。',en:'Send the robot first so people can understand the risk.'}
+};
 const navigationGroup=product.family==='embodied'
   ? products.filter((item)=>item.family==='embodied')
   : ['elias-knowledge','elias-care'].includes(product.slug)
@@ -18,10 +38,10 @@ const previousProduct=navigationGroup[(productPosition-1+navigationGroup.length)
 const nextProduct=navigationGroup[(productPosition+1)%navigationGroup.length];
 ---
 <ProductPageLayout product={product} locale={locale} prefix={prefix}>
-<ProductMotionPrototype product={product} locale={locale}/>
-{product.media.secondary&&<section class="v2-product-evidence"><div class="v2-product-evidence-image"><ResponsivePicture desktop={mediaUrl(product.media.secondary.desktop)} mobile={mediaUrl(product.media.secondary.mobile)} alt={l(product.media.secondary.alt,locale)}/></div><div class="v2-product-evidence-copy v2-reveal"><p class="v2-eyebrow">{t('人與智慧系統並肩工作','PEOPLE AND INTELLIGENCE, SIDE BY SIDE')}</p><h2>{product.family==='digital'?t('先看懂情況，再把下一步交到團隊手上。','Understand the situation first, then put the next step in the team’s hands.'):t('協助出現在需要的時刻，也尊重每一個人的選擇。','Help appears when it matters, while every person keeps their choice.')}</h2><p>{product.family==='digital'?t('資訊、來源與進度集中在同一個畫面，團隊不必在多個工具之間反覆拼湊。','Information, sources and progress come together in one view, so teams spend less time piecing work across tools.'):t('智慧系統理解環境並準備協助；使用者、家庭與專業人員仍決定任務如何進行。','The intelligent system understands the environment and prepares support, while users, families and professionals decide how the task proceeds.')}</p></div></section>}
-<section id="product-value" class="v2-product-programs"><div class="v2-shell"><header class="v2-programs-head"><div><p class="v2-eyebrow">{t('產品價值 / 01','PRODUCT VALUE / 01')}</p><h2>{t('從每天的真實問題開始。','Built around real, everyday problems.')}</h2></div><p>{l(product.problem,locale)}</p></header><div class="v2-program-grid">{product.values.map((item,index)=><article class="v2-program-card v2-reveal"><span>0{index+1}</span><h3>{l(item,locale)}</h3><p>{index===0?t('先把分散資訊整理清楚。','Bring scattered information into focus.'):index===1?t('讓建議更容易理解與確認。','Make suggestions easier to understand and verify.'):t('AI 先準備，我們決定怎麼做。','AI prepares; people decide what to do.')}</p></article>)}</div></div></section>
-<section id="product-capabilities" class="v2-product-chapter"><div class="v2-shell v2-product-chapter-grid"><div class="v2-chapter-title"><p class="v2-eyebrow">{t('一起工作的方式 / 02','HOW WE WORK TOGETHER / 02')}</p><h2>{t('AI 先準備，我們決定怎麼做。','AI prepares. People decide what to do.')}</h2></div><div><p class="v2-chapter-intro">{l(product.collaboration,locale)}</p><ol class="v2-capability-list">{product.capabilities.map((item,index)=><li><span>{String(index+1).padStart(2,'0')}</span><strong>{l(item,locale)}</strong></li>)}</ol></div></div></section>
+{hasHeroVideo?<section id="product-story" class="v2-product-story-brief" data-ambient-label={ambientLabel[product.slug]}><div class="v2-shell v2-product-story-brief-grid"><div><p class="v2-eyebrow">{t('真人協作情境','LIVE HUMAN + AI COLLABORATION')}</p><h2>{t(storyTitle[product.slug].zh,storyTitle[product.slug].en)}</h2></div><div><p>{l(product.scenario,locale)}</p><ol><li>{t('看見情況','See the situation')}</li><li>{t('整理重點','Organize what matters')}</li><li>{t('由人決定','People decide')}</li></ol></div></div></section>:<ProductMotionPrototype product={product} locale={locale}/>}
+{product.media.secondary&&<section class="v2-product-evidence"><div class="v2-product-evidence-image"><ResponsivePicture desktop={mediaUrl(product.media.secondary.desktop)} mobile={mediaUrl(product.media.secondary.mobile)} alt={l(product.media.secondary.alt,locale)}/></div><div class="v2-product-evidence-copy v2-reveal"><p class="v2-eyebrow">{t('人與智慧系統並肩工作','PEOPLE AND INTELLIGENCE, SIDE BY SIDE')}</p><h2>{t(evidenceTitle[product.slug].zh,evidenceTitle[product.slug].en)}</h2><p>{l(product.collaboration,locale)}</p></div></section>}
+<section id="product-value" class="v2-product-programs"><div class="v2-shell"><header class="v2-programs-head"><div><p class="v2-eyebrow">{t('產品價值 / 01','PRODUCT VALUE / 01')}</p><h2>{t('從真正需要改善的事開始。','Start with something worth improving.')}</h2></div><p>{l(product.problem,locale)}</p></header><div class="v2-program-grid">{product.values.map((item,index)=><article class="v2-program-card v2-reveal"><span>0{index+1}</span><h3>{l(item,locale)}</h3></article>)}</div></div></section>
+<section id="product-capabilities" class="v2-product-chapter"><div class="v2-shell v2-product-chapter-grid"><div class="v2-chapter-title"><p class="v2-eyebrow">{t('一起工作的方式 / 02','HOW WE WORK TOGETHER / 02')}</p><h2>{product.family==='digital'?t('分工清楚，合作更順。','Clear roles make better work.'):t('人來指揮，系統協助。','People lead. The system assists.')}</h2></div><div><p class="v2-chapter-intro">{l(product.collaboration,locale)}</p><ol class="v2-capability-list">{product.capabilities.map((item,index)=><li><span>{String(index+1).padStart(2,'0')}</span><strong>{l(item,locale)}</strong></li>)}</ol></div></div></section>
 <section class="v2-product-audience"><div class="v2-shell v2-product-audience-grid"><div><p class="v2-eyebrow">{t('適合誰 / 03','WHO IT HELPS / 03')}</p><h2>{t('為每天使用它的人而設計。','Designed for the people who use it every day.')}</h2></div><ul>{product.audience.map((item,index)=><li><span>0{index+1}</span>{l(item,locale)}</li>)}</ul></div></section>
 <section class="v2-section v2-dark"><div class="v2-shell v2-two-grid"><div><p class="v2-eyebrow">{t('開始前先確認 / 04','BEFORE WE BEGIN / 04')}</p><h2>{t('先說清楚範圍，再安心開始。','Set a clear scope, then begin with confidence.')}</h2><p>{t('先確認誰會使用、要完成什麼，以及哪些步驟需要人員確認。','First confirm who will use it, what it should do and which steps need human review.')}</p></div><div><p class="v2-eyebrow">{t('需要的資料與權限','DATA AND PERMISSIONS')}</p><p>{l(product.dataPermissions,locale)}</p></div></div></section>
 <section id="product-safety" class="v2-section"><div class="v2-shell"><SafetyNotice locale={locale}><div class="v2-two-grid"><div><h3>{t('讓人安心的設計','Designed for confidence')}</h3><ul class="v2-check-list">{product.safeguards.map((item)=><li>{l(item,locale)}</li>)}</ul></div><div><h3>{t('產品不會做什麼','What the product will not do')}</h3><ul class="v2-limit-list">{product.limitations.map((item)=><li>{l(item,locale)}</li>)}</ul></div></div></SafetyNotice></div></section>

@@ -4,22 +4,9 @@ import MotionPicture from './MotionPicture.astro'; import ProductMotionScene fro
 interface Props { product:ProductDefinition; locale:SiteLocale }
 const { product,locale }=Astro.props; const base=import.meta.env.BASE_URL.replace(/\/$/,''); const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
 const desktop=`${base}/${product.media.hero.desktop}`; const mobile=`${base}/${product.media.hero.mobile}`;
-const storyTitle=product.slug==='elias-home'
-  ?t('需求有被了解照顧，下一步才真正有用。','When needs are understood and cared for, the next step can truly help.')
-  :product.slug==='elias-rescue'
-    ?t('危險先行預測，才能保障人們的安全。','Predict danger early, so people can stay safe.')
-    :product.slug==='elias-ops'
-      ?t('告警不再分散，判斷更快到位。','Bring scattered alerts together. Decide with clarity.')
-      :t('問題先被看懂，下一步才真正有用。','Understand the situation. Prepare a useful next step.');
-const liveVideo=product.slug==='elias-home'
-  ?{src:`${base}/media/elias-home-live-scenario.mp4`,label:t('Elias Home 與家庭成員協作的真人情境影片','Live-action Elias Home family collaboration scenario')}
-  :product.slug==='elias-rescue'
-    ?{src:`${base}/media/elias-rescue-live-scenario.mp4`,label:t('Elias Rescue 與救援人員協作的真人情境影片','Live-action Elias Rescue response-team collaboration scenario')}
-    :product.slug==='elias-care'
-      ?{src:`${base}/media/elias-care-live-scenario.mp4`,label:t('客服人員與人工智慧共同整理客戶需求的情境影片','A service specialist and AI organizing customer needs together')}
-      :product.slug==='elias-ops'
-        ?{src:`${base}/media/elias-ops-live-scenario.mp4`,label:t('維運人員與人工智慧共同檢視事件訊號的情境影片','An operations specialist and AI reviewing incident signals together')}
-        :null;
+const storyTitle=product.slug==='elias-knowledge'
+  ?t('找到答案，也看得見來源。','Find the answer and see where it came from.')
+  :t('把重複工作，整理成清楚進度。','Turn repetitive work into visible progress.');
 const particleSeed=[
   ['12%','18%','3px','0s'],['31%','12%','2px','1.4s'],['72%','20%','4px','2.8s'],['88%','36%','2px','.7s'],
   ['18%','56%','2px','3.5s'],['44%','48%','3px','1.9s'],['78%','62%','2px','4.2s'],['26%','81%','4px','2.3s'],
@@ -27,12 +14,12 @@ const particleSeed=[
 ];
 ---
 <section id="product-story" class:list={['v2-product-observe',`is-${product.family}`]} data-product-prototype aria-labelledby={`${product.slug}-motion-title`}>
-  <div class="v2-product-observe-copy">
+  <div class="v2-product-observe-copy" data-ambient-label={product.slug==='elias-knowledge'?'ANSWERS WITH A SOURCE':'WORK MOVES WITH CLARITY'}>
     <div class="v2-product-story-light" aria-hidden="true">
       <span class="v2-product-story-beam"></span>
       {particleSeed.map(([left,top,size,delay],index)=><i style={`--x:${left};--y:${top};--size:${size};--delay:${delay};--index:${index}`}></i>)}
     </div>
-    <p class="v2-eyebrow">{liveVideo?t('真人協作情境','LIVE HUMAN + AI COLLABORATION'):t('真實工作情境 / 產品模擬','REAL WORK / PRODUCT SIMULATION')}</p>
+    <p class="v2-eyebrow">{t('真實工作情境 / 產品模擬','REAL WORK / PRODUCT SIMULATION')}</p>
     <h2 id={`${product.slug}-motion-title`}>{storyTitle}</h2>
     <p class="v2-product-observe-lead">{l(product.scenario,locale)}</p>
     <div class="v2-observe-states" aria-label={t('產品協作階段','Product collaboration stages')}>
@@ -40,13 +27,9 @@ const particleSeed=[
     </div>
   </div>
   <div class="v2-prototype-stage">
-    {liveVideo?<video class="v2-live-product-video" data-product-video autoplay muted loop playsinline controls preload="metadata" poster={desktop} aria-label={liveVideo.label}>
-      <source src={liveVideo.src} type="video/mp4" />
-      {t('你的瀏覽器不支援此產品情境影片。','Your browser does not support this product scenario video.')}
-    </video>:<MotionPicture desktop={desktop} mobile={mobile} alt={l(product.media.hero.alt,locale)}/>}
-    <ProductMotionScene product={product} locale={locale} hasLiveVideo={Boolean(liveVideo)}/>
+    <MotionPicture desktop={desktop} mobile={mobile} alt={l(product.media.hero.alt,locale)}/>
+    <ProductMotionScene product={product} locale={locale}/>
   </div>
-  {product.family==='embodied'&&<aside class="v2-preorder-note"><strong>{t('概念研究｜參與下一步','Concept research | Follow what comes next')}</strong><p>{t('我們正用真人情境探索產品價值與互動方式。可登記接收後續研究及展示消息；此階段不收取款項，也不承諾售價或交付日期。','We are using real-world scenarios to explore product value and interaction. Register for future research and demonstration updates; no payment, pricing or delivery date is offered at this stage.')}</p></aside>}
 </section>
 <script>
 import { initProductMotionControllers } from '../../../scripts/product-motion-controller';

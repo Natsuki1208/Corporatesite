@@ -36,9 +36,9 @@ export const products: ProductDefinition[] = [
   {
     slug:'elias-knowledge', family:'digital', name:'Elias Knowledge', chineseName:'企業知識助理', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-knowledge-desktop.webp',mobile:'images/v2/products/elias-knowledge-mobile.webp',alt:L('員工使用 Elias Knowledge 搜尋核准文件並查看來源','An employee using Elias Knowledge to search approved documents and review sources')},secondary:{desktop:'images/v2/products/elias-knowledge-02.webp',mobile:'images/v2/products/elias-knowledge-02.webp',alt:L('團隊在會議中核對企業知識助理提供的引用與文件版本','A team reviewing citations and document versions provided by the enterprise knowledge assistant')}},
-    statusNote:L('目前以可操作介面原型呈現；下一步將驗證真實資料連接、權限與回答品質。','Currently presented as an interactive interface prototype. Next, we will validate live data connections, permissions and answer quality.'),
+    statusNote:L('目前為可操作原型，正準備測試真實資料與使用體驗。','This is an interactive prototype preparing for real-data and user-experience testing.'),
     headline:L('讓公司的知識更容易找到。','Make company knowledge easier to find.'),
-    intro:L('Elias Knowledge 幫團隊找到可靠的公司資訊，並在回答旁標示來源。使用者可以回到原始文件確認，再決定下一步。','Elias Knowledge finds reliable company information and shows the source beside each answer. People can check the original before choosing what comes next.'),
+    intro:L('Elias Knowledge 幫團隊找到可靠資訊，並在回答旁標示來源。每個人都能回到原文確認，再繼續工作。','Elias Knowledge finds reliable information and shows the source beside each answer. Anyone can check the original before continuing.'),
     audience:[L('一般員工','Employees'),L('專案團隊','Project teams'),L('人資與法務','HR and legal'),L('內部服務台','Internal service desks')],
     problem:L('文件散落、版本不一，搜尋結果也常缺少可核對的來源。','Documents are scattered, versions differ and search results often lack verifiable sources.'),
     values:[L('更快掌握工作重點','Find the essentials faster'),L('答案附上可追溯來源','Keep sources traceable'),L('沿用既有文件權限','Retain document permissions')],
@@ -53,9 +53,9 @@ export const products: ProductDefinition[] = [
   {
     slug:'elias-care', family:'digital', name:'Elias Care', chineseName:'客服協作助理', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-care.webp',mobile:'images/v2/products/elias-care.webp',alt:L('客服團隊檢視 AI 準備的回覆與敏感內容提醒','A service team reviewing an AI-prepared response and sensitive-content notice')}},
-    statusNote:L('目前以客服工作台介面原型呈現；下一步將驗證 CRM 整合與服務品質。','Currently presented as a service-workbench interface prototype. Next, we will validate CRM integration and service quality.'),
+    statusNote:L('目前為客服工作台原型，正準備測試服務流程與使用體驗。','This is a service-workbench prototype preparing for workflow and user-experience testing.'),
     headline:L('讓客服更快看懂每一次需求。','Help service teams understand every request faster.'),
-    intro:L('Elias Care 把客戶訊息、過往紀錄與服務規範整理在一起，幫客服準備回覆。涉及退款、個資或重要承諾時，再由服務人員確認。','Elias Care brings messages, history and service policies together and prepares a reply. Service teams review refunds, personal data and important commitments.'),
+    intro:L('Elias Care 整理客戶訊息、案件紀錄與服務規範，先準備回覆；退款、個資與重要承諾仍由客服確認。','Elias Care organizes messages, case history and service policies, then prepares a reply. Service teams still confirm refunds, personal data and important commitments.'),
     audience:[L('客服人員','Service agents'),L('客服主管','Service managers'),L('售後服務團隊','After-sales teams'),L('品質管理人員','Quality managers')],
     problem:L('訊息量大、歷史紀錄分散，敏感內容與交接重點容易被忽略。','Message volume is high, history is scattered, and sensitive content or handoff details can be missed.'),
     values:[L('更快理解案件','Understand cases faster'),L('維持回覆一致性','Improve response consistency'),L('重要判斷留給服務團隊','Keep important judgment with the service team')],
@@ -70,7 +70,7 @@ export const products: ProductDefinition[] = [
   {
     slug:'elias-flow', family:'digital', name:'Elias Flow', chineseName:'流程協作助理', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-flow.webp',mobile:'images/v2/products/elias-flow.webp',alt:L('工作人員在同一畫面確認發票資料、審核與系統更新進度','A worker reviewing invoice data, approval and system-update progress in one view')},secondary:{desktop:'images/v2/products/elias-flow-02.webp',mobile:'images/v2/products/elias-flow-02.webp',alt:L('團隊共同檢視流程例外、處理進度與稽核紀錄','A team reviewing workflow exceptions, progress and audit records together')}},
-    statusNote:L('目前以流程介面原型呈現；下一步將驗證企業系統連接、例外處理與交易安全。','Currently presented as a workflow interface prototype. Next, we will validate enterprise integration, exception handling and transaction safety.'),
+    statusNote:L('目前為流程介面原型，正準備測試常見工作情境。','This is a workflow prototype preparing for common workplace scenarios.'),
     headline:L('讓重複工作順暢往前走。','Keep repetitive work moving smoothly.'),
     intro:L('Elias Flow 把 Email、表單與文件整理成清楚的待辦，提醒負責的人並追蹤進度。重要決定由人確認，完成後留下紀錄。','Elias Flow turns email, forms and documents into clear tasks, reminds the right people and tracks progress. People confirm important decisions, and completed work leaves a record.'),
     audience:[L('行政人員','Administration'),L('營運團隊','Operations'),L('採購與財務','Procurement and finance'),L('流程管理人員','Process managers')],
@@ -87,9 +87,9 @@ export const products: ProductDefinition[] = [
   {
     slug:'elias-ops', family:'digital', name:'Elias Ops', chineseName:'系統維運協作助理', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-ops.webp',mobile:'images/v2/products/elias-ops.webp',alt:L('維運人員檢視整併後的告警、時間線與處置建議','An operations specialist reviewing consolidated alerts, a timeline and response suggestions')},secondary:{desktop:'images/v2/products/elias-ops-02.webp',mobile:'images/v2/products/elias-ops-02.webp',alt:L('維運團隊確認服務影響與等待人員授權的下一步','An operations team reviewing service impact and the next step awaiting human authorization')}},
-    statusNote:L('目前以維運控制台介面原型呈現；下一步將驗證即時監控整合與操作可靠性。','Currently presented as an operations-console interface prototype. Next, we will validate live telemetry integration and operational reliability.'),
+    statusNote:L('目前為維運介面原型，正準備測試告警整理與使用流程。','This is an operations prototype preparing for alert and workflow testing.'),
     headline:L('把複雜異常整理成清楚的下一步。','Turn complex incidents into a clear next step.'),
-    intro:L('Elias Ops 整理分散的告警與處理紀錄，幫維運團隊看懂影響。AI 準備建議，實際操作由工程師決定。','Elias Ops organizes scattered alerts and response history so operations teams can understand the impact. AI prepares suggestions while engineers decide what action to take.'),
+    intro:L('Elias Ops 整理分散的告警與處理紀錄，讓團隊看清影響。AI 準備建議，實際操作由工程師決定。','Elias Ops organizes scattered alerts and response history so teams can see the impact. AI prepares suggestions while engineers decide what action to take.'),
     audience:[L('IT 維運','IT operations'),L('維運與可靠性團隊','Operations and reliability teams'),L('系統管理員','System administrators'),L('營運管理人員','Operations managers')],
     problem:L('告警重複、訊號分散、影響難判斷，處理紀錄也不完整。','Alerts repeat, signals are scattered, impact is difficult to assess and response records are incomplete.'),
     values:[L('減少重複告警','Reduce duplicate alerts'),L('看清事件前後','See the incident clearly'),L('保留決定與操作紀錄','Keep decisions and actions traceable')],
@@ -104,7 +104,7 @@ export const products: ProductDefinition[] = [
   {
     slug:'elias-home', family:'embodied', name:'Elias Home', chineseName:'居家人工智慧機器人概念', status:'概念',
     media:{hero:{desktop:'images/v2/products/elias-home-desktop.webp',mobile:'images/v2/products/elias-home-mobile.webp',alt:L('Elias Home 在明亮居家環境中協助高齡者處理日常用品','Elias Home assisting an older adult with an everyday item in a bright home')},secondary:{desktop:'images/v2/products/elias-home-02-desktop.webp',mobile:'images/v2/products/elias-home-02-mobile.webp',alt:L('Elias Home 與家庭成員在日常生活中自然協作','Elias Home working naturally alongside family members in daily life')}},
-    statusNote:L('目前進入概念設計階段；下一步將聚焦單一物品遞送、家庭權限與安全移動驗證。','Now in concept design. The next stage will focus on single-item delivery, household permissions and safe-mobility validation.'),
+    statusNote:L('目前為概念設計，正聚焦安全移動與簡單物品遞送。','This concept currently focuses on safe movement and simple object delivery.'),
     headline:L('了解生活需要，讓協助自然出現。','Understand everyday needs and offer help naturally.'),
     intro:L('Elias Home 探索機器人如何在家中安全移動、遞送物品並協助日常小事。它陪伴生活，也尊重使用者、家人與照護者的選擇。','Elias Home explores how robots can move safely at home, deliver items and help with everyday tasks. It supports daily life while respecting the choices of users, families and caregivers.'),
     audience:[L('一般家庭','Households'),L('高齡者生活支持','Independent-living support'),L('行動不便者','People with mobility limitations'),L('共同生活家庭','Shared family living')],
@@ -121,7 +121,7 @@ export const products: ProductDefinition[] = [
   {
     slug:'elias-rescue', family:'embodied', name:'Elias Rescue', chineseName:'救援人工智慧機器人概念', status:'概念',
     media:{hero:{desktop:'images/v2/products/elias-rescue-desktop.webp',mobile:'images/v2/products/elias-rescue-mobile.webp',alt:L('Elias Rescue 與專業搜救人員在日間災區共同工作','Elias Rescue working with professional responders at a daytime disaster site')},secondary:{desktop:'images/v2/products/elias-rescue-02-desktop.webp',mobile:'images/v2/products/elias-rescue-02-mobile.webp',alt:L('Elias Rescue 協助救援人員運送物資與撤離設備','Elias Rescue helping responders transport supplies and evacuation equipment')}},
-    statusNote:L('目前進入概念研究階段；下一步將聚焦感測、遠端控制與受控環境測試。','Now in concept research. The next stage will focus on sensing, remote control and controlled-environment testing.'),
+    statusNote:L('目前為概念研究，正聚焦感測、遠端操作與安全測試。','This concept currently focuses on sensing, remote operation and safety testing.'),
     headline:L('先看見危險，讓救援更安心。','See danger earlier and make rescue safer.'),
     intro:L('Elias Rescue 探索機器人如何先進入危險區域，回傳現場資訊並運送物資。它與救援人員並肩工作，由專業團隊指揮每一次行動。','Elias Rescue explores how robots can enter dangerous areas first, report conditions and carry supplies. It works alongside responders, with every action directed by professionals.'),
     audience:[L('地震與倒塌救援','Earthquake and collapse response'),L('火災後與工業事故','Post-fire and industrial incidents'),L('有毒或缺氧環境','Toxic or oxygen-poor environments'),L('人道救援物流','Humanitarian logistics')],

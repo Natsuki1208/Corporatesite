@@ -6,10 +6,20 @@ const { product,locale,prefix }=Astro.props; const t=(zh:string,en:string)=>loca
 const mediaUrl=(path:string)=>`${base}/${path}`;
 const familyLabel=product.family==='digital'?t('線上智慧支援','DIGITAL INTELLIGENCE'):t('人工智慧機器人','AI ROBOTICS');
 const statusLabel=locale==='en'?(product.status==='概念'?'Concept':product.status==='原型'?'Prototype':product.status):locale==='zh-CN'?simplify(product.status):product.status;
+const liveVideoByProduct:Record<string,{src:string;label:string}>={
+  'elias-care':{src:`${base}/media/elias-care-live-scenario.mp4`,label:t('客服人員與人工智慧共同理解客戶需求','A service specialist and AI understanding a customer request together')},
+  'elias-ops':{src:`${base}/media/elias-ops-live-scenario.mp4`,label:t('維運人員與人工智慧共同檢視服務異常','An operations specialist and AI reviewing a service incident together')},
+  'elias-home':{src:`${base}/media/elias-home-live-scenario.mp4`,label:t('家庭成員與 Elias Home 在日常生活中協作','A family member and Elias Home working together in daily life')},
+  'elias-rescue':{src:`${base}/media/elias-rescue-live-scenario.mp4`,label:t('救援人員指揮 Elias Rescue 執行現場任務','Responders directing Elias Rescue during a field mission')}
+};
+const liveVideo=liveVideoByProduct[product.slug];
 ---
 <article class="v2-product-page" data-product={product.slug}>
-  <header class="v2-product-editorial-hero">
-    <ResponsivePicture desktop={mediaUrl(product.media.hero.desktop)} mobile={mediaUrl(product.media.hero.mobile)} product={product.name} label={t('產品主圖','Product hero image')} status={t('正式素材','Approved asset')} alt={l(product.media.hero.alt,locale)}/>
+  <header class:list={['v2-product-editorial-hero',liveVideo&&'has-live-video']}>
+    {liveVideo?<video class="v2-product-hero-video" autoplay muted loop playsinline controls preload="metadata" poster={mediaUrl(product.media.hero.desktop)} aria-label={liveVideo.label}>
+      <source src={liveVideo.src} type="video/mp4" />
+      {t('你的瀏覽器不支援此產品情境影片。','Your browser does not support this product scenario video.')}
+    </video>:<ResponsivePicture desktop={mediaUrl(product.media.hero.desktop)} mobile={mediaUrl(product.media.hero.mobile)} product={product.name} label={t('產品主圖','Product hero image')} status={t('正式素材','Approved asset')} alt={l(product.media.hero.alt,locale)}/>}
     <div class="v2-product-hero-shade" aria-hidden="true"></div>
     <div class="v2-shell v2-product-hero-content">
       <div class="v2-product-hero-meta">
@@ -26,13 +36,13 @@ const statusLabel=locale==='en'?(product.status==='概念'?'Concept':product.sta
           <div><dt>{t('帶來什麼','CORE VALUE')}</dt><dd>{l(product.values[0],locale)}</dd></div>
           <div><dt>{t('目前階段','CURRENT STAGE')}</dt><dd>{statusLabel}</dd></div>
         </dl>
-        <CTA href="#product-story" label={product.family==='embodied'?t('觀看真人情境','Watch real-world scenario'):t('看看它如何工作','See how it works')} locale={locale}/>
+        <CTA href="#product-story" label={liveVideo?t('了解情境重點','Explore the scenario'):t('看看它如何工作','See how it works')} locale={locale}/>
       </div>
       <p class="v2-product-scroll-cue" aria-hidden="true">{t('向下探索','SCROLL TO EXPLORE')} <span></span></p>
     </div>
   </header>
   <nav class="v2-product-subnav" aria-label={t('產品頁面導覽','Product page navigation')}>
-    <a href="#product-story">{product.family==='embodied'?t('真人情境','Real-world scenario'):t('產品運作','How it works')}</a>
+    <a href="#product-story">{liveVideo?t('情境重點','Scenario'):t('產品運作','How it works')}</a>
     <a href="#product-value">{t('產品價值','Value')}</a>
     <a href="#product-capabilities">{t('如何協作','Collaboration')}</a>
     <a href="#product-safety">{t('安心設計','Safety')}</a>
