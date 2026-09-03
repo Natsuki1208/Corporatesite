@@ -461,10 +461,11 @@
 }
 
 .v2-cocreation-copy h2 {
-  max-width: 18ch;
+  max-width: 20ch;
   margin: .2em 0 .35em;
   font-size: clamp(2.35rem, 3.9vw, 4.15rem) !important;
   line-height: 1.04;
+  text-wrap: balance;
 }
 
 .v2-cocreation-copy > p:last-child {
