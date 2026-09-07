@@ -13,19 +13,30 @@ const particles = Array.from({length:22},(_,index)=>({
   duration:10 + ((seed + index * 5) % 14),
   size:index % 7 === 0 ? 5 : index % 4 === 0 ? 3 : 2
 }));
-const burst = Array.from({length:38},(_,index)=>{
-  const angle=((seed%37)/37+index/38)*Math.PI*2;
+const burst = Array.from({length:64},(_,index)=>{
+  const angle=((seed%37)/37+index/64)*Math.PI*2;
   const distance=18+((seed+index*17)%35);
   return {
     dx:Math.cos(angle)*distance,
     dy:Math.sin(angle)*distance*.72,
     delay:(index%8)*.028,
-    size:index%9===0?4:index%3===0?3:2
+    size:index%11===0?6:index%4===0?4:3
   };
 });
 ---
-<div class:list={['v2-inner-visual',`is-${variant}`]} data-ambient-page={pageKey} aria-hidden="true">
+<div class="v2-inner-page-burst" data-inner-page-burst aria-hidden="true">
+  <div class="v2-inner-burst-core"></div>
   <div class="v2-inner-burst">{burst.map((particle,index)=><i style={`--burst-x:${particle.dx}vw;--burst-y:${particle.dy}vh;--burst-delay:${particle.delay}s;--burst-size:${particle.size}px;--index:${index}`}></i>)}</div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-inner-page-burst]').forEach((burstLayer)=>{
+    if (burstLayer.dataset.ready || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    burstLayer.dataset.ready='true';
+    requestAnimationFrame(()=>setTimeout(()=>burstLayer.classList.add('is-active'),260));
+  });
+</script>
+<div class:list={['v2-inner-visual',`is-${variant}`]} data-ambient-page={pageKey} aria-hidden="true">
   <div class="v2-inner-cluster is-primary"><i></i><i></i><i></i><i></i><i></i></div>
   <div class="v2-inner-cluster is-secondary"><i></i><i></i><i></i><i></i></div>
   <div class="v2-inner-particles">{particles.map((particle,index)=><i style={`--x:${particle.x}%;--y:${particle.y}%;--delay:${particle.delay}s;--duration:${particle.duration}s;--size:${particle.size}px;--index:${index}`}></i>)}</div>

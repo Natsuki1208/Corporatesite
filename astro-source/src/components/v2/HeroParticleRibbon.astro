@@ -64,7 +64,7 @@ const { label } = Astro.props;
       canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
       canvas.style.width=`${width}px`;canvas.style.height=`${height}px`;
       context.setTransform(dpr,0,0,dpr,0,0);
-      const count=innerWidth<680?1050:innerWidth<1100?2200:3800;
+      const count=innerWidth<680?1350:innerWidth<1100?3000:5200;
       points=Array.from({length:count},(_,index)=>{
         const r1=seeded(index+1),r2=seeded(index+811),r3=seeded(index+1777);
         const t=clamp(r1*.98+.01,0,1);
@@ -75,8 +75,8 @@ const { label } = Astro.props;
           depth:seeded(index+407),
           phase:seeded(index+733)*Math.PI*2,
           speed:.16+seeded(index+991)*.22,
-          size:.38+seeded(index+1217)*1.32,
-          alpha:.13+seeded(index+1429)*.49,
+          size:.42+seeded(index+1217)*1.42,
+          alpha:.17+seeded(index+1429)*.55,
           accent:seeded(index+1699)
         };
       });
@@ -97,7 +97,7 @@ const { label } = Astro.props;
       gradient.addColorStop(1,'rgba(13,126,117,.16)');
       context.strokeStyle=gradient;context.lineWidth=1.15;context.stroke();
 
-      const pulse=(time*.000042)%1,p=curve(pulse),normal=tangent(pulse);
+      const pulse=(time*.000019)%1,p=curve(pulse),normal=tangent(pulse);
       const px=p.x*width+normal.nx*Math.sin(time*.0012)*4;
       const py=p.y*height+normal.ny*Math.sin(time*.0012)*4;
       const glow=context.createRadialGradient(px,py,0,px,py,15);
@@ -113,7 +113,7 @@ const { label } = Astro.props;
       context.clearRect(0,0,width,height);
 
       const wash=context.createRadialGradient(width*.72,height*.48,0,width*.72,height*.48,width*.48);
-      wash.addColorStop(0,'rgba(93,205,191,.105)');wash.addColorStop(.48,'rgba(166,219,211,.045)');wash.addColorStop(1,'rgba(255,255,255,0)');
+      wash.addColorStop(0,'rgba(93,205,191,.13)');wash.addColorStop(.48,'rgba(166,219,211,.06)');wash.addColorStop(1,'rgba(255,255,255,0)');
       context.fillStyle=wash;context.fillRect(0,0,width,height);
 
       for(let index=0;index<points.length;index++){
@@ -131,7 +131,7 @@ const { label } = Astro.props;
         const alpha=point.alpha*shimmer;
         const teal=point.accent>.955;
         const gold=!teal&&point.accent>.925;
-        context.fillStyle=teal?`rgba(8,125,116,${alpha*.88})`:gold?`rgba(184,128,39,${alpha*.78})`:`rgba(18,35,42,${alpha*.72})`;
+        context.fillStyle=teal?`rgba(8,125,116,${alpha*.94})`:gold?`rgba(184,128,39,${alpha*.86})`:`rgba(18,35,42,${alpha*.82})`;
         context.beginPath();
         context.arc(x,y,point.size*(.72+point.depth*.55),0,Math.PI*2);
         context.fill();
