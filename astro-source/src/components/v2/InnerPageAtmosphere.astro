@@ -16,15 +16,23 @@ const particles = Array.from({length:22},(_,index)=>({
 const burst = Array.from({length:64},(_,index)=>{
   const angle=((seed%37)/37+index/64)*Math.PI*2;
   const distance=18+((seed+index*17)%35);
+  const baseX=Math.cos(angle)*distance;
+  const baseY=Math.sin(angle)*distance;
+  const vector = variant === 'network'
+    ? { dx:baseX*1.16, dy:baseY*.42 }
+    : variant === 'companions'
+      ? { dx:baseX*.72+Math.sin(angle*2)*7, dy:baseY*.9 }
+      : variant === 'people'
+        ? { dx:baseX*.72, dy:-Math.abs(baseY)*.82+6 }
+        : { dx:baseX*.88, dy:baseY*.72 };
   return {
-    dx:Math.cos(angle)*distance,
-    dy:Math.sin(angle)*distance*.72,
+    ...vector,
     delay:(index%8)*.028,
     size:index%11===0?6:index%4===0?4:3
   };
 });
 ---
-<div class="v2-inner-page-burst" data-inner-page-burst aria-hidden="true">
+<div class:list={['v2-inner-page-burst',`is-${variant}`]} data-inner-page-burst aria-hidden="true">
   <div class="v2-inner-burst-core"></div>
   <div class="v2-inner-burst">{burst.map((particle,index)=><i style={`--burst-x:${particle.dx}vw;--burst-y:${particle.dy}vh;--burst-delay:${particle.delay}s;--burst-size:${particle.size}px;--index:${index}`}></i>)}</div>
 </div>
@@ -33,7 +41,34 @@ const burst = Array.from({length:64},(_,index)=>{
   document.querySelectorAll<HTMLElement>('[data-inner-page-burst]').forEach((burstLayer)=>{
     if (burstLayer.dataset.ready || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     burstLayer.dataset.ready='true';
-    requestAnimationFrame(()=>setTimeout(()=>burstLayer.classList.add('is-active'),260));
+    let lastY=scrollY;
+    let lastTriggerY=scrollY;
+    let activeUntil=0;
+    let phase=0;
+    let scrollBursts=0;
+    const activate=()=>{
+      phase=(phase+1)%3;
+      const safeTransitionPositions=[78,72,82];
+      burstLayer.style.setProperty('--burst-top',`${safeTransitionPositions[phase]}%`);
+      burstLayer.classList.remove('is-active');
+      void burstLayer.offsetWidth;
+      burstLayer.classList.add('is-active');
+      activeUntil=performance.now()+5200;
+    };
+    requestAnimationFrame(()=>setTimeout(activate,260));
+    addEventListener('scroll',()=>{
+      const currentY=scrollY;
+      const movedDown=currentY>lastY;
+      const travelled=currentY-lastTriggerY;
+      const ready=scrollBursts===0||performance.now()>activeUntil;
+      if(movedDown&&travelled>innerHeight*.58&&ready){
+        lastTriggerY=currentY;
+        scrollBursts+=1;
+        activate();
+      }
+      if(currentY<lastTriggerY-innerHeight*.25) lastTriggerY=currentY;
+      lastY=currentY;
+    },{passive:true});
   });
 </script>
 <div class:list={['v2-inner-visual',`is-${variant}`]} data-ambient-page={pageKey} aria-hidden="true">
