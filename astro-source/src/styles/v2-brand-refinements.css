@@ -1187,7 +1187,7 @@
   flex-direction: column;
   min-height: 100%;
 }
-.v2-body.is-inner .v2-card-heading h3 {
+.v2-body.is-inner .v2-card-heading h2 {
   margin: 0;
   font-size: clamp(1.65rem, 3vw, 2.25rem);
   line-height: 1.12;
@@ -1900,6 +1900,10 @@ html:lang(zh-Hans) .v2-body {
 }
 html:lang(en) .v2-body {
   font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+}
+.v2-body .v2-skip {
+  color:#102129;
+  background:#fff;
 }
 .v2-product-hero-copy h1 {
   overflow-wrap:break-word;

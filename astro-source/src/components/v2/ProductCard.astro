@@ -21,7 +21,7 @@ const action=actionByProduct[product.slug]??{zh:'了解產品',en:'Explore the p
 <article class="v2-product-card v2-reveal">
   <ResponsivePicture desktop={`${assetBase}/${cardMedia.desktop}`} mobile={`${assetBase}/${cardMedia.mobile}`} alt={l(cardMedia.alt,locale)} />
   <div class="v2-card-heading">
-    <h3>{product.name}</h3>
+    <h2>{product.name}</h2>
     <span class="v2-product-cn">{locale === 'en' ? l(product.headline,locale) : locale === 'zh-CN' ? simplify(product.chineseName) : product.chineseName}</span>
   </div>
   <p class="v2-card-summary">{l(product.intro,locale)}</p>
