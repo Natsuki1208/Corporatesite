@@ -1628,7 +1628,7 @@ html:lang(zh-Hans) .v2-body.is-inner main :where(h1, h2) {
 }
 .v2-body.is-inner .v2-product-hero-copy h1 {
   max-width: 100%;
-  font-size: clamp(2.15rem, 2.85vw, 3rem);
+  font-size: clamp(2rem, 2.55vw, 2.75rem);
   line-height: 1.08;
 }
 .v2-body.is-inner .v2-company-hero h1,
@@ -1951,7 +1951,7 @@ html:lang(en) .v2-body {
   .v2-body.is-inner .v2-product-editorial-hero.has-split-live .v2-product-hero-copy h1 {
     width:auto!important;
     max-width:16ch!important;
-    font-size:clamp(1.95rem,8.5vw,2.25rem)!important;
+    font-size:clamp(1.8rem,7.8vw,2.1rem)!important;
     line-height:1.12!important;
     overflow-wrap:normal!important;
     word-break:normal!important;
