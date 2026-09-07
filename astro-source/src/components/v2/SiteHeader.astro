@@ -37,7 +37,7 @@ const groups = [
 ];
 ---
 <header class="v2-header" data-v2-header>
-  <a class="v2-brand" href={root} aria-label={t('Elias Net 首頁','Elias Net home')}><AnimatedBrandMark id="header" /></a>
+  <a class="v2-brand" href={root} aria-label={t('Elias Net 首頁','Elias Net home')}><AnimatedBrandMark id="header" animated={path === ''} /></a>
   <button class="v2-menu" type="button" aria-expanded="false" aria-controls="v2-nav" data-v2-menu>{t('選單','Menu')}<span aria-hidden="true"></span></button>
   <nav id="v2-nav" class="v2-nav" aria-label={t('主要導覽','Primary navigation')} data-v2-nav>
     {groups.map((group,index)=><div class="v2-nav-group" data-nav-group>

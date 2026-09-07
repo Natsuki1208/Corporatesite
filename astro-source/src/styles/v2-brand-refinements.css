@@ -1571,6 +1571,7 @@
   font-weight: var(--v2-subheading-weight);
 }
 .v2-body.is-home .v2-hero-message h1 {
+  font-size: clamp(3rem, 4.25vw, 4.75rem);
   letter-spacing: -.035em;
   line-height: 1.08;
 }
@@ -1597,7 +1598,7 @@ html:lang(zh-Hans) .v2-body.is-inner main :where(h1, h2) {
 .v2-body.is-inner .v2-page-hero h1 {
   max-width: 14ch;
   margin-block: .28em .42em;
-  font-size: clamp(2.5rem, 3.8vw, 3.5rem);
+  font-size: clamp(2.2rem, 3.3vw, 3rem);
   line-height: 1.1;
 }
 .v2-body.is-inner .v2-page-hero-grid > div:first-child > p:last-child,
@@ -1611,36 +1612,40 @@ html:lang(zh-Hans) .v2-body.is-inner main :where(h1, h2) {
 }
 .v2-body.is-inner .v2-platform-hero h1 {
   max-width: 14ch;
-  font-size: clamp(2.7rem, 4.35vw, 4.45rem);
+  font-size: clamp(2.3rem, 3.7vw, 3.8rem);
   line-height: 1.06;
 }
 .v2-body.is-inner .v2-product-hero-copy h1 {
   max-width: 100%;
-  font-size: clamp(2.4rem, 3.2vw, 3.4rem);
+  font-size: clamp(2.15rem, 2.85vw, 3rem);
   line-height: 1.08;
 }
 .v2-body.is-inner .v2-company-hero h1,
 .v2-body.is-inner .v2-careers-hero h1,
 .v2-body.is-inner .founder-vision-heading h1 {
   max-width: 13ch;
-  font-size: clamp(2.65rem, 4vw, 4rem);
+  font-size: clamp(2.3rem, 3.4vw, 3.4rem);
   line-height: 1.06;
   letter-spacing: -.035em;
 }
 .v2-body.is-inner .v2-robot-hero-copy h1 {
-  font-size: clamp(2.8rem, 4.8vw, 4.8rem);
+  font-size: clamp(2.4rem, 4vw, 4rem);
 }
 .v2-body.is-inner .v2-docs-welcome h1 {
   max-width: 16ch;
-  font-size: clamp(2.55rem, 4.2vw, 4rem);
+  font-size: clamp(2.2rem, 3.6vw, 3.4rem);
   line-height: 1.06;
 }
 .v2-body.is-inner .v2-platform-content h2,
+.v2-body.is-inner .v2-company .v2-section h2,
+.v2-body.is-inner .v2-section-head h2,
+.v2-body.is-inner .v2-docs-section h2,
+.v2-body.is-inner .v2-section .v2-two-grid h2,
 .v2-body.is-inner .v2-robot-explainer h2,
 .v2-body.is-inner .v2-robot-trust h2,
 .v2-body.is-inner .v2-line-index-grid h2,
 .v2-body.is-inner .v2-digital-line > header h2 {
-  font-size: clamp(2rem, 3.45vw, 3.5rem);
+  font-size: clamp(1.8rem, 2.9vw, 3rem);
   line-height: 1.1;
   letter-spacing: -.035em;
 }
@@ -1650,7 +1655,7 @@ html:lang(zh-Hans) .v2-body.is-inner main :where(h1, h2) {
 .v2-body.is-inner .v2-chapter-title h2,
 .v2-body.is-inner .v2-product-audience h2,
 .v2-body.is-inner .v2-contact-inner h2 {
-  font-size: clamp(1.95rem, 3.05vw, 3.25rem);
+  font-size: clamp(1.75rem, 2.6vw, 2.75rem);
   line-height: 1.12;
 }
 .v2-body.is-inner .v2-section,
@@ -1679,7 +1684,7 @@ html:lang(zh-Hans) .v2-body.is-inner main :where(h1, h2) {
   .v2-body.is-inner .v2-robot-hero-copy h1,
   .v2-body.is-inner .v2-docs-welcome h1 {
     max-width: 100%;
-    font-size: clamp(2.2rem, 9vw, 2.65rem);
+    font-size: clamp(1.95rem, 8vw, 2.3rem);
     line-height: 1.12;
   }
   .v2-body.is-inner .v2-product-story-brief h2,
@@ -1688,7 +1693,7 @@ html:lang(zh-Hans) .v2-body.is-inner main :where(h1, h2) {
   .v2-body.is-inner .v2-chapter-title h2,
   .v2-body.is-inner .v2-product-audience h2,
   .v2-body.is-inner .v2-contact-inner h2 {
-    font-size: clamp(1.95rem, 8.8vw, 2.7rem);
+    font-size: clamp(1.65rem, 7.3vw, 2.1rem);
   }
 }
 
@@ -1826,7 +1831,7 @@ html:lang(zh-Hans) .v2-body.is-home main :where(h2, h3) {
 }
 .v2-body.is-home :where(.v2-model-architecture-head, .v2-section-head, .v2-cocreation-copy, .v2-collaboration-intro) h2 {
   max-width: 15ch;
-  font-size:clamp(2.25rem,4vw,4rem);
+  font-size:clamp(1.95rem,3.35vw,3.35rem);
   line-height:1.08;
 }
 .v2-body.is-home :where(.v2-model-architecture-head, .v2-section-head, .v2-cocreation-copy, .v2-collaboration-intro) > :where(p, .v2-motion-reveal > p):not(.v2-eyebrow) {
@@ -1839,7 +1844,7 @@ html:lang(zh-Hans) .v2-body.is-home main :where(h2, h3) {
     font-size: clamp(2.35rem, 10vw, 2.65rem);
   }
   .v2-body.is-home :where(.v2-products-scene, .v2-solutions-scene, .v2-governance-scene, .v2-collaboration-scene) h2 {
-    font-size:clamp(2.15rem,9.6vw,2.85rem);
+    font-size:clamp(1.8rem,8vw,2.3rem);
     line-height:1.08;
   }
 }
