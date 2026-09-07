@@ -1,6 +1,6 @@
 ---
-interface Props { pageKey: string }
-const { pageKey } = Astro.props;
+interface Props { pageKey: string; burstOnly?: boolean }
+const { pageKey, burstOnly = false } = Astro.props;
 const digitalPages = ['digital-intelligence','elias-knowledge','elias-care','elias-flow','elias-ops'];
 const embodiedPages = ['embodied-intelligence','ai-robots','elias-home','elias-rescue'];
 const peoplePages = ['company','founder','about','careers'];
@@ -13,9 +13,9 @@ const particles = Array.from({length:22},(_,index)=>({
   duration:10 + ((seed + index * 5) % 14),
   size:index % 7 === 0 ? 5 : index % 4 === 0 ? 3 : 2
 }));
-const burst = Array.from({length:64},(_,index)=>{
-  const angle=((seed%37)/37+index/64)*Math.PI*2;
-  const distance=18+((seed+index*17)%35);
+const burst = Array.from({length:180},(_,index)=>{
+  const angle=((seed%37)/37+index/180)*Math.PI*2;
+  const distance=34+((seed+index*17)%50);
   const baseX=Math.cos(angle)*distance;
   const baseY=Math.sin(angle)*distance;
   const vector = variant === 'network'
@@ -27,13 +27,12 @@ const burst = Array.from({length:64},(_,index)=>{
         : { dx:baseX*.88, dy:baseY*.72 };
   return {
     ...vector,
-    delay:(index%8)*.028,
-    size:index%11===0?6:index%4===0?4:3
+    delay:(index%12)*.024,
+    size:index%17===0?7:index%5===0?5:3
   };
 });
 ---
-<div class:list={['v2-inner-page-burst',`is-${variant}`]} data-inner-page-burst aria-hidden="true">
-  <div class="v2-inner-burst-core"></div>
+<div class:list={['v2-inner-page-burst',`is-${variant}`,burstOnly&&'is-home-burst']} data-inner-page-burst data-scroll-only={burstOnly ? 'true' : undefined} aria-hidden="true">
   <div class="v2-inner-burst">{burst.map((particle,index)=><i style={`--burst-x:${particle.dx}vw;--burst-y:${particle.dy}vh;--burst-delay:${particle.delay}s;--burst-size:${particle.size}px;--index:${index}`}></i>)}</div>
 </div>
 
@@ -55,7 +54,7 @@ const burst = Array.from({length:64},(_,index)=>{
       burstLayer.classList.add('is-active');
       activeUntil=performance.now()+5200;
     };
-    requestAnimationFrame(()=>setTimeout(activate,260));
+    if(burstLayer.dataset.scrollOnly!=='true') requestAnimationFrame(()=>setTimeout(activate,260));
     addEventListener('scroll',()=>{
       const currentY=scrollY;
       const movedDown=currentY>lastY;
@@ -71,8 +70,8 @@ const burst = Array.from({length:64},(_,index)=>{
     },{passive:true});
   });
 </script>
-<div class:list={['v2-inner-visual',`is-${variant}`]} data-ambient-page={pageKey} aria-hidden="true">
+{!burstOnly&&<div class:list={['v2-inner-visual',`is-${variant}`]} data-ambient-page={pageKey} aria-hidden="true">
   <div class="v2-inner-cluster is-primary"><i></i><i></i><i></i><i></i><i></i></div>
   <div class="v2-inner-cluster is-secondary"><i></i><i></i><i></i><i></i></div>
   <div class="v2-inner-particles">{particles.map((particle,index)=><i style={`--x:${particle.x}%;--y:${particle.y}%;--delay:${particle.delay}s;--duration:${particle.duration}s;--size:${particle.size}px;--index:${index}`}></i>)}</div>
-</div>
+</div>}
