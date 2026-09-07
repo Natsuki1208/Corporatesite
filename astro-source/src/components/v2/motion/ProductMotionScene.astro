@@ -10,7 +10,7 @@ const isCinematic = hasLiveVideo;
 ---
 <div class:list={['v2-product-motion-scene',`is-${slug}`,isCinematic&&'is-live-only',isEmbodied&&'is-photo-only']} data-product-motion-stage data-product={slug} data-motion-state="idle" aria-label={t(`${product.name} 產品協作動畫`,`${product.name} product collaboration animation`)}>
   {isCinematic ? <>
-    <span class="v2-sr-only" data-motion-status>{t('真人情境影片準備播放','Live-action scenario ready')}</span>
+    <span class="v2-sr-only" data-motion-status>{t('產品情境影片準備播放','Product scenario ready')}</span>
     <span class="v2-sr-only" data-motion-step="0">{t('看見使用者與現場情境','User and real-world context')}</span>
     <span class="v2-sr-only" data-motion-step="1">{slug === 'elias-care'?t('人工智慧整理客戶訊息','AI organizes the customer request'):slug === 'elias-ops'?t('人工智慧彙整系統與網路服務告警','AI consolidates system and network service alerts'):t('機器人開始協助','The robot begins assisting')}</span>
     <span class="v2-sr-only" data-motion-step="2">{slug === 'elias-care'?t('客服人員確認回覆','The service specialist reviews the response'):slug === 'elias-ops'?t('工程師判斷影響與處理順序','The engineer reviews impact and priority'):t('任務持續進行','The task continues')}</span>

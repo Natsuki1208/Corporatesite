@@ -1174,6 +1174,63 @@
   transform: scale(1.018);
   filter: saturate(1.04) contrast(1.025);
 }
+
+/* Inner-page product cards keep one clear reading path: name, use, summary, status, action. */
+.v2-body.is-inner .v2-product-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.v2-body.is-inner .v2-card-heading h3 {
+  margin: 0;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  line-height: 1.12;
+}
+.v2-body.is-inner .v2-product-cn {
+  display: block;
+  margin-top: 7px;
+  color: #8fe8df;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+}
+.v2-body.is-inner .v2-card-summary {
+  max-width: 54ch;
+  margin: 18px 0 24px;
+  font-size: .94rem;
+  line-height: 1.75;
+}
+.v2-body.is-inner .v2-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(201, 222, 218, .16);
+}
+.v2-body.is-inner .v2-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #edf4f2;
+  font-size: .82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+.v2-body.is-inner .v2-card-action:hover,
+.v2-body.is-inner .v2-card-action:focus-visible {
+  color: #4cddce;
+}
+@media (max-width: 520px) {
+  .v2-body.is-inner .v2-card-footer {
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .v2-body.is-inner .v2-card-action {
+    margin-left: auto;
+  }
+}
 .v2-company-products.is-systems {
   gap: 20px;
 }
@@ -1442,7 +1499,7 @@
 }
 .v2-body.is-home .v2-hero-content { display:grid; place-items:center; padding-top:clamp(132px,17vh,190px); padding-bottom:90px; }
 .v2-body.is-home .v2-hero-message { width:100%; max-width:1180px; text-align:center; }
-.v2-body.is-home .v2-hero-message h1 { max-width:none; margin:.16em auto .22em; font-size:clamp(3.25rem,5.35vw,6rem); line-height:.96; text-wrap:balance; text-shadow:0 5px 34px rgba(0,0,0,.42); }
+.v2-body.is-home .v2-hero-message h1 { max-width:16ch; margin:.16em auto .22em; font-size:clamp(3.25rem,4.9vw,5.4rem); line-height:.98; letter-spacing:-.055em; text-wrap:balance; text-shadow:0 5px 34px rgba(0,0,0,.42); }
 .v2-body.is-home .v2-hero-message > p:not(.v2-eyebrow):not(.v2-hero-en):not(.v2-hero-protocol) { max-width:650px; margin-inline:auto; font-size:clamp(.92rem,1.08vw,1.05rem); }
 .v2-body.is-home .v2-hero-en { margin-inline:auto!important; }
 .v2-body.is-home .v2-hero-protocol { width:100%; max-width:none; justify-content:center; }
@@ -1472,9 +1529,10 @@
   .v2-lang [role=menu] { background:#0e1d23; border-color:rgba(204,225,221,.18); }
 }
 @media(max-width:640px){
-  .v2-body.is-home .v2-hero-content { place-items:end start; padding-top:190px; padding-bottom:78px; }
+  .v2-body.is-home .v2-hero-content { place-items:end start; padding-top:150px; padding-bottom:64px; }
   .v2-body.is-home .v2-hero-message { text-align:left; }
-  .v2-body.is-home .v2-hero-message h1 { margin-inline:0; font-size:clamp(2.75rem,12vw,3.65rem); }
+  .v2-body.is-home .v2-hero-message .v2-eyebrow { max-width:32ch; font-size:.62rem!important; line-height:1.65; letter-spacing:.13em; }
+  .v2-body.is-home .v2-hero-message h1 { max-width:9.5ch; margin-inline:0; font-size:clamp(2.45rem,10.7vw,3.1rem); line-height:1.02; letter-spacing:-.05em; overflow-wrap:normal; }
   .v2-body.is-home .v2-hero-message > p:not(.v2-eyebrow):not(.v2-hero-en):not(.v2-hero-protocol) { margin-inline:0; }
   .v2-body.is-home .v2-hero-protocol { width:auto; justify-content:flex-start; }
   .v2-body.is-home .v2-hero-message .v2-actions { justify-content:flex-start; }
@@ -1496,6 +1554,90 @@
 @media(max-width:640px){.v2-docs-bar{top:68px;gap:12px;padding:0 16px;overflow:auto}.v2-docs-bar span{display:none}.v2-docs-bar a{white-space:nowrap}.v2-docs-main{padding-inline:16px}.v2-doc-direction-grid{grid-template-columns:1fr}.v2-doc-table>div{grid-template-columns:54px 1fr}.v2-doc-table span{grid-column:2}}
 .v2-body.is-inner main>.v2-docs-page{background:#f5f7f8!important;color:#172126}
 .v2-body.is-inner .v2-docs-main,.v2-body.is-inner .v2-docs-main>.v2-docs-section{background:#f5f7f8!important;color:#172126}
+
+/* 2026-09-07 — Inner-page editorial rhythm for a quieter corporate reading experience. */
+.v2-body.is-inner main :where(h1, h2, h3) {
+  text-wrap: balance;
+}
+.v2-body.is-inner main :where(p, li, dd) {
+  line-height: 1.78;
+  text-wrap: pretty;
+}
+html:lang(zh-Hant) .v2-body.is-inner main :where(h1, h2),
+html:lang(zh-Hans) .v2-body.is-inner main :where(h1, h2) {
+  letter-spacing: -.025em;
+  line-height: 1.1;
+}
+.v2-body.is-inner .v2-page-hero {
+  padding-block: clamp(72px, 8vw, 112px);
+}
+.v2-body.is-inner .v2-page-hero h1 {
+  max-width: 14ch;
+  margin-block: .28em .42em;
+  font-size: clamp(2.55rem, 4.15vw, 4.4rem);
+  line-height: 1.08;
+}
+.v2-body.is-inner .v2-page-hero-grid > div:first-child > p:last-child,
+.v2-body.is-inner .v2-platform-hero > .v2-shell > p:last-of-type {
+  max-width: 56ch;
+  font-size: clamp(.98rem, 1.2vw, 1.08rem);
+  line-height: 1.82;
+}
+.v2-body.is-inner .v2-platform-hero {
+  padding-block: clamp(96px, 11vw, 142px) clamp(76px, 8vw, 108px);
+}
+.v2-body.is-inner .v2-platform-hero h1 {
+  max-width: 14ch;
+  font-size: clamp(2.75rem, 5vw, 5.2rem);
+  line-height: 1.04;
+}
+.v2-body.is-inner .v2-product-hero-copy h1 {
+  max-width: 13ch;
+  font-size: clamp(2.7rem, 4.4vw, 4.65rem);
+  line-height: 1.06;
+}
+.v2-body.is-inner .v2-product-story-brief h2,
+.v2-body.is-inner .v2-product-evidence-copy h2,
+.v2-body.is-inner .v2-programs-head h2,
+.v2-body.is-inner .v2-chapter-title h2,
+.v2-body.is-inner .v2-product-audience h2,
+.v2-body.is-inner .v2-contact-inner h2 {
+  font-size: clamp(2rem, 3.35vw, 3.55rem);
+  line-height: 1.1;
+}
+.v2-body.is-inner .v2-section,
+.v2-body.is-inner .v2-product-programs,
+.v2-body.is-inner .v2-product-chapter,
+.v2-body.is-inner .v2-product-audience {
+  padding-block: clamp(68px, 7.5vw, 104px);
+}
+.v2-body.is-inner .v2-card-summary {
+  font-size: .96rem;
+  line-height: 1.78;
+}
+.v2-body.is-inner .v2-card-action {
+  line-height: 1.45;
+}
+@media (max-width: 640px) {
+  .v2-body.is-inner .v2-page-hero {
+    padding-block: 54px 64px;
+  }
+  .v2-body.is-inner .v2-page-hero h1,
+  .v2-body.is-inner .v2-platform-hero h1,
+  .v2-body.is-inner .v2-product-hero-copy h1 {
+    max-width: 100%;
+    font-size: clamp(2.2rem, 9vw, 2.65rem);
+    line-height: 1.12;
+  }
+  .v2-body.is-inner .v2-product-story-brief h2,
+  .v2-body.is-inner .v2-product-evidence-copy h2,
+  .v2-body.is-inner .v2-programs-head h2,
+  .v2-body.is-inner .v2-chapter-title h2,
+  .v2-body.is-inner .v2-product-audience h2,
+  .v2-body.is-inner .v2-contact-inner h2 {
+    font-size: clamp(1.95rem, 8.8vw, 2.7rem);
+  }
+}
 
 /* Product stories: cinematic human + AI stages, without the legacy white drafting grid. */
 .v2-body.is-inner .v2-product-observe {
@@ -1615,6 +1757,31 @@
   .v2-product-story-light i:nth-of-type(n+9) { display:none; }
   .v2-body.is-inner .v2-observe-states { gap:7px; }
   .v2-body.is-inner .v2-observe-states span { padding:.62rem .72rem; font-size:.66rem; }
+}
+
+/* 2026-09-07 — Homepage type scale aligned with the inner-page editorial system. */
+.v2-body.is-home main :where(h1, h2, h3) {
+  text-wrap: balance;
+}
+.v2-body.is-home main :where(p, li) {
+  line-height: 1.74;
+  text-wrap: pretty;
+}
+html:lang(zh-Hant) .v2-body.is-home main :where(h2, h3),
+html:lang(zh-CN) .v2-body.is-home main :where(h2, h3) {
+  letter-spacing: -.025em;
+}
+.v2-body.is-home :where(.v2-model-architecture-head, .v2-section-head, .v2-cocreation-copy, .v2-collaboration-intro) h2 {
+  max-width: 15ch;
+}
+.v2-body.is-home :where(.v2-model-architecture-head, .v2-section-head, .v2-cocreation-copy, .v2-collaboration-intro) > :where(p, .v2-motion-reveal > p):not(.v2-eyebrow) {
+  max-width: 58ch;
+}
+@media(max-width:640px){
+  .v2-body.is-home :where(.v2-products-scene, .v2-solutions-scene, .v2-governance-scene, .v2-collaboration-scene) h2 {
+    font-size:clamp(2.15rem,9.6vw,2.85rem);
+    line-height:1.08;
+  }
 }
 @media(prefers-reduced-motion:reduce){
   .v2-product-story-light i,.v2-product-story-beam { animation:none; }

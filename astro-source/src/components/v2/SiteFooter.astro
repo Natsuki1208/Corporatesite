@@ -2,8 +2,8 @@
 import type { SiteLocale } from '../../data/products';
 import { simplify } from '../../data/simplified-map';
 import AnimatedBrandMark from './AnimatedBrandMark.astro';
-interface Props { locale: SiteLocale }
-const { locale } = Astro.props;
+interface Props { locale: SiteLocale; compact?: boolean }
+const { locale, compact = false } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const lang = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
 const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
@@ -32,7 +32,7 @@ const talentRoles = locale === 'en'
       <h2>DEVELOPERS</h2>
       <a href={`${root}api/`}>API</a>
       <a href={`${root}docs/`}>{t('整合文件','Documentation')}</a>
-      <a href={`${root}pricing/`}>{t('參考方案','Plans')}</a>
+      <a href={`${root}pricing/`}>{compact?t('合作方案','Plans'):t('參考方案','Plans')}</a>
     </nav>
     <nav class="v2-footer-column" aria-label={t('公司導覽','Company navigation')}>
       <h2>COMPANY</h2>
@@ -44,13 +44,14 @@ const talentRoles = locale === 'en'
     </nav>
     <nav class="v2-footer-column is-talent" aria-label={t('人才招募','Careers')}>
       <h2>TALENT / {t('人才招募','CAREERS')}</h2>
-      {talentRoles.map((role,index) => <a href={`${root}careers/#${['ai-engineer','ai-training-engineer','operations-engineer','robotics-controls-engineer','product-ux-designer'][index]}`} aria-label={t(`了解 ${role} 所需能力與合作機會`,`Explore ${role} skills and opportunities`)}>{role}</a>)}
-      <a href={`${root}careers/`}>{t('查看人才招募頁','View all roles')}</a>
+      {compact
+        ? <><a href={`${root}careers/`}>{t('職務與所需能力','Roles and skills')}</a><a href={`${root}contact/`}>{t('合作與聯絡','Collaboration and contact')}</a></>
+        : <>{talentRoles.map((role,index) => <a href={`${root}careers/#${['ai-engineer','ai-training-engineer','operations-engineer','robotics-controls-engineer','product-ux-designer'][index]}`} aria-label={t(`了解 ${role} 所需能力與合作機會`,`Explore ${role} skills and opportunities`)}>{role}</a>)}<a href={`${root}careers/`}>{t('查看人才招募頁','View all roles')}</a></>}
       <small>{t('職務與合作形式依團隊規劃確認。','Roles and engagement models follow current team plans.')}</small>
     </nav>
     <section class="v2-footer-statement">
-      <h2>ELIAS NET</h2>
-      <p>{t('我們研發能理解資訊、協助工作，也能走進真實環境的人工智慧與機器人系統。產品狀態依實際研究與驗證進度說明。','We develop AI and robotic systems that understand information, support work and operate in real environments. Product status reflects actual research and validation progress.')}</p>
+      <h2>{compact?t('產品狀態','PRODUCT STATUS'):'ELIAS NET'}</h2>
+      {!compact&&<p>{t('我們研發能理解資訊、協助工作，也能走進真實環境的人工智慧與機器人系統。產品狀態依實際研究與驗證進度說明。','We develop AI and robotic systems that understand information, support work and operate in real environments. Product status reflects actual research and validation progress.')}</p>}
       <p>{t('概念與原型不代表已量產、部署或可立即提供。','Concepts and prototypes do not imply production, deployment or immediate availability.')}</p>
     </section>
   </div>

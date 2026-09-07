@@ -20,9 +20,13 @@ const action=actionByProduct[product.slug]??{zh:'了解產品',en:'Explore the p
 ---
 <article class="v2-product-card v2-reveal">
   <ResponsivePicture desktop={`${assetBase}/${cardMedia.desktop}`} mobile={`${assetBase}/${cardMedia.mobile}`} alt={l(cardMedia.alt,locale)} />
-  <div class="v2-card-top"><p>{product.family === 'digital' ? 'DIGITAL INTELLIGENCE' : 'AI ROBOTICS'}</p><ProductStatus status={product.status} locale={locale} note={l(product.statusNote,locale)} /></div>
-  <h3>{product.name}</h3><span class="v2-product-cn">{locale === 'zh-CN' ? simplify(product.chineseName) : product.chineseName}</span>
-  <h4>{l(product.headline,locale)}</h4><p>{l(product.intro,locale)}</p>
-  <dl><div><dt>{locale === 'en' ? 'Best for' : locale === 'zh-CN' ? '适合' : '適合'}</dt><dd>{product.audience.slice(0,2).map((item)=>l(item,locale)).join(' · ')}</dd></div></dl>
-  <a class="v2-card-action" href={`${basePath}products/${product.slug}/`}>{locale === 'en' ? action.en : locale === 'zh-CN' ? simplify(action.zh) : action.zh} <span aria-hidden="true">→</span></a>
+  <div class="v2-card-heading">
+    <h3>{product.name}</h3>
+    <span class="v2-product-cn">{locale === 'en' ? l(product.headline,locale) : locale === 'zh-CN' ? simplify(product.chineseName) : product.chineseName}</span>
+  </div>
+  <p class="v2-card-summary">{l(product.intro,locale)}</p>
+  <div class="v2-card-footer">
+    <ProductStatus status={product.status} locale={locale} note={l(product.statusNote,locale)} />
+    <a class="v2-card-action" href={`${basePath}products/${product.slug}/`}>{locale === 'en' ? action.en : locale === 'zh-CN' ? simplify(action.zh) : action.zh} <span aria-hidden="true">→</span></a>
+  </div>
 </article>
