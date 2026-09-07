@@ -49,7 +49,10 @@ const guideLabel = locale === 'en' ? 'Open quick navigation' : locale === 'zh-CN
     });
     document.addEventListener('pointerdown', (event) => { if (!guide.contains(event.target as Node)) close(); });
     document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { close(); toggle?.focus(); } });
-    if (guide.classList.contains('is-home')) window.setTimeout(() => guide.classList.add('is-settled'), 4500);
+    if (guide.classList.contains('is-home')) {
+      const greetingDuration = window.matchMedia('(max-width: 640px)').matches ? 2600 : 4500;
+      window.setTimeout(() => guide.classList.add('is-settled'), greetingDuration);
+    }
     const footer = document.querySelector('.v2-footer');
     if (footer && 'IntersectionObserver' in window) {
       const footerObserver = new IntersectionObserver(([entry]) => guide.classList.toggle('is-away', entry.isIntersecting), { threshold: .08 });
