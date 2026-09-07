@@ -10,10 +10,10 @@ const { product, locale }=Astro.props; const base=import.meta.env.BASE_URL.repla
 const mediaUrl=(path:string)=>`${base}/${path}`;
 const hasHeroVideo=['elias-knowledge','elias-care','elias-flow','elias-ops','elias-home','elias-rescue'].includes(product.slug);
 const storyTitle:Record<string,{zh:string;en:string}>={
-  'elias-knowledge':{zh:'先找到依據，再放心使用答案。',en:'Find the source first, then use the answer with confidence.'},
-  'elias-care':{zh:'資訊先整理，回覆仍有人的溫度。',en:'Organize the context while keeping the human touch.'},
-  'elias-flow':{zh:'工作排清楚，團隊自然接得上。',en:'Clarify the work so the team can keep moving.'},
-  'elias-ops':{zh:'線索集中後，更快看清真正影響。',en:'Bring the signals together and see the real impact faster.'},
+  'elias-knowledge':{zh:'從一個提問，找到相關政策。',en:'Start with a question. Find the relevant policy.'},
+  'elias-care':{zh:'面對扣款疑問，先釐清案件。',en:'Clarify the case before answering a billing question.'},
+  'elias-flow':{zh:'從收到發票，到交由財務確認。',en:'From an incoming invoice to finance review.'},
+  'elias-ops':{zh:'多項告警，放回同一事件脈絡。',en:'Put related alerts into one incident context.'},
   'elias-home':{zh:'先問清楚，再把需要送到身邊。',en:'Ask first, then bring the right help closer.'},
   'elias-rescue':{zh:'先回傳現場，再由救援團隊決定路線。',en:'Relay the scene first, then let responders choose the route.'}
 };
@@ -26,14 +26,14 @@ const ambientLabel:Record<string,string>={
   'elias-rescue':'HUMANS LEAD THE MISSION'
 };
 const evidenceTitle:Record<string,{zh:string;en:string}>={
-  'elias-knowledge':{zh:'答案附上來源，團隊才放心使用。',en:'Answers earn trust when the source is visible.'},
-  'elias-flow':{zh:'每一步都看得見，交接不用再猜。',en:'When every step is visible, handoffs stay clear.'},
-  'elias-ops':{zh:'看清影響，團隊才能安心判斷。',en:'See the impact clearly, then decide with confidence.'},
+  'elias-knowledge':{zh:'一起核對引用與文件版本。',en:'Review citations and document versions together.'},
+  'elias-flow':{zh:'例外與處理紀錄，留給下一位接手。',en:'Keep exceptions and records clear for the next owner.'},
+  'elias-ops':{zh:'團隊確認影響，再授權下一步。',en:'The team reviews the impact and authorizes the next step.'},
   'elias-home':{zh:'協助融入日常，不打斷生活。',en:'Support that fits daily life without taking it over.'},
   'elias-rescue':{zh:'讓機器先進場，讓人掌握風險。',en:'Send the robot first so people can understand the risk.'}
 };
 const valueTitle:Record<string,{zh:string;en:string}>={
-  'elias-knowledge':{zh:'可信答案，更快找到。',en:'Trusted answers, found faster.'},
+  'elias-knowledge':{zh:'減少翻找，把時間留給判斷。',en:'Spend less time searching and more time assessing.'},
   'elias-care':{zh:'更快回覆，也更一致。',en:'Faster replies. More consistent service.'},
   'elias-flow':{zh:'進度清楚，交接更順。',en:'Clear progress. Smoother handoffs.'},
   'elias-ops':{zh:'判斷更聚焦，處理更精準。',en:'Focused assessment. More precise response.'},
