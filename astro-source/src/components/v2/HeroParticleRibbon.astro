@@ -40,23 +40,22 @@ const { label } = Astro.props;
     let pointerX=0,pointerY=0,targetX=0,targetY=0;
 
     const curve = (t:number) => {
-      const u=1-t;
-      const p0={x:.055,y:.63},p1={x:.27,y:.43},p2={x:.50,y:.79},p3={x:.945,y:.37};
+      const angle=t*Math.PI*2;
       return {
-        x:u*u*u*p0.x+3*u*u*t*p1.x+3*u*t*t*p2.x+t*t*t*p3.x,
-        y:u*u*u*p0.y+3*u*u*t*p1.y+3*u*t*t*p2.y+t*t*t*p3.y
+        x:.5+Math.sin(angle)*.425,
+        y:.62+Math.sin(angle*2)*.145
       };
     };
     const tangent = (t:number) => {
       const epsilon=.002;
-      const before=curve(clamp(t-epsilon,0,1));
-      const after=curve(clamp(t+epsilon,0,1));
+      const before=curve((t-epsilon+1)%1);
+      const after=curve((t+epsilon)%1);
       const dx=(after.x-before.x)*width,dy=(after.y-before.y)*height;
       const length=Math.hypot(dx,dy)||1;
       return {nx:-dy/length,ny:dx/length};
     };
     const ribbonWidth = (t:number) =>
-      .045 + gaussian(t,.15,.14)*.105 + gaussian(t,.77,.22)*.14 + gaussian(t,.96,.09)*.055;
+      .038 + gaussian(t,.24,.17)*.095 + gaussian(t,.74,.17)*.105 + gaussian(t,.5,.11)*.022;
 
     const build = () => {
       const box=root.getBoundingClientRect();
@@ -128,9 +127,8 @@ const { label } = Astro.props;
         const offset=point.offset*height*(.88+.16*twist);
         const x=center.x*width+normal.nx*offset+depthShift+pointerX*(5+point.depth*8)*(t-.48);
         const y=center.y*height+normal.ny*offset+twist*(2+point.depth*5)+pointerY*(3+point.depth*6)*(t-.48);
-        const edge=Math.min(1,Math.min(t/.045,(1-t)/.045));
         const shimmer=.77+.23*Math.sin(point.phase+motion*5.5);
-        const alpha=point.alpha*edge*shimmer;
+        const alpha=point.alpha*shimmer;
         const teal=point.accent>.955;
         const gold=!teal&&point.accent>.925;
         context.fillStyle=teal?`rgba(8,125,116,${alpha*.88})`:gold?`rgba(184,128,39,${alpha*.78})`:`rgba(18,35,42,${alpha*.72})`;

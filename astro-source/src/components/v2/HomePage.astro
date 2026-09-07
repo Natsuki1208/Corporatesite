@@ -46,7 +46,7 @@ const features=[
 
   <ScrollScene id="features" tone="light" class="v2-solutions-scene" labelledby="features-title"><AmbientLightField variant="warm"/><div class="v2-shell"><MotionReveal class="v2-section-head"><p class="v2-eyebrow">{sectionLabel('AI CAPABILITIES','AI 特性')}</p><h2 id="features-title">{t('理解資訊，也支援每一段工作。','Understand information. Support every stage of work.')}</h2><p>{t('六項核心能力，支援 Elias 的 AI 應用、資料與流程服務。','Six capabilities support Elias AI applications, data and workflow services.')}</p></MotionReveal><div class="v2-solution-grid">{features.map((feature,index)=><article id={`feature-${feature.id}`} data-motion-reveal><span>0{index+1}</span><h3>{feature.title}</h3><p>{feature.copy}</p><small>{feature.tag}</small></article>)}</div></div></ScrollScene>
 
-  <ScrollScene id="governance" tone="dark" class="v2-governance-scene v2-cocreation-scene" labelledby="governance-title">
+  <ScrollScene id="governance" tone="light" class="v2-governance-scene v2-cocreation-scene" labelledby="governance-title">
     <MotionPicture class="v2-cocreation-backdrop" desktop={media('images/v2/human-ai-cocreation.webp')} mobile={media('images/v2/human-ai-cocreation.webp')} alt={t('孩子與友善的智慧夥伴同行，工作人員在控制中心持續監督系統','A child walks with a friendly intelligent companion while an operator continues supervising the system')}/>
     <div class="v2-cocreation-shade" aria-hidden="true"></div>
     <div class="v2-shell v2-cocreation-inner">
