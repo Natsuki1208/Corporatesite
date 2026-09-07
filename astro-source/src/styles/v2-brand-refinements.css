@@ -1510,6 +1510,7 @@
 .v2-body.is-home .v2-hero-en { margin-inline:auto!important; }
 .v2-body.is-home .v2-hero-protocol { width:100%; max-width:none; justify-content:center; }
 .v2-body.is-home .v2-hero-message .v2-actions { justify-content:center; margin-top:clamp(2rem,4vh,3rem); }
+.v2-body.is-home .v2-hero-message .v2-button { min-height:50px; gap:14px; padding:.62rem 1rem; font-size:.94rem; }
 .v2-body.is-home .v2-hero-message .v2-hero-signature { margin:1.15rem auto 0; white-space:nowrap; }
 .v2-body.is-home .v2-header .mark-wordmark text:first-of-type { fill:#f6f8f7!important; }
 .v2-body.is-home .v2-header .mark-wordmark text:last-of-type { fill:#aebfbe!important; }
@@ -1542,7 +1543,8 @@
   .v2-body.is-home .v2-hero-message h1 { max-width:9.5ch; margin-inline:0; font-size:clamp(2.45rem,10.7vw,3.1rem); line-height:1.02; letter-spacing:-.05em; overflow-wrap:normal; }
   .v2-body.is-home .v2-hero-message > p:not(.v2-eyebrow):not(.v2-hero-en):not(.v2-hero-protocol) { margin-inline:0; }
   .v2-body.is-home .v2-hero-protocol { width:auto; justify-content:flex-start; }
-  .v2-body.is-home .v2-hero-message .v2-actions { justify-content:flex-start; margin-top:1.35rem; }
+  .v2-body.is-home .v2-hero-message .v2-actions { align-items:flex-start; justify-content:flex-start; gap:10px; margin-top:1.15rem; }
+  .v2-body.is-home .v2-hero-message .v2-button { width:auto; min-height:48px; padding:.55rem 1rem; }
   .v2-body.is-home .v2-hero-message .v2-hero-signature { max-width:none; margin:.9rem 0 0; font-size:.54rem!important; letter-spacing:.08em; }
   .v2-mega-columns { grid-template-columns:1fr; }
   .v2-mega-columns article + article { padding-top:12px; border-top:1px solid rgba(204,225,221,.12); }
