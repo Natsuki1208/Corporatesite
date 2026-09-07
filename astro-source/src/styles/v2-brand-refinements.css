@@ -543,10 +543,18 @@
 .v2-architecture-families article > span { position: absolute; top: 24px; right: 26px; color: #b48222; font-size: .66rem; font-weight: 900; }
 .v2-architecture-families .v2-eyebrow { margin: 0 0 28px; }
 .v2-architecture-families h3 { margin: 0 0 6px; font-size: clamp(1.45rem,2.3vw,2.15rem); line-height: 1.05; }
-.v2-architecture-families article > p:not(.v2-eyebrow) { margin: 0; color: #68797d; font-size: .78rem; }
+.v2-architecture-families article > p:not(.v2-eyebrow) { margin: 12px 0 0; color: #68797d; font-size: .78rem; }
 .v2-architecture-families article:last-child > p:not(.v2-eyebrow) { color: #aebebd; }
 .v2-architecture-families a { display: inline-block; margin-top: 24px; color: #0d766f; font-size: .76rem; font-weight: 850; text-decoration: none; }
 .v2-architecture-families article:last-child a { color: #55ded0; }
+
+@media(min-width:641px){
+  .v2-body.is-home .v2-model-architecture-head h2 {
+    max-width:none;
+    font-size:clamp(1.8rem,2.35vw,2.4rem);
+    white-space:nowrap;
+  }
+}
 
 .v2-robot-model-grid {
   display: grid;
@@ -1853,6 +1861,9 @@ html:lang(zh-Hans) .v2-body.is-home main :where(h2, h3) {
 }
 .v2-body.is-home :where(.v2-model-architecture-head, .v2-section-head, .v2-cocreation-copy, .v2-collaboration-intro) > :where(p, .v2-motion-reveal > p):not(.v2-eyebrow) {
   max-width: 58ch;
+}
+.v2-body.is-home :where(.v2-model-architecture-head, .v2-section-head, .v2-cocreation-copy, .v2-collaboration-intro) h2 + p {
+  margin-top: 1rem;
 }
 @media(max-width:640px){
   .v2-body.is-home .v2-hero-message h1 {
