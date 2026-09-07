@@ -1,0 +1,60 @@
+---
+import type { SiteLocale } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+interface Props { locale: SiteLocale }
+const { locale } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const lang = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
+const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
+const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? simplify(zh) : zh;
+const links = [
+  [t('探索產品','Explore products'), `${root}#products`],
+  [t('了解合作方式','How we collaborate'), `${root}pricing/`],
+  [t('認識 Elias Net','Meet Elias Net'), `${root}company/`],
+  [t('與我們聊聊','Start a conversation'), `${root}contact/`]
+];
+---
+<aside class="v2-guide" data-guide>
+  <div class="v2-guide-panel" id="elias-guide-panel" hidden>
+    <p class="v2-guide-eyebrow">ELIAS GUIDE</p>
+    <strong>{t('想先去哪裡看看？','Where would you like to begin?')}</strong>
+    <span>{t('讓我替你帶路。','Let me show you the way.')}</span>
+    <nav aria-label={t('快捷導覽','Quick navigation')}>
+      {links.map(([label,href]) => <a href={href}>{label}<i aria-hidden="true">→</i></a>)}
+    </nav>
+  </div>
+  <button class="v2-guide-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="elias-guide-panel" aria-label={t('開啟快捷導覽','Open quick navigation')}>
+    <img src={`${base}/images/v2/elias-guide-robot.png`} width="591" height="600" alt="" />
+    <span>{t('讓我帶路','Let me guide you')}</span>
+  </button>
+</aside>
+
+<script>
+  const guide = document.querySelector<HTMLElement>('[data-guide]');
+  if (guide && !guide.dataset.ready) {
+    guide.dataset.ready = 'true';
+    const toggle = guide.querySelector<HTMLButtonElement>('.v2-guide-toggle');
+    const panel = guide.querySelector<HTMLElement>('.v2-guide-panel');
+    const close = () => { if (!toggle || !panel) return; toggle.setAttribute('aria-expanded','false'); panel.hidden = true; guide.classList.remove('is-open'); };
+    toggle?.addEventListener('click', () => {
+      if (!panel) return;
+      const opening = panel.hidden;
+      panel.hidden = !opening;
+      toggle.setAttribute('aria-expanded', String(opening));
+      guide.classList.toggle('is-open', opening);
+      if (opening) panel.querySelector<HTMLAnchorElement>('a')?.focus();
+    });
+    document.addEventListener('pointerdown', (event) => { if (!guide.contains(event.target as Node)) close(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { close(); toggle?.focus(); } });
+  }
+</script>
+
+<style>
+  .v2-guide{position:fixed;right:clamp(14px,2vw,28px);bottom:clamp(14px,2vw,26px);z-index:80;display:grid;justify-items:end;gap:10px;pointer-events:none}
+  .v2-guide>*{pointer-events:auto}.v2-guide-panel{width:min(310px,calc(100vw - 32px));padding:22px;border:1px solid rgba(213,229,226,.72);border-radius:18px;background:rgba(247,250,249,.96);color:#102129;box-shadow:0 24px 70px rgba(3,20,27,.22);backdrop-filter:blur(18px);transform-origin:bottom right;animation:v2-guide-open .24s ease-out}
+  .v2-guide-panel[hidden]{display:none}.v2-guide-eyebrow{margin:0 0 8px;color:#087d73;font-size:.62rem;font-weight:800;letter-spacing:.16em}.v2-guide-panel>strong{display:block;font-size:1.12rem;font-weight:600}.v2-guide-panel>span{display:block;margin-top:4px;color:#68777a;font-size:.82rem}.v2-guide-panel nav{display:grid;margin-top:16px;border-top:1px solid #dce6e4}.v2-guide-panel a{display:flex;justify-content:space-between;gap:20px;padding:11px 2px;border-bottom:1px solid #e3eae9;color:#223238;text-decoration:none;font-size:.88rem}.v2-guide-panel a:hover,.v2-guide-panel a:focus-visible{color:#087d73}.v2-guide-panel i{font-style:normal}
+  .v2-guide-toggle{position:relative;width:86px;height:86px;padding:0;border:1px solid rgba(198,222,218,.62);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(226,239,236,.94));box-shadow:0 15px 45px rgba(4,23,30,.2);cursor:pointer}.v2-guide-toggle img{position:absolute;left:7px;bottom:7px;width:72px;height:auto;filter:drop-shadow(0 7px 8px rgba(7,25,31,.18));transform-origin:50% 86%;animation:v2-guide-arrive .8s .4s both}.v2-guide-toggle span{position:absolute;right:76px;top:50%;width:max-content;padding:7px 10px;border-radius:999px;background:#102129;color:#fff;font-size:.72rem;opacity:0;transform:translate(8px,-50%);transition:.2s ease;pointer-events:none}.v2-guide-toggle:hover span,.v2-guide-toggle:focus-visible span{opacity:1;transform:translate(0,-50%)}.v2-guide-toggle:focus-visible{outline:3px solid #55ded0;outline-offset:3px}.v2-guide.is-open .v2-guide-toggle img{transform:translateY(-2px) rotate(2deg)}
+  @keyframes v2-guide-arrive{from{opacity:0;transform:translateY(15px) rotate(-5deg)}70%{opacity:1;transform:translateY(-4px) rotate(2deg)}to{opacity:1;transform:none}}@keyframes v2-guide-open{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+  @media(max-width:640px){.v2-guide{right:12px;bottom:12px}.v2-guide-toggle{width:68px;height:68px;border-radius:21px}.v2-guide-toggle img{left:6px;bottom:5px;width:56px}.v2-guide-toggle span{display:none}.v2-guide-panel{padding:18px}.v2-guide-panel a{min-height:44px;align-items:center}}
+  @media(prefers-reduced-motion:reduce){.v2-guide-toggle img,.v2-guide-panel{animation:none!important}.v2-guide-toggle img{transform:none!important}}
+</style>

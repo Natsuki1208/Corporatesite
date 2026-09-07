@@ -1831,8 +1831,8 @@ html:lang(zh-Hans) .v2-body.is-home main :where(h2, h3) {
 }
 .v2-body.is-home :where(.v2-model-architecture-head, .v2-section-head, .v2-cocreation-copy, .v2-collaboration-intro) h2 {
   max-width: 15ch;
-  font-size:clamp(1.95rem,3.35vw,3.35rem);
-  line-height:1.08;
+  font-size:clamp(1.8rem,2.75vw,2.8rem);
+  line-height:1.16;
 }
 .v2-body.is-home :where(.v2-model-architecture-head, .v2-section-head, .v2-cocreation-copy, .v2-collaboration-intro) > :where(p, .v2-motion-reveal > p):not(.v2-eyebrow) {
   max-width: 58ch;
@@ -1844,8 +1844,8 @@ html:lang(zh-Hans) .v2-body.is-home main :where(h2, h3) {
     font-size: clamp(2.35rem, 10vw, 2.65rem);
   }
   .v2-body.is-home :where(.v2-products-scene, .v2-solutions-scene, .v2-governance-scene, .v2-collaboration-scene) h2 {
-    font-size:clamp(1.8rem,8vw,2.3rem);
-    line-height:1.08;
+    font-size:clamp(1.65rem,7.1vw,2rem);
+    line-height:1.18;
   }
 }
 @media(prefers-reduced-motion:reduce){
