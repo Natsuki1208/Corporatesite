@@ -464,7 +464,7 @@
 .v2-cocreation-copy h2 {
   max-width: 20ch;
   margin: .2em 0 .35em;
-  font-size: clamp(2.35rem, 3.9vw, 4.15rem) !important;
+  font-size: clamp(2.05rem, 3.2vw, 3.35rem) !important;
   line-height: 1.04;
   text-wrap: balance;
 }
@@ -505,7 +505,7 @@
     background: linear-gradient(0deg, #071116 0%, rgba(7, 17, 22, .12) 72%, rgba(7, 17, 22, .08) 100%);
   }
   .v2-cocreation-inner { padding-block: 44px 58px; }
-  .v2-cocreation-copy h2 { font-size: clamp(2.1rem, 10vw, 3.3rem) !important; }
+  .v2-cocreation-copy h2 { font-size: clamp(1.9rem, 8.5vw, 2.65rem) !important; }
   .v2-cocreation-principles { grid-template-columns: 1fr; margin-top: 36px; }
   .v2-cocreation-principles article,
   .v2-cocreation-principles article + article { min-height: 0; padding: 22px; }
@@ -1576,9 +1576,11 @@
   font-weight: var(--v2-subheading-weight);
 }
 .v2-body.is-home .v2-hero-message h1 {
-  font-size: clamp(3rem, 4.25vw, 4.75rem);
+  max-width: 100%;
+  font-size: clamp(2.5rem, 3.5vw, 3.75rem);
   letter-spacing: -.035em;
   line-height: 1.08;
+  white-space: nowrap;
 }
 .v2-body.is-home .v2-hero-message > p:not(.v2-eyebrow):not(.v2-hero-en) {
   max-width: 38em;
@@ -1846,7 +1848,8 @@ html:lang(zh-Hans) .v2-body.is-home main :where(h2, h3) {
   .v2-body.is-home .v2-hero-message h1 {
     width: 100%;
     max-width: 100%;
-    font-size: clamp(2.35rem, 10vw, 2.65rem);
+    font-size: clamp(1.3rem, 6vw, 1.6rem);
+    white-space: nowrap;
   }
   .v2-body.is-home :where(.v2-products-scene, .v2-solutions-scene, .v2-governance-scene, .v2-collaboration-scene) h2 {
     font-size:clamp(1.65rem,7.1vw,2rem);
