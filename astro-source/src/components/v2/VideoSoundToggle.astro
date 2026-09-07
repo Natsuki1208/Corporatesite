@@ -13,6 +13,7 @@ const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? s
   data-video-target={target}
   data-label-on={t('聲音已開啟','Sound on')}
   data-label-off={t('開啟聲音','Turn sound on')}
+  aria-label={t('聲音已開啟','Sound on')}
   aria-pressed="true"
 >
   <span class="v2-video-sound-icon" aria-hidden="true"></span>
@@ -31,6 +32,7 @@ const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? s
     const render = () => {
       const soundOn = !video.muted && video.volume > 0;
       button.setAttribute('aria-pressed', String(soundOn));
+      button.setAttribute('aria-label', soundOn ? button.dataset.labelOn || 'Sound on' : button.dataset.labelOff || 'Turn sound on');
       button.classList.toggle('is-muted', !soundOn);
       label.textContent = soundOn ? button.dataset.labelOn || 'Sound on' : button.dataset.labelOff || 'Turn sound on';
     };

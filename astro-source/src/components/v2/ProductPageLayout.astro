@@ -41,7 +41,7 @@ const liveStory=liveStoryByProduct[product.slug];
       </div>
       <div class="v2-product-hero-copy v2-reveal">
         {liveStory&&<p class="v2-product-split-eyebrow">{t(liveStory.eyebrow.zh,liveStory.eyebrow.en)}</p>}
-        <p class="v2-product-name">{product.name} · {product.chineseName}</p>
+        <p class="v2-product-name">{product.name} · {locale === 'en' ? product.subtitleEn : locale === 'zh-CN' ? simplify(product.chineseName) : product.chineseName}</p>
         <ResearchStage status={product.status} locale={locale} note={l(product.statusNote,locale)}/>
         <h1>{l(product.headline,locale)}</h1>
         <p>{l(product.intro,locale)}</p>

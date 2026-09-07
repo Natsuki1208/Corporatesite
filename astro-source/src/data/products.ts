@@ -9,6 +9,7 @@ export interface ProductDefinition {
   family: 'digital' | 'embodied';
   name: string;
   chineseName: string;
+  subtitleEn: string;
   status: ProductStatusValue;
   statusNote: Localized;
   headline: Localized;
@@ -34,7 +35,7 @@ const L = (zh: string, en: string): Localized => ({ zh, en });
 
 export const products: ProductDefinition[] = [
   {
-    slug:'elias-knowledge', family:'digital', name:'Elias Knowledge', chineseName:'企業知識助理', status:'原型',
+    slug:'elias-knowledge', family:'digital', name:'Elias Knowledge', chineseName:'企業知識助理', subtitleEn:'Enterprise Knowledge Assistant', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-knowledge-desktop.webp',mobile:'images/v2/products/elias-knowledge-mobile.webp',alt:L('員工使用 Elias Knowledge 搜尋核准文件並查看來源','An employee using Elias Knowledge to search approved documents and review sources')},secondary:{desktop:'images/v2/products/elias-knowledge-02.webp',mobile:'images/v2/products/elias-knowledge-02.webp',alt:L('團隊在會議中核對企業知識助理提供的引用與文件版本','A team reviewing citations and document versions provided by the enterprise knowledge assistant')}},
     statusNote:L('目前為可操作原型，正準備測試真實資料與使用體驗。','This is an interactive prototype preparing for real-data and user-experience testing.'),
     headline:L('找到知識，也看得見依據。','Find knowledge with sources you can check.'),
@@ -51,7 +52,7 @@ export const products: ProductDefinition[] = [
     next:L('建立測試資料集、權限模型、來源更新與回答評估流程。','Build a test dataset, permission model, source update process and answer-evaluation workflow.'), cta:L('討論合作可能','Discuss collaboration possibilities')
   },
   {
-    slug:'elias-care', family:'digital', name:'Elias Care', chineseName:'客服協作助理', status:'原型',
+    slug:'elias-care', family:'digital', name:'Elias Care', chineseName:'客服協作助理', subtitleEn:'Customer Service Assistant', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-care.webp',mobile:'images/v2/products/elias-care.webp',alt:L('客服團隊檢視 AI 準備的回覆與敏感內容提醒','A service team reviewing an AI-prepared response and sensitive-content notice')}},
     statusNote:L('目前為客服工作台原型，正準備測試服務流程與使用體驗。','This is a service-workbench prototype preparing for workflow and user-experience testing.'),
     headline:L('讓每一次需求，都被清楚理解。','Help teams understand every customer request clearly.'),
@@ -68,7 +69,7 @@ export const products: ProductDefinition[] = [
     next:L('建立政策測試集、敏感內容規則、角色權限與人工回覆評測。','Build policy test sets, sensitive-content rules, role permissions and human response evaluation.'), cta:L('查看產品概念','View the product concept')
   },
   {
-    slug:'elias-flow', family:'digital', name:'Elias Flow', chineseName:'流程協作助理', status:'原型',
+    slug:'elias-flow', family:'digital', name:'Elias Flow', chineseName:'流程協作助理', subtitleEn:'Workflow Coordination Assistant', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-flow.webp',mobile:'images/v2/products/elias-flow.webp',alt:L('工作人員在同一畫面確認發票資料、審核與系統更新進度','A worker reviewing invoice data, approval and system-update progress in one view')},secondary:{desktop:'images/v2/products/elias-flow-02.webp',mobile:'images/v2/products/elias-flow-02.webp',alt:L('團隊共同檢視流程例外、處理進度與稽核紀錄','A team reviewing workflow exceptions, progress and audit records together')}},
     statusNote:L('目前為流程介面原型，正準備測試常見工作情境。','This is a workflow prototype preparing for common workplace scenarios.'),
     headline:L('步驟清楚，交接有序。','Clear steps. Coordinated handoffs.'),
@@ -85,7 +86,7 @@ export const products: ProductDefinition[] = [
     next:L('選定單一低風險流程，驗證欄位、權限、例外與復原。','Select one low-risk workflow and validate fields, permissions, exceptions and recovery.'), cta:L('與我們交流','Talk with us')
   },
   {
-    slug:'elias-ops', family:'digital', name:'Elias System', chineseName:'系統協作助理', status:'原型',
+    slug:'elias-ops', family:'digital', name:'Elias System', chineseName:'系統協作助理', subtitleEn:'IT Operations Assistant', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-ops.webp',mobile:'images/v2/products/elias-ops.webp',alt:L('維運人員檢視整併後的告警、時間線與處置建議','An operations specialist reviewing consolidated alerts, a timeline and response suggestions')},secondary:{desktop:'images/v2/products/elias-ops-02.webp',mobile:'images/v2/products/elias-ops-02.webp',alt:L('維運團隊確認服務影響與等待人員授權的下一步','An operations team reviewing service impact and the next step awaiting human authorization')}},
     statusNote:L('目前為操作介面原型，正測試告警整理與事件判讀。','This interface prototype is being tested for alert organization and incident review.'),
     headline:L('看清影響，再決定如何處理。','See the impact clearly, then decide how to respond.'),
@@ -102,7 +103,7 @@ export const products: ProductDefinition[] = [
     next:L('先用唯讀測試資料，確認告警合併、影響判讀與操作流程是否清楚。','Start with read-only test data to confirm that alert grouping, impact review and the response flow are clear.'), cta:L('了解合作方式','Explore collaboration')
   },
   {
-    slug:'elias-home', family:'embodied', name:'Elias Home', chineseName:'居家人工智慧機器人概念', status:'概念',
+    slug:'elias-home', family:'embodied', name:'Elias Home', chineseName:'居家人工智慧機器人概念', subtitleEn:'Home AI Robot Concept', status:'概念',
     media:{hero:{desktop:'images/v2/products/elias-home-desktop.webp',mobile:'images/v2/products/elias-home-mobile.webp',alt:L('Elias Home 在明亮居家環境中協助高齡者處理日常用品','Elias Home assisting an older adult with an everyday item in a bright home')},secondary:{desktop:'images/v2/products/elias-home-02-desktop.webp',mobile:'images/v2/products/elias-home-02-mobile.webp',alt:L('Elias Home 與家庭成員在日常生活中自然協作','Elias Home working naturally alongside family members in daily life')}},
     statusNote:L('目前為概念設計，正聚焦安全移動與簡單物品遞送。','This concept currently focuses on safe movement and simple object delivery.'),
     headline:L('需要幫忙時，生活不必停下來。','Daily life keeps moving when a little help is needed.'),
@@ -119,7 +120,7 @@ export const products: ProductDefinition[] = [
     next:L('定義產品設計原則、尺寸與力矩邊界、家庭權限模型及單一物品遞送測試。','Define product design principles, size and force boundaries, a household permission model and a single object-delivery test.'), cta:L('了解研發方向','Explore the research direction')
   },
   {
-    slug:'elias-rescue', family:'embodied', name:'Elias Rescue', chineseName:'救援人工智慧機器人概念', status:'概念',
+    slug:'elias-rescue', family:'embodied', name:'Elias Rescue', chineseName:'救援人工智慧機器人概念', subtitleEn:'Rescue AI Robot Concept', status:'概念',
     media:{hero:{desktop:'images/v2/products/elias-rescue-desktop.webp',mobile:'images/v2/products/elias-rescue-mobile.webp',alt:L('Elias Rescue 與專業搜救人員在日間災區共同工作','Elias Rescue working with professional responders at a daytime disaster site')},secondary:{desktop:'images/v2/products/elias-rescue-02-desktop.webp',mobile:'images/v2/products/elias-rescue-02-mobile.webp',alt:L('Elias Rescue 協助救援人員運送物資與撤離設備','Elias Rescue helping responders transport supplies and evacuation equipment')}},
     statusNote:L('目前為概念研究，正聚焦感測、遠端操作與安全測試。','This concept currently focuses on sensing, remote operation and safety testing.'),
     headline:L('讓機器先進場，讓人更安全地前進。','Send the robot first, so responders can move more safely.'),

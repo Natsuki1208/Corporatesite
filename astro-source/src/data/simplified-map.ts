@@ -240,6 +240,8 @@ export const traditionalToSimplified: Record<string, string> = {
 
 export function simplify(value: string): string {
   const normalized = value
-    .replaceAll('人工智慧', '人工智能');
+    .replaceAll('人工智慧', '人工智能')
+    .replaceAll('驟', '骤')
+    .replaceAll('誠', '诚');
   return Array.from(normalized).map((char) => traditionalToSimplified[char] ?? char).join('');
 }
