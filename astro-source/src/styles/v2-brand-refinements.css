@@ -907,6 +907,11 @@
 .v2-page-hero h1 { max-width: 16ch; font-size: clamp(2.35rem,4.6vw,4.65rem); text-wrap: balance; }
 .v2-page-hero > div > p:last-child { max-width: 58ch; color: #b9c9c9; }
 .v2-page-hero .v2-eyebrow { color: #d9a441 !important; }
+.v2-page-hero .v2-actions .v2-button {
+  border-color:#edf4f2;
+  background:#edf4f2;
+  color:#071016!important;
+}
 
 .v2-product-card,.v2-value-card,.v2-safety {
   position: relative;
@@ -1918,6 +1923,7 @@ html:lang(en) .v2-body {
 .v2-footer-statement p { font-size:.8rem; line-height:1.7; }
 .v2-footer-brand > small,
 .v2-footer-bottom { font-size:.68rem; line-height:1.55; }
+.v2-body[data-page="docs"] .v2-guide { display:none; }
 .v2-research-scope {
   max-width:72ch;
   margin:0 0 34px;
