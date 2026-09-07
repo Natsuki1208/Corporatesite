@@ -61,7 +61,7 @@ export const products: ProductDefinition[] = [
     problem:L('訊息量大、歷史紀錄分散，敏感內容與交接重點容易被忽略。','Message volume is high, history is scattered, and sensitive content or handoff details can be missed.'),
     values:[L('更快理解案件','Understand cases faster'),L('維持回覆一致性','Improve response consistency'),L('重要判斷留給服務團隊','Keep important judgment with the service team')],
     capabilities:[L('整理客戶問題','Organize customer requests'),L('搜尋案件紀錄','Retrieve case history'),L('準備回覆草稿','Prepare response drafts'),L('提醒敏感內容','Flag sensitive content'),L('建立轉派摘要','Create handoff summaries')],
-    scenario:L('客戶反映重複扣款。AI 整理訂單、對話與退款規範，提出草稿並標示需要人工確認的承諾；客服修改後送出。','A customer reports a duplicate charge. AI organizes the order, conversation and refund policy, drafts a response and marks commitments that require review. The agent edits and sends it.'),
+    scenario:L('使用者提出問題後，AI 整理相關資料與對話脈絡，準備回應草稿並標示需要人工確認的內容；由負責人修訂確認後再送出。','When someone asks a question, AI organizes the relevant information and conversation context, prepares a response draft and highlights what requires human review. The responsible person revises and confirms it before sending.'),
     collaboration:L('AI 整理資料並準備文字；客服確認事實、語氣、退款與正式承諾。','AI organizes information and prepares language; the agent verifies facts, tone, refunds and formal commitments.'),
     dataPermissions:L('需要客戶訊息、案件紀錄、訂單唯讀資料、核准規範與敏感資料權限。','Requires customer messages, case history, read-only order data, approved policies and sensitive-data permissions.'),
     safeguards:[L('個資最小化','Data minimization'),L('敏感主題與承諾提示','Sensitive-topic and commitment flags'),L('修訂與送出紀錄','Revision and sending records')],
