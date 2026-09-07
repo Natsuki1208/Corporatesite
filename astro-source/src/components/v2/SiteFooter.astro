@@ -22,11 +22,11 @@ const talentRoles = locale === 'en'
       <small>THE FUTURE OF YESTERDAY, TODAY.</small>
     </section>
     <nav class="v2-footer-column" aria-label={t('產品導覽','Product navigation')}>
-      <h2>PRODUCTS</h2>
-      <a href={`${root}digital-intelligence/`}>{t('線上智慧支援','Digital Intelligence')}</a>
-      <a href={`${root}digital-intelligence/knowledge-service/`}>{t('知識與客服','Knowledge & Service')}</a>
-      <a href={`${root}digital-intelligence/operations-workflow/`}>{t('系統與流程','Systems & Workflow')}</a>
-      <a href={`${root}ai-robots/`}>{t('人工智慧機器人','AI Robots')}</a>
+      <h2>SERVICES</h2>
+      <a href={`${root}digital-intelligence/`}>{t('AI 應用與協作','AI Applications & Collaboration')}</a>
+      <a href={`${root}#service-software`}>Elias Build · {t('應用軟體開發與維護','Application Development & Maintenance')}</a>
+      <a href={`${root}#service-data`}>Elias Data · {t('資料整合與效能優化','Data Integration & Performance')}</a>
+      <a href={`${root}#service-digital-assets`}>Elias Chain · {t('區塊鏈與數位資產應用','Blockchain & Digital Assets')}</a>
     </nav>
     <nav class="v2-footer-column" aria-label={t('開發與整合','Developer and integration navigation')}>
       <h2>DEVELOPERS</h2>
@@ -40,7 +40,6 @@ const talentRoles = locale === 'en'
       <a href={`${root}technology/`}>{t('技術方向','Technology')}</a>
       <a href={`${root}safety/`}>{t('信任與選擇','Trust & Choice')}</a>
       <a href={`${root}research/`}>{t('研發進度','Research')}</a>
-      <a href={`${base}/downloads/elias-rescue-robot-catalog-zh-TW.pdf`}>{locale==='en'?'Rescue Catalog (Traditional Chinese PDF)':locale==='zh-CN'?'救援型录（繁体中文 PDF）':'下載救援型錄'}</a>
     </nav>
     <nav class="v2-footer-column is-talent" aria-label={t('人才招募','Careers')}>
       <h2>TALENT / {t('人才招募','CAREERS')}</h2>
@@ -51,7 +50,7 @@ const talentRoles = locale === 'en'
     </nav>
     <section class="v2-footer-statement">
       <h2>{compact?t('產品狀態','PRODUCT STATUS'):'ELIAS NET'}</h2>
-      {!compact&&<p>{t('我們研發能理解資訊、協助工作，也能走進真實環境的人工智慧與機器人系統。產品狀態依實際研究與驗證進度說明。','We develop AI and robotic systems that understand information, support work and operate in real environments. Product status reflects actual research and validation progress.')}</p>}
+      {!compact&&<p>{t('我們以人工智慧、應用軟體與資料整合，協助組織把資訊變成可持續運作的服務。服務範圍依實際需求與驗證進度確認。','We use AI, application software and data integration to turn information into services designed for lasting operations. Scope follows real needs and validation progress.')}</p>}
       <p>{t('概念與原型不代表已量產、部署或可立即提供。','Concepts and prototypes do not imply production, deployment or immediate availability.')}</p>
     </section>
   </div>

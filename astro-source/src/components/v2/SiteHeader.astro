@@ -10,29 +10,25 @@ const lang = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
 const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
 const groups = [
-  { id:'products', label:t('產品','Products'), active:['digital-intelligence','ai-robots','elias-knowledge','elias-care','elias-flow','elias-ops','elias-home','elias-rescue'].includes(current), intro:t('從線上智慧到人工智慧機器人，依照你想改善的事情選擇方向。','From digital intelligence to AI robotics, begin with what you want to improve.'), columns:[
-    { eyebrow:'DIGITAL INTELLIGENCE', title:t('線上智慧支援','Digital Intelligence'), href:`${root}digital-intelligence/`, links:[[t('知識與客服','Knowledge & Service'),`${root}digital-intelligence/knowledge-service/`],[t('系統與流程','Systems & Workflow'),`${root}digital-intelligence/operations-workflow/`]] },
-    { eyebrow:'AI ROBOTICS', title:t('人工智慧機器人','AI Robotics'), href:`${root}ai-robots/`, links:[['Elias Home',`${root}products/elias-home/`],['Elias Rescue',`${root}products/elias-rescue/`]] }
+  { id:'products', label:t('服務','Services'), active:['digital-intelligence','elias-knowledge','elias-care','elias-flow','elias-ops'].includes(current), intro:t('從 AI、應用軟體到資料與數位資產，依照實際需求選擇合作起點。','Begin with AI, application software, data or digital assets according to the real need.'), columns:[
+    { eyebrow:'AI APPLICATIONS + COLLABORATION', title:t('AI 應用與協作','AI Applications & Collaboration'), href:`${root}digital-intelligence/`, links:[[t('知識與客服','Knowledge & Service'),`${root}digital-intelligence/knowledge-service/`],[t('系統與流程','Systems & Workflow'),`${root}digital-intelligence/operations-workflow/`]] },
+    { eyebrow:'ENTERPRISE DIGITAL SOLUTIONS', title:t('企業數位解決方案','Enterprise Digital Solutions'), href:`${root}#service-software`, links:[[`Elias Build · ${t('應用軟體開發與維護','Application Development & Maintenance')}`,`${root}#service-software`],[`Elias Data · ${t('資料整合與效能優化','Data Integration & Performance')}`,`${root}#service-data`],[`Elias Chain · ${t('區塊鏈與數位資產應用','Blockchain & Digital Assets')}`,`${root}#service-digital-assets`]] }
   ]},
   { id:'api', label:'API', active:['api','docs','pricing'].includes(current), intro:t('用 API 把 Elias AI 接進現有工具；產品頁則說明能解決什麼問題。','Use APIs to bring Elias AI into existing tools. Product pages explain what each product helps solve.'), columns:[
     { eyebrow:'DEVELOPER PATH', title:t('開發與整合','Build & Integrate'), href:`${root}api/`, links:[[t('整合文件','Documentation'),`${root}docs/`],[t('合作方案','Plans'),`${root}pricing/`],[t('討論整合','Discuss Integration'),`${root}contact/`]] },
     { eyebrow:'AI INTEGRATION', title:t('四種 AI 整合方式','Four AI Integration Areas'), href:`${root}api/#integration-map`, links:[[t('知識搜尋','Knowledge Retrieval'),`${root}api/#knowledge`],[t('客服協作','Service Collaboration'),`${root}api/#care`],[t('流程任務','Workflow Tasks'),`${root}api/#flow`],[t('事件整理','Incident Context'),`${root}api/#ops`]] }
   ]},
-  { id:'resources', label:t('資源','Resources'), active:['technology','safety','research'].includes(current), intro:t('查看技術原則、研發進度、品牌觀點與可下載資料。','Explore technology principles, research progress, brand perspectives and downloads.'), columns:[
+  { id:'resources', label:t('資源','Resources'), active:['technology','safety','research'].includes(current), intro:t('查看技術原則、研發進度、品牌觀點與公司資訊。','Explore technology principles, research progress, brand perspectives and company information.'), columns:[
     { eyebrow:'TRUST + PROGRESS', title:t('技術與信任','Technology & Trust'), href:`${root}technology/`, links:[[t('信任與選擇','Trust & Choice'),`${root}safety/`],[t('研發進度','Research Progress'),`${root}research/`]] },
-    { eyebrow:'PERSPECTIVE + MATERIALS', title:t('觀點與資料','Perspective & Materials'), href:`${root}founder/`, links:[[t('關於 Elias Net','About Elias Net'),`${root}company/`],[t('下載救援機器人型錄','Download Rescue Catalog'),`${base}/downloads/elias-rescue-robot-catalog-zh-TW.pdf`]] }
+    { eyebrow:'PERSPECTIVE + COMPANY', title:t('觀點與公司','Perspective & Company'), href:`${root}founder/`, links:[[t('關於 Elias Net','About Elias Net'),`${root}company/`],[t('查看服務項目','Explore Services'),`${root}#products`]] }
   ]},
-  { id:'features', label:t('特性','Features'), active:false, intro:t('六項核心能力，貫穿 Elias 的數位系統與機器人研究。','Six core capabilities across Elias digital systems and robotics research.'), columns:[
+  { id:'features', label:t('能力','Capabilities'), active:false, intro:t('六項核心能力，支援 AI、軟體、資料與流程服務。','Six capabilities supporting AI, software, data and workflow services.'), columns:[
     { eyebrow:'DIGITAL AI', title:t('工作中的智慧','Intelligence at Work'), href:`${root}#feature-understand`, links:[[t('看懂資訊','Understand information'),`${root}#feature-understand`],[t('找出重點','Find what matters'),`${root}#feature-focus`],[t('協助回覆','Prepare responses'),`${root}#feature-assist`],[t('推進流程','Keep work moving'),`${root}#feature-coordinate`]] },
-    { eyebrow:'REAL-WORLD AI', title:t('真實世界的智慧','Intelligence in the Real World'), href:`${root}#feature-sense`, links:[[t('感知環境','Sense environments'),`${root}#feature-sense`],[t('支援行動','Support action'),`${root}#feature-act`],[t('由人指揮','Under human command'),`${root}safety/`]] }
+    { eyebrow:'DATA + APPLICATIONS', title:t('資料與應用支援','Data & Application Support'), href:`${root}#feature-sense`, links:[[t('整合資料','Integrate data'),`${root}#feature-sense`],[t('支援應用','Support applications'),`${root}#feature-act`],[t('由人確認','Human review'),`${root}safety/`]] }
   ]},
   { id:'company', label:t('關於我們','About'), active:['company','founder','about','careers'].includes(current), intro:t('認識我們相信的未來、正在形成的團隊，以及可以一起前進的方式。','Meet the future we believe in, the team taking shape and ways to move forward together.'), columns:[
     { eyebrow:'COMPANY', title:'ELIAS NET', href:`${root}company/`, links:[[t('創辦人理念','Founder Vision'),`${root}founder/`],[t('技術與信任','Technology & Trust'),`${root}technology/`]] },
     { eyebrow:'TOGETHER', title:t('一起前進','Move Forward Together'), href:`${root}careers/`, links:[[t('職缺與所需能力','Roles & Skills'),`${root}careers/#ai-engineer`],[t('合作與聯絡','Collaboration'),`${root}contact/`]] }
-  ]},
-  { id:'downloads', label:t('下載','Downloads'), active:false, intro:t('下載救援機器人概念型錄，或回到網站查看最新產品說明。','Download the rescue robotics concept catalog or view the latest product information online.'), columns:[
-    { eyebrow:'CATALOG', title:t('下載救援機器人型錄','Download Rescue Catalog'), href:`${base}/downloads/elias-rescue-robot-catalog-zh-TW.pdf`, links:[[t('先看 Elias Rescue','Explore Elias Rescue'),`${root}products/elias-rescue/`]] },
-    { eyebrow:'ONLINE', title:t('線上產品資訊','Online Product Information'), href:`${root}#products`, links:[[t('機器人與型號','Robots & Models'),`${root}ai-robots/`],[t('線上智慧產品線','Digital Product Lines'),`${root}digital-intelligence/`]] }
   ]}
 ];
 ---
