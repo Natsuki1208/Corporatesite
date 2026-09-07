@@ -54,7 +54,7 @@ export const products: ProductDefinition[] = [
     slug:'elias-care', family:'digital', name:'Elias Care', chineseName:'客服協作助理', status:'原型',
     media:{hero:{desktop:'images/v2/products/elias-care.webp',mobile:'images/v2/products/elias-care.webp',alt:L('客服團隊檢視 AI 準備的回覆與敏感內容提醒','A service team reviewing an AI-prepared response and sensitive-content notice')}},
     statusNote:L('目前為客服工作台原型，正準備測試服務流程與使用體驗。','This is a service-workbench prototype preparing for workflow and user-experience testing.'),
-    headline:L('每一次需求，都能更快被理解。','Help every customer feel understood sooner.'),
+    headline:L('讓每一次需求，都被清楚理解。','Help teams understand every customer request clearly.'),
     intro:L('Elias Care 把對話、案件紀錄與服務規範放在同一個脈絡，先準備清楚回覆；客服專注判斷與溝通。','Elias Care brings conversations, case history and service policies into one context, preparing a clear reply so service teams can focus on judgment and communication.'),
     audience:[L('客服人員','Service agents'),L('客服主管','Service managers'),L('售後服務團隊','After-sales teams'),L('品質管理人員','Quality managers')],
     problem:L('訊息量大、歷史紀錄分散，敏感內容與交接重點容易被忽略。','Message volume is high, history is scattered, and sensitive content or handoff details can be missed.'),

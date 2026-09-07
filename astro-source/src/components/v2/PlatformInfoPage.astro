@@ -35,7 +35,7 @@ const plans=[
   {name:t('AI 系統整合','AI Integration'),label:t('把已驗證的 AI 接進工作','Bring proven AI into work'),price:t('依專案評估','Project assessment'),copy:t('依確認範圍規劃資料連接、安全、部署與後續維護。','Plan data connections, security, deployment and ongoing support around an agreed scope.'),items:[t('介面與權限設計','Interfaces and permissions'),t('分階段導入與復原','Phased rollout and recovery'),t('監測、維護與改善','Monitoring, support and improvement')]}
 ];
 const meta=page==='api'
-  ? {eyebrow:'ELIAS API · PLANNING',title:t('把需要的 AI 能力，接進現有工作。','Bring the right AI capabilities into existing work.'),intro:t('以下是四種 AI 整合方式，目前用於合作規劃。正式介面、權限與可用範圍，會在原型驗證後確認。','These four AI integration areas support collaboration planning. Final interfaces, permissions and availability are confirmed after prototype validation.')}
+  ? {eyebrow:'ELIAS API · PLANNING',title:t('規劃 AI 能力如何接進現有工作。','Plan how AI capabilities fit into existing work.'),intro:t('以下是四種 AI 整合方式，目前用於合作規劃。正式介面、權限與可用範圍，會在原型驗證後確認。','These four AI integration areas support collaboration planning. Final interfaces, permissions and availability are confirmed after prototype validation.')}
   : page==='docs'
   ? {eyebrow:'DOCUMENTATION · ILLUSTRATIVE',title:t('先看懂如何整合，再開始驗證。','Understand the integration before validation begins.'),intro:t('用簡單步驟說清楚資料、權限、人工確認與驗證方式。','A clear path through data, permissions, human review and validation.')}
   : {eyebrow:'PLANS',title:t('先選合作階段，再確認範圍與費用。','Choose the collaboration stage, then define scope and cost.'),intro:t('每個情境的資料、整合與安全需求不同；我們會依實際驗證範圍提供合作評估。','Each scenario has different data, integration and safety needs. We assess the engagement around the scope to be validated.')};
