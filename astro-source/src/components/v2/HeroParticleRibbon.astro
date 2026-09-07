@@ -1,0 +1,166 @@
+---
+interface Props { label: string }
+const { label } = Astro.props;
+---
+<div class="v2-hero-ribbon" data-hero-ribbon aria-hidden="true">
+  <canvas data-hero-ribbon-canvas></canvas>
+  <div class="v2-hero-ribbon-glow"></div>
+</div>
+<span class="v2-sr-only">{label}</span>
+
+<script>
+  type RibbonPoint = {
+    t:number;
+    offset:number;
+    depth:number;
+    phase:number;
+    speed:number;
+    size:number;
+    alpha:number;
+    accent:number;
+  };
+
+  const clamp = (value:number,min:number,max:number) => Math.max(min,Math.min(max,value));
+  const seeded = (seed:number) => {
+    const value = Math.sin(seed * 91.713 + 17.31) * 43758.5453;
+    return value - Math.floor(value);
+  };
+  const gaussian = (value:number,center:number,width:number) => Math.exp(-Math.pow((value-center)/width,2));
+
+  document.querySelectorAll<HTMLElement>('[data-hero-ribbon]').forEach((root) => {
+    if (root.dataset.ready) return;
+    root.dataset.ready = 'true';
+    const canvas = root.querySelector<HTMLCanvasElement>('[data-hero-ribbon-canvas]');
+    const context = canvas?.getContext('2d',{alpha:true});
+    if (!canvas || !context) return;
+
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let width=0,height=0,dpr=1,raf=0,last=0,visible=true,inView=true;
+    let points:RibbonPoint[]=[];
+    let pointerX=0,pointerY=0,targetX=0,targetY=0;
+
+    const curve = (t:number) => {
+      const u=1-t;
+      const p0={x:.055,y:.63},p1={x:.27,y:.43},p2={x:.50,y:.79},p3={x:.945,y:.37};
+      return {
+        x:u*u*u*p0.x+3*u*u*t*p1.x+3*u*t*t*p2.x+t*t*t*p3.x,
+        y:u*u*u*p0.y+3*u*u*t*p1.y+3*u*t*t*p2.y+t*t*t*p3.y
+      };
+    };
+    const tangent = (t:number) => {
+      const epsilon=.002;
+      const before=curve(clamp(t-epsilon,0,1));
+      const after=curve(clamp(t+epsilon,0,1));
+      const dx=(after.x-before.x)*width,dy=(after.y-before.y)*height;
+      const length=Math.hypot(dx,dy)||1;
+      return {nx:-dy/length,ny:dx/length};
+    };
+    const ribbonWidth = (t:number) =>
+      .045 + gaussian(t,.15,.14)*.105 + gaussian(t,.77,.22)*.14 + gaussian(t,.96,.09)*.055;
+
+    const build = () => {
+      const box=root.getBoundingClientRect();
+      width=Math.max(1,box.width);height=Math.max(1,box.height);
+      dpr=Math.min(devicePixelRatio||1,innerWidth<680?1.2:1.55);
+      canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
+      canvas.style.width=`${width}px`;canvas.style.height=`${height}px`;
+      context.setTransform(dpr,0,0,dpr,0,0);
+      const count=innerWidth<680?1050:innerWidth<1100?2200:3800;
+      points=Array.from({length:count},(_,index)=>{
+        const r1=seeded(index+1),r2=seeded(index+811),r3=seeded(index+1777);
+        const t=clamp(r1*.98+.01,0,1);
+        const bell=(r2+r3+seeded(index+2911)-1.5)/1.5;
+        return {
+          t,
+          offset:bell*ribbonWidth(t),
+          depth:seeded(index+407),
+          phase:seeded(index+733)*Math.PI*2,
+          speed:.16+seeded(index+991)*.22,
+          size:.38+seeded(index+1217)*1.32,
+          alpha:.13+seeded(index+1429)*.49,
+          accent:seeded(index+1699)
+        };
+      });
+    };
+
+    const signalPath = (time:number) => {
+      context.save();
+      context.beginPath();
+      for(let step=0;step<=100;step++){
+        const t=step/100,p=curve(t);
+        const x=p.x*width+pointerX*7*(t-.5),y=p.y*height+pointerY*5*(t-.5);
+        if(step===0)context.moveTo(x,y);else context.lineTo(x,y);
+      }
+      const gradient=context.createLinearGradient(width*.08,height*.65,width*.94,height*.36);
+      gradient.addColorStop(0,'rgba(178,125,39,.18)');
+      gradient.addColorStop(.28,'rgba(196,139,43,.66)');
+      gradient.addColorStop(.72,'rgba(13,126,117,.68)');
+      gradient.addColorStop(1,'rgba(13,126,117,.16)');
+      context.strokeStyle=gradient;context.lineWidth=1.15;context.stroke();
+
+      const pulse=(time*.000042)%1,p=curve(pulse),normal=tangent(pulse);
+      const px=p.x*width+normal.nx*Math.sin(time*.0012)*4;
+      const py=p.y*height+normal.ny*Math.sin(time*.0012)*4;
+      const glow=context.createRadialGradient(px,py,0,px,py,15);
+      glow.addColorStop(0,'rgba(211,157,63,.78)');glow.addColorStop(1,'rgba(211,157,63,0)');
+      context.fillStyle=glow;context.beginPath();context.arc(px,py,15,0,Math.PI*2);context.fill();
+      context.restore();
+    };
+
+    const draw = (time=0) => {
+      if (!reduced.matches) raf=requestAnimationFrame(draw);
+      if(!visible||!inView||(!reduced.matches&&time-last<33))return;
+      last=time;pointerX+=(targetX-pointerX)*.035;pointerY+=(targetY-pointerY)*.035;
+      context.clearRect(0,0,width,height);
+
+      const wash=context.createRadialGradient(width*.72,height*.48,0,width*.72,height*.48,width*.48);
+      wash.addColorStop(0,'rgba(93,205,191,.105)');wash.addColorStop(.48,'rgba(166,219,211,.045)');wash.addColorStop(1,'rgba(255,255,255,0)');
+      context.fillStyle=wash;context.fillRect(0,0,width,height);
+
+      for(let index=0;index<points.length;index++){
+        const point=points[index];
+        const motion=reduced.matches?0:time*.00012*point.speed;
+        const orbit=reduced.matches?0:time*.0000034*(.7+point.depth*.55);
+        const t=(point.t+orbit+Math.sin(point.phase+motion)*.0045+1)%1;
+        const center=curve(t),normal=tangent(t);
+        const twist=Math.sin(point.phase+motion*4+t*Math.PI*5.2);
+        const depthShift=(point.depth-.5)*14;
+        const offset=point.offset*height*(.88+.16*twist);
+        const x=center.x*width+normal.nx*offset+depthShift+pointerX*(5+point.depth*8)*(t-.48);
+        const y=center.y*height+normal.ny*offset+twist*(2+point.depth*5)+pointerY*(3+point.depth*6)*(t-.48);
+        const edge=Math.min(1,Math.min(t/.045,(1-t)/.045));
+        const shimmer=.77+.23*Math.sin(point.phase+motion*5.5);
+        const alpha=point.alpha*edge*shimmer;
+        const teal=point.accent>.955;
+        const gold=!teal&&point.accent>.925;
+        context.fillStyle=teal?`rgba(8,125,116,${alpha*.88})`:gold?`rgba(184,128,39,${alpha*.78})`:`rgba(18,35,42,${alpha*.72})`;
+        context.beginPath();
+        context.arc(x,y,point.size*(.72+point.depth*.55),0,Math.PI*2);
+        context.fill();
+      }
+      signalPath(time);
+    };
+
+    const onPointer=(event:PointerEvent)=>{
+      const rect=root.getBoundingClientRect();
+      targetX=clamp((event.clientX-rect.left)/rect.width-.5,-.5,.5);
+      targetY=clamp((event.clientY-rect.top)/rect.height-.5,-.5,.5);
+    };
+    const onLeave=()=>{targetX=0;targetY=0};
+    const onVisibility=()=>{visible=!document.hidden;if(visible&&!raf&&!reduced.matches)raf=requestAnimationFrame(draw)};
+    const onResize=()=>{build();if(reduced.matches)draw(0)};
+    const observer='IntersectionObserver'in window?new IntersectionObserver(([entry])=>{inView=Boolean(entry?.isIntersecting);},{threshold:.01}):null;
+    observer?.observe(root);root.addEventListener('pointermove',onPointer,{passive:true});root.addEventListener('pointerleave',onLeave);
+    document.addEventListener('visibilitychange',onVisibility);addEventListener('resize',onResize,{passive:true});
+    build();
+    if(reduced.matches)draw(0);else raf=requestAnimationFrame(draw);
+  });
+</script>
+
+<style>
+  .v2-hero-ribbon{position:absolute;z-index:0;inset:0;overflow:hidden;background:radial-gradient(circle at 78% 48%,rgba(101,211,198,.13),transparent 31%),radial-gradient(circle at 20% 70%,rgba(216,170,87,.08),transparent 25%),linear-gradient(180deg,#fbfdfc 0%,#f4f9f7 58%,#edf5f2 100%)}
+  .v2-hero-ribbon canvas{position:absolute;inset:9% 0 0;width:100%;height:91%;pointer-events:none}
+  .v2-hero-ribbon-glow{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.84) 0%,rgba(255,255,255,.16) 29%,transparent 56%),linear-gradient(90deg,rgba(255,255,255,.58),transparent 35%,rgba(255,255,255,.12));pointer-events:none}
+  @media(max-width:680px){.v2-hero-ribbon canvas{inset:16% -24% 0;width:148%;height:84%;opacity:.88}.v2-hero-ribbon-glow{background:linear-gradient(180deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.42) 38%,transparent 68%)}}
+  @media(prefers-reduced-motion:reduce){.v2-hero-ribbon canvas{opacity:.82}}
+</style>

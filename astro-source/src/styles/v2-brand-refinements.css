@@ -2191,6 +2191,59 @@ html:lang(en) .v2-body {
 .v2-body.is-home .v2-hero-scroll i { border-color:rgba(16,33,41,.42); }
 .v2-body.is-home .v2-hero-scroll i::after { border-color:#102129; }
 
+/* 2026-09-07 — ELIAS NET particle-ribbon hero. */
+.v2-body.is-home .v2-immersive-hero {
+  color:#102129;
+  background:#f5f9f7;
+}
+.v2-body.is-home .v2-immersive-home > .v2-field-canvas { display:none; }
+.v2-body.is-home .v2-hero-shade {
+  z-index:1;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.16) 36%,transparent 58%),
+    linear-gradient(90deg,rgba(248,252,250,.54),transparent 44%,rgba(248,252,250,.08));
+  pointer-events:none;
+}
+.v2-body.is-home .v2-hero-content {
+  align-content:start;
+  padding-top:clamp(138px,17vh,184px);
+}
+.v2-body.is-home .v2-hero-message h1 {
+  color:#102129;
+  text-shadow:0 3px 28px rgba(255,255,255,.94);
+}
+.v2-body.is-home .v2-hero-en {
+  color:#087d73!important;
+  text-shadow:0 2px 16px rgba(255,255,255,.9);
+}
+.v2-body.is-home .v2-immersive-hero .v2-button.is-secondary {
+  color:#102129!important;
+  border-color:rgba(16,33,41,.34);
+  background:rgba(255,255,255,.72);
+  box-shadow:0 12px 34px rgba(28,67,65,.09);
+}
+.v2-body.is-home .v2-immersive-hero .v2-button.is-secondary:hover,
+.v2-body.is-home .v2-immersive-hero .v2-button.is-secondary:focus-visible {
+  border-color:#087d73;
+  background:#fff;
+}
+.v2-body.is-home .v2-immersive-hero .v2-hero-message > .v2-actions {
+  opacity:1;
+  transform:none;
+}
+@media(max-width:640px){
+  .v2-body.is-home .v2-hero-content {
+    place-items:start;
+    align-content:start;
+    padding-top:clamp(120px,16vh,148px);
+    padding-bottom:70px;
+  }
+  .v2-body.is-home .v2-hero-message { text-align:center; }
+  .v2-body.is-home .v2-hero-message h1,
+  .v2-body.is-home .v2-hero-en { margin-inline:auto!important; }
+  .v2-body.is-home .v2-hero-message .v2-actions { justify-content:center; align-items:center; }
+}
+
 .v2-body.is-inner main { background:#f6f9f8; color:#102129; }
 .v2-body.is-inner .v2-page-hero,
 .v2-body.is-inner .v2-platform-hero {
@@ -2287,4 +2340,34 @@ html:lang(en) .v2-body {
     border-color:rgba(16,33,41,.32);
     background:rgba(255,255,255,.72);
   }
+}
+
+/* Particle hero composition: editorial copy above, visual narrative below. */
+.v2-body.is-home .v2-immersive-hero > .v2-hero-content {
+  align-self:stretch;
+  place-items:start center;
+  align-content:start;
+  padding-top:clamp(142px,17vh,180px);
+  padding-bottom:72px;
+}
+@media(max-width:640px){
+  .v2-body.is-home .v2-immersive-hero > .v2-hero-content {
+    align-self:stretch;
+    place-items:start center;
+    align-content:start;
+    padding-top:clamp(118px,15vh,138px);
+    padding-bottom:64px;
+  }
+  .v2-body.is-home .v2-immersive-hero .v2-hero-message { text-align:center; }
+  .v2-body.is-home .v2-immersive-hero .v2-hero-message h1 {
+    width:100%;
+    max-width:none;
+    margin-inline:auto;
+    font-size:clamp(.98rem,4.55vw,1.12rem);
+    line-height:1.2;
+    letter-spacing:-.025em;
+    white-space:nowrap;
+  }
+  .v2-body.is-home .v2-immersive-hero .v2-hero-en { margin-inline:auto!important; }
+  .v2-body.is-home .v2-immersive-hero .v2-actions { justify-content:center; align-items:center; }
 }
