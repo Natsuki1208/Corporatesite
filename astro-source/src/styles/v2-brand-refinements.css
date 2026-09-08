@@ -2959,3 +2959,75 @@ html:lang(en) .v2-body {
   color:#fff!important;
   box-shadow:0 12px 30px rgba(16,33,41,.16);
 }
+
+/* Homepage declaration: one centered thought with restrained typographic depth. */
+.v2-body.is-home .v2-immersive-hero .v2-hero-declaration {
+  display:block;
+  width:100%;
+  max-width:none;
+  margin:0 auto;
+  color:#102129;
+  font-family:Inter,"Noto Sans TC","PingFang TC",system-ui,sans-serif;
+  font-size:clamp(3rem,5vw,5.2rem);
+  font-weight:780;
+  line-height:1;
+  letter-spacing:-.052em;
+  text-align:center;
+  white-space:normal;
+  text-shadow:
+    0 -1px 0 rgba(255,255,255,.94),
+    0 1px 0 rgba(5,34,39,.24),
+    0 3px 0 rgba(5,34,39,.08),
+    0 14px 30px rgba(22,66,66,.16);
+}
+.v2-body.is-home .v2-hero-declaration span { white-space:nowrap; }
+.v2-body.is-home .v2-hero-declaration-zh {
+  max-width:none!important;
+  margin:1.25rem auto 0!important;
+  color:#087d73!important;
+  font-size:clamp(1.08rem,1.45vw,1.42rem)!important;
+  font-weight:820!important;
+  line-height:1.35;
+  letter-spacing:.15em;
+  text-align:center;
+  text-shadow:0 1px 0 #fff,0 7px 18px rgba(8,125,115,.13)!important;
+}
+.v2-body.is-home .v2-hero-positioning {
+  margin-top:1.35rem!important;
+  text-align:center;
+}
+@media(max-width:760px) {
+  .v2-body.is-home .v2-immersive-hero .v2-hero-declaration {
+    font-size:clamp(2.35rem,10.6vw,3.25rem);
+    line-height:1.04;
+  }
+  .v2-body.is-home .v2-hero-declaration span { display:block; }
+  .v2-body.is-home .v2-hero-declaration span + span { margin-top:.16em; }
+  .v2-body.is-home .v2-hero-declaration-zh {
+    margin-top:1rem!important;
+    font-size:1rem!important;
+    letter-spacing:.1em;
+  }
+  .v2-body.is-home .v2-hero-positioning { margin-top:1.1rem!important; }
+}
+
+/* A consistent bevel-and-depth treatment for headings, never for body copy. */
+.v2-body main :where(h1,h2,h3) {
+  text-shadow:
+    0 -1px 0 rgba(255,255,255,.72),
+    0 1px 0 rgba(5,34,39,.12),
+    0 8px 22px rgba(25,67,66,.1);
+}
+.v2-body main :where(.v2-dark,.v2-solutions-scene,.v2-collaboration-scene,.v2-product-observe,.v2-enterprise-process) :where(h1,h2,h3) {
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.08),
+    0 3px 0 rgba(0,0,0,.14),
+    0 12px 28px rgba(0,0,0,.28);
+}
+.v2-body.is-home .v2-immersive-hero .v2-hero-declaration {
+  text-shadow:
+    0 -1px 0 rgba(255,255,255,.98),
+    0 1px 0 rgba(5,34,39,.3),
+    0 3px 0 rgba(5,34,39,.11),
+    0 16px 34px rgba(22,66,66,.19);
+}
