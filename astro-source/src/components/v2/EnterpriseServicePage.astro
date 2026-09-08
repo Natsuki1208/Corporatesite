@@ -14,7 +14,8 @@ const mediaName=service;
 const videoUrl=`${base}/media/${mediaName}-service.mp4`;
 const posterUrl=`${base}/images/v2/services/${mediaName}-service.jpg`;
 const videoId=`${service}-service-video`;
-const inquiryHref=`mailto:natsuki12089212@gmail.com?subject=${encodeURIComponent(`Elias Net ${item.name} service inquiry`)}`;
+const inquiryTopic=service.replace('elias-','');
+const inquiryHref=`${prefix}contact/?topic=${inquiryTopic}#contact-form`;
 const text=(copy:{zh:string;en:string})=>locale==='en'?copy.en:locale==='zh-CN'?simplify(copy.zh):copy.zh;
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
 ---

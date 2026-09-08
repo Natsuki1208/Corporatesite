@@ -9,10 +9,10 @@ const lang = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
 const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
 const talentRoles = locale === 'en'
-  ? ['AI Engineer','AI Training Engineer','Operations Engineer','Robotics & Controls Engineer','Product & UX Design']
+  ? ['AI Engineer','Application Software Engineer','Operations Engineer','Data & Blockchain Engineer','Product & UX Design']
   : locale === 'zh-CN'
-    ? ['AI 工程师','AI 训练工程师','运维工程师','机器人与控制工程师','产品与 UX 设计']
-    : ['AI 工程師','AI 訓練工程師','維運工程師','機器人與控制工程師','產品與 UX 設計'];
+    ? ['AI 工程师','应用软件工程师','运维工程师','数据与区块链工程师','产品与 UX 设计']
+    : ['AI 工程師','應用軟體工程師','維運工程師','資料與區塊鏈工程師','產品與 UX 設計'];
 ---
 <footer class="v2-footer">
   <div class="v2-shell v2-footer-grid is-expanded">
@@ -46,7 +46,7 @@ const talentRoles = locale === 'en'
       <h2>TALENT / {t('人才招募','CAREERS')}</h2>
       {compact
         ? <><a href={`${root}careers/`}>{t('職務與所需能力','Roles and skills')}</a><a href={`${root}contact/`}>{t('合作與聯絡','Collaboration and contact')}</a></>
-        : <>{talentRoles.map((role,index) => <a href={`${root}careers/#${['ai-engineer','ai-training-engineer','operations-engineer','robotics-controls-engineer','product-ux-designer'][index]}`} aria-label={t(`了解 ${role} 所需能力與合作機會`,`Explore ${role} skills and opportunities`)}>{role}</a>)}<a href={`${root}careers/`}>{t('查看人才招募頁','View all roles')}</a></>}
+        : <>{talentRoles.map((role,index) => <a href={`${root}careers/#${['ai-engineer','application-engineer','operations-engineer','data-blockchain-engineer','product-ux-designer'][index]}`} aria-label={t(`了解 ${role} 所需能力與合作機會`,`Explore ${role} skills and opportunities`)}>{role}</a>)}<a href={`${root}careers/`}>{t('查看人才招募頁','View all roles')}</a></>}
       <small>{t('職務與合作形式依團隊規劃確認。','Roles and engagement models follow current team plans.')}</small>
     </nav>
     <section class="v2-footer-statement">

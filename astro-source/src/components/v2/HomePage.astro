@@ -18,7 +18,7 @@ const features=[
   {id:'focus',title:t('建置應用','BUILD APPLICATIONS'),copy:t('把已確認的需求轉化為可測試、可維護的軟體與介面。','Turn confirmed needs into software and interfaces that can be tested and maintained.'),tag:'BUILD'},
   {id:'assist',title:t('協作知識','COLLABORATE WITH KNOWLEDGE'),copy:t('整理可靠來源、準備回應，並保留人工確認與追溯。','Organize reliable sources, prepare responses and retain human review and traceability.'),tag:'COLLABORATE'},
   {id:'coordinate',title:t('整合資料','INTEGRATE DATA'),copy:t('連結分散資料、改善品質與查詢效率，建立清楚的資訊基礎。','Connect scattered data, improve quality and retrieval, and establish a clear information foundation.'),tag:'INTEGRATE'},
-  {id:'sense',title:t('安全治理','GOVERN SAFELY'),copy:t('在權限、法規與風險界線內規劃整合，重要決定仍由人負責。','Plan integrations within permission, regulatory and risk boundaries, with people accountable for key decisions.'),tag:'GOVERN'},
+  {id:'sense',title:t('安全與治理','SAFE GOVERNANCE'),copy:t('先確認權限、法規與風險條件，並保留人工核准、操作紀錄與必要的停止機制。','Define permissions, regulatory and risk conditions, with human approval, action records and stop controls where needed.'),tag:'GOVERNANCE'},
   {id:'act',title:t('維運改善','IMPROVE OPERATIONS'),copy:t('以測試、監測與明確交接，讓服務在實際運作中持續改善。','Use testing, monitoring and clear handoffs to improve services through real operations.'),tag:'IMPROVE'}
 ];
 ---
@@ -26,7 +26,7 @@ const features=[
   <ScrollScene id="brand" tone="dark" class="v2-immersive-hero" labelledby="brand-title">
     <HeroParticleRibbon label={t('由深青、銀灰與暖金色光點交織成流動的智慧網絡','A flowing intelligence network woven from deep teal, silver and warm-gold particles')}/>
     <div class="v2-hero-shade" aria-hidden="true"></div>
-    <div class="v2-shell v2-hero-content"><MotionReveal class="v2-hero-message"><h1 id="brand-title" class="v2-hero-split"><span class="v2-hero-side"><strong>The future of</strong>{locale !== 'en' && <small>昨天的科幻</small>}</span><span class="v2-hero-side"><strong>yesterday, today.</strong>{locale !== 'en' && <small>今天的日常</small>}</span></h1></MotionReveal></div>
+    <div class="v2-shell v2-hero-content"><MotionReveal class="v2-hero-message"><h1 id="brand-title" class="v2-hero-split"><span class="v2-hero-side"><strong>The future of</strong>{locale !== 'en' && <small>昨天的科幻</small>}</span><span class="v2-hero-side"><strong>yesterday, today.</strong>{locale !== 'en' && <small>今天的日常</small>}</span></h1><p>{t('Elias Net 結合 AI、應用軟體與資料整合，協助組織建立可持續運作的數位服務。','Elias Net combines AI, application software and data integration to build digital services designed for lasting operations.')}</p><div class="v2-actions"><a class="v2-button" href="#products">{t('查看服務','Explore services')} <span aria-hidden="true">↓</span></a><a class="v2-button is-secondary" href={`${prefix}contact/#contact-form`}>{t('討論需求','Discuss a need')} <span aria-hidden="true">→</span></a></div></MotionReveal></div>
   </ScrollScene>
 
   <ScrollScene id="products" tone="dark" class="v2-products-scene v2-model-architecture" labelledby="products-title">
@@ -49,7 +49,7 @@ const features=[
       <MotionReveal class="v2-cocreation-copy"><p class="v2-eyebrow">{sectionLabel('HUMAN + AI','人與人工智慧同行')}</p><h2 id="governance-title">{t('AI 看見更多，人做出選擇。','AI sees more. People make the choice.')}</h2><p>{t('AI 整理訊息、提示風險並準備建議；人以經驗與責任，決定下一步。','AI organizes information, highlights risk and prepares options. People bring experience and responsibility to decide the next step.')}</p></MotionReveal>
       <div class="v2-cocreation-principles" aria-label={t('人與人工智慧並肩同行','People and artificial intelligence moving forward side by side')}>
         <article data-motion-reveal><span>AI</span><h3>{t('幫我們看見更多','Helps us see more')}</h3><p>{t('留意容易錯過的需要與線索，讓幫助在適合的時候自然出現。','Notice needs and clues we might miss, so help can appear naturally at the right moment.')}</p></article>
-        <article data-motion-reveal><span>HUMAN</span><h3>{t('讓科技懂得關心','Brings care to technology')}</h3><p>{t('我們用經驗與同理心選擇方向，讓每一項能力都回到人的真實需要。','We use experience and empathy to choose the direction, keeping every capability grounded in real human needs.')}</p></article>
+        <article data-motion-reveal><span>HUMAN</span><h3>{t('讓科技回應人的需要','Keeps technology focused on people')}</h3><p>{t('我們用經驗與同理心選擇方向，讓每一項能力都回到人的真實需要。','We use experience and empathy to choose the direction, keeping every capability grounded in real human needs.')}</p></article>
         <article data-motion-reveal><span>TOGETHER</span><h3>{t('人與 AI，各自發揮所長','People and AI, each at their best')}</h3><p>{t('AI 整理資訊並準備建議，人員確認行動，也為最後的結果負責。','AI organizes information and prepares options. People confirm the action and remain accountable for the outcome.')}</p></article>
       </div>
       <a class="v2-cocreation-link" href={`${prefix}safety/`}>{t('了解人與 AI 的合作方式','See how people and AI work together')} →</a>

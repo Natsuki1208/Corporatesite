@@ -11,6 +11,7 @@ const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh
       <h2 id="contact-form-title">{t('留下基本資訊，讓第一次交流更聚焦。','Share a few details so the first conversation can stay focused.')}</h2>
       <p>{t('簡單說明你想改善的情境與聯絡方式，我們會從需求、環境與合適的合作起點開始了解。','Describe the situation you want to improve and how to reach you. We will begin with the need, environment and a practical starting point.')}</p>
       <aside><strong>{t('資料說明','DATA NOTE')}</strong><span>{t('本站不會線上儲存這些欄位；送出後會開啟你的郵件程式，由你確認內容再寄出。','This site does not store these fields online. Submitting opens your email app so you can review the message before sending.')}</span></aside>
+      <p class="v2-contact-email-fallback">{t('若郵件程式沒有開啟，可直接寄至','If your email app does not open, write directly to')} <a href="mailto:natsuki12089212@gmail.com">natsuki12089212@gmail.com</a></p>
     </header>
     <form class="v2-contact-form" data-contact-form data-recipient="natsuki12089212@gmail.com">
       <div class="v2-contact-field"><label for="contact-name">{t('姓名','Name')} <span aria-hidden="true">*</span></label><input id="contact-name" name="name" autocomplete="name" required /></div>

@@ -27,7 +27,7 @@ const docDirections=[
   ['ops','System Context',t('整理事件、影響與建議檢查順序，不直接執行高風險操作。','Organize incidents, impact and suggested checks without executing high-risk actions.')]
 ];
 const docNav=[
-  ['overview',t('文件概覽','Overview')],['quick-start',t('快速開始','Quick Start')],['api-map',t('能力地圖','Capability Map')],['request-example',t('請求示例','Request Example')],['human-review',t('人工確認','Human Review')],['responses',t('回應與錯誤','Responses & Errors')]
+  ['overview',t('文件概覽','Overview')],['quick-start',t('評估步驟','Assessment Steps')],['api-map',t('能力地圖','Capability Map')],['request-example',t('請求示例','Request Example')],['human-review',t('人工確認','Human Review')],['responses',t('回應與錯誤','Responses & Errors')]
 ];
 const plans=[
   {name:t('需求探索','Discovery'),label:t('把問題說清楚','Clarify the problem'),price:t('NT$ 80,000 起','From NT$80,000'),copy:t('確認使用者、現況、資料範圍與成功條件。','Define users, current work, data scope and success criteria.'),items:[t('需求與流程工作坊','Problem and workflow workshop'),t('資料與風險盤點','Data and risk review'),t('驗證範圍建議','Validation scope recommendation')]},
@@ -35,7 +35,7 @@ const plans=[
   {name:t('系統建置與整合','System Build & Integration'),label:t('把已驗證的方案帶進實際工作','Bring a validated solution into real work'),price:t('依專案評估','Project assessment'),copy:t('依確認範圍規劃應用、資料連接、安全、部署與後續維護。','Plan applications, data connections, security, delivery and ongoing support around an agreed scope.'),items:[t('系統介面與權限設計','System interfaces and permissions'),t('分階段導入與復原','Phased rollout and recovery'),t('監測、維護與改善','Monitoring, support and improvement')]}
 ];
 const meta=page==='api'
-  ? {eyebrow:'ELIAS API · PLANNING',title:t('規劃 AI 能力如何接進現有工作。','Plan how AI capabilities fit into existing work.'),intro:t('以下是四種 AI 整合方式，目前用於合作規劃。正式介面、權限與可用範圍，會在原型驗證後確認。','These four AI integration areas support collaboration planning. Final interfaces, permissions and availability are confirmed after prototype validation.')}
+  ? {eyebrow:'API INTEGRATION · PLANNING',title:t('了解 Elias AI 的 API 整合方向。','Explore the API integration direction for Elias AI.'),intro:t('以下四種方向用於合作評估與原型設計；尚非可直接呼叫的正式 API。','These four directions support engagement assessment and prototype design. They are not live APIs available for direct use.')}
   : page==='docs'
   ? {eyebrow:'DOCUMENTATION · ILLUSTRATIVE',title:t('先看懂如何整合，再開始驗證。','Understand the integration before validation begins.'),intro:t('用簡單步驟說清楚資料、權限、人工確認與驗證方式。','A clear path through data, permissions, human review and validation.')}
   : {eyebrow:'PLANS',title:t('先選合作階段，再確認範圍與費用。','Choose the collaboration stage, then define scope and cost.'),intro:t('每個情境的資料、整合與安全需求不同；我們會依實際驗證範圍提供合作評估。','Each scenario has different data, integration and safety needs. We assess the engagement around the scope to be validated.')};
