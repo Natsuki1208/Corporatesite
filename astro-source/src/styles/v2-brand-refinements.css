@@ -3031,3 +3031,15 @@ html:lang(en) .v2-body {
     0 3px 0 rgba(5,34,39,.11),
     0 16px 34px rgba(22,66,66,.19);
 }
+
+/* Keep all three language choices visible on inner-page mobile headers. */
+@media(max-width:640px) {
+  .v2-body.is-inner .v2-header-tools .v2-lang > button { color:#102129; }
+  .v2-lang [role=menu] {
+    position:absolute;
+    top:calc(100% + 8px);
+    right:0;
+    margin-top:0;
+    box-shadow:0 18px 46px rgba(16,33,41,.2);
+  }
+}
