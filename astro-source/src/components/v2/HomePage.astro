@@ -1,7 +1,6 @@
 ---
 import type { SiteLocale } from '../../data/products';
 import { simplify } from '../../data/simplified-map';
-import CTA from './CTA.astro';
 import MotionProvider from './motion/MotionProvider.astro';
 import ScrollScene from './motion/ScrollScene.astro';
 import MotionReveal from './motion/MotionReveal.astro';
@@ -27,7 +26,7 @@ const features=[
   <ScrollScene id="brand" tone="dark" class="v2-immersive-hero" labelledby="brand-title">
     <HeroParticleRibbon label={t('由深青、銀灰與暖金色光點交織成流動的智慧網絡','A flowing intelligence network woven from deep teal, silver and warm-gold particles')}/>
     <div class="v2-hero-shade" aria-hidden="true"></div>
-    <div class="v2-shell v2-hero-content"><MotionReveal class="v2-hero-message"><h1 id="brand-title">The future of yesterday, today.</h1>{locale !== 'en' && <p class="v2-hero-en">{t('昨天的科幻，今天的日常。','Yesterday’s science fiction. Today’s everyday life.')}</p>}<div class="v2-actions"><CTA href="#governance" label={t('了解人與 AI 如何合作','Human + AI collaboration')} locale={locale} secondary/></div></MotionReveal></div>
+    <div class="v2-shell v2-hero-content"><MotionReveal class="v2-hero-message"><h1 id="brand-title" class="v2-hero-split"><span class="v2-hero-side"><strong>The future of</strong>{locale !== 'en' && <small>昨天的科幻</small>}</span><span class="v2-hero-side"><strong>yesterday, today.</strong>{locale !== 'en' && <small>今天的日常</small>}</span></h1></MotionReveal></div>
     <a class="v2-hero-scroll" href="#products" aria-label={t('向下探索產品','Scroll to explore products')}><span>{t('向下探索','EXPLORE')}</span><i aria-hidden="true"></i></a>
   </ScrollScene>
 

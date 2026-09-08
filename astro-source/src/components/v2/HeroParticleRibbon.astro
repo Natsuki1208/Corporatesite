@@ -35,15 +35,16 @@ const { label } = Astro.props;
     if (!canvas || !context) return;
 
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    let width=0,height=0,dpr=1,raf=0,last=0,visible=true,inView=true;
+    let width=0,height=0,dpr=1,raf=0,last=0,startedAt=0,visible=true,inView=true;
     let points:RibbonPoint[]=[];
     let pointerX=0,pointerY=0,targetX=0,targetY=0;
 
     const curve = (t:number) => {
       const angle=t*Math.PI*2;
+      const compact=width<680;
       return {
-        x:.5+Math.sin(angle)*.425,
-        y:.62+Math.sin(angle*2)*.145
+        x:.5+Math.sin(angle)*(compact?.29:.425),
+        y:.62+Math.sin(angle*2)*(compact?.105:.145)
       };
     };
     const tangent = (t:number) => {
@@ -64,7 +65,7 @@ const { label } = Astro.props;
       canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
       canvas.style.width=`${width}px`;canvas.style.height=`${height}px`;
       context.setTransform(dpr,0,0,dpr,0,0);
-      const count=innerWidth<680?1350:innerWidth<1100?3000:5200;
+      const count=innerWidth<680?2300:innerWidth<1100?4800:8500;
       points=Array.from({length:count},(_,index)=>{
         const r1=seeded(index+1),r2=seeded(index+811),r3=seeded(index+1777);
         const t=clamp(r1*.98+.01,0,1);
@@ -75,15 +76,18 @@ const { label } = Astro.props;
           depth:seeded(index+407),
           phase:seeded(index+733)*Math.PI*2,
           speed:.16+seeded(index+991)*.22,
-          size:.42+seeded(index+1217)*1.42,
-          alpha:.17+seeded(index+1429)*.55,
+          size:.58+seeded(index+1217)*1.86,
+          alpha:.36+seeded(index+1429)*.62,
           accent:seeded(index+1699)
         };
       });
     };
 
-    const signalPath = (time:number) => {
+    const signalPath = (time:number,morph:number) => {
+      const reveal=clamp((morph-.46)/.34,0,1);
+      if(reveal<=0)return;
       context.save();
+      context.globalAlpha=reveal;
       context.beginPath();
       for(let step=0;step<=100;step++){
         const t=step/100,p=curve(t);
@@ -91,30 +95,51 @@ const { label } = Astro.props;
         if(step===0)context.moveTo(x,y);else context.lineTo(x,y);
       }
       const gradient=context.createLinearGradient(width*.08,height*.65,width*.94,height*.36);
-      gradient.addColorStop(0,'rgba(178,125,39,.18)');
-      gradient.addColorStop(.28,'rgba(196,139,43,.66)');
-      gradient.addColorStop(.72,'rgba(13,126,117,.68)');
-      gradient.addColorStop(1,'rgba(13,126,117,.16)');
-      context.strokeStyle=gradient;context.lineWidth=1.15;context.stroke();
+      gradient.addColorStop(0,'rgba(178,125,39,.02)');
+      gradient.addColorStop(.28,'rgba(196,139,43,.1)');
+      gradient.addColorStop(.72,'rgba(13,126,117,.11)');
+      gradient.addColorStop(1,'rgba(13,126,117,.02)');
+      context.strokeStyle=gradient;context.lineWidth=.55;context.stroke();
 
       const pulse=(time*.000019)%1,p=curve(pulse),normal=tangent(pulse);
       const px=p.x*width+normal.nx*Math.sin(time*.0012)*4;
       const py=p.y*height+normal.ny*Math.sin(time*.0012)*4;
-      const glow=context.createRadialGradient(px,py,0,px,py,15);
-      glow.addColorStop(0,'rgba(211,157,63,.78)');glow.addColorStop(1,'rgba(211,157,63,0)');
-      context.fillStyle=glow;context.beginPath();context.arc(px,py,15,0,Math.PI*2);context.fill();
+      const glow=context.createRadialGradient(px,py,0,px,py,24);
+      glow.addColorStop(0,'rgba(255,250,225,.98)');glow.addColorStop(.2,'rgba(211,157,63,.82)');glow.addColorStop(1,'rgba(211,157,63,0)');
+      context.fillStyle=glow;context.beginPath();context.arc(px,py,24,0,Math.PI*2);context.fill();
       context.restore();
+    };
+
+    const clusterGlow = (time:number,morph:number) => {
+      const strength=Math.max(0,1-morph*.92);
+      if(strength<=.02)return;
+      const cx=width*.5,cy=height*.57;
+      const radius=Math.min(width,height)*(.17+Math.sin(time*.00045)*.012);
+      const glow=context.createRadialGradient(cx,cy,0,cx,cy,radius);
+      glow.addColorStop(0,`rgba(255,255,250,${.5*strength})`);
+      glow.addColorStop(.18,`rgba(83,208,194,${.24*strength})`);
+      glow.addColorStop(.42,`rgba(112,91,207,${.16*strength})`);
+      glow.addColorStop(.68,`rgba(220,150,43,${.1*strength})`);
+      glow.addColorStop(1,'rgba(255,255,255,0)');
+      context.fillStyle=glow;
+      context.fillRect(cx-radius,cy-radius,radius*2,radius*2);
     };
 
     const draw = (time=0) => {
       if (!reduced.matches) raf=requestAnimationFrame(draw);
       if(!visible||!inView||(!reduced.matches&&time-last<33))return;
+      if(!startedAt)startedAt=time;
       last=time;pointerX+=(targetX-pointerX)*.035;pointerY+=(targetY-pointerY)*.035;
       context.clearRect(0,0,width,height);
+
+      const elapsed=Math.max(0,time-startedAt);
+      const rawMorph=clamp((elapsed-420)/5200,0,1);
+      const morph=reduced.matches?1:rawMorph*rawMorph*(3-2*rawMorph);
 
       const wash=context.createRadialGradient(width*.72,height*.48,0,width*.72,height*.48,width*.48);
       wash.addColorStop(0,'rgba(93,205,191,.13)');wash.addColorStop(.48,'rgba(166,219,211,.06)');wash.addColorStop(1,'rgba(255,255,255,0)');
       context.fillStyle=wash;context.fillRect(0,0,width,height);
+      clusterGlow(time,morph);
 
       for(let index=0;index<points.length;index++){
         const point=points[index];
@@ -124,19 +149,36 @@ const { label } = Astro.props;
         const center=curve(t),normal=tangent(t);
         const twist=Math.sin(point.phase+motion*4+t*Math.PI*5.2);
         const depthShift=(point.depth-.5)*14;
-        const offset=point.offset*height*(.88+.16*twist);
-        const x=center.x*width+normal.nx*offset+depthShift+pointerX*(5+point.depth*8)*(t-.48);
-        const y=center.y*height+normal.ny*offset+twist*(2+point.depth*5)+pointerY*(3+point.depth*6)*(t-.48);
+        const offset=point.offset*Math.min(width,height)*(width<680?.68:1)*(.88+.16*twist);
+        const targetPointX=center.x*width+normal.nx*offset+depthShift+pointerX*(5+point.depth*8)*(t-.48);
+        const targetPointY=center.y*height+normal.ny*offset+twist*(2+point.depth*5)+pointerY*(3+point.depth*6)*(t-.48);
+        const clusterAngle=point.phase+point.t*Math.PI*2;
+        const clusterRadius=(.018+point.depth*.092)*Math.min(width,height);
+        const breathing=1+(reduced.matches?0:Math.sin(point.phase+time*.00032)*.07);
+        const clusterX=width*.5+Math.cos(clusterAngle)*clusterRadius*breathing;
+        const clusterY=height*.57+Math.sin(clusterAngle)*clusterRadius*.58*breathing;
+        const x=clusterX+(targetPointX-clusterX)*morph;
+        const y=clusterY+(targetPointY-clusterY)*morph;
         const shimmer=.77+.23*Math.sin(point.phase+motion*5.5);
         const alpha=point.alpha*shimmer;
-        const teal=point.accent>.955;
-        const gold=!teal&&point.accent>.925;
-        context.fillStyle=teal?`rgba(8,125,116,${alpha*.94})`:gold?`rgba(184,128,39,${alpha*.86})`:`rgba(18,35,42,${alpha*.82})`;
+        const pearl=point.accent>.96;
+        const teal=!pearl&&point.accent>.8;
+        const gold=!pearl&&!teal&&point.accent>.68;
+        const violet=!pearl&&!teal&&!gold&&point.accent>.57;
+        const blue=!pearl&&!teal&&!gold&&!violet&&point.accent>.45;
+        context.fillStyle=pearl?`rgba(255,255,250,${alpha})`:teal?`rgba(0,151,139,${alpha})`:gold?`rgba(205,137,35,${alpha*.96})`:violet?`rgba(119,91,203,${alpha*.88})`:blue?`rgba(49,126,188,${alpha*.88})`:`rgba(12,31,38,${alpha*.9})`;
+        if(pearl){
+          context.globalAlpha=.16+point.depth*.12;
+          context.beginPath();
+          context.arc(x,y,point.size*(2.8+point.depth*1.6),0,Math.PI*2);
+          context.fill();
+          context.globalAlpha=1;
+        }
         context.beginPath();
         context.arc(x,y,point.size*(.72+point.depth*.55),0,Math.PI*2);
         context.fill();
       }
-      signalPath(time);
+      signalPath(time,morph);
     };
 
     const onPointer=(event:PointerEvent)=>{
@@ -156,9 +198,9 @@ const { label } = Astro.props;
 </script>
 
 <style>
-  .v2-hero-ribbon{position:absolute;z-index:0;inset:0;overflow:hidden;background:radial-gradient(circle at 78% 48%,rgba(101,211,198,.13),transparent 31%),radial-gradient(circle at 20% 70%,rgba(216,170,87,.08),transparent 25%),linear-gradient(180deg,#fbfdfc 0%,#f4f9f7 58%,#edf5f2 100%)}
+  .v2-hero-ribbon{position:absolute;z-index:0;inset:0;overflow:hidden;background:radial-gradient(circle at 78% 48%,rgba(101,211,198,.18),transparent 32%),radial-gradient(circle at 20% 70%,rgba(216,170,87,.11),transparent 27%),linear-gradient(180deg,#f8fbfa 0%,#eef6f3 58%,#e7f1ee 100%)}
   .v2-hero-ribbon canvas{position:absolute;inset:9% 0 0;width:100%;height:91%;pointer-events:none}
-  .v2-hero-ribbon-glow{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.84) 0%,rgba(255,255,255,.16) 29%,transparent 56%),linear-gradient(90deg,rgba(255,255,255,.58),transparent 35%,rgba(255,255,255,.12));pointer-events:none}
-  @media(max-width:680px){.v2-hero-ribbon canvas{inset:16% -24% 0;width:148%;height:84%;opacity:.88}.v2-hero-ribbon-glow{background:linear-gradient(180deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.42) 38%,transparent 68%)}}
+  .v2-hero-ribbon-glow{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.08) 29%,transparent 56%),linear-gradient(90deg,rgba(255,255,255,.36),transparent 35%,rgba(255,255,255,.05));pointer-events:none}
+  @media(max-width:680px){.v2-hero-ribbon canvas{inset:16% 0 0;width:100%;height:84%;opacity:.96}.v2-hero-ribbon-glow{background:linear-gradient(180deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.2) 38%,transparent 68%)}}
   @media(prefers-reduced-motion:reduce){.v2-hero-ribbon canvas{opacity:.82}}
 </style>
