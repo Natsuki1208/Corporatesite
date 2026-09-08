@@ -20,7 +20,7 @@ export const enterpriseServices: Record<EnterpriseServiceSlug, EnterpriseService
     name: 'Elias Build',
     eyebrow: 'APPLICATION ENGINEERING',
     label: { zh: '應用軟體開發與維護', en: 'Application Software Development & Maintenance' },
-    headline: { zh: '從需求到長期運作，把軟體服務做得更穩定。', en: 'From requirements to lasting operations, build software that stays dependable.' },
+    headline: { zh: '從需求到長期運作，讓軟體服務更穩定。', en: 'From requirements to lasting operations, keep software dependable.' },
     intro: { zh: '協助釐清需求、設計流程、建置應用，並把測試、部署與後續維護納入同一套工作方式。', en: 'Clarify requirements, design workflows, build applications and connect testing, delivery and ongoing maintenance in one practical engagement.' },
     fitHeading: { zh: '從要改善的流程開始。', en: 'Begin with the workflow that needs to improve.' },
     fit: [
@@ -44,7 +44,7 @@ export const enterpriseServices: Record<EnterpriseServiceSlug, EnterpriseService
     name: 'Elias Data',
     eyebrow: 'DATA INTELLIGENCE',
     label: { zh: '資料整合與效能優化', en: 'Data Integration & Performance' },
-    headline: { zh: '讓分散的資料清楚連結，也讓查詢與分析更有效率。', en: 'Connect scattered data clearly and make retrieval and analysis more efficient.' },
+    headline: { zh: '讓分散資料清楚連結，查詢與分析更有效率。', en: 'Connect scattered data and make retrieval and analysis more efficient.' },
     intro: { zh: '從資料來源、結構與品質開始，整理整合方式，改善查詢效率與資訊呈現，為後續應用建立穩定基礎。', en: 'Begin with sources, structure and quality, then improve integration, query efficiency and presentation to create a dependable foundation for future applications.' },
     fitHeading: { zh: '從資料用途與真正的瓶頸開始。', en: 'Begin with the data purpose and the real bottleneck.' },
     fit: [
@@ -68,7 +68,7 @@ export const enterpriseServices: Record<EnterpriseServiceSlug, EnterpriseService
     name: 'Elias Chain',
     eyebrow: 'BLOCKCHAIN & DIGITAL ASSETS',
     label: { zh: '區塊鏈與數位資產應用', en: 'Blockchain & Digital Asset Applications' },
-    headline: { zh: '先釐清應用價值與風險，再選擇適合的數位資產整合方式。', en: 'Clarify value and risk before choosing the right digital-asset integration.' },
+    headline: { zh: '先看清價值與風險，再選擇適合的整合方式。', en: 'Clarify value and risk before choosing the right integration.' },
     intro: { zh: '依實際需求、法規與安全條件，協助評估區塊鏈、通證或數位資產相關應用，並規劃可驗證的整合範圍。', en: 'Assess blockchain, token or digital-asset applications against real requirements, regulation and security, then define a scope that can be validated.' },
     fitHeading: { zh: '先確認問題是否真的需要區塊鏈。', en: 'First confirm whether the problem truly needs blockchain.' },
     fit: [
