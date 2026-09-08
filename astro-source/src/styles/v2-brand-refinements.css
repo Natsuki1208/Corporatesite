@@ -2335,7 +2335,7 @@ html:lang(en) .v2-body {
   .v2-header { gap:12px; }
   .v2-header-tools .v2-lang > button span,
   .v2-header-tools .v2-lang > button i { display:none; }
-  .v2-header-tools .v2-lang > button { padding:.45rem .25rem; }
+  .v2-header-tools .v2-lang > button { min-width:44px;min-height:44px;padding:.45rem .25rem; }
 }
 @media(prefers-reduced-motion:reduce){
   .v2-header-explore i::after { animation:none; }
@@ -2418,9 +2418,25 @@ html:lang(en) .v2-body {
 .v2-enterprise-boundary p { max-width:72ch;margin:0;color:#53666b; }
 .v2-enterprise-content .v2-actions { margin-top:42px; }
 .v2-enterprise-index-hero { padding-bottom:clamp(62px,8vw,104px); }
-.v2-enterprise-index-intro { max-width:1120px; }
+.v2-enterprise-index-hero-grid { display:grid;grid-template-columns:minmax(0,.92fr) minmax(420px,1.08fr);gap:clamp(52px,8vw,112px);align-items:center; }
+.v2-enterprise-index-intro { max-width:680px; }
 .v2-enterprise-index-intro h1 { max-width:19ch;margin:.45rem 0 1.2rem;font-size:clamp(2.6rem,4.5vw,4.7rem);line-height:1.02;letter-spacing:-.05em;text-wrap:balance; }
 .v2-enterprise-index-intro > p:last-child { max-width:68ch;margin:0;color:#53666b; }
+.v2-enterprise-map { position:relative;min-height:430px;isolation:isolate; }
+.v2-enterprise-map::before,.v2-enterprise-map::after { content:"";position:absolute;inset:14% 12%;border:1px solid rgba(8,125,115,.16);border-radius:48% 52% 56% 44%;transform:rotate(-8deg); }
+.v2-enterprise-map::after { inset:23% 20%;border-color:rgba(181,122,10,.15);transform:rotate(14deg); }
+.v2-enterprise-map-core { position:absolute;left:50%;top:50%;z-index:2;display:grid;place-content:center;width:158px;aspect-ratio:1;padding:24px;border:1px solid rgba(8,125,115,.24);border-radius:46% 54% 50% 50%;text-align:center;background:radial-gradient(circle at 38% 30%,#fff 0%,#def4ef 48%,#c9e6e1 100%);box-shadow:0 28px 80px rgba(30,91,88,.18),inset 0 0 40px rgba(255,255,255,.72);transform:translate(-50%,-50%);animation:v2-enterprise-core 7s ease-in-out infinite; }
+.v2-enterprise-map-core small { color:#087d73;font-size:.61rem;font-weight:900;letter-spacing:.2em; }
+.v2-enterprise-map-core strong { color:#102129;font-size:1.45rem;letter-spacing:.04em; }
+.v2-enterprise-map-core span { margin-top:5px;color:#6c7e81;font-size:.55rem;letter-spacing:.16em; }
+.v2-enterprise-map-node { position:absolute;z-index:3;display:grid;place-items:center;width:92px;height:42px;border:1px solid rgba(16,33,41,.13);border-radius:999px;color:#102129;font-size:.64rem;font-weight:900;letter-spacing:.14em;background:rgba(255,255,255,.86);box-shadow:0 14px 34px rgba(30,68,67,.1);backdrop-filter:blur(10px); }
+.v2-enterprise-map-node.is-build { right:4%;top:15%; }.v2-enterprise-map-node.is-data { right:0;bottom:17%; }.v2-enterprise-map-node.is-chain { left:4%;bottom:8%; }
+.v2-enterprise-map-path { position:absolute;z-index:1;height:1px;overflow:visible;transform-origin:left center;background:linear-gradient(90deg,rgba(8,125,115,.08),rgba(8,125,115,.62),rgba(8,125,115,.08)); }
+.v2-enterprise-map-path::after { content:"";position:absolute;top:-3px;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 14px 5px rgba(49,214,195,.7);animation:v2-enterprise-signal 4.8s ease-in-out infinite; }
+.v2-enterprise-map-path.is-build { left:49%;top:49%;width:44%;transform:rotate(-35deg); }.v2-enterprise-map-path.is-data { left:51%;top:52%;width:43%;transform:rotate(28deg); }.v2-enterprise-map-path.is-chain { left:18%;top:73%;width:39%;transform:rotate(-31deg); }
+.v2-enterprise-map-path.is-data::after { animation-delay:-1.6s; }.v2-enterprise-map-path.is-chain::after { animation-delay:-3.2s; }
+@keyframes v2-enterprise-signal { 0%,15%{left:0;opacity:0} 28%,72%{opacity:1} 86%,100%{left:calc(100% - 7px);opacity:0} }
+@keyframes v2-enterprise-core { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.035)} }
 .v2-enterprise-index { padding-block:clamp(70px,9vw,128px);background:#f8faf9; }
 .v2-enterprise-index-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px; }
 .v2-enterprise-index-grid > a { position:relative;display:flex;min-height:470px;flex-direction:column;padding:clamp(26px,3vw,42px);overflow:hidden;border:1px solid #d2dedb;border-radius:24px;color:#102129;text-decoration:none;background:radial-gradient(circle at 88% 12%,rgba(46,215,197,.12),transparent 30%),rgba(255,255,255,.92);box-shadow:0 20px 52px rgba(30,68,67,.08);transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease; }
@@ -2445,7 +2461,31 @@ html:lang(en) .v2-body {
   .v2-enterprise-boundary { grid-template-columns:1fr;gap:12px; }
   .v2-enterprise-index-grid { grid-template-columns:1fr; }
   .v2-enterprise-index-grid > a { min-height:410px; }
+  .v2-enterprise-index-hero-grid { grid-template-columns:1fr;gap:36px; }
+  .v2-enterprise-map { min-height:330px; }
 }
+
+@media(min-width:1181px){
+  .v2-header { padding-left:clamp(20px,2.4vw,36px);padding-right:clamp(20px,2.4vw,36px); }
+  .v2-header .v2-nav { margin-left:clamp(28px,4vw,64px);margin-right:auto; }
+  .v2-header .v2-header-tools { margin-left:auto; }
+}
+@media(prefers-reduced-motion:reduce){
+  .v2-enterprise-map-core,.v2-enterprise-map-path::after { animation:none; }
+}
+.v2-body[data-page="enterprise-services"] .v2-guide { display:none; }
+
+.v2-research-services { margin-top:clamp(78px,10vw,132px);padding-top:clamp(58px,7vw,92px);border-top:1px solid #d4dfdc; }
+.v2-research-services > header { max-width:820px;margin-bottom:34px; }
+.v2-research-services > header h2 { margin:.35rem 0 .7rem;font-size:clamp(2rem,3.6vw,3.6rem);line-height:1.05;letter-spacing:-.045em; }
+.v2-research-services > header p:last-child { color:#5d6d72; }
+.v2-research-services > div { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px; }
+.v2-research-services article { display:flex;min-height:230px;flex-direction:column;padding:28px;border:1px solid #d6e1df;border-radius:20px;background:#fff;box-shadow:0 18px 42px rgba(30,68,67,.07); }
+.v2-research-services article h3 { margin:0;font-size:1.65rem; }
+.v2-research-services article > span { margin-top:4px;color:#087d73;font-size:.75rem;font-weight:800; }
+.v2-research-services article p { color:#5d6d72;font-size:.86rem; }
+.v2-research-services article a { margin-top:auto;color:#087d73;font-size:.78rem;font-weight:850;text-decoration:none; }
+@media(max-width:760px){.v2-research-services > div{grid-template-columns:1fr}.v2-research-services article{min-height:210px}}
 
 /* 2026-09-07 — ELIAS NET particle-ribbon hero. */
 .v2-body.is-home .v2-immersive-hero {

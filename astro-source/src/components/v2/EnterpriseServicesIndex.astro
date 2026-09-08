@@ -9,10 +9,19 @@ const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh
 const text=(copy:{zh:string;en:string})=>locale==='en'?copy.en:locale==='zh-CN'?simplify(copy.zh):copy.zh;
 ---
 <section class="v2-page-hero v2-enterprise-index-hero">
-  <div class="v2-shell v2-enterprise-index-intro v2-reveal">
-    <p class="v2-eyebrow">ENTERPRISE DIGITAL SOLUTIONS</p>
-    <h1>{t('三條服務路徑，讓數位需求清楚落地。','Three service paths for turning digital needs into practical work.')}</h1>
-    <p>{t('選擇應用軟體、資料效能，或區塊鏈與數位資產服務；進入各服務頁後，再查看對應情境影片與合作範圍。','Choose application software, data performance, or blockchain and digital-asset services. Each service page presents its scenario video and engagement scope.')}</p>
+  <div class="v2-shell v2-enterprise-index-hero-grid">
+    <div class="v2-enterprise-index-intro v2-reveal">
+      <p class="v2-eyebrow">ENTERPRISE DIGITAL SOLUTIONS</p>
+      <h1>{t('三條服務路徑，讓數位需求清楚落地。','Three service paths for turning digital needs into practical work.')}</h1>
+      <p>{t('選擇應用軟體、資料效能，或區塊鏈與數位資產服務；進入各服務頁後，再查看對應情境影片與合作範圍。','Choose application software, data performance, or blockchain and digital-asset services. Each service page presents its scenario video and engagement scope.')}</p>
+    </div>
+    <div class="v2-enterprise-map" aria-hidden="true">
+      <div class="v2-enterprise-map-core"><small>ELIAS</small><strong>DIGITAL</strong><span>01 · 02 · 03</span></div>
+      <i class="v2-enterprise-map-path is-build"></i><i class="v2-enterprise-map-path is-data"></i><i class="v2-enterprise-map-path is-chain"></i>
+      <span class="v2-enterprise-map-node is-build">BUILD</span>
+      <span class="v2-enterprise-map-node is-data">DATA</span>
+      <span class="v2-enterprise-map-node is-chain">CHAIN</span>
+    </div>
   </div>
 </section>
 
