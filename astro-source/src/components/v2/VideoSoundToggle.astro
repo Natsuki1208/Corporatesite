@@ -10,7 +10,7 @@ const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? s
   type="button"
   data-video-sound
   data-video-target={target}
-  data-label-on={t('聲音已開啟','Sound on')}
+  data-label-on={t('關閉聲音','Turn sound off')}
   data-label-off={t('開啟聲音','Turn sound on')}
   aria-label={t('開啟聲音','Turn sound on')}
   aria-pressed="false"
@@ -32,9 +32,9 @@ const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? s
     const render = () => {
       const soundOn = !video.muted && video.volume > 0;
       button.setAttribute('aria-pressed', String(soundOn));
-      button.setAttribute('aria-label', soundOn ? button.dataset.labelOn || 'Sound on' : button.dataset.labelOff || 'Turn sound on');
+      button.setAttribute('aria-label', soundOn ? button.dataset.labelOn || 'Turn sound off' : button.dataset.labelOff || 'Turn sound on');
       button.classList.toggle('is-muted', !soundOn);
-      label.textContent = soundOn ? button.dataset.labelOn || 'Sound on' : button.dataset.labelOff || 'Turn sound on';
+      label.textContent = soundOn ? button.dataset.labelOn || 'Turn sound off' : button.dataset.labelOff || 'Turn sound on';
     };
 
     button.addEventListener('click', async () => {

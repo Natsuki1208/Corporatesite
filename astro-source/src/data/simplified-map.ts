@@ -1,4 +1,4 @@
-// Generated from the project's Traditional Chinese copy. Do not edit manually.
+// Traditional-character fallback used after the phrase-level mainland Chinese localization below.
 export const traditionalToSimplified: Record<string, string> = {
   "並": "并",
   "兩": "两",
@@ -259,8 +259,54 @@ export const traditionalToSimplified: Record<string, string> = {
 
 export function simplify(value: string): string {
   const normalized = value
+    .replaceAll('應用軟體', '应用软件')
+    .replaceAll('軟體', '软件')
+    .replaceAll('數位服務', '数字化服务')
+    .replaceAll('數位資產', '数字资产')
+    .replaceAll('數位', '数字化')
+    .replaceAll('資料整合', '数据集成')
+    .replaceAll('系統整合', '系统集成')
+    .replaceAll('資料', '数据')
+    .replaceAll('效能', '性能')
+    .replaceAll('聯絡', '联系')
+    .replaceAll('維運', '运维')
+    .replaceAll('紀錄', '记录')
+    .replaceAll('支援', '支持')
+    .replaceAll('釐清', '梳理')
+    .replaceAll('使用者', '用户')
+    .replaceAll('介面', '界面')
+    .replaceAll('職缺', '岗位')
+    .replaceAll('訊息', '信息')
+    .replaceAll('資訊', '信息')
+    .replaceAll('情境', '场景')
+    .replaceAll('營運', '运营')
+    .replaceAll('復原', '恢复')
+    .replaceAll('欄位', '字段')
+    .replaceAll('專案', '项目')
+    .replaceAll('稽核', '审计')
+    .replaceAll('檢視', '查看')
+    .replaceAll('影片', '视频')
+    .replaceAll('回覆', '回复')
+    .replaceAll('檔案', '文件')
+    .replaceAll('品質', '质量')
+    .replaceAll('即時', '实时')
+    .replaceAll('帳號', '账号')
+    .replaceAll('登入', '登录')
+    .replaceAll('建置', '部署')
+    .replaceAll('郵件程式', '邮件客户端')
+    .replaceAll('程式碼', '代码')
+    .replaceAll('唯讀', '只读')
+    .replaceAll('遠端', '远程')
+    .replaceAll('客製', '定制')
+    .replaceAll('配置導入', '配置部署')
+    .replaceAll('擷取', '提取')
     .replaceAll('人工智慧', '人工智能')
     .replaceAll('驟', '骤')
-    .replaceAll('誠', '诚');
+    .replaceAll('誠', '诚')
+    .replaceAll('銜', '衔')
+    .replaceAll('預', '预')
+    .replaceAll('購', '购')
+    .replaceAll('納', '纳')
+    .replaceAll('賴', '赖');
   return Array.from(normalized).map((char) => traditionalToSimplified[char] ?? char).join('');
 }

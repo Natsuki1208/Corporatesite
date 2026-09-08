@@ -4,7 +4,6 @@ import { simplify } from '../../data/simplified-map';
 import { enterpriseServices, type EnterpriseServiceSlug } from '../../data/enterprise-services';
 import AmbientLightField from './AmbientLightField.astro';
 import CTA from './CTA.astro';
-import VideoSoundToggle from './VideoSoundToggle.astro';
 interface Props { locale: SiteLocale; service: EnterpriseServiceSlug }
 const { locale, service } = Astro.props;
 const item = enterpriseServices[service];
@@ -13,9 +12,8 @@ const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${ba
 const mediaName=service;
 const videoUrl=`${base}/media/${mediaName}-service.mp4`;
 const posterUrl=`${base}/images/v2/services/${mediaName}-service.jpg`;
-const videoId=`${service}-service-video`;
 const inquiryTopic=service.replace('elias-','');
-const inquiryHref=`${prefix}contact/?topic=${inquiryTopic}#contact-form`;
+const inquiryHref=`${prefix}contact/?topic=${inquiryTopic}&product=${encodeURIComponent(service)}#contact-form`;
 const text=(copy:{zh:string;en:string})=>locale==='en'?copy.en:locale==='zh-CN'?simplify(copy.zh):copy.zh;
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
 ---
@@ -31,10 +29,9 @@ const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh
     </div>
     <figure class="v2-enterprise-media">
       <div class="v2-enterprise-video-frame">
-        <video id={videoId} autoplay muted={true} loop playsinline preload="metadata" poster={posterUrl} aria-label={t(`${item.name} 服務情境影片`,`${item.name} service scenario video`)}>
+        <video controls muted={true} playsinline preload="metadata" poster={posterUrl} aria-label={t(`${item.name} 服務情境影片`,`${item.name} service scenario video`)}>
           <source src={videoUrl} type="video/mp4"/>
         </video>
-        <VideoSoundToggle target={videoId} locale={locale}/>
       </div>
       <figcaption><span>{t('服務方向','SERVICE DIRECTION')}</span><strong>{text(item.label)}</strong></figcaption>
     </figure>
