@@ -2873,3 +2873,34 @@ html:lang(en) .v2-body {
     background:linear-gradient(0deg,#eef5f3 0%,rgba(249,252,251,.7) 66%,rgba(249,252,251,.18) 100%);
   }
 }
+
+/* Careers: one calm, readable hierarchy on the light surface. */
+.v2-body.is-inner .v2-career-role-head p:last-child {
+  color:#485c61!important;
+}
+.v2-body.is-inner .v2-career-details h3 {
+  color:#315158!important;
+  font-size:.78rem;
+  font-weight:850;
+}
+.v2-body.is-inner .v2-career-details li {
+  color:#34494e!important;
+  font-size:.86rem;
+}
+.v2-body.is-inner .v2-career-role > a {
+  display:inline-flex;
+  align-items:center;
+  min-height:42px;
+  padding:8px 13px;
+  border:1px solid rgba(11,110,103,.3);
+  border-radius:999px;
+  color:#0b6e67!important;
+  background:rgba(255,255,255,.46);
+  font-size:.82rem;
+  text-decoration:none;
+}
+.v2-body.is-inner .v2-career-role > a:hover,
+.v2-body.is-inner .v2-career-role > a:focus-visible {
+  background:rgba(11,110,103,.08);
+  border-color:#0b6e67;
+}

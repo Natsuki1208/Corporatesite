@@ -49,7 +49,7 @@ export const products: ProductDefinition[] = [
     dataPermissions:L('需要核准文件、版本資訊、文件擁有者、角色權限、索引更新規則與存取紀錄。','Requires approved documents, version metadata, ownership, role permissions, index update rules and access logs.'),
     safeguards:[L('來源白名單與權限繼承','Source allowlists and inherited permissions'),L('引用與版本清楚顯示','Visible citations and versions'),L('敏感資料遮蔽與查詢紀錄','Sensitive-data masking and query records')],
     limitations:[L('回答可能遺漏或誤解內容','Answers may omit or misunderstand information'),L('不取代法務、人資或專業意見','Does not replace legal, HR or professional advice'),L('不能繞過文件權限','Cannot bypass document permissions')],
-    next:L('建立測試資料集、權限模型、來源更新與回答評估流程。','Build a test dataset, permission model, source update process and answer-evaluation workflow.'), cta:L('討論合作可能','Discuss collaboration possibilities')
+    next:L('建立測試資料集、權限模型、來源更新與回答評估流程。','Build a test dataset, permission model, source update process and answer-evaluation workflow.'), cta:L('討論合作方向','Discuss collaboration options')
   },
   {
     slug:'elias-care', family:'digital', name:'Elias Care', chineseName:'客服協作助理', subtitleEn:'Customer Service Assistant', status:'原型',

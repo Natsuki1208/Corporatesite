@@ -90,40 +90,44 @@ const { label } = Astro.props;
           accent:seeded(index+1699)
         };
       });
-      const starCount=innerWidth<680?20:innerWidth<1100?34:48;
+      const starCount=innerWidth<680?24:innerWidth<1100?42:68;
       stars=Array.from({length:starCount},(_,index)=>{
         const side=seeded(index+5031)<.5?0:1;
         return {
-          x:(side===0?.025+seeded(index+5167)*.185:.79+seeded(index+5167)*.185)*width,
-          y:(.18+seeded(index+5399)*.7)*height,
-          size:1.35+seeded(index+5521)*1.75,
+          x:(side===0?.018+seeded(index+5167)*.215:.767+seeded(index+5167)*.215)*width,
+          y:(.14+seeded(index+5399)*.76)*height,
+          size:1.55+seeded(index+5521)*(innerWidth<680?1.9:2.55),
           phase:seeded(index+5701)*Math.PI*2,
           tone:Math.floor(seeded(index+5857)*3),
-          flare:seeded(index+5987)>.78
+          flare:seeded(index+5987)>.68
         };
       });
     };
 
     const backgroundStars = (time:number) => {
-      const paths=Array.from({length:3},()=>new Path2D());
       const flares:StarPoint[]=[];
+      const colors=[[187,116,127],[203,148,76],[246,220,169]];
       for(const star of stars){
-        const twinkle=.38+.62*Math.pow((Math.sin(star.phase+time*(.00022+star.tone*.000035))+1)*.5,2);
-        const size=star.size*(.7+twinkle*.42);
-        paths[star.tone].moveTo(star.x+size,star.y);
-        paths[star.tone].arc(star.x,star.y,size,0,Math.PI*2);
-        if(star.flare&&twinkle>.7)flares.push({...star,size:size*twinkle});
-      }
-      const colors=['rgba(181,111,122,.5)','rgba(198,145,78,.58)','rgba(246,222,176,.72)'];
-      for(let index=0;index<paths.length;index++){
-        context.fillStyle=colors[index];context.fill(paths[index]);
+        const twinkle=.18+.82*Math.pow((Math.sin(star.phase+time*(.00025+star.tone*.00004))+1)*.5,2.5);
+        const size=star.size*(.64+twinkle*.52);
+        const [red,green,blue]=colors[star.tone];
+        if(twinkle>.62){
+          const haloRadius=size*(2.7+twinkle*1.6);
+          const halo=context.createRadialGradient(star.x,star.y,0,star.x,star.y,haloRadius);
+          halo.addColorStop(0,`rgba(${red},${green},${blue},${.22*twinkle})`);
+          halo.addColorStop(1,`rgba(${red},${green},${blue},0)`);
+          context.fillStyle=halo;context.beginPath();context.arc(star.x,star.y,haloRadius,0,Math.PI*2);context.fill();
+        }
+        context.fillStyle=`rgba(${red},${green},${blue},${.3+twinkle*.68})`;
+        context.beginPath();context.arc(star.x,star.y,size,0,Math.PI*2);context.fill();
+        if(star.flare&&twinkle>.64)flares.push({...star,size:size*twinkle});
       }
       context.save();
       context.lineCap='round';
       for(const star of flares){
-        const glow=3.6+star.size*2.2;
-        context.strokeStyle=star.tone===0?'rgba(201,131,141,.52)':'rgba(220,169,92,.62)';
-        context.lineWidth=.7;
+        const glow=4.8+star.size*2.7;
+        context.strokeStyle=star.tone===0?'rgba(214,143,153,.72)':'rgba(229,178,99,.78)';
+        context.lineWidth=.78;
         context.beginPath();
         context.moveTo(star.x-glow,star.y);context.lineTo(star.x+glow,star.y);
         context.moveTo(star.x,star.y-glow);context.lineTo(star.x,star.y+glow);
