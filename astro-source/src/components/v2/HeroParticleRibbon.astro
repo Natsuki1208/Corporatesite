@@ -19,6 +19,7 @@ const { label } = Astro.props;
     alpha:number;
     accent:number;
   };
+  type StarPoint = {x:number;y:number;size:number;phase:number;tone:number;flare:boolean};
 
   const clamp = (value:number,min:number,max:number) => Math.max(min,Math.min(max,value));
   const smooth = (value:number) => {
@@ -40,7 +41,7 @@ const { label } = Astro.props;
 
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     let width=0,height=0,dpr=1,raf=0,last=0,startedAt=0,visible=true,inView=true;
-    let points:RibbonPoint[]=[];
+    let points:RibbonPoint[]=[],stars:StarPoint[]=[];
     let pointerX=0,pointerY=0,targetX=0,targetY=0;
 
     const curve = (t:number,vertical=0) => {
@@ -89,6 +90,45 @@ const { label } = Astro.props;
           accent:seeded(index+1699)
         };
       });
+      const starCount=innerWidth<680?58:innerWidth<1100?82:124;
+      stars=Array.from({length:starCount},(_,index)=>{
+        const side=seeded(index+5031)<.5?0:1;
+        return {
+          x:(side===0?.025+seeded(index+5167)*.215:.76+seeded(index+5167)*.215)*width,
+          y:(.2+seeded(index+5399)*.72)*height,
+          size:.48+seeded(index+5521)*1.22,
+          phase:seeded(index+5701)*Math.PI*2,
+          tone:Math.floor(seeded(index+5857)*3),
+          flare:seeded(index+5987)>.88
+        };
+      });
+    };
+
+    const backgroundStars = (time:number) => {
+      const paths=Array.from({length:3},()=>new Path2D());
+      const flares:StarPoint[]=[];
+      for(const star of stars){
+        const twinkle=.48+.52*Math.pow((Math.sin(star.phase+time*.00045)+1)*.5,2);
+        const size=star.size*(.72+twinkle*.42);
+        paths[star.tone].rect(star.x-size*.5,star.y-size*.5,size,size);
+        if(star.flare&&twinkle>.78)flares.push({...star,size:size*twinkle});
+      }
+      const colors=['rgba(21,126,118,.62)','rgba(187,129,40,.58)','rgba(96,83,176,.48)'];
+      for(let index=0;index<paths.length;index++){
+        context.fillStyle=colors[index];context.fill(paths[index]);
+      }
+      context.save();
+      context.lineCap='round';
+      for(const star of flares){
+        const glow=2.8+star.size*2.4;
+        context.strokeStyle=star.tone===1?'rgba(225,166,62,.64)':'rgba(82,190,179,.6)';
+        context.lineWidth=.65;
+        context.beginPath();
+        context.moveTo(star.x-glow,star.y);context.lineTo(star.x+glow,star.y);
+        context.moveTo(star.x,star.y-glow);context.lineTo(star.x,star.y+glow);
+        context.stroke();
+      }
+      context.restore();
     };
 
     const signalPath = (time:number,morph:number,vertical:number) => {
@@ -158,8 +198,11 @@ const { label } = Astro.props;
       const wash=context.createRadialGradient(width*.72,height*.48,0,width*.72,height*.48,width*.48);
       wash.addColorStop(0,'rgba(93,205,191,.13)');wash.addColorStop(.48,'rgba(166,219,211,.06)');wash.addColorStop(1,'rgba(255,255,255,0)');
       context.fillStyle=wash;context.fillRect(0,0,width,height);
+      backgroundStars(time);
       clusterGlow(time,morph);
 
+      const particleLayers=Array.from({length:5},()=>new Path2D());
+      const pearlPoints:Array<{x:number;y:number;size:number;depth:number;alpha:number}>=[];
       for(let index=0;index<points.length;index++){
         const point=points[index];
         const motion=reduced.matches?0:time*.00012*point.speed;
@@ -185,22 +228,29 @@ const { label } = Astro.props;
         const gold=!pearl&&!teal&&point.accent>.75;
         const violet=!pearl&&!teal&&!gold&&point.accent>.7;
         const blue=!pearl&&!teal&&!gold&&!violet&&point.accent>.64;
-        context.fillStyle=pearl?`rgba(255,255,250,${Math.min(1,alpha*1.45)})`:teal?`rgba(0,139,130,${alpha*.8})`:gold?`rgba(193,132,40,${alpha*.82})`:violet?`rgba(108,91,177,${alpha*.68})`:blue?`rgba(53,115,154,${alpha*.66})`:`rgba(24,52,58,${alpha*.62})`;
+        const particleSize=point.size*(.72+point.depth*.55)*(.8+alpha*.28);
         if(pearl){
-          context.globalAlpha=.16+point.depth*.12;
-          context.beginPath();
-          context.arc(x,y,point.size*(2.8+point.depth*1.6),0,Math.PI*2);
-          context.fill();
-          context.globalAlpha=1;
-        }
-        const particleSize=point.size*(.72+point.depth*.55);
-        if(pearl||particleSize>.86){
-          context.beginPath();
-          context.arc(x,y,particleSize,0,Math.PI*2);
-          context.fill();
+          pearlPoints.push({x,y,size:particleSize,depth:point.depth,alpha});
         }else{
-          context.fillRect(x-particleSize*.5,y-particleSize*.5,particleSize,particleSize);
+          const layer=teal?4:gold?3:violet?2:blue?1:0;
+          if(particleSize>.86){
+            particleLayers[layer].moveTo(x+particleSize,y);
+            particleLayers[layer].arc(x,y,particleSize,0,Math.PI*2);
+          }
+          else particleLayers[layer].rect(x-particleSize*.5,y-particleSize*.5,particleSize,particleSize);
         }
+      }
+      const layerColors=['rgba(24,52,58,.48)','rgba(53,115,154,.46)','rgba(108,91,177,.46)','rgba(193,132,40,.58)','rgba(0,139,130,.58)'];
+      for(let layer=0;layer<particleLayers.length;layer++){
+        context.fillStyle=layerColors[layer];
+        context.fill(particleLayers[layer]);
+      }
+      for(const pearl of pearlPoints){
+        context.fillStyle=`rgba(255,255,250,${Math.min(1,pearl.alpha*1.45)})`;
+        context.globalAlpha=.14+pearl.depth*.1;
+        context.beginPath();context.arc(pearl.x,pearl.y,pearl.size*(2.8+pearl.depth*1.6),0,Math.PI*2);context.fill();
+        context.globalAlpha=1;
+        context.beginPath();context.arc(pearl.x,pearl.y,pearl.size,0,Math.PI*2);context.fill();
       }
       signalPath(time,morph,vertical);
     };
