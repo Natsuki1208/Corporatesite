@@ -1,0 +1,41 @@
+---
+import type { SiteLocale } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+import { enterpriseServiceSlugs, enterpriseServices } from '../../data/enterprise-services';
+const { locale }=Astro.props as {locale:SiteLocale};
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${base}/`;
+const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
+const text=(copy:{zh:string;en:string})=>locale==='en'?copy.en:locale==='zh-CN'?simplify(copy.zh):copy.zh;
+---
+<section class="v2-page-hero v2-enterprise-index-hero">
+  <div class="v2-shell v2-enterprise-index-intro v2-reveal">
+    <p class="v2-eyebrow">ENTERPRISE DIGITAL SOLUTIONS</p>
+    <h1>{t('三條服務路徑，讓數位需求清楚落地。','Three service paths for turning digital needs into practical work.')}</h1>
+    <p>{t('選擇應用軟體、資料效能，或區塊鏈與數位資產服務；進入各服務頁後，再查看對應情境影片與合作範圍。','Choose application software, data performance, or blockchain and digital-asset services. Each service page presents its scenario video and engagement scope.')}</p>
+  </div>
+</section>
+
+<section class="v2-section v2-enterprise-index">
+  <div class="v2-shell v2-enterprise-index-grid">
+    {enterpriseServiceSlugs.map((slug,index)=>{
+      const item=enterpriseServices[slug];
+      return <a href={`${prefix}services/${slug}/`} class={`is-${slug}`}>
+        <span class="v2-enterprise-index-number">0{index+1}</span>
+        <div class="v2-enterprise-index-icon" aria-hidden="true"><i></i><i></i><i></i></div>
+        <p class="v2-eyebrow">{item.eyebrow}</p>
+        <h2>{item.name}</h2>
+        <strong>{text(item.label)}</strong>
+        <p>{text(item.intro)}</p>
+        <span class="v2-enterprise-index-action">{t('查看服務內容','Explore this service')} →</span>
+      </a>;
+    })}
+  </div>
+</section>
+
+<section class="v2-section v2-tint">
+  <div class="v2-shell v2-split v2-reveal">
+    <div><p class="v2-eyebrow">{t('從需求開始','START WITH THE NEED')}</p><h2>{t('先釐清問題，再選擇適合的服務。','Clarify the problem before choosing the service.')}</h2></div>
+    <p>{t('若需求橫跨軟體、資料與 AI，我們會先整理目標、環境與驗收方式，再確認最合適的合作路徑。','When a need spans software, data and AI, we first clarify outcomes, environment and acceptance criteria, then identify the right engagement path.')}</p>
+  </div>
+</section>

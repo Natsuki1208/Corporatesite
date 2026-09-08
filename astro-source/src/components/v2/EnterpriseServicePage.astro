@@ -9,6 +9,9 @@ const { locale, service } = Astro.props;
 const item = enterpriseServices[service];
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${base}/`;
+const mediaName=service;
+const videoUrl=`${base}/media/${mediaName}-service.mp4`;
+const posterUrl=`${base}/images/v2/services/${mediaName}-service.jpg`;
 const text=(copy:{zh:string;en:string})=>locale==='en'?copy.en:locale==='zh-CN'?simplify(copy.zh):copy.zh;
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
 ---
@@ -21,11 +24,12 @@ const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh
       <h1>{text(item.headline)}</h1>
       <p>{text(item.intro)}</p>
     </div>
-    <aside>
-      <span>{t('服務方向','SERVICE DIRECTION')}</span>
-      <h2>{text(item.label)}</h2>
-      <p>{item.name}</p>
-    </aside>
+    <figure class="v2-enterprise-media">
+      <video autoplay muted={true} loop playsinline preload="metadata" poster={posterUrl} aria-label={t(`${item.name} 服務情境影片`,`${item.name} service scenario video`)}>
+        <source src={videoUrl} type="video/mp4"/>
+      </video>
+      <figcaption><span>{t('服務方向','SERVICE DIRECTION')}</span><strong>{text(item.label)}</strong></figcaption>
+    </figure>
   </div>
 </section>
 
