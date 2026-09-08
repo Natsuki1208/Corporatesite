@@ -1,10 +1,10 @@
 ---
-interface Props { variant?: 'lockup'|'icon'; class?: string; id?: string; continuous?: boolean; animated?: boolean }
-const { variant='lockup', class:className='', id='primary', continuous=false, animated=true } = Astro.props;
+interface Props { variant?: 'lockup'|'icon'; class?: string; id?: string; continuous?: boolean; animated?: boolean; replayEvery?: number }
+const { variant='lockup', class:className='', id='primary', continuous=false, animated=true, replayEvery } = Astro.props;
 const iconOnly = variant === 'icon';
 const titleId=`elias-${id}-title`, descId=`elias-${id}-desc`, energyId=`elias-${id}-energy`, signalId=`elias-${id}-signal`, shadowId=`elias-${id}-shadow`;
 ---
-<svg data-animate={animated ? 'true' : 'false'} class:list={['v2-brand-mark',iconOnly&&'is-icon',continuous&&'is-continuous',className]} viewBox={iconOnly?'0 0 180 180':'0 0 640 180'} role="img" aria-labelledby={`${titleId} ${descId}`}>
+<svg data-animate={animated ? 'true' : 'false'} data-replay-every={replayEvery} class:list={['v2-brand-mark',iconOnly&&'is-icon',continuous&&'is-continuous',className]} viewBox={iconOnly?'0 0 180 180':'0 0 640 180'} role="img" aria-labelledby={`${titleId} ${descId}`}>
   <title id={titleId}>Elias Net</title>
   <desc id={descId}>A futuristic Elias E and N intelligence core assembled from four independent precision modules.</desc>
   <defs>
@@ -28,8 +28,10 @@ const titleId=`elias-${id}-title`, descId=`elias-${id}-desc`, energyId=`elias-${
     <circle class="mark-node node-one" cx="28" cy="88" r="3" fill="#2ED7C5"/>
     <circle class="mark-node node-two" cx="151" cy="91" r="3" fill="#D9A441"/>
   </g>
-  {!iconOnly && <g class="mark-wordmark" transform="translate(205 53)">
-    <text x="0" y="34" font-family="Inter, Arial, sans-serif" font-size="39" font-weight="760" letter-spacing="7" fill="#102129">ELIAS NET</text>
+  {!iconOnly && <g transform="translate(205 53)">
+    <g class="mark-wordmark">
+      <text x="0" y="34" font-family="Inter, Arial, sans-serif" font-size="39" font-weight="760" letter-spacing="7" fill="#102129">ELIAS NET</text>
+    </g>
   </g>}
 </svg>
 
@@ -53,6 +55,13 @@ const titleId=`elias-${id}-title`, descId=`elias-${id}-desc`, energyId=`elias-${
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
       mark.classList.add('is-assembled');
+      const replayEvery=Number(mark.dataset.replayEvery||0);
+      if(replayEvery>=8000) window.setInterval(()=>{
+        if(document.visibilityState!=='visible') return;
+        mark.classList.remove('is-assembled');
+        void mark.getBoundingClientRect();
+        mark.classList.add('is-assembled');
+      },replayEvery);
       observer.disconnect();
     }, { threshold: .5 });
     observer.observe(mark);

@@ -10,9 +10,9 @@ const lang = locale === 'en' ? 'en/' : locale === 'zh-CN' ? 'zh-cn/' : '';
 const root = `${base}/${lang}`.replace(/([^:]\/)\/+/, '$1');
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
 const groups = [
-  { id:'products', label:t('服務','Services'), active:['digital-intelligence','elias-knowledge','elias-care','elias-flow','elias-ops'].includes(current), intro:t('從 AI、應用軟體到資料與數位資產，依照實際需求選擇合作起點。','Begin with AI, application software, data or digital assets according to the real need.'), columns:[
+  { id:'products', label:t('服務','Services'), active:['digital-intelligence','elias-knowledge','elias-care','elias-flow','elias-ops','enterprise-service'].includes(current), intro:t('從 AI、應用軟體到資料與數位資產，依照實際需求選擇合作起點。','Begin with AI, application software, data or digital assets according to the real need.'), columns:[
     { eyebrow:'AI APPLICATIONS + COLLABORATION', title:t('AI 應用與協作','AI Applications & Collaboration'), href:`${root}digital-intelligence/`, links:[[t('知識與客服','Knowledge & Service'),`${root}digital-intelligence/knowledge-service/`],[t('系統與流程','Systems & Workflow'),`${root}digital-intelligence/operations-workflow/`]] },
-    { eyebrow:'ENTERPRISE DIGITAL SOLUTIONS', title:t('企業數位解決方案','Enterprise Digital Solutions'), href:`${root}#service-software`, links:[[`Elias Build · ${t('應用軟體開發與維護','Application Development & Maintenance')}`,`${root}#service-software`],[`Elias Data · ${t('資料整合與效能優化','Data Integration & Performance')}`,`${root}#service-data`],[`Elias Chain · ${t('區塊鏈與數位資產應用','Blockchain & Digital Assets')}`,`${root}#service-digital-assets`]] }
+    { eyebrow:'ENTERPRISE DIGITAL SOLUTIONS', title:t('企業數位解決方案','Enterprise Digital Solutions'), href:`${root}#products`, links:[[`Elias Build · ${t('應用軟體開發與維護','Application Development & Maintenance')}`,`${root}services/elias-build/`],[`Elias Data · ${t('資料整合與效能優化','Data Integration & Performance')}`,`${root}services/elias-data/`],[`Elias Chain · ${t('區塊鏈與數位資產應用','Blockchain & Digital Assets')}`,`${root}services/elias-chain/`]] }
   ]},
   { id:'api', label:'API', active:['api','docs','pricing'].includes(current), intro:t('用 API 把 Elias AI 接進現有工具；產品頁則說明能解決什麼問題。','Use APIs to bring Elias AI into existing tools. Product pages explain what each product helps solve.'), columns:[
     { eyebrow:'DEVELOPER PATH', title:t('開發與整合','Build & Integrate'), href:`${root}api/`, links:[[t('整合文件','Documentation'),`${root}docs/`],[t('合作方案','Plans'),`${root}pricing/`],[t('討論整合','Discuss Integration'),`${root}contact/`]] },
@@ -33,7 +33,7 @@ const groups = [
 ];
 ---
 <header class="v2-header" data-v2-header>
-  <a class="v2-brand" href={root} aria-label={t('Elias Net 首頁','Elias Net home')}><AnimatedBrandMark id="header" animated={path === ''} /></a>
+  <a class="v2-brand" href={root} aria-label={t('Elias Net 首頁','Elias Net home')}><AnimatedBrandMark id="header" animated={path === ''} replayEvery={path === '' ? 18000 : undefined} /></a>
   <button class="v2-menu" type="button" aria-expanded="false" aria-controls="v2-nav" data-v2-menu>{t('選單','Menu')}<span aria-hidden="true"></span></button>
   <nav id="v2-nav" class="v2-nav" aria-label={t('主要導覽','Primary navigation')} data-v2-nav>
     {groups.map((group,index)=><div class="v2-nav-group" data-nav-group>

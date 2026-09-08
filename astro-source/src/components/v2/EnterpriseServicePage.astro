@@ -1,0 +1,50 @@
+---
+import type { SiteLocale } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+import { enterpriseServices, type EnterpriseServiceSlug } from '../../data/enterprise-services';
+import AmbientLightField from './AmbientLightField.astro';
+import CTA from './CTA.astro';
+interface Props { locale: SiteLocale; service: EnterpriseServiceSlug }
+const { locale, service } = Astro.props;
+const item = enterpriseServices[service];
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${base}/`;
+const text=(copy:{zh:string;en:string})=>locale==='en'?copy.en:locale==='zh-CN'?simplify(copy.zh):copy.zh;
+const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
+---
+<section class="v2-enterprise-hero">
+  <AmbientLightField variant={service==='elias-chain'?'violet':service==='elias-data'?'teal':'warm'} density="quiet"/>
+  <div class="v2-shell v2-enterprise-hero-grid">
+    <div>
+      <p class="v2-eyebrow">{item.eyebrow}</p>
+      <strong>{item.name}</strong>
+      <h1>{text(item.headline)}</h1>
+      <p>{text(item.intro)}</p>
+    </div>
+    <aside>
+      <span>{t('服務方向','SERVICE DIRECTION')}</span>
+      <h2>{text(item.label)}</h2>
+      <p>{item.name}</p>
+    </aside>
+  </div>
+</section>
+
+<section class="v2-enterprise-content">
+  <div class="v2-shell">
+    <div class="v2-enterprise-section-head"><p class="v2-eyebrow">{t('適合情境','WHEN IT FITS')}</p><h2>{text(item.fitHeading)}</h2></div>
+    <div class="v2-enterprise-cards">{item.fit.map((copy,index)=><article><span>0{index+1}</span><p>{text(copy)}</p></article>)}</div>
+
+    <div class="v2-enterprise-split">
+      <div><p class="v2-eyebrow">{t('可討論範圍','POSSIBLE SCOPE')}</p><h2>{t('根據需求，選擇必要的範圍。','Choose only the scope the need requires.')}</h2></div>
+      <ol>{item.scope.map((copy,index)=><li><span>0{index+1}</span>{text(copy)}</li>)}</ol>
+    </div>
+
+    <div class="v2-enterprise-process">
+      <header><p class="v2-eyebrow">{t('合作節奏','ENGAGEMENT FLOW')}</p><h2>{t('先小範圍釐清，再穩定往前。','Clarify narrowly, then move forward with confidence.')}</h2></header>
+      <div>{item.process.map((copy,index)=><article><span>{index+1}</span><p>{text(copy)}</p></article>)}</div>
+    </div>
+
+    <aside class="v2-enterprise-boundary"><strong>{t('範圍說明','SCOPE NOTE')}</strong><p>{text(item.boundary)}</p></aside>
+    <div class="v2-actions"><CTA href={`${prefix}contact/`} label={t(`討論 ${item.name}`,`Discuss ${item.name}`)} locale={locale}/><CTA href={`${prefix}#products`} label={t('回到服務項目','Back to services')} locale={locale} secondary/></div>
+  </div>
+</section>

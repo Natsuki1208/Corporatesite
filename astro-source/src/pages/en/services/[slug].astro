@@ -1,0 +1,9 @@
+---
+import NewSiteLayout from '../../../layouts/NewSiteLayout.astro';
+import EnterpriseServicePage from '../../../components/v2/EnterpriseServicePage.astro';
+import { enterpriseServices, enterpriseServiceSlugs, type EnterpriseServiceSlug } from '../../../data/enterprise-services';
+export function getStaticPaths(){ return enterpriseServiceSlugs.map((slug)=>({params:{slug},props:{slug}})); }
+const { slug } = Astro.props as { slug: EnterpriseServiceSlug };
+const service=enterpriseServices[slug];
+---
+<NewSiteLayout locale="en" current="enterprise-service" path={`services/${slug}/`} title={`${service.name} | ${service.label.en} | Elias Net`} description={service.intro.en}><EnterpriseServicePage locale="en" service={slug}/></NewSiteLayout>
