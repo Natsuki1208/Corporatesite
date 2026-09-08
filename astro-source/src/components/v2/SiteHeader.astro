@@ -43,8 +43,11 @@ const groups = [
       </section>
     </div>)}
     <a class="v2-nav-cta" href={`${root}contact/`}>{t('合作與聯絡','Contact')}</a>
-    <LanguageMenu locale={locale} path={path}/>
   </nav>
+  <div class="v2-header-tools">
+    {path === '' && <a class="v2-header-explore" href="#products" aria-label={t('向下探索產品','Scroll to explore products')}><span>{t('向下探索','EXPLORE')}</span><i aria-hidden="true"></i></a>}
+    <LanguageMenu locale={locale} path={path}/>
+  </div>
 </header>
 <script>
 document.querySelectorAll<HTMLElement>('[data-v2-header]').forEach((header)=>{

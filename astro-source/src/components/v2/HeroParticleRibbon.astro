@@ -132,8 +132,9 @@ const { label } = Astro.props;
       last=time;pointerX+=(targetX-pointerX)*.035;pointerY+=(targetY-pointerY)*.035;
       context.clearRect(0,0,width,height);
 
-      const elapsed=Math.max(0,time-startedAt);
-      const rawMorph=clamp((elapsed-420)/5200,0,1);
+      const elapsed=Math.max(0,time-startedAt-420);
+      const cycle=elapsed%10000;
+      const rawMorph=cycle<5000?cycle/5000:1-(cycle-5000)/5000;
       const morph=reduced.matches?1:rawMorph*rawMorph*(3-2*rawMorph);
 
       const wash=context.createRadialGradient(width*.72,height*.48,0,width*.72,height*.48,width*.48);
