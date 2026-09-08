@@ -21,6 +21,10 @@ const { label } = Astro.props;
   };
 
   const clamp = (value:number,min:number,max:number) => Math.max(min,Math.min(max,value));
+  const smooth = (value:number) => {
+    const normalized=clamp(value,0,1);
+    return normalized*normalized*(3-2*normalized);
+  };
   const seeded = (seed:number) => {
     const value = Math.sin(seed * 91.713 + 17.31) * 43758.5453;
     return value - Math.floor(value);
@@ -39,18 +43,22 @@ const { label } = Astro.props;
     let points:RibbonPoint[]=[];
     let pointerX=0,pointerY=0,targetX=0,targetY=0;
 
-    const curve = (t:number) => {
+    const curve = (t:number,vertical=0) => {
       const angle=t*Math.PI*2;
       const compact=width<680;
+      const horizontalX=.5+Math.sin(angle)*(compact?.29:.425);
+      const horizontalY=.62+Math.sin(angle*2)*(compact?.105:.145);
+      const verticalX=.5+Math.sin(angle*2)*(compact?.12:.145);
+      const verticalY=.57+Math.sin(angle)*(compact?.285:.35);
       return {
-        x:.5+Math.sin(angle)*(compact?.29:.425),
-        y:.62+Math.sin(angle*2)*(compact?.105:.145)
+        x:horizontalX+(verticalX-horizontalX)*vertical,
+        y:horizontalY+(verticalY-horizontalY)*vertical
       };
     };
-    const tangent = (t:number) => {
+    const tangent = (t:number,vertical=0) => {
       const epsilon=.002;
-      const before=curve((t-epsilon+1)%1);
-      const after=curve((t+epsilon)%1);
+      const before=curve((t-epsilon+1)%1,vertical);
+      const after=curve((t+epsilon)%1,vertical);
       const dx=(after.x-before.x)*width,dy=(after.y-before.y)*height;
       const length=Math.hypot(dx,dy)||1;
       return {nx:-dy/length,ny:dx/length};
@@ -61,7 +69,7 @@ const { label } = Astro.props;
     const build = () => {
       const box=root.getBoundingClientRect();
       width=Math.max(1,box.width);height=Math.max(1,box.height);
-      dpr=Math.min(devicePixelRatio||1,innerWidth<680?1.2:1.55);
+      dpr=Math.min(devicePixelRatio||1,innerWidth<680?1.15:1.35);
       canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
       canvas.style.width=`${width}px`;canvas.style.height=`${height}px`;
       context.setTransform(dpr,0,0,dpr,0,0);
@@ -76,21 +84,21 @@ const { label } = Astro.props;
           depth:seeded(index+407),
           phase:seeded(index+733)*Math.PI*2,
           speed:.16+seeded(index+991)*.22,
-          size:.58+seeded(index+1217)*1.86,
-          alpha:.4+seeded(index+1429)*.6,
+          size:.42+seeded(index+1217)*1.72,
+          alpha:.16+seeded(index+1429)*.56,
           accent:seeded(index+1699)
         };
       });
     };
 
-    const signalPath = (time:number,morph:number) => {
+    const signalPath = (time:number,morph:number,vertical:number) => {
       const reveal=clamp((morph-.46)/.34,0,1);
       if(reveal<=0)return;
       context.save();
       context.globalAlpha=reveal;
       context.beginPath();
       for(let step=0;step<=100;step++){
-        const t=step/100,p=curve(t);
+        const t=step/100,p=curve(t,vertical);
         const x=p.x*width+pointerX*7*(t-.5),y=p.y*height+pointerY*5*(t-.5);
         if(step===0)context.moveTo(x,y);else context.lineTo(x,y);
       }
@@ -101,7 +109,7 @@ const { label } = Astro.props;
       gradient.addColorStop(1,'rgba(13,126,117,.02)');
       context.strokeStyle=gradient;context.lineWidth=.55;context.stroke();
 
-      const pulse=(time*.000019)%1,p=curve(pulse),normal=tangent(pulse);
+      const pulse=(time*.000019)%1,p=curve(pulse,vertical),normal=tangent(pulse,vertical);
       const px=p.x*width+normal.nx*Math.sin(time*.0012)*4;
       const py=p.y*height+normal.ny*Math.sin(time*.0012)*4;
       const glow=context.createRadialGradient(px,py,0,px,py,24);
@@ -125,17 +133,27 @@ const { label } = Astro.props;
       context.fillRect(cx-radius,cy-radius,radius*2,radius*2);
     };
 
+    const shapeState = (elapsed:number) => {
+      if(reduced.matches)return {morph:1,vertical:0};
+      if(elapsed<5000)return {morph:smooth(elapsed/5000),vertical:0};
+      const cycle=(elapsed-5000)%18000;
+      if(cycle<3000)return {morph:1,vertical:0};
+      if(cycle<6000)return {morph:1-smooth((cycle-3000)/3000),vertical:0};
+      if(cycle<10000)return {morph:smooth((cycle-6000)/4000),vertical:1};
+      if(cycle<12000)return {morph:1,vertical:1};
+      if(cycle<15000)return {morph:1-smooth((cycle-12000)/3000),vertical:1};
+      return {morph:smooth((cycle-15000)/3000),vertical:0};
+    };
+
     const draw = (time=0) => {
       if (!reduced.matches) raf=requestAnimationFrame(draw);
-      if(!visible||!inView||(!reduced.matches&&time-last<33))return;
+      if(!visible||!inView||(!reduced.matches&&time-last<16))return;
       if(!startedAt)startedAt=time;
       last=time;pointerX+=(targetX-pointerX)*.035;pointerY+=(targetY-pointerY)*.035;
       context.clearRect(0,0,width,height);
 
       const elapsed=Math.max(0,time-startedAt-420);
-      const cycle=elapsed%10000;
-      const rawMorph=cycle<5000?cycle/5000:1-(cycle-5000)/5000;
-      const morph=reduced.matches?1:rawMorph*rawMorph*(3-2*rawMorph);
+      const {morph,vertical}=shapeState(elapsed);
 
       const wash=context.createRadialGradient(width*.72,height*.48,0,width*.72,height*.48,width*.48);
       wash.addColorStop(0,'rgba(93,205,191,.13)');wash.addColorStop(.48,'rgba(166,219,211,.06)');wash.addColorStop(1,'rgba(255,255,255,0)');
@@ -147,7 +165,7 @@ const { label } = Astro.props;
         const motion=reduced.matches?0:time*.00012*point.speed;
         const orbit=reduced.matches?0:time*.0000034*(.7+point.depth*.55);
         const t=(point.t+orbit+Math.sin(point.phase+motion)*.0045+1)%1;
-        const center=curve(t),normal=tangent(t);
+        const center=curve(t,vertical),normal=tangent(t,vertical);
         const twist=Math.sin(point.phase+motion*4+t*Math.PI*5.2);
         const depthShift=(point.depth-.5)*14;
         const offset=point.offset*Math.min(width,height)*(width<680?.68:1)*(.88+.16*twist);
@@ -160,14 +178,14 @@ const { label } = Astro.props;
         const clusterY=height*.57+Math.sin(clusterAngle)*clusterRadius*.58*breathing;
         const x=clusterX+(targetPointX-clusterX)*morph;
         const y=clusterY+(targetPointY-clusterY)*morph;
-        const shimmer=.77+.23*Math.sin(point.phase+motion*5.5);
+        const shimmer=.68+.32*Math.sin(point.phase+motion*5.5);
         const alpha=point.alpha*shimmer;
-        const pearl=point.accent>.945;
-        const teal=!pearl&&point.accent>.8;
-        const gold=!pearl&&!teal&&point.accent>.68;
-        const violet=!pearl&&!teal&&!gold&&point.accent>.57;
-        const blue=!pearl&&!teal&&!gold&&!violet&&point.accent>.45;
-        context.fillStyle=pearl?`rgba(255,255,250,${alpha})`:teal?`rgba(0,151,139,${alpha})`:gold?`rgba(205,137,35,${alpha*.96})`:violet?`rgba(119,91,203,${alpha*.88})`:blue?`rgba(49,126,188,${alpha*.88})`:`rgba(12,31,38,${alpha*.9})`;
+        const pearl=point.accent>.975;
+        const teal=!pearl&&point.accent>.83;
+        const gold=!pearl&&!teal&&point.accent>.75;
+        const violet=!pearl&&!teal&&!gold&&point.accent>.7;
+        const blue=!pearl&&!teal&&!gold&&!violet&&point.accent>.64;
+        context.fillStyle=pearl?`rgba(255,255,250,${Math.min(1,alpha*1.45)})`:teal?`rgba(0,139,130,${alpha*.8})`:gold?`rgba(193,132,40,${alpha*.82})`:violet?`rgba(108,91,177,${alpha*.68})`:blue?`rgba(53,115,154,${alpha*.66})`:`rgba(24,52,58,${alpha*.62})`;
         if(pearl){
           context.globalAlpha=.16+point.depth*.12;
           context.beginPath();
@@ -175,11 +193,16 @@ const { label } = Astro.props;
           context.fill();
           context.globalAlpha=1;
         }
-        context.beginPath();
-        context.arc(x,y,point.size*(.72+point.depth*.55),0,Math.PI*2);
-        context.fill();
+        const particleSize=point.size*(.72+point.depth*.55);
+        if(pearl||particleSize>.86){
+          context.beginPath();
+          context.arc(x,y,particleSize,0,Math.PI*2);
+          context.fill();
+        }else{
+          context.fillRect(x-particleSize*.5,y-particleSize*.5,particleSize,particleSize);
+        }
       }
-      signalPath(time,morph);
+      signalPath(time,morph,vertical);
     };
 
     const onPointer=(event:PointerEvent)=>{

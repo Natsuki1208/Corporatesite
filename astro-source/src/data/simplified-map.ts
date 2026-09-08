@@ -242,7 +242,17 @@ export const traditionalToSimplified: Record<string, string> = {
   "訓": "训",
   "練": "练",
   "佈": "布",
-  "纔": "才"
+  "纔": "才",
+  "隨": "随",
+  "剛": "刚",
+  "報": "报",
+  "歷": "历",
+  "瀏": "浏",
+  "檔": "档",
+  "併": "并",
+  "塊": "块",
+  "畫": "画",
+  "鏈": "链"
 };
 
 export function simplify(value: string): string {

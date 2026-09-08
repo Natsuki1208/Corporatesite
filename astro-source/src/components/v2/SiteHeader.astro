@@ -14,7 +14,7 @@ const groups = [
     { eyebrow:'AI APPLICATIONS + COLLABORATION', title:t('AI 應用與協作','AI Applications & Collaboration'), href:`${root}digital-intelligence/`, links:[[t('知識與客服','Knowledge & Service'),`${root}digital-intelligence/knowledge-service/`],[t('系統與流程','Systems & Workflow'),`${root}digital-intelligence/operations-workflow/`]] },
     { eyebrow:'ENTERPRISE DIGITAL SOLUTIONS', title:t('企業數位服務','Enterprise Digital Services'), href:`${root}enterprise-digital-solutions/`, links:[[`Elias Build · ${t('應用軟體開發與維護','Application Development & Maintenance')}`,`${root}services/elias-build/`],[`Elias Data · ${t('資料整合與效能優化','Data Integration & Performance')}`,`${root}services/elias-data/`],[`Elias Chain · ${t('區塊鏈與數位資產應用','Blockchain & Digital Assets')}`,`${root}services/elias-chain/`]] }
   ]},
-  { id:'api', label:'API', active:['api','docs','pricing'].includes(current), intro:t('用 API 把 Elias AI 接進現有工具；產品頁則說明能解決什麼問題。','Use APIs to bring Elias AI into existing tools. Product pages explain what each product helps solve.'), columns:[
+  { id:'api', label:'API', active:['api','docs','pricing'].includes(current), intro:t('用 API 規劃 Elias AI 與現有工具的串接方式，並先確認資料、權限與人工確認界線。','Use APIs to plan how Elias AI connects with existing tools, with clear data, permission and human-review boundaries.'), columns:[
     { eyebrow:'DEVELOPER PATH', title:t('AI API 與整合','AI API & Integration'), href:`${root}api/`, links:[[t('AI 整合文件','AI Documentation'),`${root}docs/`],[t('合作方案','Plans'),`${root}pricing/`],[t('討論整合','Discuss Integration'),`${root}contact/`]] },
     { eyebrow:'AI INTEGRATION', title:t('四種 AI 整合方式','Four AI Integration Areas'), href:`${root}api/#integration-map`, links:[[t('知識搜尋','Knowledge Retrieval'),`${root}api/#knowledge`],[t('客服協作','Service Collaboration'),`${root}api/#care`],[t('流程任務','Workflow Tasks'),`${root}api/#flow`],[t('事件整理','Incident Context'),`${root}api/#ops`]] }
   ]},
@@ -28,7 +28,7 @@ const groups = [
   ]},
   { id:'company', label:t('關於我們','About'), active:['company','founder','about','careers'].includes(current), intro:t('認識我們相信的未來、正在形成的團隊，以及可以一起前進的方式。','Meet the future we believe in, the team taking shape and ways to move forward together.'), columns:[
     { eyebrow:'COMPANY', title:'ELIAS NET', href:`${root}company/`, links:[[t('創辦人理念','Founder Vision'),`${root}founder/`],[t('技術與信任','Technology & Trust'),`${root}technology/`]] },
-    { eyebrow:'TOGETHER', title:t('一起前進','Move Forward Together'), href:`${root}careers/`, links:[[t('職缺與所需能力','Roles & Skills'),`${root}careers/#ai-engineer`],[t('合作與聯絡','Collaboration'),`${root}contact/`]] }
+    { eyebrow:'TOGETHER', title:t('一起前進','Move Forward Together'), href:`${root}careers/`, links:[[t('職缺與所需能力','Roles & Skills'),`${root}careers/#ai-engineer`]] }
   ]}
 ];
 ---
