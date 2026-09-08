@@ -1,0 +1,57 @@
+---
+import type { SiteLocale } from '../../data/products';
+import { simplify } from '../../data/simplified-map';
+const { locale }=Astro.props as {locale:SiteLocale};
+const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
+---
+<section id="contact-form" class="v2-contact-form-section" aria-labelledby="contact-form-title">
+  <div class="v2-shell v2-contact-form-grid">
+    <header>
+      <p class="v2-eyebrow">CONTACT BRIEF</p>
+      <h2 id="contact-form-title">{t('留下基本資訊，讓第一次交流更聚焦。','Share a few details so the first conversation can stay focused.')}</h2>
+      <p>{t('簡單說明你想改善的情境與聯絡方式，我們會從需求、環境與合適的合作起點開始了解。','Describe the situation you want to improve and how to reach you. We will begin with the need, environment and a practical starting point.')}</p>
+      <aside><strong>{t('資料說明','DATA NOTE')}</strong><span>{t('本站不會線上儲存這些欄位；送出後會開啟你的郵件程式，由你確認內容再寄出。','This site does not store these fields online. Submitting opens your email app so you can review the message before sending.')}</span></aside>
+    </header>
+    <form class="v2-contact-form" data-contact-form data-recipient="natsuki12089212@gmail.com">
+      <div class="v2-contact-field"><label for="contact-name">{t('姓名','Name')} <span aria-hidden="true">*</span></label><input id="contact-name" name="name" autocomplete="name" required /></div>
+      <div class="v2-contact-field"><label for="contact-title">{t('職稱／角色','Title / Role')}</label><input id="contact-title" name="title" autocomplete="organization-title" /></div>
+      <div class="v2-contact-field"><label for="contact-email">Email <span aria-hidden="true">*</span></label><input id="contact-email" name="email" type="email" autocomplete="email" required /></div>
+      <div class="v2-contact-field"><label for="contact-phone">{t('電話（選填）','Phone (optional)')}</label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" /></div>
+      <div class="v2-contact-field is-wide"><label for="contact-topic">{t('需求方向','Area of interest')}</label><select id="contact-topic" name="topic"><option value="ai">{t('AI 應用與協作','AI applications and collaboration')}</option><option value="build">Elias Build</option><option value="data">Elias Data</option><option value="chain">Elias Chain</option><option value="talent">{t('人才交流','Talent conversation')}</option><option value="other">{t('其他合作','Other collaboration')}</option></select></div>
+      <div class="v2-contact-field is-wide"><label for="contact-message">{t('想討論的情境','What would you like to discuss?')} <span aria-hidden="true">*</span></label><textarea id="contact-message" name="message" rows="6" required placeholder={t('例如：目前的流程、遇到的問題、希望改善的結果。','For example: the current workflow, the challenge and the result you hope to improve.')}></textarea></div>
+      <div class="v2-contact-form-action"><button type="submit">{t('準備郵件','Prepare email')} <span aria-hidden="true">→</span></button><p aria-live="polite" data-contact-status>{t('送出前仍可在郵件程式中確認內容。','You can review everything in your email app before sending.')}</p></div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const setupContactForm=(form:HTMLFormElement)=>{
+    if(form.dataset.ready==='true')return;
+    form.dataset.ready='true';
+    const params=new URLSearchParams(location.search);
+    const topic=form.elements.namedItem('topic') as HTMLSelectElement|null;
+    const title=form.elements.namedItem('title') as HTMLInputElement|null;
+    const incomingTopic=params.get('topic');
+    if(topic&&incomingTopic&&Array.from(topic.options).some(option=>option.value===incomingTopic))topic.value=incomingTopic;
+    const role=params.get('role');if(title&&role&&!title.value)title.value=role;
+    form.addEventListener('submit',(event)=>{
+      event.preventDefault();
+      if(!form.reportValidity())return;
+      const data=new FormData(form);
+      const topicLabel=topic?.selectedOptions[0]?.textContent?.trim()||'Elias Net';
+      const subject=`Elias Net ${topicLabel} inquiry`;
+      const body=[
+        `Name: ${data.get('name')||''}`,
+        `Title / Role: ${data.get('title')||''}`,
+        `Email: ${data.get('email')||''}`,
+        `Phone: ${data.get('phone')||''}`,
+        `Area: ${topicLabel}`,
+        '',
+        `${data.get('message')||''}`
+      ].join('\n');
+      location.href=`mailto:${form.dataset.recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+  };
+  document.querySelectorAll<HTMLFormElement>('[data-contact-form]').forEach(setupContactForm);
+  document.addEventListener('astro:page-load',()=>document.querySelectorAll<HTMLFormElement>('[data-contact-form]').forEach(setupContactForm));
+</script>

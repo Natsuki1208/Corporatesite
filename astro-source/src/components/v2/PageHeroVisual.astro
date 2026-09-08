@@ -22,10 +22,10 @@ const image = pageKey === 'knowledge-service'
         : pageKey === 'research'
           ? `${base}/images/elias-net-signal-studio.jpg`
           : pageKey === 'contact'
-            ? `${base}/images/elias-net-integration-hero.jpg`
+            ? `${base}/images/v2/services/elias-collaboration-planning.jpg`
             : `${base}/images/v2/human-ai-shared-view-v2.jpg`;
 ---
-<figure class:list={['v2-page-hero-visual',digital&&'is-digital',robotic&&'is-robotic']}>
+<figure class:list={['v2-page-hero-visual',digital&&'is-digital',robotic&&'is-robotic',pageKey==='contact'&&'is-contact']}>
   <img src={image} alt={alt} width="1200" height="800" loading="eager" decoding="async" />
   <div class="v2-page-hero-visual-shade" aria-hidden="true"></div>
   <div class="v2-page-hero-core" aria-hidden="true"><AnimatedBrandMark variant="icon" id={`page-${pageKey}`} continuous/></div>

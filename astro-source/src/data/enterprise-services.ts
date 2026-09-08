@@ -20,13 +20,13 @@ export const enterpriseServices: Record<EnterpriseServiceSlug, EnterpriseService
     name: 'Elias Build',
     eyebrow: 'APPLICATION ENGINEERING',
     label: { zh: '應用軟體開發與維護', en: 'Application Software Development & Maintenance' },
-    headline: { zh: '從需求到長期運作，讓軟體服務更穩定。', en: 'From requirements to lasting operations, keep software dependable.' },
-    intro: { zh: '協助釐清需求、設計流程、建置應用，並把測試、部署與後續維護納入同一套工作方式。', en: 'Clarify requirements, design workflows, build applications and connect testing, delivery and ongoing maintenance in one practical engagement.' },
-    fitHeading: { zh: '從要改善的流程開始。', en: 'Begin with the workflow that needs to improve.' },
+    headline: { zh: '從需求到維護，建立能長期運作的軟體服務。', en: 'From requirements to maintenance, build software that lasts.' },
+    intro: { zh: '從需求梳理、流程設計到應用開發，將測試、部署規劃與後續維護納入同一套交付方式。', en: 'From requirements and workflow design to application development, bring testing, deployment planning and ongoing maintenance into one delivery approach.' },
+    fitHeading: { zh: '這些軟體需求，適合從 Elias Build 開始。', en: 'These software needs are a strong fit for Elias Build.' },
     fit: [
-      { zh: '現有流程依賴人工整理，希望建立專用應用', en: 'Manual workflows need a purpose-built application' },
-      { zh: '舊有系統需要整合、改版或持續維護', en: 'Existing systems need integration, renewal or ongoing support' },
-      { zh: '需要先用小範圍原型驗證新服務', en: 'A focused prototype is needed before a larger build' }
+      { zh: '希望把仰賴人工整理的流程，建成專用應用', en: 'Turn a manually coordinated workflow into a purpose-built application' },
+      { zh: '需要整合、改版或持續維護既有系統', en: 'Integrate, modernize or maintain an existing system' },
+      { zh: '想先用小範圍原型，驗證新服務的核心流程', en: 'Validate a new service’s core workflow with a focused prototype' }
     ],
     scope: [
       { zh: '需求與流程盤點', en: 'Requirements and workflow mapping' },
@@ -44,13 +44,13 @@ export const enterpriseServices: Record<EnterpriseServiceSlug, EnterpriseService
     name: 'Elias Data',
     eyebrow: 'DATA INTELLIGENCE',
     label: { zh: '資料整合與效能優化', en: 'Data Integration & Performance' },
-    headline: { zh: '讓分散資料清楚連結，查詢與分析更有效率。', en: 'Connect scattered data and make retrieval and analysis more efficient.' },
-    intro: { zh: '從資料來源、結構與品質開始，整理整合方式，改善查詢效率與資訊呈現，為後續應用建立穩定基礎。', en: 'Begin with sources, structure and quality, then improve integration, query efficiency and presentation to create a dependable foundation for future applications.' },
-    fitHeading: { zh: '從資料用途與真正的瓶頸開始。', en: 'Begin with the data purpose and the real bottleneck.' },
+    headline: { zh: '整合分散資料，提升查詢效率與分析一致性。', en: 'Unify scattered data for faster queries and more consistent analysis.' },
+    intro: { zh: '盤點資料來源、結構與品質，改善資料流程、查詢效率與呈現方式，為分析、自動化與 AI 應用建立可靠基礎。', en: 'Assess sources, structure and quality, then improve data flows, query performance and presentation to create a reliable foundation for analytics, automation and AI.' },
+    fitHeading: { zh: '這些資料問題，適合優先處理。', en: 'These data issues are worth addressing first.' },
     fit: [
-      { zh: '資料分散於不同系統、檔案或團隊', en: 'Data is scattered across systems, files or teams' },
-      { zh: '查詢緩慢，報表與指標難以維持一致', en: 'Queries are slow or reporting metrics are inconsistent' },
-      { zh: '準備建立分析、自動化或 AI 應用', en: 'Analytics, automation or AI initiatives need a stronger data foundation' }
+      { zh: '資料分散在不同系統、檔案或團隊之間', en: 'Data is scattered across systems, files or teams' },
+      { zh: '查詢速度不足，報表與指標也難以維持一致', en: 'Queries are slow and reporting metrics are difficult to keep consistent' },
+      { zh: '準備導入分析、自動化或 AI，需要先建立可靠的資料基礎', en: 'Analytics, automation or AI initiatives need a reliable data foundation first' }
     ],
     scope: [
       { zh: '資料來源與品質盤點', en: 'Source and data-quality assessment' },
@@ -68,13 +68,13 @@ export const enterpriseServices: Record<EnterpriseServiceSlug, EnterpriseService
     name: 'Elias Chain',
     eyebrow: 'BLOCKCHAIN & DIGITAL ASSETS',
     label: { zh: '區塊鏈與數位資產應用', en: 'Blockchain & Digital Asset Applications' },
-    headline: { zh: '先看清價值與風險，再選擇適合的整合方式。', en: 'Clarify value and risk before choosing the right integration.' },
-    intro: { zh: '依實際需求、法規與安全條件，協助評估區塊鏈、通證或數位資產相關應用，並規劃可驗證的整合範圍。', en: 'Assess blockchain, token or digital-asset applications against real requirements, regulation and security, then define a scope that can be validated.' },
-    fitHeading: { zh: '先確認問題是否真的需要區塊鏈。', en: 'First confirm whether the problem truly needs blockchain.' },
+    headline: { zh: '釐清共享與追溯需求，再規劃區塊鏈整合。', en: 'Clarify sharing and traceability needs before planning blockchain integration.' },
+    intro: { zh: '當多方需要共享紀錄、追蹤交易，或串接鏈上資料與數位資產時，先評估適用性、法規與安全條件，再規劃可驗證的整合範圍。', en: 'When multiple parties need shared records, transaction traceability, on-chain data or digital assets, first assess fit, regulation and security, then define an integration scope that can be validated.' },
+    fitHeading: { zh: '這些跨組織或鏈上需求，值得進一步評估。', en: 'These cross-organization or on-chain needs merit closer evaluation.' },
     fit: [
-      { zh: '需要評估區塊鏈是否真的適合使用情境', en: 'A use case needs an honest blockchain fit assessment' },
-      { zh: '現有應用需要整合數位資產或鏈上資訊', en: 'An application needs digital-asset or on-chain data integration' },
-      { zh: '專案需要同時考量安全、法遵與營運風險', en: 'Security, compliance and operational risk must be considered together' }
+      { zh: '多個組織需要共享交易或資產紀錄，並保留可查驗的歷程', en: 'Multiple organizations need shared transaction or asset records with a verifiable history' },
+      { zh: '現有應用需要串接鏈上資料、錢包或數位資產', en: 'An existing application needs on-chain data, wallet or digital-asset integration' },
+      { zh: '需要設計資產權限、交易稽核與異常處理流程', en: 'Asset permissions, transaction audit and exception handling need deliberate design' }
     ],
     scope: [
       { zh: '應用情境與可行性評估', en: 'Use-case and feasibility assessment' },
@@ -86,6 +86,6 @@ export const enterpriseServices: Record<EnterpriseServiceSlug, EnterpriseService
       { zh: '界定法遵、資產與安全條件', en: 'Bound regulatory, asset and security conditions' },
       { zh: '用受控原型驗證整合方式', en: 'Validate integration through a controlled prototype' }
     ],
-    boundary: { zh: '不將評估或原型視為投資、法律或上線承諾；正式應用需另行確認法遵與安全要求。', en: 'Assessment and prototypes are not investment, legal or launch commitments; production use requires separate compliance and security confirmation.' }
+    boundary: { zh: '本服務不構成投資或法律意見；原型也不代表可直接上線。正式應用須另行完成法遵、安全與營運驗證。', en: 'This service does not constitute investment or legal advice, and a prototype is not production approval. Production use requires separate compliance, security and operational validation.' }
   }
 };

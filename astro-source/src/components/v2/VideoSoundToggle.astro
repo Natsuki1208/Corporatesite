@@ -8,16 +8,16 @@ const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? s
 ---
 <button
   type="button"
-  class="v2-video-sound"
   data-video-sound
   data-video-target={target}
   data-label-on={t('聲音已開啟','Sound on')}
   data-label-off={t('開啟聲音','Turn sound on')}
-  aria-label={t('聲音已開啟','Sound on')}
-  aria-pressed="true"
+  aria-label={t('開啟聲音','Turn sound on')}
+  aria-pressed="false"
+  class="v2-video-sound is-muted"
 >
   <span class="v2-video-sound-icon" aria-hidden="true"></span>
-  <span data-video-sound-label>{t('聲音已開啟','Sound on')}</span>
+  <span data-video-sound-label>{t('開啟聲音','Turn sound on')}</span>
 </button>
 
 <script>
@@ -37,18 +37,6 @@ const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? s
       label.textContent = soundOn ? button.dataset.labelOn || 'Sound on' : button.dataset.labelOff || 'Turn sound on';
     };
 
-    const startWithSound = async () => {
-      video.muted = false;
-      video.volume = 1;
-      try {
-        await video.play();
-      } catch {
-        video.muted = true;
-        await video.play().catch(() => undefined);
-      }
-      render();
-    };
-
     button.addEventListener('click', async () => {
       video.muted = !video.muted;
       if (!video.muted) video.volume = 1;
@@ -56,7 +44,7 @@ const t = (zh:string,en:string) => locale === 'en' ? en : locale === 'zh-CN' ? s
       render();
     });
     video.addEventListener('volumechange', render);
-    void startWithSound();
+    render();
   };
 
   document.querySelectorAll<HTMLButtonElement>('[data-video-sound]').forEach(setupVideoSound);

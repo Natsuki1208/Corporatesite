@@ -4,6 +4,7 @@ import { simplify } from '../../data/simplified-map';
 import { enterpriseServices, type EnterpriseServiceSlug } from '../../data/enterprise-services';
 import AmbientLightField from './AmbientLightField.astro';
 import CTA from './CTA.astro';
+import VideoSoundToggle from './VideoSoundToggle.astro';
 interface Props { locale: SiteLocale; service: EnterpriseServiceSlug }
 const { locale, service } = Astro.props;
 const item = enterpriseServices[service];
@@ -12,6 +13,8 @@ const prefix=locale==='en'?`${base}/en/`:locale==='zh-CN'?`${base}/zh-cn/`:`${ba
 const mediaName=service;
 const videoUrl=`${base}/media/${mediaName}-service.mp4`;
 const posterUrl=`${base}/images/v2/services/${mediaName}-service.jpg`;
+const videoId=`${service}-service-video`;
+const inquiryHref=`mailto:natsuki12089212@gmail.com?subject=${encodeURIComponent(`Elias Net ${item.name} service inquiry`)}`;
 const text=(copy:{zh:string;en:string})=>locale==='en'?copy.en:locale==='zh-CN'?simplify(copy.zh):copy.zh;
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
 ---
@@ -23,11 +26,15 @@ const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh
       <strong>{item.name}</strong>
       <h1>{text(item.headline)}</h1>
       <p>{text(item.intro)}</p>
+      <div class="v2-actions v2-enterprise-hero-actions"><CTA href={inquiryHref} label={t('討論這項需求','Discuss this need')} locale={locale}/><CTA href="#engagement" label={t('查看合作方式','See how we work')} locale={locale} secondary/></div>
     </div>
     <figure class="v2-enterprise-media">
-      <video autoplay muted={true} loop playsinline preload="metadata" poster={posterUrl} aria-label={t(`${item.name} 服務情境影片`,`${item.name} service scenario video`)}>
-        <source src={videoUrl} type="video/mp4"/>
-      </video>
+      <div class="v2-enterprise-video-frame">
+        <video id={videoId} autoplay muted={true} loop playsinline preload="metadata" poster={posterUrl} aria-label={t(`${item.name} 服務情境影片`,`${item.name} service scenario video`)}>
+          <source src={videoUrl} type="video/mp4"/>
+        </video>
+        <VideoSoundToggle target={videoId} locale={locale}/>
+      </div>
       <figcaption><span>{t('服務方向','SERVICE DIRECTION')}</span><strong>{text(item.label)}</strong></figcaption>
     </figure>
   </div>
@@ -35,20 +42,20 @@ const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh
 
 <section class="v2-enterprise-content">
   <div class="v2-shell">
-    <div class="v2-enterprise-section-head"><p class="v2-eyebrow">{t('適合情境','WHEN IT FITS')}</p><h2>{text(item.fitHeading)}</h2></div>
+    <div class="v2-enterprise-section-head"><p class="v2-eyebrow">{t('01／適用情境','01 / USE CASES')}</p><h2>{text(item.fitHeading)}</h2></div>
     <div class="v2-enterprise-cards">{item.fit.map((copy,index)=><article><span>0{index+1}</span><p>{text(copy)}</p></article>)}</div>
 
     <div class="v2-enterprise-split">
-      <div><p class="v2-eyebrow">{t('可討論範圍','POSSIBLE SCOPE')}</p><h2>{t('根據需求，選擇必要的範圍。','Choose only the scope the need requires.')}</h2></div>
+      <div><p class="v2-eyebrow">{t('可討論範圍','POSSIBLE SCOPE')}</p><h2>{t('合作範圍，依實際需求組合。','Shape the scope around the real need.')}</h2></div>
       <ol>{item.scope.map((copy,index)=><li><span>0{index+1}</span>{text(copy)}</li>)}</ol>
     </div>
 
-    <div class="v2-enterprise-process">
-      <header><p class="v2-eyebrow">{t('合作節奏','ENGAGEMENT FLOW')}</p><h2>{t('先小範圍釐清，再穩定往前。','Clarify narrowly, then move forward with confidence.')}</h2></header>
+    <div id="engagement" class="v2-enterprise-process">
+      <header><p class="v2-eyebrow">{t('合作節奏','ENGAGEMENT FLOW')}</p><h2>{t('先確認範圍與驗收標準，再分階段交付。','Agree on scope and acceptance criteria, then deliver in stages.')}</h2></header>
       <div>{item.process.map((copy,index)=><article><span>{index+1}</span><p>{text(copy)}</p></article>)}</div>
     </div>
 
     <aside class="v2-enterprise-boundary"><strong>{t('範圍說明','SCOPE NOTE')}</strong><p>{text(item.boundary)}</p></aside>
-    <div class="v2-actions"><CTA href={`${prefix}contact/`} label={t(`討論 ${item.name}`,`Discuss ${item.name}`)} locale={locale}/><CTA href={`${prefix}#products`} label={t('回到服務項目','Back to services')} locale={locale} secondary/></div>
+    <div class="v2-actions"><CTA href={inquiryHref} label={t(`討論 ${item.name}`,`Discuss ${item.name}`)} locale={locale}/><CTA href={`${prefix}enterprise-digital-solutions/`} label={t('回到服務總覽','Back to service overview')} locale={locale} secondary/></div>
   </div>
 </section>
