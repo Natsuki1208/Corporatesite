@@ -1,4 +1,7 @@
 /* Content-led inner pages. Home, inquiry forms and product claims stay unchanged. */
+.v2-body.is-inner .v2-plan-grid li { color:#40575a; }
+.v2-body.is-inner .v2-plan-grid li::before { color:#08776c; }
+.v2-body.is-inner .v2-plan-price { color:#40575a;font-size:1.15rem;font-weight:600;text-shadow:none; }
 .v2-body.is-inner .v2-service-use-cases {
   display:grid;
   grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
