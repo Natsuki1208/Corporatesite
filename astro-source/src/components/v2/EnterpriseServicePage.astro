@@ -45,8 +45,10 @@ const story={
 
 <section class:list={['v2-enterprise-content',`is-${service}`]}>
   <div class="v2-shell">
+    <div class="v2-service-use-cases">
     <div class="v2-enterprise-section-head"><p class="v2-eyebrow">{t('01／適用情境','01 / USE CASES')}</p><h2>{text(item.fitHeading)}</h2></div>
     <div class="v2-enterprise-cards">{item.fit.map((copy,index)=><article><span>0{index+1}</span><p>{text(copy)}</p></article>)}</div>
+    </div>
 
     <div class="v2-enterprise-split">
       <div><p class="v2-eyebrow">{t('工作示意','HOW IT CONNECTS')}</p><h2>{story.heading}</h2><p>{story.note}</p><ol class="v2-service-map" aria-label={t('服務關係示意','Service relationship diagram')}>{story.steps.map(step=><li>{step}</li>)}</ol></div>

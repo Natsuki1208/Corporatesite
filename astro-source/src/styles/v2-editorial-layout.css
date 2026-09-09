@@ -1,0 +1,116 @@
+/* Content-led inner pages. Home, inquiry forms and product claims stay unchanged. */
+.v2-body.is-inner .v2-service-use-cases {
+  display:grid;
+  grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+  gap:clamp(28px,5vw,72px);
+  align-items:start;
+}
+.v2-service-use-cases .v2-enterprise-section-head { margin:0; }
+.v2-body.is-inner .v2-service-use-cases h2 {
+  font-size:clamp(1.5rem,2.2vw,2rem);
+  line-height:1.45;
+  text-wrap:pretty;
+  text-shadow:none;
+}
+.v2-service-use-cases .v2-enterprise-cards {
+  display:block;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  background:transparent;
+}
+.v2-service-use-cases .v2-enterprise-cards article {
+  display:grid;
+  grid-template-columns:32px minmax(0,1fr);
+  gap:20px;
+  min-height:0;
+  padding:24px 0;
+  background:transparent;
+  border:0;
+  border-top:1px solid var(--v2-soft-line);
+  box-shadow:none;
+}
+.v2-service-use-cases .v2-enterprise-cards article::before { display:none; }
+.v2-service-use-cases .v2-enterprise-cards span {
+  width:auto;height:auto;border:0;border-radius:0;background:none;
+  align-self:start;padding-top:4px;
+}
+.v2-service-use-cases .v2-enterprise-cards p { margin:0;max-width:48ch; }
+
+/* Capabilities read as four short chapters, with technical detail on demand. */
+.v2-body.is-inner[data-page="technology"] .v2-four-grid { display:block; }
+.v2-body.is-inner[data-page="technology"] .v2-value-card {
+  display:grid;
+  grid-template-columns:minmax(120px,.45fr) minmax(0,1fr) minmax(180px,.7fr);
+  gap:20px 40px;
+  align-items:start;
+  padding:32px 0;
+  border:0;
+  border-top:1px solid var(--v2-soft-line);
+  border-radius:0;
+  box-shadow:none;
+  background:transparent;
+  transform:none;
+}
+.v2-body.is-inner[data-page="technology"] .v2-value-card::after { display:none; }
+.v2-body.is-inner[data-page="technology"] .v2-value-card h2 {
+  margin:0;font-size:1.5rem;line-height:1.45;text-shadow:none;
+}
+.v2-body.is-inner[data-page="technology"] .v2-value-card p { margin:0;line-height:1.85; }
+.v2-body.is-inner[data-page="technology"] .v2-value-card details {
+  margin:0;padding:0 0 0 20px;border-left:2px solid #c9d9d2;
+}
+.v2-body.is-inner[data-page="technology"] .v2-value-card summary { padding:4px 0;color:#146c63; }
+.v2-body.is-inner[data-page="technology"] .v2-value-card details p { margin-top:12px;font-size:.9rem; }
+
+/* Trust: a clear control list followed by a quieter limitations note. */
+.v2-body.is-inner[data-page="safety"] .v2-safety {
+  display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+  column-gap:clamp(28px,5vw,72px);
+  padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;
+}
+.v2-body.is-inner[data-page="safety"] .v2-safety > .v2-eyebrow { grid-column:1/-1; }
+.v2-body.is-inner[data-page="safety"] .v2-safety h2 {
+  margin:0;font-size:clamp(1.5rem,2.2vw,2rem);line-height:1.45;text-shadow:none;
+}
+.v2-body.is-inner[data-page="safety"] .v2-safety .v2-three-grid { display:block; }
+.v2-body.is-inner[data-page="safety"] .v2-safety article { padding:0 0 22px; }
+.v2-body.is-inner[data-page="safety"] .v2-safety article + article {
+  padding-top:22px;border-top:1px solid var(--v2-soft-line);
+}
+.v2-body.is-inner[data-page="safety"] .v2-safety h3 { margin:0 0 8px;font-size:1.1rem;text-shadow:none; }
+.v2-body.is-inner[data-page="safety"] .v2-safety article p { margin:0;line-height:1.85; }
+.v2-body.is-inner[data-page="safety"] .v2-prose {
+  max-width:740px;margin:40px 0 0 auto;padding:24px 28px;
+  border-left:2px solid #c9bfdc;background:#f3f1f7;
+}
+.v2-body.is-inner[data-page="safety"] .v2-prose h2 { font-size:1.2rem;margin-top:0;text-shadow:none; }
+
+/* Talent: compact role headers and readable capability columns. */
+.v2-body.is-inner .v2-careers .v2-career-role {
+  gap:20px 48px;padding:36px 0;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+}
+.v2-body.is-inner .v2-careers .v2-career-role-head { grid-template-columns:26px minmax(0,1fr);gap:14px; }
+.v2-body.is-inner .v2-careers .v2-career-role-head h2 {
+  font-size:clamp(1.35rem,2vw,1.8rem);line-height:1.4;text-shadow:none;
+}
+.v2-body.is-inner .v2-careers .v2-career-role-head p:last-child { font-size:.94rem;line-height:1.8;max-width:36ch; }
+.v2-body.is-inner .v2-careers .v2-career-details { gap:24px; }
+.v2-body.is-inner .v2-careers .v2-career-details h3 { font-size:.8rem;letter-spacing:.05em; }
+.v2-body.is-inner .v2-careers .v2-career-details li { padding:9px 0;border-bottom:0; }
+.v2-body.is-inner .v2-careers .v2-career-role > a { margin:0;padding:8px 0; }
+
+@media(max-width:900px) {
+  .v2-body.is-inner[data-page="technology"] .v2-value-card { grid-template-columns:130px minmax(0,1fr); }
+  .v2-body.is-inner[data-page="technology"] .v2-value-card details { grid-column:2; }
+  .v2-body.is-inner .v2-careers .v2-career-role { grid-template-columns:1fr; }
+  .v2-body.is-inner .v2-careers .v2-career-role > a { grid-column:1; }
+}
+@media(max-width:640px) {
+  .v2-body.is-inner .v2-service-use-cases,
+  .v2-body.is-inner[data-page="safety"] .v2-safety { grid-template-columns:1fr;gap:24px; }
+  .v2-body.is-inner[data-page="technology"] .v2-value-card { grid-template-columns:1fr;gap:14px;padding:26px 0; }
+  .v2-body.is-inner[data-page="technology"] .v2-value-card details { grid-column:1; }
+  .v2-body.is-inner[data-page="safety"] .v2-prose { padding:20px;margin-top:24px; }
+  .v2-body.is-inner .v2-careers .v2-career-details { grid-template-columns:1fr;gap:24px; }
+}
