@@ -35,7 +35,7 @@ export const enterpriseServices: Record<EnterpriseServiceSlug, EnterpriseService
     ],
     process: [
       { zh: '定義要改善的結果', en: 'Define the result to improve' },
-      { zh: '驗證核心流程與風險', en: 'Validate the core workflow and risks' },
+      { zh: '測試核心流程，評估相關風險', en: 'Test the core workflow and assess the risks' },
       { zh: '分階段交付並持續改善', en: 'Deliver in stages and improve continuously' }
     ],
     boundary: { zh: '實際功能、時程與維護範圍，依需求、環境與驗收條件確認。', en: 'Functions, timing and support scope are confirmed against requirements, environment and acceptance criteria.' }
@@ -58,9 +58,9 @@ export const enterpriseServices: Record<EnterpriseServiceSlug, EnterpriseService
       { zh: '指標、報表與資訊呈現規劃', en: 'Metrics, reporting and information design' }
     ],
     process: [
-      { zh: '確認資料目的與責任邊界', en: 'Confirm data purpose and ownership' },
+      { zh: '釐清資料用途與管理分工', en: 'Clarify how data will be used and who manages it' },
       { zh: '找出品質與效能瓶頸', en: 'Find quality and performance bottlenecks' },
-      { zh: '建立可測量的改善路徑', en: 'Build a measurable improvement path' }
+      { zh: '規劃改善步驟與成效衡量方式', en: 'Plan improvements and how to measure their results' }
     ],
     boundary: { zh: '會先確認資料權限、品質與使用目的；效能成果需以實際資料量與環境驗證。', en: 'Permissions, quality and purpose are confirmed first; performance results require validation against real data volume and environment.' }
   },
@@ -82,9 +82,9 @@ export const enterpriseServices: Record<EnterpriseServiceSlug, EnterpriseService
       { zh: '權限、稽核、安全與異常流程設計', en: 'Permission, audit, security and exception-flow design' }
     ],
     process: [
-      { zh: '先驗證問題是否需要區塊鏈', en: 'First validate whether blockchain is needed' },
-      { zh: '界定法遵、資產與安全條件', en: 'Bound regulatory, asset and security conditions' },
-      { zh: '用受控原型驗證整合方式', en: 'Validate integration through a controlled prototype' }
+      { zh: '評估是否需要採用區塊鏈', en: 'Assess whether blockchain is needed' },
+      { zh: '釐清法遵、資產管理與安全要求', en: 'Clarify compliance, asset management and security requirements' },
+      { zh: '在限定範圍內，以原型測試整合方式', en: 'Test integration with a prototype within a defined scope' }
     ],
     boundary: { zh: '本服務不構成投資或法律意見；原型也不代表可直接上線。正式應用須另行完成法遵、安全與營運驗證。', en: 'This service does not constitute investment or legal advice, and a prototype is not production approval. Production use requires separate compliance, security and operational validation.' }
   }
