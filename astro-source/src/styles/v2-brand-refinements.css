@@ -2947,8 +2947,6 @@ html:lang(en) .v2-body {
 .v2-docs-page :where(p,li) {
   color:var(--v2-body-copy);
 }
-.v2-contact-email-fallback { font-size:.82rem; }
-.v2-contact-email-fallback a { color:#087d73;font-weight:800;text-underline-offset:3px; }
 .v2-career-details li { font-size:.9rem;line-height:1.65; }
 .v2-body.is-home .v2-immersive-hero .v2-hero-message > p:not(.v2-eyebrow):not(.v2-hero-en):not(.v2-hero-protocol) {
   color:#4f6267;
@@ -3044,4 +3042,44 @@ html:lang(en) .v2-body {
     margin-top:0;
     box-shadow:0 18px 46px rgba(16,33,41,.2);
   }
+}
+
+/* Give utility pages their own editorial rhythm instead of repeating one hero template. */
+@media(min-width:981px) {
+  .v2-body.is-inner .v2-page-hero.is-technology .v2-page-hero-grid {
+    grid-template-columns:minmax(0,.82fr) minmax(500px,1.18fr);
+  }
+  .v2-body.is-inner .v2-page-hero.is-safety .v2-page-hero-grid {
+    grid-template-columns:minmax(500px,1.08fr) minmax(0,.92fr);
+  }
+  .v2-body.is-inner .v2-page-hero.is-safety .v2-page-hero-visual { order:-1; }
+  .v2-body.is-inner .v2-page-hero.is-safety .v2-page-hero-visual,
+  .v2-body.is-inner .v2-page-hero.is-contact .v2-page-hero-visual {
+    border-radius:32px 4px 32px 4px;
+  }
+  .v2-body.is-inner .v2-page-hero.is-research .v2-page-hero-grid {
+    grid-template-columns:minmax(0,.74fr) minmax(520px,1.26fr);
+    align-items:end;
+  }
+  .v2-body.is-inner .v2-page-hero.is-research .v2-page-hero-visual { min-height:470px; }
+  .v2-body.is-inner .v2-page-hero.is-contact .v2-page-hero-grid {
+    grid-template-columns:minmax(0,1.08fr) minmax(420px,.92fr);
+  }
+}
+
+.v2-body.is-inner :is(.v2-page-hero.is-technology,.v2-page-hero.is-safety,.v2-page-hero.is-research,.v2-page-hero.is-contact) h1 {
+  max-width:16ch;
+  font-size:clamp(2.15rem,3.05vw,2.9rem);
+}
+.v2-body.is-inner[data-page="technology"] .v2-value-card h2,
+.v2-body.is-inner[data-page="contact"] .v2-prose h2,
+.v2-body.is-inner[data-page="safety"] .v2-prose h2 {
+  font-size:clamp(1.65rem,2.3vw,2.5rem);
+  line-height:1.16;
+}
+
+/* Dark inquiry bands need a clean light title, not the light-surface bevel. */
+.v2-body.is-inner .v2-contact .v2-contact-inner h2 {
+  color:#f4f8f7!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.06),0 10px 28px rgba(0,0,0,.22);
 }
