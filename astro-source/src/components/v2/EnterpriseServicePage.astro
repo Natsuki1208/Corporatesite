@@ -16,6 +16,11 @@ const inquiryTopic=service.replace('elias-','');
 const inquiryHref=`${prefix}contact/?topic=${inquiryTopic}&product=${encodeURIComponent(service)}#contact-form`;
 const text=(copy:{zh:string;en:string})=>locale==='en'?copy.en:locale==='zh-CN'?simplify(copy.zh):copy.zh;
 const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh;
+const story={
+  'elias-build':{heading:t('這次要開發與交付什麼','What needs to be built and delivered'),steps:[t('需求與流程','Requirements'),t('介面與應用','Application'),t('測試與交付','Delivery')],note:t('從實際工作出發，將核心流程做成可測試的應用，再安排部署與維護。','Start with the workflow, build a testable application, then plan deployment and maintenance.')},
+  'elias-data':{heading:t('哪些資料需要接起來','Which data needs connecting'),steps:[t('系統與檔案','Sources'),t('整理與核對','Quality checks'),t('報表與查詢','Reporting')],note:t('沿著資料來源追到報表，找出格式、品質與查詢速度的問題。','Trace data from its sources to reporting to identify format, quality and query performance issues.')},
+  'elias-chain':{heading:t('哪些紀錄需要共同查驗','Which records need shared verification'),steps:[t('紀錄提供方','Contributors'),t('共享紀錄','Shared records'),t('授權查驗方','Authorized reviewers')],note:t('先定義誰提供紀錄、誰能查驗，以及更新權限，再評估是否適合採用區塊鏈。','Define who contributes records, who verifies them and who may update them before assessing blockchain fit.')}
+}[service];
 ---
 <section class="v2-enterprise-hero">
   <AmbientLightField variant={service==='elias-chain'?'violet':service==='elias-data'?'teal':'warm'} density="quiet"/>
@@ -38,13 +43,13 @@ const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh
   </div>
 </section>
 
-<section class="v2-enterprise-content">
+<section class:list={['v2-enterprise-content',`is-${service}`]}>
   <div class="v2-shell">
     <div class="v2-enterprise-section-head"><p class="v2-eyebrow">{t('01／適用情境','01 / USE CASES')}</p><h2>{text(item.fitHeading)}</h2></div>
     <div class="v2-enterprise-cards">{item.fit.map((copy,index)=><article><span>0{index+1}</span><p>{text(copy)}</p></article>)}</div>
 
     <div class="v2-enterprise-split">
-      <div><p class="v2-eyebrow">{t('可討論範圍','POSSIBLE SCOPE')}</p><h2>{t('合作範圍，依實際需求組合。','Shape the scope around the real need.')}</h2></div>
+      <div><p class="v2-eyebrow">{t('工作示意','HOW IT CONNECTS')}</p><h2>{story.heading}</h2><p>{story.note}</p><ol class="v2-service-map" aria-label={t('服務關係示意','Service relationship diagram')}>{story.steps.map(step=><li>{step}</li>)}</ol></div>
       <ol>{item.scope.map((copy,index)=><li><span>0{index+1}</span>{text(copy)}</li>)}</ol>
     </div>
 

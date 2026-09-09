@@ -3084,6 +3084,31 @@ html:lang(en) .v2-body {
   text-shadow:0 1px 0 rgba(255,255,255,.06),0 10px 28px rgba(0,0,0,.22);
 }
 
+/* Service diagrams make each page's working relationships visible. */
+.v2-enterprise-split > div > p:not(.v2-eyebrow) {color:#40575a;max-width:48ch;}
+.v2-enterprise-split .v2-service-map {display:flex;gap:20px;align-items:stretch;border:0;margin-top:28px;list-style:none;}
+.v2-enterprise-split .v2-service-map li {position:relative;display:flex;align-items:center;justify-content:center;flex:1;padding:18px 10px;border:1px solid #bdd4cd;border-radius:8px;background:#f4faf7;font-size:.86rem;text-align:center;}
+.v2-service-map li + li::before {content:'→';position:absolute;left:-19px;color:#547a72;}
+.is-elias-data .v2-service-map li:first-child {border-style:dashed;background:#fff;}
+.is-elias-data .v2-service-map li:last-child {background:#e5f3ef;}
+.is-elias-chain .v2-service-map li {border-color:#d1c8e5;background:#f7f4fb;border-radius:24px;}
+.is-elias-chain .v2-service-map li + li::before {content:'↔';color:#76658e;}
+.v2-enterprise-process {background:linear-gradient(120deg,#eef5f1,#f7f4fa);color:#173c39;border:1px solid #d0dfd9;}
+.v2-body main .v2-enterprise-process h2 {color:#173c39;text-shadow:none;}
+.v2-enterprise-process > div {display:block;background:transparent;margin-top:28px;}
+.v2-enterprise-process article {display:flex;gap:22px;align-items:center;min-height:0;padding:20px 0;background:transparent;border-top:1px solid #cfddd7;}
+.v2-enterprise-process article span {flex-shrink:0;color:#0b6e67;border-color:#aacbc1;}
+.v2-enterprise-process article p {margin:0;color:#344f4c;}
+.v2-brief-preview {padding-top:20px;border-top:1px solid #cfddd7;}
+.v2-brief-preview textarea {background:#f0f6f3;font-size:.88rem;line-height:1.7;}
+.v2-brief-preview small {color:#506762;line-height:1.6;}
+@media(max-width:640px) {
+  .v2-enterprise-split .v2-service-map {gap:16px;}
+  .v2-enterprise-split .v2-service-map li {padding:16px 6px;font-size:.78rem;}
+  .v2-service-map li + li::before {left:-16px;}
+  .v2-enterprise-process article p {margin:0;}
+}
+
 /* Light-surface actions: use brand glass and teal instead of repeated black pills. */
 .v2-body .v2-header .v2-nav-cta,
 .v2-body.is-home .v2-header .v2-nav-cta,

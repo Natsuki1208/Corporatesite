@@ -23,6 +23,11 @@ const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh
       <div class="v2-contact-field is-wide"><label for="contact-adoption">{t('希望的導入方式','Preferred adoption model')}</label><select id="contact-adoption" name="adoption"><option value="unsure">{t('尚未確定','Not sure yet')}</option><option value="direct">{t('直接導入','Direct adoption')}</option><option value="configured">{t('配置導入','Configured deployment')}</option><option value="custom">{t('客製整合','Custom integration')}</option></select></div>
       <div class="v2-contact-field is-wide"><label for="contact-message">{t('想討論的情境','What would you like to discuss?')} <span aria-hidden="true">*</span></label><textarea id="contact-message" name="message" rows="6" required placeholder={t('例如：目前的流程、遇到的問題、希望改善的結果。','For example: the current workflow, the challenge and the result you hope to improve.')}></textarea></div>
       <div class="v2-contact-form-action"><button type="submit">{t('複製需求摘要','Copy inquiry brief')} <span aria-hidden="true">→</span></button><p aria-live="polite" data-contact-status>{t('複製後，可將摘要提供給既有聯絡窗口。','Copy the brief and share it through your existing contact channel.')}</p></div>
+      <div class="v2-contact-field is-wide v2-brief-preview">
+        <label for="contact-preview">{t('需求摘要預覽','Inquiry preview')}</label>
+        <textarea id="contact-preview" rows="9" readonly data-brief-preview></textarea>
+        <small>{t('內容隨填寫更新；也可以直接選取、複製。此頁不會寄出需求。','Updates as you type. You can also select and copy the text. This page does not send inquiries.')}</small>
+      </div>
     </form>
   </div>
 </section>
@@ -45,27 +50,38 @@ const t=(zh:string,en:string)=>locale==='en'?en:locale==='zh-CN'?simplify(zh):zh
     const productLabel=incomingProduct?productLabels[incomingProduct]:undefined;
     if(productLabel&&productInput&&productContext&&productLabelNode){productInput.value=incomingProduct||'';productLabelNode.textContent=productLabel;productContext.hidden=false;}
     const role=params.get('role');if(title&&role&&!title.value)title.value=role;
-    form.addEventListener('submit',(event)=>{
-      event.preventDefault();
-      if(!form.reportValidity())return;
+    const preview=form.querySelector<HTMLTextAreaElement>('[data-brief-preview]');
+    const status=form.querySelector<HTMLElement>('[data-contact-status]');
+    const initialStatus=status?.textContent||'';
+    const buildBrief=()=>{
       const data=new FormData(form);
       const topicLabel=topic?.selectedOptions[0]?.textContent?.trim()||'Elias Net';
       const adoptionLabel=adoption?.selectedOptions[0]?.textContent?.trim()||'';
       const selectedProduct=productLabels[String(data.get('product')||'')]||'';
-      const body=[
-        `Name: ${data.get('name')||''}`,
-        `Title / Role: ${data.get('title')||''}`,
+      const english=document.documentElement.lang.startsWith('en');
+      const labels=english?['Name','Title / Role','Phone','Area','Product / Service','Adoption model']:document.documentElement.lang.toLowerCase().includes('hans')||document.documentElement.lang==='zh-CN'?['姓名','职称／角色','电话','需求方向','产品／服务','导入方式']:['姓名','職稱／角色','電話','需求方向','產品／服務','導入方式'];
+      return [
+        `${labels[0]}: ${data.get('name')||''}`,
+        `${labels[1]}: ${data.get('title')||''}`,
         `Email: ${data.get('email')||''}`,
-        `Phone: ${data.get('phone')||''}`,
-        `Area: ${topicLabel}`,
-        `Product / Service: ${selectedProduct}`,
-        `Adoption model: ${adoptionLabel}`,
+        `${labels[2]}: ${data.get('phone')||''}`,
+        `${labels[3]}: ${topicLabel}`,
+        `${labels[4]}: ${selectedProduct}`,
+        `${labels[5]}: ${adoptionLabel}`,
         '',
         `${data.get('message')||''}`
       ].join('\n');
-      const status=form.querySelector<HTMLElement>('[data-contact-status]');
-      const fallbackCopy=()=>{const field=document.createElement('textarea');field.value=body;field.setAttribute('readonly','');field.style.position='fixed';field.style.opacity='0';document.body.append(field);field.select();const copied=document.execCommand('copy');field.remove();return copied;};
-      const copy=async()=>{try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(body);else if(!fallbackCopy())throw new Error('copy failed');if(status)status.textContent=form.dataset.copySuccess||'Brief copied.';}catch{if(status)status.textContent=form.dataset.copyFailure||'Copy failed.';}};
+    };
+    const updatePreview=()=>{if(preview)preview.value=buildBrief();if(status)status.textContent=initialStatus;};
+    form.addEventListener('input',updatePreview);
+    form.addEventListener('change',updatePreview);
+    updatePreview();
+    form.addEventListener('submit',(event)=>{
+      event.preventDefault();
+      if(!form.reportValidity())return;
+      const body=buildBrief();
+      if(preview)preview.value=body;
+      const copy=async()=>{try{await navigator.clipboard.writeText(body);if(status)status.textContent=form.dataset.copySuccess||'Brief copied.';}catch{if(status)status.textContent=form.dataset.copyFailure||'Copy failed.';preview?.focus();preview?.select();}};
       void copy();
     });
   };
